@@ -1,0 +1,37 @@
+{
+    "name": "bartlett/box-manifest",
+    "description": "Create a manifest to a PHP Archive (PHAR) for the BOX project (https://github.com/box-project/box)",
+    "type": "project",
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ext-phar": "*",
+        "cweagans/composer-patches": "^1.7",
+        "humbug/box": "^3.15",
+        "symfony/serializer": "^4.4 || ^5.0 || ^6.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Bartlett\\BoxManifest\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Laurent Laville"
+        }
+    ],
+    "minimum-stability": "stable",
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "cweagans/composer-patches": true
+        }
+    },
+    "extra": {
+        "patches": {
+            "humbug/box": {
+                "send contextual metadata parameters with callable function": "patches/box3metadata.patch"
+            }
+        }
+    }
+}
