@@ -35,6 +35,9 @@
             "humbug/box": {
                 "send contextual metadata parameters with callable function": "patches/box3metadata.patch"
             }
+        },
+        "branch-alias": {
+            "dev-master": "1.x-dev"
         }
     }
 }
