@@ -1,0 +1,8 @@
+{
+    "main": "vendor/bin/box",
+    "output": "box-manifest.phar",
+    "directories": ["src", "vendor"],
+    "compression": "GZ",
+    "check-requirements": false,
+    "metadata": "Bartlett\\BoxManifest\\Composer\\ManifestFactory::toText"
+}
