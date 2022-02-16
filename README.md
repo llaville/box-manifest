@@ -15,6 +15,13 @@ when calling the metadata callback.
 This is the reason, why this project used [`cweagans/composer-patches`](https://github.com/cweagans/composer-patches)
 composer plugin to patch `humbug/box` at install runtime.
 
+## Documentation
+
+All the documentation is available on [website](https://llaville.github.io/box-manifest/1.x),
+generated from the [docs](https://github.com/llaville/box-manifest/tree/master/docs) folder.
+
+* [Getting Started](docs/getting-started.md).
+
 ## Usage
 
 When your metadata setting identify a callable function, this one is in charge
