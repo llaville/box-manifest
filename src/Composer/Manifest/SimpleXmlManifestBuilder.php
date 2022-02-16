@@ -64,12 +64,18 @@ final class SimpleXmlManifestBuilder implements ManifestBuilderInterface
         foreach ($packages as $name => $values) {
             $bundles[] = [
                 '@name' => $name,
-                '@version' => $values['version'] ?? '',
+                '@version' => $this->getPrettyVersion($values) ?? '',
                 '@constraint' => $composerJson['require'][$name] ?? '',
             ];
         }
 
+        $name = $composerJson['name'];
         $data = ['@xmlns' => self::XMLNS];
+        $data['contains'] = [
+            '@name' => $name,
+            '@version'=> $this->getPrettyVersion($installedPhp['versions'][$name]),
+            '@type' => $composerJson['type'] ?? 'library'
+        ];
         if (!empty($authorCollection)) {
             $data['copyright']['author'] = $authorCollection;
         }
@@ -85,6 +91,23 @@ final class SimpleXmlManifestBuilder implements ManifestBuilderInterface
         }
 
         return $this->serialize($data);
+    }
+
+    /**
+     * @param array<string, mixed> $package
+     */
+    private function getPrettyVersion(array $package): string
+    {
+        if (empty($package['aliases'])) {
+            $version = $package['pretty_version'] ?? ''; // empty if virtual package
+        } else {
+            $version = sprintf(
+                '%s@%s',
+                $package['aliases'][0],
+                substr($package['reference'], 0, 7)
+            );
+        }
+        return $version;
     }
 
     /**
