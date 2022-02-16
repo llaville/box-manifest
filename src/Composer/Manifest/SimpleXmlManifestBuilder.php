@@ -64,7 +64,7 @@ final class SimpleXmlManifestBuilder implements ManifestBuilderInterface
         foreach ($packages as $name => $values) {
             $bundles[] = [
                 '@name' => $name,
-                '@version' => $this->getPrettyVersion($values) ?? '',
+                '@version' => $this->getPrettyVersion($values),
                 '@constraint' => $composerJson['require'][$name] ?? '',
             ];
         }
@@ -73,7 +73,7 @@ final class SimpleXmlManifestBuilder implements ManifestBuilderInterface
         $data = ['@xmlns' => self::XMLNS];
         $data['contains'] = [
             '@name' => $name,
-            '@version'=> $this->getPrettyVersion($installedPhp['versions'][$name]),
+            '@version' => $this->getPrettyVersion($installedPhp['versions'][$name]),
             '@type' => $composerJson['type'] ?? 'library'
         ];
         if (!empty($authorCollection)) {

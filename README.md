@@ -435,7 +435,6 @@ Contents: 3035 files (6.25MB)
 
 </details>
 
-
 ## Contributors
 
 * Laurent Laville (Lead Developer)
