@@ -20,7 +20,7 @@ final class InstallerScripts
 {
     private const REQUIREMENT_CHECKER_DIR = '.requirement-checker';
 
-    public static function postUpdate(Event $event)
+    public static function postUpdate(Event $event): void
     {
         $boxInstalledPath = InstalledVersions::getInstallPath('humbug/box');
 

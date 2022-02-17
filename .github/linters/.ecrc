@@ -5,7 +5,7 @@
   "IgnoreDefaults": false,
   "SpacesAftertabs": false,
   "NoColor": false,
-  "Exclude": ["\\.idea", "\\.editorconfig", "\\.github", "LICENSE", "vendor", "mkdocs\\.yml"],
+  "Exclude": ["\\.idea", "\\.editorconfig", "\\.github", "LICENSE", "vendor", "mkdocs\\.yml", "box\\.bat"],
   "AllowedContentTypes": [],
   "PassedFiles": [],
   "Disable": {
