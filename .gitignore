@@ -5,6 +5,9 @@
 ###### Composer dependencies ######
 vendor/
 
+###### BOX ######
+.requirement-checker/
+
 ###### PHPLint ######
 .phplint-cache
 
