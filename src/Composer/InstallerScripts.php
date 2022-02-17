@@ -13,6 +13,9 @@ use Composer\Script\Event;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
+use function dirname;
+use const DIRECTORY_SEPARATOR;
+
 /**
  * @author Laurent Laville
  */
@@ -24,7 +27,7 @@ final class InstallerScripts
     {
         $boxInstalledPath = InstalledVersions::getInstallPath('humbug/box');
 
-        $requirementCheckerPath = \dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . self::REQUIREMENT_CHECKER_DIR;
+        $requirementCheckerPath = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . self::REQUIREMENT_CHECKER_DIR;
 
         $filesystem = new Filesystem();
 
