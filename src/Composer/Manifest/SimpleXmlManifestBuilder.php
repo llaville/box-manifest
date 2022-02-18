@@ -17,14 +17,14 @@ use function substr;
 /**
  * @author Laurent Laville
  */
-final class SimpleXmlManifestBuilder implements ManifestBuilderInterface
+class SimpleXmlManifestBuilder implements ManifestBuilderInterface
 {
     public const XMLNS = 'https://phar.io/xml/manifest/1.1';
 
     /**
      * {@inheritDoc}
      */
-    public function __invoke(array $content): string
+    final public function __invoke(array $content): string
     {
         $composerJson = $content['composer.json'];
         $composerLock = $content['composer.lock'];
@@ -74,7 +74,7 @@ final class SimpleXmlManifestBuilder implements ManifestBuilderInterface
         }
 
         $name = $composerJson['name'];
-        $data = ['@xmlns' => self::XMLNS];
+        $data = ['@xmlns' => static::XMLNS];
         $data['contains'] = [
             '@name' => $name,
             '@version' => $this->getPrettyVersion($installedPhp['versions'][$name]),
@@ -94,7 +94,12 @@ final class SimpleXmlManifestBuilder implements ManifestBuilderInterface
             $data['bundles']['component'] = $bundles;
         }
 
-        return $this->serialize($data);
+        $context = [
+            XmlEncoder::FORMAT_OUTPUT => true,
+            XmlEncoder::ENCODING => 'utf-8',
+            XmlEncoder::ROOT_NODE_NAME => 'phar',
+        ];
+        return $this->serialize($data, $context);
     }
 
     /**
@@ -116,14 +121,10 @@ final class SimpleXmlManifestBuilder implements ManifestBuilderInterface
 
     /**
      * @param array<string, mixed> $data
+     * @param array<string, mixed> $context
      */
-    protected function serialize(array $data): string
+    protected function serialize(array $data, array $context): string
     {
-        $context = [
-            XmlEncoder::FORMAT_OUTPUT => true,
-            XmlEncoder::ENCODING => 'utf-8',
-            XmlEncoder::ROOT_NODE_NAME => 'phar',
-        ];
         $encoder = new XmlEncoder();
         return $encoder->encode($data, 'xml', $context);
     }

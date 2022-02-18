@@ -7,6 +7,7 @@
  */
 namespace Bartlett\BoxManifest\Composer;
 
+use Bartlett\BoxManifest\Composer\Manifest\PharIoManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SimpleTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SimpleXmlManifestBuilder;
 
@@ -82,5 +83,10 @@ final class ManifestFactory
     public static function toXml(Configuration $config, Box $box): ?string
     {
         return self::create(SimpleXmlManifestBuilder::class, $config, $box);
+    }
+
+    public static function toPharIo(Configuration $config, Box $box): ?string
+    {
+        return self::create(PharIoManifestBuilder::class, $config, $box);
     }
 }
