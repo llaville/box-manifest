@@ -49,8 +49,8 @@ jobs:
                 name: Install Composer dependencies
                 uses: "ramsey/composer-install@v1"
                 with:
-                    composer-options: "--prefer-dist --no-dev"
+                    composer-options: "--prefer-dist"
 
             -   # PHPUnit
                 name: PHPUnit
-                run: phpunit
+                run: vendor/bin/phpunit
