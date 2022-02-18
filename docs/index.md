@@ -7,7 +7,7 @@ built with the [BOX](https://github.com/box-project/box) tool.
 ## Features
 
 - no changes on default BOX [configuration](https://github.com/box-project/box/blob/master/doc/configuration.md#configuration)
-- include a minor `humbug/box` patched version (see [patch](../patches/box3metadata.patch) contents)
+- include a minor `humbug/box` patched version (see [patch](https://github.com/llaville/box-manifest/blob/master/patches/box3metadata.patch) contents)
 - use [`metadata`](https://github.com/box-project/box/blob/master/doc/configuration.md#metadata-metadata) setting
 to define your callable function in charge to build the manifest string.
 - provides two basic manifest builder implementation :
