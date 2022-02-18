@@ -97,4 +97,24 @@ final class ManifestFactoryTest extends TestCase
             $manifest
         );
     }
+
+    /**
+     * Creates a basic xml manifest string (compatible phar-io/manifest) with implicit/explicit components.
+     */
+    public function testCreateComplexXmlManifest(): void
+    {
+        $configFilePath = __DIR__ . '/fixtures/phive-0.x-dev/box-manifest-xml.json';
+
+        $raw = new stdClass();
+        $main = 'main';
+        $raw->{$main} = false;
+        $config = Configuration::create($configFilePath, $raw);
+
+        $manifest = ManifestFactory::create(SimpleXmlManifestBuilder::class, $config, $this->box);
+
+        $this->assertXmlStringEqualsXmlFile(
+            dirname($configFilePath) . DIRECTORY_SEPARATOR . 'manifest.xml',
+            $manifest
+        );
+    }
 }

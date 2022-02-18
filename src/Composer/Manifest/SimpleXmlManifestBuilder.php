@@ -69,7 +69,7 @@ final class SimpleXmlManifestBuilder implements ManifestBuilderInterface
             $bundles[] = [
                 '@name' => $name,
                 '@version' => $this->getPrettyVersion($values),
-                '@constraint' => $composerJson['require'][$name] ?? '',
+                '@constraint' => $composerJson['require'][$name] ?? $composerJson['require-dev'][$name] ?? '',
             ];
         }
 
