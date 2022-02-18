@@ -1,0 +1,56 @@
+---
+name: Unit-Tests
+
+on:
+    # Trigger mega-linter at every push. Action will also be visible from Pull Requests to master
+    push: # Comment this line to trigger action only on pull-requests (not recommended if you don't pay for GH Actions)
+        paths-ignore:
+            - 'docs/**'
+    pull_request:
+        branches: [master]
+        paths-ignore:
+            - 'docs/**'
+
+concurrency:
+    group: ${{ github.ref }}-${{ github.workflow }}
+    cancel-in-progress: true
+
+jobs:
+    unit_tests:
+        name: Unit Tests
+
+        runs-on: ${{ matrix.os }}
+
+        strategy:
+            fail-fast: false
+            matrix:
+                os:
+                    - ubuntu-latest
+                php:
+                    - 7.4
+
+        steps:
+            -   # Git Checkout
+                name: Checkout Code
+                uses: actions/checkout@v2
+                with:
+                    token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+                    fetch-depth: 0
+
+            -   # Setup PHP runtime
+                name: Setup PHP runtime
+                uses: "shivammathur/setup-php@v2"
+                with:
+                    php-version: ${{ matrix.php }}
+                    ini-values: phar.readonly=0
+                    tools: phpunit
+
+            -   # Install Composer dependencies
+                name: Install Composer dependencies
+                uses: "ramsey/composer-install@v1"
+                with:
+                    composer-options: "--prefer-dist --no-dev"
+
+            -   # PHPUnit
+                name: PHPUnit
+                run: phpunit

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    backupGlobals="false"
+    backupStaticAttributes="false"
+    bootstrap="vendor/autoload.php"
+    colors="true"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnRisky="false"
+    stopOnSkipped="false"
+    verbose="true"
+    beStrictAboutTestsThatDoNotTestAnything="false"
+    processIsolation="false"
+>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/</directory>
+        </whitelist>
+    </filter>
+
+    <testsuite name="Box Manifest Test Suite">
+        <directory>tests/</directory>
+    </testsuite>
+</phpunit>
