@@ -41,6 +41,10 @@ final class SimpleTextManifestBuilder implements ManifestBuilderInterface
         $entries[] = sprintf('%s: %s', $rootPackage['name'], $version);
 
         foreach ($installedPhp['versions'] as $package => $values) {
+            if ($package === $rootPackage['name']) {
+                // does not include root package
+                continue;
+            }
             if (isset($values['pretty_version'])) {
                 $entries[] = sprintf('%s: %s', $package, $values['pretty_version']);
             } // otherwise, it's a virtual package
