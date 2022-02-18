@@ -62,6 +62,10 @@ final class SimpleXmlManifestBuilder implements ManifestBuilderInterface
         $packages = $installedPhp['versions'] ?? [];
         $bundles = [];
         foreach ($packages as $name => $values) {
+            if ($name === $composerJson['name']) {
+                // does not include root package
+                continue;
+            }
             $bundles[] = [
                 '@name' => $name,
                 '@version' => $this->getPrettyVersion($values),

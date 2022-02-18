@@ -8,6 +8,7 @@
 namespace Bartlett\BoxManifest\Tests;
 
 use Bartlett\BoxManifest\Composer\Manifest\SimpleTextManifestBuilder;
+use Bartlett\BoxManifest\Composer\Manifest\SimpleXmlManifestBuilder;
 use Bartlett\BoxManifest\Composer\ManifestFactory;
 
 use KevinGH\Box\Box;
@@ -16,7 +17,9 @@ use KevinGH\Box\Test\RequiresPharReadonlyOff;
 
 use Phar;
 use stdClass;
+use function dirname;
 use function explode;
+use const DIRECTORY_SEPARATOR;
 use const PHP_EOL;
 
 /**
@@ -73,5 +76,25 @@ final class ManifestFactoryTest extends TestCase
 
         $dependencies = explode(PHP_EOL, $manifest);
         $this->assertSame('phar-io/manifest: 2.0.x-dev@97803ec', $dependencies[0]);
+    }
+
+    /**
+     * Creates a basic simple xml manifest string (compatible phar-io/manifest).
+     */
+    public function testCreateSimpleXmlManifest(): void
+    {
+        $configFilePath = __DIR__ . '/fixtures/phario-manifest-2.0.x-dev/box-manifest-xml.json';
+
+        $raw = new stdClass();
+        $main = 'main';
+        $raw->{$main} = false;
+        $config = Configuration::create($configFilePath, $raw);
+
+        $manifest = ManifestFactory::create(SimpleXmlManifestBuilder::class, $config, $this->box);
+
+        $this->assertXmlStringEqualsXmlFile(
+            dirname($configFilePath) . DIRECTORY_SEPARATOR . 'manifest.xml',
+            $manifest
+        );
     }
 }

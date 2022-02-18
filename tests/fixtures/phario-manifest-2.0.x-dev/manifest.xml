@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phar xmlns="https://phar.io/xml/manifest/1.1">
+    <contains name="phar-io/manifest" version="2.0.x-dev@97803ec" type="library"/>
+    <copyright>
+        <author name="Arne Blankerts" email="arne@blankerts.de"/>
+        <author name="Sebastian Heuer" email="sebastian@phpeople.de"/>
+        <author name="Sebastian Bergmann" email="sebastian@phpunit.de"/>
+        <license type="BSD-3-Clause"/>
+    </copyright>
+    <requires>
+        <php version="^7.2">
+            <ext name="dom"/>
+            <ext name="phar"/>
+            <ext name="xmlwriter"/>
+        </php>
+    </requires>
+    <bundles>
+        <component name="phar-io/version" version="3.0.1" constraint="^3.0.1"/>
+    </bundles>
+</phar>
