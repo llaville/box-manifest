@@ -1,4 +1,4 @@
 {
     "main": false,
-    "metadata": "Bartlett\\BoxManifest\\Composer\\ManifestFactory::toXml"
+    "metadata": "Bartlett\\BoxManifest\\Composer\\ManifestFactory::toPharIo"
 }

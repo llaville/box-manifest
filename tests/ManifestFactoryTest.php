@@ -7,6 +7,7 @@
  */
 namespace Bartlett\BoxManifest\Tests;
 
+use Bartlett\BoxManifest\Composer\Manifest\PharIoManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SimpleTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SimpleXmlManifestBuilder;
 use Bartlett\BoxManifest\Composer\ManifestFactory;
@@ -99,9 +100,9 @@ final class ManifestFactoryTest extends TestCase
     }
 
     /**
-     * Creates a basic xml manifest string (compatible phar-io/manifest) with implicit/explicit components.
+     * Creates a basic phar-io xml manifest string with implicit/explicit components.
      */
-    public function testCreateComplexXmlManifest(): void
+    public function testCreatePharIoXmlManifest(): void
     {
         $configFilePath = __DIR__ . '/fixtures/phive-0.x-dev/box-manifest-xml.json';
 
@@ -110,7 +111,7 @@ final class ManifestFactoryTest extends TestCase
         $raw->{$main} = false;
         $config = Configuration::create($configFilePath, $raw);
 
-        $manifest = ManifestFactory::create(SimpleXmlManifestBuilder::class, $config, $this->box);
+        $manifest = ManifestFactory::create(PharIoManifestBuilder::class, $config, $this->box);
 
         $this->assertXmlStringEqualsXmlFile(
             dirname($configFilePath) . DIRECTORY_SEPARATOR . 'manifest.xml',
