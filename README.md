@@ -48,17 +48,18 @@ Box version 3.16.0@adb282a
 
  // Loading the configuration file "/shared/backups/github/box-manifest/box.json.dist".
 
-🔨  Building the PHAR "/shared/backups/github/box-manifest/test.phar"
+🔨  Building the PHAR "/shared/backups/github/box-manifest/box-manifest.phar"
 
+? Removing the existing PHAR "/shared/backups/github/box-manifest/box-manifest.phar"
 ? No compactor to register
-? No main script path configured
+? Adding main file: /shared/backups/github/box-manifest/bin/box
 ? Adding requirements checker
 ? Adding binary files
-    > No file found
+    > 24 file(s)
 ? Auto-discover files? No
 ? Exclude dev files? Yes
 ? Adding files
-    > 3013 file(s)
+    > 4292 file(s)
 ? Generating new stub
   - Using shebang line: #!/usr/bin/env php
   - Using banner:
@@ -66,7 +67,7 @@ Box version 3.16.0@adb282a
     >
     > @link https://github.com/humbug/box
 ? Setting metadata
-  - bartlett/box-manifest: dev-master
+  - bartlett/box-manifest: 1.x-dev@250e66c
 amphp/amp: v2.6.1
 amphp/byte-stream: v1.8.1
 amphp/parallel: v1.4.1
@@ -75,31 +76,63 @@ amphp/parser: v1.0.0
 amphp/process: v1.1.3
 amphp/serialization: v1.0.0
 amphp/sync: v1.4.2
-bartlett/box-manifest: dev-master
+composer/ca-bundle: 1.3.1
+composer/composer: 2.2.6
+composer/metadata-minifier: 1.0.0
 composer/package-versions-deprecated: 1.11.99.5
 composer/pcre: 1.0.1
 composer/semver: 3.2.9
-composer/xdebug-handler: 3.0.1
+composer/spdx-licenses: 1.5.6
+composer/xdebug-handler: 2.0.4
 cweagans/composer-patches: 1.7.2
+doctrine/instantiator: 1.4.0
 fidry/console: 0.2.0
 humbug/box: 3.16.0
 humbug/php-scoper: 0.17.0
 jetbrains/phpstorm-stubs: v2021.3
 justinrainbow/json-schema: 5.2.11
-laravel/serializable-closure: v1.1.0
+laravel/serializable-closure: v1.1.1
+myclabs/deep-copy: 1.10.2
 nikic/iter: v2.2.0
 nikic/php-parser: v4.13.2
 paragonie/constant_time_encoding: v2.5.0
 paragonie/pharaoh: v0.6.0
 paragonie/random_compat: v9.99.100
 paragonie/sodium_compat: v1.17.0
+phar-io/manifest: 2.0.3
+phar-io/version: 3.1.1
 phpdocumentor/reflection-common: 2.2.0
 phpdocumentor/reflection-docblock: 5.3.0
 phpdocumentor/type-resolver: 1.6.0
+phpspec/prophecy: v1.15.0
+phpunit/php-code-coverage: 9.2.10
+phpunit/php-file-iterator: 3.0.6
+phpunit/php-invoker: 3.1.1
+phpunit/php-text-template: 2.0.4
+phpunit/php-timer: 5.0.3
+phpunit/phpunit: 9.5.13
 psr/container: 1.1.2
 psr/event-dispatcher: 1.0.0
 psr/log: 1.1.4
+react/promise: v2.9.0
+sebastian/cli-parser: 1.0.1
+sebastian/code-unit: 1.0.8
+sebastian/code-unit-reverse-lookup: 2.0.3
+sebastian/comparator: 4.0.6
+sebastian/complexity: 2.0.2
+sebastian/diff: 4.0.4
+sebastian/environment: 5.1.3
+sebastian/exporter: 4.0.4
+sebastian/global-state: 5.0.5
+sebastian/lines-of-code: 1.0.3
+sebastian/object-enumerator: 4.0.4
+sebastian/object-reflector: 2.0.4
+sebastian/recursion-context: 4.0.4
+sebastian/resource-operations: 3.0.3
+sebastian/type: 2.3.4
+sebastian/version: 3.0.2
 seld/jsonlint: 1.8.3
+seld/phar-utils: 1.2.0
 symfony/console: v5.4.3
 symfony/deprecation-contracts: v2.5.0
 symfony/event-dispatcher-contracts: v2.5.0
@@ -117,6 +150,7 @@ symfony/service-contracts: v2.5.0
 symfony/string: v5.4.3
 symfony/var-dumper: v5.4.3
 thecodingmachine/safe: v1.3.3
+theseer/tokenizer: 1.2.1
 ulrichsg/getopt-php: v3.4.0
 webmozart/assert: 1.10.0
 webmozart/path-util: 2.3.0
@@ -130,10 +164,10 @@ webmozart/path-util: 2.3.0
 No recommendation found.
 No warning found.
 
- // PHAR: 3035 files (6.25MB)
+ // PHAR: 4339 files (8.07MB)
  // You can inspect the generated PHAR with the "info" command.
 
- // Memory usage: 65.34MB (peak: 66.12MB), time: 3secs
+ // Memory usage: 85.81MB (peak: 87.02MB), time: 6secs
 ```
 
 </details>
@@ -154,18 +188,18 @@ Box version 3.16.0@adb282a
 
  // Loading the configuration file "/shared/backups/github/box-manifest/box.json.dist".
 
-🔨  Building the PHAR "/shared/backups/github/box-manifest/test.phar"
+🔨  Building the PHAR "/shared/backups/github/box-manifest/box-manifest.phar"
 
-? Removing the existing PHAR "/shared/backups/github/box-manifest/test.phar"
+? Removing the existing PHAR "/shared/backups/github/box-manifest/box-manifest.phar"
 ? No compactor to register
-? No main script path configured
+? Adding main file: /shared/backups/github/box-manifest/bin/box
 ? Adding requirements checker
 ? Adding binary files
-    > No file found
+    > 24 file(s)
 ? Auto-discover files? No
 ? Exclude dev files? Yes
 ? Adding files
-    > 3013 file(s)
+    > 4292 file(s)
 ? Generating new stub
   - Using shebang line: #!/usr/bin/env php
   - Using banner:
@@ -175,6 +209,7 @@ Box version 3.16.0@adb282a
 ? Setting metadata
   - <?xml version="1.0" encoding="utf-8"?>
 <phar xmlns="https://phar.io/xml/manifest/1.1">
+  <contains name="bartlett/box-manifest" version="1.x-dev@250e66c" type="project"/>
   <copyright>
     <author name="Laurent Laville"/>
     <license type="MIT"/>
@@ -185,62 +220,95 @@ Box version 3.16.0@adb282a
     </php>
   </requires>
   <bundles>
-    <component name="amphp/amp" version="2.6.1.0" constraint=""/>
-    <component name="amphp/byte-stream" version="1.8.1.0" constraint=""/>
-    <component name="amphp/parallel" version="1.4.1.0" constraint=""/>
-    <component name="amphp/parallel-functions" version="1.1.0.0" constraint=""/>
-    <component name="amphp/parser" version="1.0.0.0" constraint=""/>
-    <component name="amphp/process" version="1.1.3.0" constraint=""/>
-    <component name="amphp/serialization" version="1.0.0.0" constraint=""/>
-    <component name="amphp/sync" version="1.4.2.0" constraint=""/>
-    <component name="bartlett/box-manifest" version="dev-master" constraint=""/>
+    <component name="amphp/amp" version="v2.6.1" constraint=""/>
+    <component name="amphp/byte-stream" version="v1.8.1" constraint=""/>
+    <component name="amphp/parallel" version="v1.4.1" constraint=""/>
+    <component name="amphp/parallel-functions" version="v1.1.0" constraint=""/>
+    <component name="amphp/parser" version="v1.0.0" constraint=""/>
+    <component name="amphp/process" version="v1.1.3" constraint=""/>
+    <component name="amphp/serialization" version="v1.0.0" constraint=""/>
+    <component name="amphp/sync" version="v1.4.2" constraint=""/>
+    <component name="composer/ca-bundle" version="1.3.1" constraint=""/>
+    <component name="composer/composer" version="2.2.6" constraint="^2.2"/>
+    <component name="composer/metadata-minifier" version="1.0.0" constraint=""/>
     <component name="composer/package-versions-deprecated" version="1.11.99.5" constraint=""/>
-    <component name="composer/pcre" version="1.0.1.0" constraint=""/>
-    <component name="composer/semver" version="3.2.9.0" constraint=""/>
-    <component name="composer/xdebug-handler" version="3.0.1.0" constraint=""/>
-    <component name="cweagans/composer-patches" version="1.7.2.0" constraint="^1.7"/>
-    <component name="fidry/console" version="0.2.0.0" constraint=""/>
-    <component name="humbug/box" version="3.16.0.0" constraint="^3.15"/>
-    <component name="humbug/php-scoper" version="0.17.0.0" constraint=""/>
-    <component name="jetbrains/phpstorm-stubs" version="2021.3.0.0" constraint=""/>
-    <component name="justinrainbow/json-schema" version="5.2.11.0" constraint=""/>
-    <component name="laravel/serializable-closure" version="1.1.0.0" constraint=""/>
-    <component name="nikic/iter" version="2.2.0.0" constraint=""/>
-    <component name="nikic/php-parser" version="4.13.2.0" constraint=""/>
+    <component name="composer/pcre" version="1.0.1" constraint=""/>
+    <component name="composer/semver" version="3.2.9" constraint=""/>
+    <component name="composer/spdx-licenses" version="1.5.6" constraint=""/>
+    <component name="composer/xdebug-handler" version="2.0.4" constraint=""/>
+    <component name="cweagans/composer-patches" version="1.7.2" constraint="^1.7"/>
+    <component name="doctrine/instantiator" version="1.4.0" constraint=""/>
+    <component name="fidry/console" version="0.2.0" constraint=""/>
+    <component name="humbug/box" version="3.16.0" constraint="^3.15"/>
+    <component name="humbug/php-scoper" version="0.17.0" constraint=""/>
+    <component name="jetbrains/phpstorm-stubs" version="v2021.3" constraint=""/>
+    <component name="justinrainbow/json-schema" version="5.2.11" constraint=""/>
+    <component name="laravel/serializable-closure" version="v1.1.1" constraint=""/>
+    <component name="myclabs/deep-copy" version="1.10.2" constraint=""/>
+    <component name="nikic/iter" version="v2.2.0" constraint=""/>
+    <component name="nikic/php-parser" version="v4.13.2" constraint=""/>
     <component name="ocramius/package-versions" version="" constraint=""/>
-    <component name="paragonie/constant_time_encoding" version="2.5.0.0" constraint=""/>
-    <component name="paragonie/pharaoh" version="0.6.0.0" constraint=""/>
-    <component name="paragonie/random_compat" version="9.99.100.0" constraint=""/>
-    <component name="paragonie/sodium_compat" version="1.17.0.0" constraint=""/>
-    <component name="phpdocumentor/reflection-common" version="2.2.0.0" constraint=""/>
-    <component name="phpdocumentor/reflection-docblock" version="5.3.0.0" constraint=""/>
-    <component name="phpdocumentor/type-resolver" version="1.6.0.0" constraint=""/>
-    <component name="psr/container" version="1.1.2.0" constraint=""/>
-    <component name="psr/event-dispatcher" version="1.0.0.0" constraint=""/>
-    <component name="psr/log" version="1.1.4.0" constraint=""/>
+    <component name="paragonie/constant_time_encoding" version="v2.5.0" constraint=""/>
+    <component name="paragonie/pharaoh" version="v0.6.0" constraint=""/>
+    <component name="paragonie/random_compat" version="v9.99.100" constraint=""/>
+    <component name="paragonie/sodium_compat" version="v1.17.0" constraint=""/>
+    <component name="phar-io/manifest" version="2.0.3" constraint=""/>
+    <component name="phar-io/version" version="3.1.1" constraint=""/>
+    <component name="phpdocumentor/reflection-common" version="2.2.0" constraint=""/>
+    <component name="phpdocumentor/reflection-docblock" version="5.3.0" constraint=""/>
+    <component name="phpdocumentor/type-resolver" version="1.6.0" constraint=""/>
+    <component name="phpspec/prophecy" version="v1.15.0" constraint=""/>
+    <component name="phpunit/php-code-coverage" version="9.2.10" constraint=""/>
+    <component name="phpunit/php-file-iterator" version="3.0.6" constraint=""/>
+    <component name="phpunit/php-invoker" version="3.1.1" constraint=""/>
+    <component name="phpunit/php-text-template" version="2.0.4" constraint=""/>
+    <component name="phpunit/php-timer" version="5.0.3" constraint=""/>
+    <component name="phpunit/phpunit" version="9.5.13" constraint="^9.5"/>
+    <component name="psr/container" version="1.1.2" constraint=""/>
+    <component name="psr/event-dispatcher" version="1.0.0" constraint=""/>
+    <component name="psr/log" version="1.1.4" constraint=""/>
     <component name="psr/log-implementation" version="" constraint=""/>
-    <component name="seld/jsonlint" version="1.8.3.0" constraint=""/>
-    <component name="symfony/console" version="5.4.3.0" constraint=""/>
-    <component name="symfony/deprecation-contracts" version="2.5.0.0" constraint=""/>
-    <component name="symfony/event-dispatcher-contracts" version="2.5.0.0" constraint=""/>
-    <component name="symfony/filesystem" version="5.4.3.0" constraint=""/>
-    <component name="symfony/finder" version="5.4.3.0" constraint=""/>
-    <component name="symfony/polyfill-ctype" version="1.24.0.0" constraint=""/>
-    <component name="symfony/polyfill-intl-grapheme" version="1.24.0.0" constraint=""/>
-    <component name="symfony/polyfill-intl-normalizer" version="1.24.0.0" constraint=""/>
-    <component name="symfony/polyfill-mbstring" version="1.24.0.0" constraint=""/>
+    <component name="react/promise" version="v2.9.0" constraint=""/>
+    <component name="sebastian/cli-parser" version="1.0.1" constraint=""/>
+    <component name="sebastian/code-unit" version="1.0.8" constraint=""/>
+    <component name="sebastian/code-unit-reverse-lookup" version="2.0.3" constraint=""/>
+    <component name="sebastian/comparator" version="4.0.6" constraint=""/>
+    <component name="sebastian/complexity" version="2.0.2" constraint=""/>
+    <component name="sebastian/diff" version="4.0.4" constraint=""/>
+    <component name="sebastian/environment" version="5.1.3" constraint=""/>
+    <component name="sebastian/exporter" version="4.0.4" constraint=""/>
+    <component name="sebastian/global-state" version="5.0.5" constraint=""/>
+    <component name="sebastian/lines-of-code" version="1.0.3" constraint=""/>
+    <component name="sebastian/object-enumerator" version="4.0.4" constraint=""/>
+    <component name="sebastian/object-reflector" version="2.0.4" constraint=""/>
+    <component name="sebastian/recursion-context" version="4.0.4" constraint=""/>
+    <component name="sebastian/resource-operations" version="3.0.3" constraint=""/>
+    <component name="sebastian/type" version="2.3.4" constraint=""/>
+    <component name="sebastian/version" version="3.0.2" constraint=""/>
+    <component name="seld/jsonlint" version="1.8.3" constraint=""/>
+    <component name="seld/phar-utils" version="1.2.0" constraint=""/>
+    <component name="symfony/console" version="v5.4.3" constraint=""/>
+    <component name="symfony/deprecation-contracts" version="v2.5.0" constraint=""/>
+    <component name="symfony/event-dispatcher-contracts" version="v2.5.0" constraint=""/>
+    <component name="symfony/filesystem" version="v5.4.3" constraint="^4.4 || ^5.0 || ^6.0"/>
+    <component name="symfony/finder" version="v5.4.3" constraint=""/>
+    <component name="symfony/polyfill-ctype" version="v1.24.0" constraint=""/>
+    <component name="symfony/polyfill-intl-grapheme" version="v1.24.0" constraint=""/>
+    <component name="symfony/polyfill-intl-normalizer" version="v1.24.0" constraint=""/>
+    <component name="symfony/polyfill-mbstring" version="v1.24.0" constraint=""/>
     <component name="symfony/polyfill-php73" version="" constraint=""/>
-    <component name="symfony/polyfill-php80" version="1.24.0.0" constraint=""/>
-    <component name="symfony/polyfill-php81" version="1.24.0.0" constraint=""/>
-    <component name="symfony/process" version="5.4.3.0" constraint=""/>
-    <component name="symfony/serializer" version="5.4.3.0" constraint="^4.4 || ^5.0 || ^6.0"/>
-    <component name="symfony/service-contracts" version="2.5.0.0" constraint=""/>
-    <component name="symfony/string" version="5.4.3.0" constraint=""/>
-    <component name="symfony/var-dumper" version="5.4.3.0" constraint=""/>
-    <component name="thecodingmachine/safe" version="1.3.3.0" constraint=""/>
-    <component name="ulrichsg/getopt-php" version="3.4.0.0" constraint=""/>
-    <component name="webmozart/assert" version="1.10.0.0" constraint=""/>
-    <component name="webmozart/path-util" version="2.3.0.0" constraint=""/>
+    <component name="symfony/polyfill-php80" version="v1.24.0" constraint=""/>
+    <component name="symfony/polyfill-php81" version="v1.24.0" constraint=""/>
+    <component name="symfony/process" version="v5.4.3" constraint=""/>
+    <component name="symfony/serializer" version="v5.4.3" constraint="^4.4 || ^5.0 || ^6.0"/>
+    <component name="symfony/service-contracts" version="v2.5.0" constraint=""/>
+    <component name="symfony/string" version="v5.4.3" constraint=""/>
+    <component name="symfony/var-dumper" version="v5.4.3" constraint=""/>
+    <component name="thecodingmachine/safe" version="v1.3.3" constraint=""/>
+    <component name="theseer/tokenizer" version="1.2.1" constraint=""/>
+    <component name="ulrichsg/getopt-php" version="v3.4.0" constraint=""/>
+    <component name="webmozart/assert" version="1.10.0" constraint=""/>
+    <component name="webmozart/path-util" version="2.3.0" constraint=""/>
   </bundles>
 </phar>
 
@@ -254,10 +322,168 @@ Box version 3.16.0@adb282a
 No recommendation found.
 No warning found.
 
- // PHAR: 3035 files (6.25MB)
+ // PHAR: 4339 files (8.07MB)
  // You can inspect the generated PHAR with the "info" command.
 
- // Memory usage: 65.42MB (peak: 66.21MB), time: 4secs
+ // Memory usage: 85.96MB (peak: 87.17MB), time: 6secs
+```
+
+</details>
+
+### Create a full compatible [`phar-io/manifest`](https://github.com/phar-io/manifest) XML format
+
+```json
+{
+  "metadata": "Bartlett\\BoxManifest\\Composer\\ManifestFactory::toPharIo"
+}
+```
+
+<details>
+<summary>box compile output</summary>
+
+```text
+Box version 3.16.0@adb282a
+
+ // Loading the configuration file "/shared/backups/github/box-manifest/box.json.dist".
+
+🔨  Building the PHAR "/shared/backups/github/box-manifest/box-manifest.phar"
+
+? Removing the existing PHAR "/shared/backups/github/box-manifest/box-manifest.phar"
+? No compactor to register
+? Adding main file: /shared/backups/github/box-manifest/bin/box
+? Adding requirements checker
+? Adding binary files
+    > 24 file(s)
+? Auto-discover files? No
+? Exclude dev files? Yes
+? Adding files
+    > 4292 file(s)
+? Generating new stub
+  - Using shebang line: #!/usr/bin/env php
+  - Using banner:
+    > Generated by Humbug Box 3.16.0@adb282a.
+    >
+    > @link https://github.com/humbug/box
+? Setting metadata
+  - <?xml version="1.0" encoding="utf-8"?>
+<phar xmlns="https://phar.io/xml/manifest/1.0">
+  <contains name="bartlett/box-manifest" version="1.x-dev@250e66c" type="library"/>
+  <copyright>
+    <author name="Laurent Laville"/>
+    <license type="MIT" url=""/>
+  </copyright>
+  <requires>
+    <php version="^7.4 || ^8.0">
+      <ext name="phar"/>
+    </php>
+  </requires>
+  <bundles>
+    <component name="amphp/amp" version="v2.6.1"/>
+    <component name="amphp/byte-stream" version="v1.8.1"/>
+    <component name="amphp/parallel" version="v1.4.1"/>
+    <component name="amphp/parallel-functions" version="v1.1.0"/>
+    <component name="amphp/parser" version="v1.0.0"/>
+    <component name="amphp/process" version="v1.1.3"/>
+    <component name="amphp/serialization" version="v1.0.0"/>
+    <component name="amphp/sync" version="v1.4.2"/>
+    <component name="composer/ca-bundle" version="1.3.1"/>
+    <component name="composer/composer" version="2.2.6"/>
+    <component name="composer/metadata-minifier" version="1.0.0"/>
+    <component name="composer/package-versions-deprecated" version="1.11.99.5"/>
+    <component name="composer/pcre" version="1.0.1"/>
+    <component name="composer/semver" version="3.2.9"/>
+    <component name="composer/spdx-licenses" version="1.5.6"/>
+    <component name="composer/xdebug-handler" version="2.0.4"/>
+    <component name="cweagans/composer-patches" version="1.7.2"/>
+    <component name="doctrine/instantiator" version="1.4.0"/>
+    <component name="fidry/console" version="0.2.0"/>
+    <component name="humbug/box" version="3.16.0"/>
+    <component name="humbug/php-scoper" version="0.17.0"/>
+    <component name="jetbrains/phpstorm-stubs" version="v2021.3"/>
+    <component name="justinrainbow/json-schema" version="5.2.11"/>
+    <component name="laravel/serializable-closure" version="v1.1.1"/>
+    <component name="myclabs/deep-copy" version="1.10.2"/>
+    <component name="nikic/iter" version="v2.2.0"/>
+    <component name="nikic/php-parser" version="v4.13.2"/>
+    <component name="ocramius/package-versions" version=""/>
+    <component name="paragonie/constant_time_encoding" version="v2.5.0"/>
+    <component name="paragonie/pharaoh" version="v0.6.0"/>
+    <component name="paragonie/random_compat" version="v9.99.100"/>
+    <component name="paragonie/sodium_compat" version="v1.17.0"/>
+    <component name="phar-io/manifest" version="2.0.3"/>
+    <component name="phar-io/version" version="3.1.1"/>
+    <component name="phpdocumentor/reflection-common" version="2.2.0"/>
+    <component name="phpdocumentor/reflection-docblock" version="5.3.0"/>
+    <component name="phpdocumentor/type-resolver" version="1.6.0"/>
+    <component name="phpspec/prophecy" version="v1.15.0"/>
+    <component name="phpunit/php-code-coverage" version="9.2.10"/>
+    <component name="phpunit/php-file-iterator" version="3.0.6"/>
+    <component name="phpunit/php-invoker" version="3.1.1"/>
+    <component name="phpunit/php-text-template" version="2.0.4"/>
+    <component name="phpunit/php-timer" version="5.0.3"/>
+    <component name="phpunit/phpunit" version="9.5.13"/>
+    <component name="psr/container" version="1.1.2"/>
+    <component name="psr/event-dispatcher" version="1.0.0"/>
+    <component name="psr/log" version="1.1.4"/>
+    <component name="psr/log-implementation" version=""/>
+    <component name="react/promise" version="v2.9.0"/>
+    <component name="sebastian/cli-parser" version="1.0.1"/>
+    <component name="sebastian/code-unit" version="1.0.8"/>
+    <component name="sebastian/code-unit-reverse-lookup" version="2.0.3"/>
+    <component name="sebastian/comparator" version="4.0.6"/>
+    <component name="sebastian/complexity" version="2.0.2"/>
+    <component name="sebastian/diff" version="4.0.4"/>
+    <component name="sebastian/environment" version="5.1.3"/>
+    <component name="sebastian/exporter" version="4.0.4"/>
+    <component name="sebastian/global-state" version="5.0.5"/>
+    <component name="sebastian/lines-of-code" version="1.0.3"/>
+    <component name="sebastian/object-enumerator" version="4.0.4"/>
+    <component name="sebastian/object-reflector" version="2.0.4"/>
+    <component name="sebastian/recursion-context" version="4.0.4"/>
+    <component name="sebastian/resource-operations" version="3.0.3"/>
+    <component name="sebastian/type" version="2.3.4"/>
+    <component name="sebastian/version" version="3.0.2"/>
+    <component name="seld/jsonlint" version="1.8.3"/>
+    <component name="seld/phar-utils" version="1.2.0"/>
+    <component name="symfony/console" version="v5.4.3"/>
+    <component name="symfony/deprecation-contracts" version="v2.5.0"/>
+    <component name="symfony/event-dispatcher-contracts" version="v2.5.0"/>
+    <component name="symfony/filesystem" version="v5.4.3"/>
+    <component name="symfony/finder" version="v5.4.3"/>
+    <component name="symfony/polyfill-ctype" version="v1.24.0"/>
+    <component name="symfony/polyfill-intl-grapheme" version="v1.24.0"/>
+    <component name="symfony/polyfill-intl-normalizer" version="v1.24.0"/>
+    <component name="symfony/polyfill-mbstring" version="v1.24.0"/>
+    <component name="symfony/polyfill-php73" version=""/>
+    <component name="symfony/polyfill-php80" version="v1.24.0"/>
+    <component name="symfony/polyfill-php81" version="v1.24.0"/>
+    <component name="symfony/process" version="v5.4.3"/>
+    <component name="symfony/serializer" version="v5.4.3"/>
+    <component name="symfony/service-contracts" version="v2.5.0"/>
+    <component name="symfony/string" version="v5.4.3"/>
+    <component name="symfony/var-dumper" version="v5.4.3"/>
+    <component name="thecodingmachine/safe" version="v1.3.3"/>
+    <component name="theseer/tokenizer" version="1.2.1"/>
+    <component name="ulrichsg/getopt-php" version="v3.4.0"/>
+    <component name="webmozart/assert" version="1.10.0"/>
+    <component name="webmozart/path-util" version="2.3.0"/>
+  </bundles>
+</phar>
+
+? Dumping the Composer autoloader
+? Removing the Composer dump artefacts
+? Compressing with the algorithm "GZ"
+    > Warning: the extension "zlib" will now be required to execute the PHAR
+? Setting file permissions to 0755
+* Done.
+
+No recommendation found.
+No warning found.
+
+ // PHAR: 4339 files (8.07MB)
+ // You can inspect the generated PHAR with the "info" command.
+
+ // Memory usage: 86.03MB (peak: 87.23MB), time: 6secs
 ```
 
 </details>
