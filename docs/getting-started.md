@@ -54,7 +54,7 @@ basic simple xml :
 }
 ```
 
-Then build your PHP Archive (PHAR) via the `vendor/bin/box compile` command.
+Then build your PHP Archive (PHAR) via the `bin/box compile` command.
 
 ### Examples
 

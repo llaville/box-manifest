@@ -28,7 +28,7 @@ When your metadata setting identify a callable function, this one is in charge
 to call the `Bartlett\BoxManifest\Composer\ManifestFactory::create` function with any class that must implement
 the `Bartlett\BoxManifest\Composer\ManifestBuilderInterface` interface.
 
-Then proceed with the `vendor/bin/box` command to realize all BOX operations.
+Then proceed with the `bin/box` command to realize all BOX operations.
 
 This project provide, by default, two basic implementations :
 
