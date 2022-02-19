@@ -78,44 +78,4 @@ final class ManifestFactoryTest extends TestCase
         $dependencies = explode(PHP_EOL, $manifest);
         $this->assertSame('phar-io/manifest: 2.0.x-dev@97803ec', $dependencies[0]);
     }
-
-    /**
-     * Creates a basic simple xml manifest string (compatible phar-io/manifest).
-     */
-    public function testCreateSimpleXmlManifest(): void
-    {
-        $configFilePath = __DIR__ . '/fixtures/phario-manifest-2.0.x-dev/box-manifest-xml.json';
-
-        $raw = new stdClass();
-        $main = 'main';
-        $raw->{$main} = false;
-        $config = Configuration::create($configFilePath, $raw);
-
-        $manifest = ManifestFactory::create(SimpleXmlManifestBuilder::class, $config, $this->box);
-
-        $this->assertXmlStringEqualsXmlFile(
-            dirname($configFilePath) . DIRECTORY_SEPARATOR . 'manifest.xml',
-            $manifest
-        );
-    }
-
-    /**
-     * Creates a basic phar-io xml manifest string with implicit/explicit components.
-     */
-    public function testCreatePharIoXmlManifest(): void
-    {
-        $configFilePath = __DIR__ . '/fixtures/phive-0.x-dev/box-manifest-xml.json';
-
-        $raw = new stdClass();
-        $main = 'main';
-        $raw->{$main} = false;
-        $config = Configuration::create($configFilePath, $raw);
-
-        $manifest = ManifestFactory::create(PharIoManifestBuilder::class, $config, $this->box);
-
-        $this->assertXmlStringEqualsXmlFile(
-            dirname($configFilePath) . DIRECTORY_SEPARATOR . 'manifest.xml',
-            $manifest
-        );
-    }
 }
