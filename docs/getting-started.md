@@ -46,14 +46,6 @@ basic simple text :
 }
 ```
 
-basic simple xml :
-
-```json
-{
-  "metadata": "Bartlett\\BoxManifest\\Composer\\ManifestFactory::toXml"
-}
-```
-
 Then build your PHP Archive (PHAR) via the `bin/box compile` command.
 
 ### Examples
@@ -70,7 +62,6 @@ amphp/parser: v1.0.0
 amphp/process: v1.1.3
 amphp/serialization: v1.0.0
 amphp/sync: v1.4.2
-bartlett/box-manifest: dev-master
 composer/package-versions-deprecated: 1.11.99.5
 composer/pcre: 1.0.1
 composer/semver: 3.2.9
@@ -115,79 +106,4 @@ thecodingmachine/safe: v1.3.3
 ulrichsg/getopt-php: v3.4.0
 webmozart/assert: 1.10.0
 webmozart/path-util: 2.3.0
-```
-
-Manifest of `bartlett/box-manifest` in XML format
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<phar xmlns="https://phar.io/xml/manifest/1.1">
-  <copyright>
-    <author name="Laurent Laville"/>
-    <license type="MIT"/>
-  </copyright>
-  <requires>
-    <php version="^7.4 || ^8.0">
-      <ext name="phar"/>
-    </php>
-  </requires>
-  <bundles>
-    <component name="amphp/amp" version="2.6.1.0" constraint=""/>
-    <component name="amphp/byte-stream" version="1.8.1.0" constraint=""/>
-    <component name="amphp/parallel" version="1.4.1.0" constraint=""/>
-    <component name="amphp/parallel-functions" version="1.1.0.0" constraint=""/>
-    <component name="amphp/parser" version="1.0.0.0" constraint=""/>
-    <component name="amphp/process" version="1.1.3.0" constraint=""/>
-    <component name="amphp/serialization" version="1.0.0.0" constraint=""/>
-    <component name="amphp/sync" version="1.4.2.0" constraint=""/>
-    <component name="bartlett/box-manifest" version="dev-master" constraint=""/>
-    <component name="composer/package-versions-deprecated" version="1.11.99.5" constraint=""/>
-    <component name="composer/pcre" version="1.0.1.0" constraint=""/>
-    <component name="composer/semver" version="3.2.9.0" constraint=""/>
-    <component name="composer/xdebug-handler" version="3.0.1.0" constraint=""/>
-    <component name="cweagans/composer-patches" version="1.7.2.0" constraint="^1.7"/>
-    <component name="fidry/console" version="0.2.0.0" constraint=""/>
-    <component name="humbug/box" version="3.16.0.0" constraint="^3.15"/>
-    <component name="humbug/php-scoper" version="0.17.0.0" constraint=""/>
-    <component name="jetbrains/phpstorm-stubs" version="2021.3.0.0" constraint=""/>
-    <component name="justinrainbow/json-schema" version="5.2.11.0" constraint=""/>
-    <component name="laravel/serializable-closure" version="1.1.0.0" constraint=""/>
-    <component name="nikic/iter" version="2.2.0.0" constraint=""/>
-    <component name="nikic/php-parser" version="4.13.2.0" constraint=""/>
-    <component name="ocramius/package-versions" version="" constraint=""/>
-    <component name="paragonie/constant_time_encoding" version="2.5.0.0" constraint=""/>
-    <component name="paragonie/pharaoh" version="0.6.0.0" constraint=""/>
-    <component name="paragonie/random_compat" version="9.99.100.0" constraint=""/>
-    <component name="paragonie/sodium_compat" version="1.17.0.0" constraint=""/>
-    <component name="phpdocumentor/reflection-common" version="2.2.0.0" constraint=""/>
-    <component name="phpdocumentor/reflection-docblock" version="5.3.0.0" constraint=""/>
-    <component name="phpdocumentor/type-resolver" version="1.6.0.0" constraint=""/>
-    <component name="psr/container" version="1.1.2.0" constraint=""/>
-    <component name="psr/event-dispatcher" version="1.0.0.0" constraint=""/>
-    <component name="psr/log" version="1.1.4.0" constraint=""/>
-    <component name="psr/log-implementation" version="" constraint=""/>
-    <component name="seld/jsonlint" version="1.8.3.0" constraint=""/>
-    <component name="symfony/console" version="5.4.3.0" constraint=""/>
-    <component name="symfony/deprecation-contracts" version="2.5.0.0" constraint=""/>
-    <component name="symfony/event-dispatcher-contracts" version="2.5.0.0" constraint=""/>
-    <component name="symfony/filesystem" version="5.4.3.0" constraint=""/>
-    <component name="symfony/finder" version="5.4.3.0" constraint=""/>
-    <component name="symfony/polyfill-ctype" version="1.24.0.0" constraint=""/>
-    <component name="symfony/polyfill-intl-grapheme" version="1.24.0.0" constraint=""/>
-    <component name="symfony/polyfill-intl-normalizer" version="1.24.0.0" constraint=""/>
-    <component name="symfony/polyfill-mbstring" version="1.24.0.0" constraint=""/>
-    <component name="symfony/polyfill-php73" version="" constraint=""/>
-    <component name="symfony/polyfill-php80" version="1.24.0.0" constraint=""/>
-    <component name="symfony/polyfill-php81" version="1.24.0.0" constraint=""/>
-    <component name="symfony/process" version="5.4.3.0" constraint=""/>
-    <component name="symfony/serializer" version="5.4.3.0" constraint="^4.4 || ^5.0 || ^6.0"/>
-    <component name="symfony/service-contracts" version="2.5.0.0" constraint=""/>
-    <component name="symfony/string" version="5.4.3.0" constraint=""/>
-    <component name="symfony/var-dumper" version="5.4.3.0" constraint=""/>
-    <component name="thecodingmachine/safe" version="1.3.3.0" constraint=""/>
-    <component name="ulrichsg/getopt-php" version="3.4.0.0" constraint=""/>
-    <component name="webmozart/assert" version="1.10.0.0" constraint=""/>
-    <component name="webmozart/path-util" version="2.3.0.0" constraint=""/>
-  </bundles>
-</phar>
 ```
