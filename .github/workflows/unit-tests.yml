@@ -41,7 +41,7 @@ jobs:
 
             -   # Setup PHP runtime
                 name: Setup PHP runtime
-                uses: "shivammathur/setup-php@v2"
+                uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php }}
                     ini-values: phar.readonly=0
@@ -49,7 +49,7 @@ jobs:
 
             -   # Install Composer dependencies
                 name: Install Composer dependencies
-                uses: "ramsey/composer-install@v1"
+                uses: ramsey/composer-install@v2
                 with:
                     composer-options: "--prefer-dist"
 
