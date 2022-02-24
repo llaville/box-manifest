@@ -10,10 +10,6 @@ on:
         paths-ignore:
             - 'docs/**'
 
-concurrency:
-    group: ${{ github.ref }}-${{ github.workflow }}
-    cancel-in-progress: true
-
 jobs:
     lint_files:
         uses: llaville/.github/.github/workflows/mega-linter.yml@master
