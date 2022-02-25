@@ -18,6 +18,6 @@ COPY vendor /usr/local/src/box-manifest/vendor
 ENV BOX_REQUIREMENT_CHECKER=0
 ENV PATH=$PATH:/usr/local/src/box-manifest/vendor/bin
 
-WORKDIR /usr/src
+# Following recommendation at https://docs.github.com/en/actions/creating-actions/dockerfile-support-for-github-actions#workdir
 
 ENTRYPOINT ["/usr/local/src/box-manifest/bin/box"]
