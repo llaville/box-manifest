@@ -1,22 +1,20 @@
 diff --git a/bin/box b/bin/box
-index 7dd1d75..e70b841 100755
+index 7dd1d75..36e4200 100755
 --- a/bin/box
 +++ b/bin/box
-@@ -29,18 +29,30 @@ if (false === in_array(PHP_SAPI, ['cli', 'phpdbg', 'embed'], true)) {
+@@ -29,18 +29,31 @@ if (false === in_array(PHP_SAPI, ['cli', 'phpdbg', 'embed'], true)) {
  }
-
+ 
  (static function (): void {
 -    if (file_exists($autoload = __DIR__.'/../../../autoload.php')) {
 -        // Is installed via Composer
 -        include_once $autoload;
 +    $autoloader = 'vendor/autoload.php';
-
+ 
 -        return;
 +    if (\Phar::running()) {
 +        $phar = new \Phar($_SERVER['argv'][0]);
 +        $possibleAutoloadPaths = [
-+            // local project
-+            \getcwd(),
 +            // embedded autoloader in PHP Archive
 +            'phar://' . $phar->getAlias(),
 +        ];
@@ -28,7 +26,7 @@ index 7dd1d75..e70b841 100755
 +            \dirname(__DIR__),
 +        ];
      }
-
+ 
 -    if (file_exists($autoload = __DIR__.'/../vendor/autoload.php')) {
 -        // Is installed locally
 -        include_once $autoload;
@@ -36,22 +34,33 @@ index 7dd1d75..e70b841 100755
 -        return;
 +    foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
 +        if (\file_exists($possibleAutoloadPath . \DIRECTORY_SEPARATOR . $autoloader)) {
++            // box project
 +            require_once $possibleAutoloadPath . \DIRECTORY_SEPARATOR . $autoloader;
++            // your local project
++            require_once \getcwd() . \DIRECTORY_SEPARATOR . $autoloader;
 +            return;
 +        }
      }
-
+ 
      throw new RuntimeException('Unable to find the Composer autoloader.');
 diff --git a/src/Console/Command/Compile.php b/src/Console/Command/Compile.php
-index ebc1ee6..73e8b62 100644
+index ebc1ee6..37bdc34 100644
 --- a/src/Console/Command/Compile.php
 +++ b/src/Console/Command/Compile.php
-@@ -546,7 +546,7 @@ HELP;
+@@ -546,7 +546,15 @@ HELP;
              );
-
+ 
              if (is_callable($metadata)) {
 -                $metadata = $metadata();
++                $logger->log(
++                    CompilerLogger::MINUS_PREFIX,
++                    'Using composer.json : ' . $config->getComposerJson()
++                );
++                $logger->log(
++                    CompilerLogger::MINUS_PREFIX,
++                    'Using composer.lock : ' . $config->getComposerLock()
++                );
 +                $metadata = $metadata($config, $box);
              }
-
+ 
              $logger->log(
