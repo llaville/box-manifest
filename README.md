@@ -15,6 +15,12 @@ when calling the metadata callback.
 This is the reason, why this project used [`cweagans/composer-patches`](https://github.com/cweagans/composer-patches)
 composer plugin to patch `humbug/box` at install runtime.
 
+**CAUTION** If you want to use the PHAR version of `bartlett/box-manifest`, the BOX
+[check-requirements](https://github.com/box-project/box/blob/master/doc/configuration.md#check-requirements-check-requirements)
+setting is not supported !
+
+Docker and Composer Versions are not affected by this restriction.
+
 ## Documentation
 
 All the documentation is available on [website](https://llaville.github.io/box-manifest/1.x),
@@ -46,20 +52,19 @@ This project provide, by default, two basic implementations :
 ```text
 Box version 3.16.0@adb282a
 
- // Loading the configuration file "/shared/backups/github/box-manifest/box.json.dist".
+ // Loading the configuration file "/shared/backups/bartlett/box-manifest/box.json.dist".
 
-🔨  Building the PHAR "/shared/backups/github/box-manifest/box-manifest.phar"
+🔨  Building the PHAR "/shared/backups/bartlett/box-manifest/box-manifest.phar"
 
-? Removing the existing PHAR "/shared/backups/github/box-manifest/box-manifest.phar"
 ? No compactor to register
-? Adding main file: /shared/backups/github/box-manifest/bin/box
+? Adding main file: /shared/backups/bartlett/box-manifest/bin/box
 ? Adding requirements checker
 ? Adding binary files
-    > 24 file(s)
+    > No file found
 ? Auto-discover files? No
 ? Exclude dev files? Yes
 ? Adding files
-    > 4292 file(s)
+    > 4346 file(s)
 ? Generating new stub
   - Using shebang line: #!/usr/bin/env php
   - Using banner:
@@ -67,8 +72,10 @@ Box version 3.16.0@adb282a
     >
     > @link https://github.com/humbug/box
 ? Setting metadata
-  - bartlett/box-manifest: 1.x-dev@250e66c
-amphp/amp: v2.6.1
+  - Using composer.json : /shared/backups/bartlett/box-manifest/composer.json
+  - Using composer.lock : /shared/backups/bartlett/box-manifest/composer.lock
+  - bartlett/box-manifest: 1.x-dev@c47e100
+amphp/amp: v2.6.2
 amphp/byte-stream: v1.8.1
 amphp/parallel: v1.4.1
 amphp/parallel-functions: v1.1.0
@@ -77,18 +84,18 @@ amphp/process: v1.1.3
 amphp/serialization: v1.0.0
 amphp/sync: v1.4.2
 composer/ca-bundle: 1.3.1
-composer/composer: 2.2.6
+composer/composer: 2.2.7
 composer/metadata-minifier: 1.0.0
 composer/package-versions-deprecated: 1.11.99.5
 composer/pcre: 1.0.1
 composer/semver: 3.2.9
 composer/spdx-licenses: 1.5.6
-composer/xdebug-handler: 2.0.4
+composer/xdebug-handler: 3.0.3
 cweagans/composer-patches: 1.7.2
 doctrine/instantiator: 1.4.0
-fidry/console: 0.2.0
+fidry/console: 0.4.0
 humbug/box: 3.16.0
-humbug/php-scoper: 0.17.0
+humbug/php-scoper: 0.17.2
 jetbrains/phpstorm-stubs: v2021.3
 justinrainbow/json-schema: 5.2.11
 laravel/serializable-closure: v1.1.1
@@ -100,17 +107,17 @@ paragonie/pharaoh: v0.6.0
 paragonie/random_compat: v9.99.100
 paragonie/sodium_compat: v1.17.0
 phar-io/manifest: 2.0.3
-phar-io/version: 3.1.1
+phar-io/version: 3.2.1
 phpdocumentor/reflection-common: 2.2.0
 phpdocumentor/reflection-docblock: 5.3.0
 phpdocumentor/type-resolver: 1.6.0
 phpspec/prophecy: v1.15.0
-phpunit/php-code-coverage: 9.2.10
+phpunit/php-code-coverage: 9.2.13
 phpunit/php-file-iterator: 3.0.6
 phpunit/php-invoker: 3.1.1
 phpunit/php-text-template: 2.0.4
 phpunit/php-timer: 5.0.3
-phpunit/phpunit: 9.5.13
+phpunit/phpunit: 9.5.16
 psr/container: 1.1.2
 psr/event-dispatcher: 1.0.0
 psr/log: 1.1.4
@@ -133,10 +140,10 @@ sebastian/type: 2.3.4
 sebastian/version: 3.0.2
 seld/jsonlint: 1.8.3
 seld/phar-utils: 1.2.0
-symfony/console: v5.4.3
+symfony/console: v5.4.5
 symfony/deprecation-contracts: v2.5.0
 symfony/event-dispatcher-contracts: v2.5.0
-symfony/filesystem: v5.4.3
+symfony/filesystem: v5.4.5
 symfony/finder: v5.4.3
 symfony/polyfill-ctype: v1.24.0
 symfony/polyfill-intl-grapheme: v1.24.0
@@ -144,11 +151,11 @@ symfony/polyfill-intl-normalizer: v1.24.0
 symfony/polyfill-mbstring: v1.24.0
 symfony/polyfill-php80: v1.24.0
 symfony/polyfill-php81: v1.24.0
-symfony/process: v5.4.3
-symfony/serializer: v5.4.3
+symfony/process: v5.4.5
+symfony/serializer: v5.4.5
 symfony/service-contracts: v2.5.0
 symfony/string: v5.4.3
-symfony/var-dumper: v5.4.3
+symfony/var-dumper: v5.4.5
 thecodingmachine/safe: v1.3.3
 theseer/tokenizer: 1.2.1
 ulrichsg/getopt-php: v3.4.0
@@ -164,10 +171,10 @@ webmozart/path-util: 2.3.0
 No recommendation found.
 No warning found.
 
- // PHAR: 4339 files (8.07MB)
+ // PHAR: 4369 files (8.09MB)
  // You can inspect the generated PHAR with the "info" command.
 
- // Memory usage: 85.81MB (peak: 87.02MB), time: 6secs
+ // Memory usage: 86.19MB (peak: 87.40MB), time: 6secs
 ```
 
 </details>
