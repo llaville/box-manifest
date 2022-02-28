@@ -31,9 +31,6 @@
         }
     ],
     "minimum-stability": "stable",
-    "scripts": {
-        "post-update-cmd": "Bartlett\\BoxManifest\\Composer\\InstallerScripts::postUpdate"
-    },
     "config": {
         "platform": {
             "php": "7.4.0"
