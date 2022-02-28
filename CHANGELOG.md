@@ -7,6 +7,12 @@ using the [Keep a CHANGELOG](http://keepachangelog.com) principles.
 
 ## [Unreleased]
 
+## [1.0.2] - 2022-02-28
+
+### Fixed
+
+Remove `check-requirements` setting restriction introduced with version 1.0.1 only on PHAR distribution.
+
 ## [1.0.1] - 2022-02-28
 
 **CAUTION** If you want to use the PHAR version of `bartlett/box-manifest`, the BOX
