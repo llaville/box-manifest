@@ -15,12 +15,6 @@ when calling the metadata callback.
 This is the reason, why this project used [`cweagans/composer-patches`](https://github.com/cweagans/composer-patches)
 composer plugin to patch `humbug/box` at install runtime.
 
-**CAUTION** If you want to use the PHAR version of `bartlett/box-manifest`, the BOX
-[check-requirements](https://github.com/box-project/box/blob/master/doc/configuration.md#check-requirements-check-requirements)
-setting is not supported !
-
-Docker and Composer Versions are not affected by this restriction.
-
 ## Documentation
 
 All the documentation is available on [website](https://llaville.github.io/box-manifest/1.x),
