@@ -7,19 +7,24 @@ using the [Keep a CHANGELOG](http://keepachangelog.com) principles.
 
 ## [Unreleased]
 
+## [1.1.0] - 2022-09-13
+
+<!-- MARKDOWN-RELEASE:START -->
 ### Changed
 
 When package version is a branch alias, print branch name with commit reference.
 
 i.e:
-```
+
+```text
 cweagans/composer-patches: 1.7.2
 graphp/graph: dev-master@04461a7
 graphp/graphviz: dev-master@42a2098
 ```
 
 Instead of only
-```
+
+```text
 cweagans/composer-patches: 1.7.2
 graphp/graph: dev-master
 graphp/graphviz: dev-master
@@ -28,6 +33,7 @@ graphp/graphviz: dev-master
 ### Fixed
 
 Avoid Fatal Error when local project autoloader does not exist.
+<!-- MARKDOWN-RELEASE:END -->
 
 ## [1.0.2] - 2022-02-28
 

@@ -5,7 +5,7 @@ FROM php:8.0-cli-alpine
 LABEL org.opencontainers.image.title="llaville/box-manifest"
 LABEL org.opencontainers.image.description="Docker image of bartlett/box-manifest Composer package"
 LABEL org.opencontainers.image.source="https://github.com/llaville/box-manifest"
-LABEL org.opencontainers.image.version="1.0.2"
+LABEL org.opencontainers.image.version="1.1.0"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.authors="llaville"
 

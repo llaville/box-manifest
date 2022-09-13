@@ -9,7 +9,7 @@ built with the [BOX](https://github.com/box-project/box) tool.
 The [Metadata (`metadata`)](https://github.com/box-project/box/blob/master/doc/configuration.md#metadata-metadata) setting
 of the BOX allow only a callable function that will be evaluated without any arguments.
 
-Currently, the BOX 3.16 did not send contextual parameters (`KevinGH\Box\Configuration\Configuration` and `KevinGH\Box\Box`)
+Currently, the BOX 3.16 (and 4.0) did not send contextual parameters (`KevinGH\Box\Configuration\Configuration` and `KevinGH\Box\Box`)
 when calling the metadata callback.
 
 This is the reason, why this project used [`cweagans/composer-patches`](https://github.com/cweagans/composer-patches)
