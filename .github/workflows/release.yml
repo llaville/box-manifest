@@ -13,6 +13,6 @@ jobs:
         with:
             repository: ${{ github.repository }}
             php-version: "8.0"
-            box-output: bin/box-manifest.phar
+            box-output: box-manifest.phar
             release-draft: true
             release-prerelease: true
