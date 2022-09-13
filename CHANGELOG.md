@@ -25,6 +25,10 @@ graphp/graph: dev-master
 graphp/graphviz: dev-master
 ```
 
+### Fixed
+
+Avoid Fatal Error when local project autoloader does not exist.
+
 ## [1.0.2] - 2022-02-28
 
 ### Fixed

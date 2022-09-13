@@ -1,8 +1,8 @@
 diff --git a/bin/box b/bin/box
-index 7dd1d75..36e4200 100755
+index 7dd1d75..de2a0dd 100755
 --- a/bin/box
 +++ b/bin/box
-@@ -29,18 +29,31 @@ if (false === in_array(PHP_SAPI, ['cli', 'phpdbg', 'embed'], true)) {
+@@ -29,18 +29,35 @@ if (false === in_array(PHP_SAPI, ['cli', 'phpdbg', 'embed'], true)) {
  }
  
  (static function (): void {
@@ -30,14 +30,17 @@ index 7dd1d75..36e4200 100755
 -    if (file_exists($autoload = __DIR__.'/../vendor/autoload.php')) {
 -        // Is installed locally
 -        include_once $autoload;
--
--        return;
 +    foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
 +        if (\file_exists($possibleAutoloadPath . \DIRECTORY_SEPARATOR . $autoloader)) {
 +            // box project
 +            require_once $possibleAutoloadPath . \DIRECTORY_SEPARATOR . $autoloader;
-+            // your local project
-+            require_once \getcwd() . \DIRECTORY_SEPARATOR . $autoloader;
+ 
+-        return;
++            $localAutoloadPath = \getcwd() . \DIRECTORY_SEPARATOR . $autoloader;
++            if (\file_exists($localAutoloadPath)) {
++                // your local project
++                require_once $localAutoloadPath;
++            }
 +            return;
 +        }
      }
