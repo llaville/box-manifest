@@ -7,6 +7,24 @@ using the [Keep a CHANGELOG](http://keepachangelog.com) principles.
 
 ## [Unreleased]
 
+### Changed
+
+When package version is a branch alias, print branch name with commit reference.
+
+i.e:
+```
+cweagans/composer-patches: 1.7.2
+graphp/graph: dev-master@04461a7
+graphp/graphviz: dev-master@42a2098
+```
+
+Instead of only
+```
+cweagans/composer-patches: 1.7.2
+graphp/graph: dev-master
+graphp/graphviz: dev-master
+```
+
 ## [1.0.2] - 2022-02-28
 
 ### Fixed

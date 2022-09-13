@@ -45,9 +45,20 @@ final class SimpleTextManifestBuilder implements ManifestBuilderInterface
                 // does not include root package
                 continue;
             }
-            if (isset($values['pretty_version'])) {
+            if (!isset($values['pretty_version'])) {
+                // it's a virtual package
+                continue;
+            }
+            if (empty($values['aliases'])) {
                 $entries[] = sprintf('%s: %s', $package, $values['pretty_version']);
-            } // otherwise, it's a virtual package
+            } else {
+                $entries[] = sprintf(
+                    '%s: %s@%s',
+                    $package,
+                    $values['pretty_version'],
+                    substr($values['reference'], 0, 7)
+                );
+            }
         }
 
         return implode(PHP_EOL, $entries);
