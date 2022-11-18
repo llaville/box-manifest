@@ -14,4 +14,4 @@ jobs:
     deploy:
         uses: llaville/.github/.github/workflows/gh-pages.yml@master
         with:
-            destination-dir: 1.x
+            destination-dir: 2.x
