@@ -36,3 +36,6 @@ CONSOLE_REPORTER: true
 LOG_FILE: mega-linter-v6.log
 LOG_LEVEL: INFO
 PRINT_ALL_FILES: false
+PHP_PHPLINT_PRE_COMMANDS:
+    - command: "update-alternatives --set php /usr/bin/php8"
+      cwd: root
