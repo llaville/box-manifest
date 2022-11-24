@@ -3,7 +3,7 @@
 
 ## Requirements
 
-* PHP 7.4 or greater
+* PHP 8.1 or greater
 * ext-phar
 * PHPUnit 9 or greater (if you want to run unit tests)
 
@@ -20,7 +20,7 @@ Install the BOX Manifest with [Composer](https://getcomposer.org/).
 If you don't know yet what is composer, have a look [on introduction](http://getcomposer.org/doc/00-intro.md).
 
 ```shell
-composer require bartlett/box-manifest ^1
+composer require bartlett/box-manifest ^2
 ```
 
 ### With Git
@@ -29,13 +29,13 @@ The BOX Manifest can be directly used from [GitHub](https://github.com/llaville/
 by cloning the repository into a directory of your choice.
 
 ```shell
-git clone --branch 1.x https://github.com/llaville/box-manifest.git
+git clone --branch 2.x https://github.com/llaville/box-manifest.git
 ```
 
 ### With Docker
 
 ```shell
-docker pull ghcr.io/llaville/box-manifest:v1
+docker pull ghcr.io/llaville/box-manifest:v2
 ```
 
 ## Quick Started
@@ -79,19 +79,19 @@ box compile -c box.json --bootstrap vendor/autoload.php
 ### Docker CLI
 
 ```shell
-docker run --rm -it -v $(pwd):/usr/src ghcr.io/llaville/box-manifest:v1 compile
+docker run --rm -it -v $(pwd):/usr/src ghcr.io/llaville/box-manifest:v2 compile
 ```
 
 or
 
 ```shell
-docker run --rm -it -v $(pwd):/usr/src ghcr.io/llaville/box-manifest:v1 compile -c /usr/src/box.json.dist
+docker run --rm -it -v $(pwd):/usr/src ghcr.io/llaville/box-manifest:v2 compile -c /usr/src/box.json.dist
 ```
 
 or
 
 ```shell
-docker run --rm -it -v $(pwd):/usr/src ghcr.io/llaville/box-manifest:v1 compile -c /usr/src/box.json --bootstrap /usr/src/vendor/autoload.php
+docker run --rm -it -v $(pwd):/usr/src ghcr.io/llaville/box-manifest:v2 compile -c /usr/src/box.json --bootstrap /usr/src/vendor/autoload.php
 ```
 
 ### Examples

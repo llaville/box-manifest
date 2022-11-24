@@ -1,6 +1,6 @@
 PRINT_ALPACA: false
 SHOW_ELAPSED_TIME: true
-EXCLUDED_DIRECTORIES: [".git"]
+EXCLUDED_DIRECTORIES: [".git", ".changes"]
 IGNORE_GITIGNORED_FILES: true
 ENABLE:
     - ACTION
@@ -16,6 +16,7 @@ DISABLE_LINTERS:
     - MARKDOWN_MARKDOWN_LINK_CHECK
     - PHP_BUILTIN
     - PHP_PSALM
+    - PHP_PHPSTAN  # disable temporary because MegaLinter v6 does not support PHP 8.1
     - YAML_V8R
 EDITORCONFIG_EDITORCONFIG_CHECKER_CLI_LINT_MODE: project
 JSON_PRETTIER_FILTER_REGEX_EXCLUDE: "(composer.json)"
@@ -26,8 +27,8 @@ PHP_PHPLINT_CLI_LINT_MODE: project
 PHP_PHPCS_CLI_LINT_MODE: project
 PHP_PHPCS_CONFIG_FILE: ".phpcs.xml.dist"
 PHP_PHPCS_ARGUMENTS: "-n"
-YAML_PRETTIER_FILTER_REGEX_EXCLUDE: "(\\.github)" # As it cannot be added in .gitignore for ML actionlint linter
-YAML_YAMLLINT_FILTER_REGEX_EXCLUDE: "(\\.github)" # As it cannot be added in .gitignore for ML actionlint linter
+YAML_PRETTIER_FILTER_REGEX_EXCLUDE: "(\\.github|mkdocs\\.yml|\\.mega-linter\\.yml|\\.changie\\.yaml)"  # As it cannot be added in .gitignore for ML actionlint linter
+YAML_YAMLLINT_FILTER_REGEX_EXCLUDE: "(\\.github|mkdocs\\.yml)"  # As it cannot be added in .gitignore for ML actionlint linter
 CONFIG_REPORTER: false
 UPDATED_SOURCES_REPORTER: false
 #TEXT_REPORTER: true # cannot be set to true, and should use default value (true), otherwise TAP REPORTER is also generated. See https://github.com/nvuillam/mega-linter/issues/744
@@ -35,3 +36,6 @@ CONSOLE_REPORTER: true
 LOG_FILE: mega-linter-v6.log
 LOG_LEVEL: INFO
 PRINT_ALL_FILES: false
+PHP_PHPLINT_PRE_COMMANDS:
+    - command: "update-alternatives --set php /usr/bin/php8"
+      cwd: root
