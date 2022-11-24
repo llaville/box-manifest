@@ -3,7 +3,7 @@
 
 ## Requirements
 
-* PHP 7.4 or greater
+* PHP 8.1 or greater
 * ext-phar
 * PHPUnit 9 or greater (if you want to run unit tests)
 
@@ -20,7 +20,7 @@ Install the BOX Manifest with [Composer](https://getcomposer.org/).
 If you don't know yet what is composer, have a look [on introduction](http://getcomposer.org/doc/00-intro.md).
 
 ```shell
-composer require bartlett/box-manifest
+composer require bartlett/box-manifest ^2
 ```
 
 ### With Git
@@ -29,7 +29,13 @@ The BOX Manifest can be directly used from [GitHub](https://github.com/llaville/
 by cloning the repository into a directory of your choice.
 
 ```shell
-git clone https://github.com/llaville/box-manifest.git
+git clone --branch 2.x https://github.com/llaville/box-manifest.git
+```
+
+### With Docker
+
+```shell
+docker pull ghcr.io/llaville/box-manifest:v2
 ```
 
 ## Quick Started
@@ -46,7 +52,47 @@ basic simple text :
 }
 ```
 
-Then build your PHP Archive (PHAR) via the `bin/box compile` command.
+Then build your PHP Archive (PHAR) via the `compile` command.
+
+**CAUTION:** When your callable function for metadata is embedded to Box Manifest distribution (like in this example),
+you don't need to use the `--bootstrap` option. Otherwise, you should specify it in command line to load the autoloader
+that is able to load the metadata callable function.
+
+#### Console CLI
+
+```shell
+box compile
+```
+
+or
+
+```shell
+box compile -c box.json.dist
+```
+
+or
+
+```shell
+box compile -c box.json --bootstrap vendor/autoload.php
+```
+
+### Docker CLI
+
+```shell
+docker run --rm -it -v $(pwd):/usr/src ghcr.io/llaville/box-manifest:v2 compile
+```
+
+or
+
+```shell
+docker run --rm -it -v $(pwd):/usr/src ghcr.io/llaville/box-manifest:v2 compile -c /usr/src/box.json.dist
+```
+
+or
+
+```shell
+docker run --rm -it -v $(pwd):/usr/src ghcr.io/llaville/box-manifest:v2 compile -c /usr/src/box.json --bootstrap /usr/src/vendor/autoload.php
+```
 
 ### Examples
 
