@@ -44,6 +44,7 @@ jobs:
                 with:
                     php-version: ${{ matrix.php }}
                     ini-values: phar.readonly=0
+                    tools: phpunit
 
             -   # Install Composer dependencies
                 name: Install Composer dependencies
@@ -53,4 +54,4 @@ jobs:
 
             -   # PHPUnit
                 name: PHPUnit
-                run: vendor/bin/phpunit
+                run: phpunit
