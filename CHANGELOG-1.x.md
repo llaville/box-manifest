@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/),
 using the [Keep a CHANGELOG](http://keepachangelog.com) principles.
 
+## [1.2.0] - 2022-11-24
+
+**WARNING**: This is the last version to support BOX v3. Upcoming Box Manifest 2.0 will only support BOX v4 !
+
+### Changed
+
+- Improve BOX v3 patch and synchronize with BOX v4 support by adding a `compile` `--bootstrap` option
+
 ## [1.1.0] - 2022-09-13
 
 ### Changed
