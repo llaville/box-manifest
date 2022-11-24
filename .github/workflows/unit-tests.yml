@@ -16,7 +16,7 @@ jobs:
             php-version: "8.0"
 
     unit_tests:
-        needs: lint_files
+        #needs: lint_files  # Temporary disable MegaLinter v6 because it does not support yet PHP 8.1
 
         name: Unit Tests
 
@@ -28,8 +28,6 @@ jobs:
                 os:
                     - ubuntu-latest
                 php:
-                    - 7.4
-                    - 8.0
                     - 8.1
 
         steps:
