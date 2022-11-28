@@ -4,5 +4,5 @@
     "directories": ["bin", "src", "vendor"],
     "directories-bin": ["vendor/humbug/box/.requirement-checker"],
     "compression": "GZ",
-    "metadata": "Bartlett\\BoxManifest\\Composer\\ManifestFactory::toText"
+    "metadata": "Bartlett\\BoxManifest\\Composer\\ManifestFactory::toHighlight"
 }
