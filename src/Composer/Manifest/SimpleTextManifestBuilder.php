@@ -28,16 +28,15 @@ final class SimpleTextManifestBuilder implements ManifestBuilderInterface
         $rootPackage = $installedPhp['root'];
         $entries = [];
 
-        if (empty($rootPackage['aliases'])) {
-            $version = $rootPackage['pretty_version'];
-        } else {
+        if (isset($rootPackage['pretty_version'])) {
             $version = sprintf(
                 '%s@%s',
-                $rootPackage['aliases'][0],
+                $rootPackage['pretty_version'],
                 substr($rootPackage['reference'], 0, 7)
             );
+        } else {
+            $version = $rootPackage['version'];
         }
-
         $entries[] = sprintf('%s: %s', $rootPackage['name'], $version);
 
         foreach ($installedPhp['versions'] as $package => $values) {

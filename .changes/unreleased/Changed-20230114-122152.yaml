@@ -1,0 +1,4 @@
+kind: Changed
+body: When package version is a branch alias, print branch name with commit reference
+  for SimpleText in same way as DecorateText manifest builder
+time: 2023-01-14T12:21:52.1427603Z
