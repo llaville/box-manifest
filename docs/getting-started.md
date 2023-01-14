@@ -52,9 +52,17 @@ basic simple text :
 }
 ```
 
+decorated text :
+
+```json
+{
+  "metadata": "Bartlett\\BoxManifest\\Composer\\ManifestFactory::toHighlight"
+}
+```
+
 Then build your PHP Archive (PHAR) via the `compile` command.
 
-**CAUTION:** When your callable function for metadata is embedded to Box Manifest distribution (like in this example),
+**CAUTION:** When your callable function for metadata is embedded to Box Manifest distribution (like in these examples),
 you don't need to use the `--bootstrap` option. Otherwise, you should specify it in command line to load the autoloader
 that is able to load the metadata callable function.
 
