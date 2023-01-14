@@ -78,20 +78,22 @@ box compile -c box.json --bootstrap vendor/autoload.php
 
 ### Docker CLI
 
+> Please mount the code directory to `/usr/src` in the container.
+
 ```shell
-docker run --rm -it -v $(pwd):/usr/src ghcr.io/llaville/box-manifest:v2 compile
+docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/usr/src -w /usr/src ghcr.io/llaville/box-manifest:v2 compile
 ```
 
 or
 
 ```shell
-docker run --rm -it -v $(pwd):/usr/src ghcr.io/llaville/box-manifest:v2 compile -c /usr/src/box.json.dist
+docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/usr/src -w /usr/src ghcr.io/llaville/box-manifest:v2 compile -c box.json.dist
 ```
 
 or
 
 ```shell
-docker run --rm -it -v $(pwd):/usr/src ghcr.io/llaville/box-manifest:v2 compile -c /usr/src/box.json --bootstrap /usr/src/vendor/autoload.php
+docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/usr/src -w /usr/src ghcr.io/llaville/box-manifest:v2 compile -c box.json --bootstrap vendor/autoload.php
 ```
 
 ### Examples
