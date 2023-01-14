@@ -16,7 +16,6 @@ DISABLE_LINTERS:
     - MARKDOWN_MARKDOWN_LINK_CHECK
     - PHP_BUILTIN
     - PHP_PSALM
-    - PHP_PHPSTAN  # disable temporary because MegaLinter v6 does not support PHP 8.1
     - YAML_V8R
 EDITORCONFIG_EDITORCONFIG_CHECKER_CLI_LINT_MODE: project
 JSON_PRETTIER_FILTER_REGEX_EXCLUDE: "(composer.json)"
