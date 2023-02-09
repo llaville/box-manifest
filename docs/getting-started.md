@@ -167,7 +167,7 @@ ulrichsg/getopt-php: v3.4.0
 webmozart/assert: 1.11.0
 ```
 
-Manifest of  `` in DECORATED TEXT format, using `"metadata": "Bartlett\\BoxManifest\\Composer\\ManifestFactory::toHighlight"`
+Manifest of  `bartlett/box-manifest` in DECORATED TEXT format, using `"metadata": "Bartlett\\BoxManifest\\Composer\\ManifestFactory::toHighlight"`
 
 ```text
   - bartlett/box-manifest: 2.x-dev@3e58f10
