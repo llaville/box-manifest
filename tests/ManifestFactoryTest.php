@@ -78,4 +78,22 @@ final class ManifestFactoryTest extends TestCase
         $dependencies = explode(PHP_EOL, $manifest);
         $this->assertSame('phar-io/manifest: 2.0.x-dev@97803ec', $dependencies[0]);
     }
+
+    /**
+     * Creates a NULL manifest, because vendor/package is not yet installed
+     * (composer.json and/or composer.lock does not exist).
+     * @link https://github.com/llaville/box-manifest/issues/4
+     */
+    public function testBuildArtifactWithoutManifest(): void
+    {
+        $configFilePath = __DIR__ . '/fixtures/vendor-package-not-yet-released/box.json';
+
+        $raw = new stdClass();
+        $main = 'main';
+        $raw->{$main} = false;
+        $config = Configuration::create($configFilePath, $raw);
+
+        $manifest = ManifestFactory::create(SimpleTextManifestBuilder::class, $config, $this->box);
+        $this->assertNull($manifest);
+    }
 }

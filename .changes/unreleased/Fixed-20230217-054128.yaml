@@ -1,0 +1,4 @@
+kind: Fixed
+body: '[#4](https://github.com/llaville/box-manifest/issues/4) : Prevent error when
+  Composer installation does not exists'
+time: 2023-02-17T05:41:28.849859313Z
