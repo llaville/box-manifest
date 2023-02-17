@@ -31,15 +31,15 @@ final class SimpleTextManifestBuilder implements ManifestBuilderInterface
 
         if (!empty($rootPackage['aliases'])) {
             $version = sprintf(
-                '%s@%s',
+                '%s%s',
                 $rootPackage['aliases'][0],
-                substr($reference, 0, 7)
+                empty($reference) ? '' : '@' . substr($reference, 0, 7)
             );
         } elseif (isset($rootPackage['pretty_version'])) {
             $version = sprintf(
-                '%s@%s',
+                '%s%s',
                 $rootPackage['pretty_version'],
-                substr($reference, 0, 7)
+                empty($reference) ? '' : '@' . substr($reference, 0, 7)
             );
         } else {
             $version = $rootPackage['version'];

@@ -111,8 +111,7 @@ final class ManifestFactoryTest extends TestCase
         $this->assertIsString($manifest);
 
         $dependencies = explode(PHP_EOL, $manifest);
-        $this->assertSame('bartlett/sandboxes: 1.0.0+no-version-set@', $dependencies[0]);
-
+        $this->assertSame('bartlett/sandboxes: 1.0.0+no-version-set', $dependencies[0]);
     }
 
     /**
@@ -132,6 +131,6 @@ final class ManifestFactoryTest extends TestCase
         $this->assertIsString($manifest);
 
         $dependencies = explode(PHP_EOL, $manifest);
-        $this->assertSame('bartlett/sandboxes: <info>1.0.0+no-version-set@</info>', $dependencies[0]);
+        $this->assertSame('bartlett/sandboxes: <info>1.0.0+no-version-set</info>', $dependencies[0]);
     }
 }
