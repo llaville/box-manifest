@@ -8,9 +8,7 @@
 namespace Bartlett\BoxManifest\Tests;
 
 use Bartlett\BoxManifest\Composer\Manifest\DecorateTextManifestBuilder;
-use Bartlett\BoxManifest\Composer\Manifest\PharIoManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SimpleTextManifestBuilder;
-use Bartlett\BoxManifest\Composer\Manifest\SimpleXmlManifestBuilder;
 use Bartlett\BoxManifest\Composer\ManifestFactory;
 
 use KevinGH\Box\Box;
@@ -19,9 +17,7 @@ use KevinGH\Box\Test\RequiresPharReadonlyOff;
 
 use Phar;
 use stdClass;
-use function dirname;
 use function explode;
-use const DIRECTORY_SEPARATOR;
 use const PHP_EOL;
 
 /**
