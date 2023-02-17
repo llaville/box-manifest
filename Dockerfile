@@ -5,10 +5,11 @@ FROM php:8.1-cli-alpine
 LABEL org.opencontainers.image.title="llaville/box-manifest"
 LABEL org.opencontainers.image.description="Docker image of bartlett/box-manifest Composer package"
 LABEL org.opencontainers.image.source="https://github.com/llaville/box-manifest"
-LABEL org.opencontainers.image.version="2.2.1"
+LABEL org.opencontainers.image.version="2.3.0"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.authors="llaville"
 
+# hadolint ignore=SC2016
 RUN $(php -r '$extensionInstalled = \array_map("strtolower", \get_loaded_extensions(false));$requiredExtensions = ["zlib", "phar", "openssl", "pcre", "tokenizer", "filter"];$extensionsToInstall = \array_diff($requiredExtensions, $extensionInstalled);if ([] !== $extensionsToInstall) {echo \sprintf("docker-php-ext-install %s", \implode(" ", $extensionsToInstall));}echo "echo \"No extensions\"";')
 
 COPY bin /usr/local/src/box-manifest/bin
