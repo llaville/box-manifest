@@ -1,0 +1,17 @@
+{
+    "name": "bartlett/sandboxes",
+    "description": "For testing purpose only",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Bartlett\\Sandboxes\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Laurent Laville"
+        }
+    ],
+    "require": {}
+}

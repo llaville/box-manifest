@@ -96,4 +96,24 @@ final class ManifestFactoryTest extends TestCase
         $manifest = ManifestFactory::create(SimpleTextManifestBuilder::class, $config, $this->box);
         $this->assertNull($manifest);
     }
+
+    /**
+     * Creates a NULL manifest, because vendor/package has none public releases yet.
+     * @link https://github.com/llaville/box-manifest/issues/5
+     */
+    public function testBuildManifestOnPackageWithoutPublicReleases(): void
+    {
+        $configFilePath = __DIR__ . '/fixtures/vendor-package-no-public-releases/box.json';
+
+        $raw = new stdClass();
+        $main = 'main';
+        $raw->{$main} = false;
+        $config = Configuration::create($configFilePath, $raw);
+
+        $manifest = ManifestFactory::create(SimpleTextManifestBuilder::class, $config, $this->box);
+        $this->assertIsString($manifest);
+
+        $dependencies = explode(PHP_EOL, $manifest);
+        $this->assertSame('bartlett/sandboxes: 1.0.0+no-version-set@', $dependencies[0]);
+    }
 }
