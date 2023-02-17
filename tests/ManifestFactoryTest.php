@@ -7,6 +7,7 @@
  */
 namespace Bartlett\BoxManifest\Tests;
 
+use Bartlett\BoxManifest\Composer\Manifest\DecorateTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\PharIoManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SimpleTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SimpleXmlManifestBuilder;
@@ -101,9 +102,9 @@ final class ManifestFactoryTest extends TestCase
      * Creates a NULL manifest, because vendor/package has none public releases yet.
      * @link https://github.com/llaville/box-manifest/issues/5
      */
-    public function testBuildManifestOnPackageWithoutPublicReleases(): void
+    public function testBuildSimpleManifestOnPackageWithoutPublicReleases(): void
     {
-        $configFilePath = __DIR__ . '/fixtures/vendor-package-no-public-releases/box.json';
+        $configFilePath = __DIR__ . '/fixtures/vendor-package-no-public-releases/box-metadata-simpletext.json';
 
         $raw = new stdClass();
         $main = 'main';
@@ -115,5 +116,26 @@ final class ManifestFactoryTest extends TestCase
 
         $dependencies = explode(PHP_EOL, $manifest);
         $this->assertSame('bartlett/sandboxes: 1.0.0+no-version-set@', $dependencies[0]);
+
+    }
+
+    /**
+     * Creates a NULL manifest, because vendor/package has none public releases yet.
+     * @link https://github.com/llaville/box-manifest/issues/5#issuecomment-1434308094
+     */
+    public function testBuildDecoratedManifestOnPackageWithoutPublicReleases(): void
+    {
+        $configFilePath = __DIR__ . '/fixtures/vendor-package-no-public-releases/box-metadata-decoratetext.json';
+
+        $raw = new stdClass();
+        $main = 'main';
+        $raw->{$main} = false;
+        $config = Configuration::create($configFilePath, $raw);
+
+        $manifest = ManifestFactory::create(DecorateTextManifestBuilder::class, $config, $this->box);
+        $this->assertIsString($manifest);
+
+        $dependencies = explode(PHP_EOL, $manifest);
+        $this->assertSame('bartlett/sandboxes: <info>1.0.0+no-version-set@</info>', $dependencies[0]);
     }
 }

@@ -36,13 +36,14 @@ class DecorateTextManifestBuilder implements ManifestBuilderInterface
         $composerJson = $content['composer.json'];
         $installedPhp = $content['installed.php'];
         $rootPackage = $installedPhp['root'];
+        $reference = $rootPackage['reference'] ?? '';
         $entries = [];
 
         if (isset($rootPackage['pretty_version'])) {
             $version = sprintf(
                 '%s@%s',
                 $rootPackage['pretty_version'],
-                substr($rootPackage['reference'], 0, 7)
+                substr($reference, 0, 7)
             );
         } else {
             $version = $rootPackage['version'];
