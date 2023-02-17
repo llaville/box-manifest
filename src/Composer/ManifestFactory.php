@@ -45,31 +45,31 @@ final class ManifestFactory
 
         // The composer.lock and installed.php are optional (e.g. if there is no dependencies installed)
         // but when one is present, the other must be as well
-        $decodedJsonContents = $config->getDecodedComposerJsonContents();
-
         $composerLock = $config->getComposerLock();
         if (null === $composerLock) {
             // No dependencies installed
-            $installedPhp = [];
-        } else {
-            $normalizePath = function ($file, $basePath) {
-                return make_path_absolute(trim($file), $basePath);
-            };
-
-            $basePath = $config->getBasePath();
-
-            if (null !== $decodedJsonContents && array_key_exists('vendor-dir', $decodedJsonContents)) {
-                $vendorDir = $normalizePath($decodedJsonContents['vendor-dir'], $basePath);
-            } else {
-                $vendorDir = $normalizePath('vendor', $basePath);
-            }
-
-            $file = implode(DIRECTORY_SEPARATOR, [$vendorDir, 'composer', 'installed.php']);
-            if (!file_exists($file) || !is_readable($file)) {
-                return null;
-            }
-            $installedPhp = include $file;
+            return null;
         }
+
+        $decodedJsonContents = $config->getDecodedComposerJsonContents();
+
+        $normalizePath = function ($file, $basePath) {
+            return make_path_absolute(trim($file), $basePath);
+        };
+
+        $basePath = $config->getBasePath();
+
+        if (null !== $decodedJsonContents && array_key_exists('vendor-dir', $decodedJsonContents)) {
+            $vendorDir = $normalizePath($decodedJsonContents['vendor-dir'], $basePath);
+        } else {
+            $vendorDir = $normalizePath('vendor', $basePath);
+        }
+
+        $file = implode(DIRECTORY_SEPARATOR, [$vendorDir, 'composer', 'installed.php']);
+        if (!file_exists($file) || !is_readable($file)) {
+            return null;
+        }
+        $installedPhp = include $file;
 
         return $builder(
             [

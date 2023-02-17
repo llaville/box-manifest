@@ -54,10 +54,11 @@ This project provide, by default, two basic implementations :
 
 Box version 4.2.0@afc3a47
 
- // Loading the configuration file "/shared/backups/bartlett/box-manifest/box.json.dist".
+ // Loading the configuration file "/shared/backups/bartlett/box-manifest/box.json".
 
 🔨  Building the PHAR "/shared/backups/bartlett/box-manifest/box-manifest.phar"
 
+? Removing the existing PHAR "/shared/backups/bartlett/box-manifest/box-manifest.phar"
 ? No compactor to register
 ? Adding main file: /shared/backups/bartlett/box-manifest/bin/box
 ? Adding requirements checker
@@ -66,7 +67,7 @@ Box version 4.2.0@afc3a47
 ? Auto-discover files? No
 ? Exclude dev files? Yes
 ? Adding files
-    > 3371 file(s)
+    > 2982 file(s)
 ? Generating new stub
   - Using shebang line: #!/usr/bin/env php
   - Using banner:
@@ -76,33 +77,32 @@ Box version 4.2.0@afc3a47
 ? Setting metadata
   - Using composer.json : /shared/backups/bartlett/box-manifest/composer.json
   - Using composer.lock : /shared/backups/bartlett/box-manifest/composer.lock
-  - bartlett/box-manifest: 2.x-dev
+  - bartlett/box-manifest: 1.0.0+no-version-set
 amphp/amp: v2.6.2
 amphp/byte-stream: v1.8.1
-amphp/parallel: v1.4.1
+amphp/parallel: v1.4.2
 amphp/parallel-functions: v1.1.0
-amphp/parser: v1.0.0
+amphp/parser: v1.1.0
 amphp/process: v1.1.4
 amphp/serialization: v1.0.0
 amphp/sync: v1.4.2
-composer/ca-bundle: 1.3.4
+composer/ca-bundle: 1.3.5
 composer/class-map-generator: 1.0.0
-composer/composer: 2.4.4
+composer/composer: 2.5.4
 composer/metadata-minifier: 1.0.0
-composer/package-versions-deprecated: 1.11.99.5
 composer/pcre: 3.1.0
 composer/semver: 3.3.2
 composer/spdx-licenses: 1.5.7
 composer/xdebug-handler: 3.0.3
-cweagans/composer-patches: 1.7.2
-fidry/console: 0.5.3
+cweagans/composer-patches: 1.7.3
+fidry/console: 0.5.5
 humbug/box: 4.2.0
-humbug/php-scoper: 0.17.7
-jetbrains/phpstorm-stubs: v2022.2
+humbug/php-scoper: 0.18.2
+jetbrains/phpstorm-stubs: v2022.3
 justinrainbow/json-schema: 5.2.12
-laravel/serializable-closure: v1.2.2
+laravel/serializable-closure: v1.3.0
 nikic/iter: v2.2.0
-nikic/php-parser: v4.15.2
+nikic/php-parser: v4.15.3
 paragonie/constant_time_encoding: v2.6.3
 paragonie/pharaoh: v0.6.0
 phpdocumentor/reflection-common: 2.2.0
@@ -115,20 +115,21 @@ react/promise: v2.9.0
 seld/jsonlint: 1.9.0
 seld/phar-utils: 1.2.1
 seld/signal-handler: 2.0.1
-symfony/console: v6.1.7
-symfony/deprecation-contracts: v3.1.1
-symfony/event-dispatcher-contracts: v3.1.1
-symfony/filesystem: v6.1.5
-symfony/finder: v6.1.3
+symfony/console: v6.2.5
+symfony/deprecation-contracts: v3.2.0
+symfony/event-dispatcher-contracts: v3.2.0
+symfony/filesystem: v6.2.5
+symfony/finder: v6.2.5
 symfony/polyfill-ctype: v1.27.0
 symfony/polyfill-intl-grapheme: v1.27.0
 symfony/polyfill-intl-normalizer: v1.27.0
 symfony/polyfill-mbstring: v1.27.0
-symfony/process: v6.1.3
-symfony/serializer: v6.1.6
-symfony/service-contracts: v3.1.1
-symfony/string: v6.1.7
-symfony/var-dumper: v6.1.6
+symfony/polyfill-php73: v1.27.0
+symfony/process: v6.2.5
+symfony/serializer: v6.2.5
+symfony/service-contracts: v3.2.0
+symfony/string: v6.2.5
+symfony/var-dumper: v6.2.5
 thecodingmachine/safe: v2.4.0
 ulrichsg/getopt-php: v3.4.0
 webmozart/assert: 1.11.0
@@ -142,11 +143,11 @@ webmozart/assert: 1.11.0
 No recommendation found.
 No warning found.
 
- // PHAR: 3418 files (7.70MB)
+ // PHAR: 3029 files (7.32MB)
  // You can inspect the generated PHAR with the "info" command.
 
- // Memory usage: 71.03MB (peak: 71.90MB), time: 7secs
- ```
+ // Memory usage: 65.72MB (peak: 66.51MB), time: 3secs
+```
 
 </details>
 

@@ -7,9 +7,8 @@
  */
 namespace Bartlett\BoxManifest\Tests;
 
-use Bartlett\BoxManifest\Composer\Manifest\PharIoManifestBuilder;
+use Bartlett\BoxManifest\Composer\Manifest\DecorateTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SimpleTextManifestBuilder;
-use Bartlett\BoxManifest\Composer\Manifest\SimpleXmlManifestBuilder;
 use Bartlett\BoxManifest\Composer\ManifestFactory;
 
 use KevinGH\Box\Box;
@@ -18,9 +17,7 @@ use KevinGH\Box\Test\RequiresPharReadonlyOff;
 
 use Phar;
 use stdClass;
-use function dirname;
 use function explode;
-use const DIRECTORY_SEPARATOR;
 use const PHP_EOL;
 
 /**
@@ -77,5 +74,63 @@ final class ManifestFactoryTest extends TestCase
 
         $dependencies = explode(PHP_EOL, $manifest);
         $this->assertSame('phar-io/manifest: 2.0.x-dev@97803ec', $dependencies[0]);
+    }
+
+    /**
+     * Creates a NULL manifest, because vendor/package is not yet installed
+     * (composer.json and/or composer.lock does not exist).
+     * @link https://github.com/llaville/box-manifest/issues/4
+     */
+    public function testBuildArtifactWithoutManifest(): void
+    {
+        $configFilePath = __DIR__ . '/fixtures/vendor-package-not-yet-released/box.json';
+
+        $raw = new stdClass();
+        $main = 'main';
+        $raw->{$main} = false;
+        $config = Configuration::create($configFilePath, $raw);
+
+        $manifest = ManifestFactory::create(SimpleTextManifestBuilder::class, $config, $this->box);
+        $this->assertNull($manifest);
+    }
+
+    /**
+     * Creates a NULL manifest, because vendor/package has none public releases yet.
+     * @link https://github.com/llaville/box-manifest/issues/5
+     */
+    public function testBuildSimpleManifestOnPackageWithoutPublicReleases(): void
+    {
+        $configFilePath = __DIR__ . '/fixtures/vendor-package-no-public-releases/box-metadata-simpletext.json';
+
+        $raw = new stdClass();
+        $main = 'main';
+        $raw->{$main} = false;
+        $config = Configuration::create($configFilePath, $raw);
+
+        $manifest = ManifestFactory::create(SimpleTextManifestBuilder::class, $config, $this->box);
+        $this->assertIsString($manifest);
+
+        $dependencies = explode(PHP_EOL, $manifest);
+        $this->assertSame('bartlett/sandboxes: 1.0.0+no-version-set', $dependencies[0]);
+    }
+
+    /**
+     * Creates a NULL manifest, because vendor/package has none public releases yet.
+     * @link https://github.com/llaville/box-manifest/issues/5#issuecomment-1434308094
+     */
+    public function testBuildDecoratedManifestOnPackageWithoutPublicReleases(): void
+    {
+        $configFilePath = __DIR__ . '/fixtures/vendor-package-no-public-releases/box-metadata-decoratetext.json';
+
+        $raw = new stdClass();
+        $main = 'main';
+        $raw->{$main} = false;
+        $config = Configuration::create($configFilePath, $raw);
+
+        $manifest = ManifestFactory::create(DecorateTextManifestBuilder::class, $config, $this->box);
+        $this->assertIsString($manifest);
+
+        $dependencies = explode(PHP_EOL, $manifest);
+        $this->assertSame('bartlett/sandboxes: <info>1.0.0+no-version-set</info>', $dependencies[0]);
     }
 }

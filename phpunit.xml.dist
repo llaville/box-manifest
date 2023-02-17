@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
     backupGlobals="false"
-    backupStaticAttributes="false"
+    backupStaticProperties="false"
     bootstrap="vendor/autoload.php"
     colors="true"
     stopOnError="false"
@@ -9,16 +11,15 @@
     stopOnIncomplete="false"
     stopOnRisky="false"
     stopOnSkipped="false"
-    verbose="true"
     beStrictAboutTestsThatDoNotTestAnything="false"
     processIsolation="false"
+    cacheDirectory=".phpunit.cache"
 >
-    <filter>
-        <whitelist>
+    <coverage>
+        <include>
             <directory suffix=".php">src/</directory>
-        </whitelist>
-    </filter>
-
+        </include>
+    </coverage>
     <testsuite name="Box Manifest Test Suite">
         <directory>tests/</directory>
     </testsuite>

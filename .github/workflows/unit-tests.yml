@@ -2,6 +2,9 @@
 name: Unit-Tests
 
 on:
+    push:
+        paths-ignore:
+            - 'docs/**'
     pull_request:
         branches: [master]
         paths-ignore:
@@ -55,4 +58,4 @@ jobs:
 
             -   # PHPUnit
                 name: PHPUnit
-                run: phpunit
+                run: phpunit --testdox --do-not-cache-result

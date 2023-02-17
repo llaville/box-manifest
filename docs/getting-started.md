@@ -5,7 +5,7 @@
 
 * PHP 8.1 or greater
 * ext-phar
-* PHPUnit 9 or greater (if you want to run unit tests)
+* PHPUnit 10 or greater (if you want to run unit tests)
 
 ![GraPHP Composer](./graph-composer.svg)
 
@@ -89,19 +89,19 @@ box compile -c box.json --bootstrap vendor/autoload.php
 > Please mount the code directory to `/usr/src` in the container.
 
 ```shell
-docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/usr/src -w /usr/src ghcr.io/llaville/box-manifest:v2 compile
+docker run --rm -it -u $(id -u ${USER}):$(id -g ${USER}) -v $(pwd):/usr/src -w /usr/src ghcr.io/llaville/box-manifest:v2 compile
 ```
 
 or
 
 ```shell
-docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/usr/src -w /usr/src ghcr.io/llaville/box-manifest:v2 compile -c box.json.dist
+docker run --rm -it -u $(id -u ${USER}):$(id -g ${USER}) -v $(pwd):/usr/src -w /usr/src ghcr.io/llaville/box-manifest:v2 compile -c box.json.dist
 ```
 
 or
 
 ```shell
-docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/usr/src -w /usr/src ghcr.io/llaville/box-manifest:v2 compile -c box.json --bootstrap vendor/autoload.php
+docker run --rm -it -u $(id -u ${USER}):$(id -g ${USER}) -v $(pwd):/usr/src -w /usr/src ghcr.io/llaville/box-manifest:v2 compile -c box.json --bootstrap vendor/autoload.php
 ```
 
 ### Examples
@@ -109,7 +109,7 @@ docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/usr/src -w /usr/src ghcr.i
 Manifest of `bartlett/box-manifest` in TEXT format, using `"metadata": "Bartlett\\BoxManifest\\Composer\\ManifestFactory::toText"`
 
 ```text
-  - bartlett/box-manifest: 2.x-dev@3e58f10
+  - bartlett/box-manifest: 1.0.0+no-version-set
 amphp/amp: v2.6.2
 amphp/byte-stream: v1.8.1
 amphp/parallel: v1.4.2
@@ -120,7 +120,7 @@ amphp/serialization: v1.0.0
 amphp/sync: v1.4.2
 composer/ca-bundle: 1.3.5
 composer/class-map-generator: 1.0.0
-composer/composer: 2.5.1
+composer/composer: 2.5.4
 composer/metadata-minifier: 1.0.0
 composer/pcre: 3.1.0
 composer/semver: 3.3.2
@@ -132,9 +132,9 @@ humbug/box: 4.2.0
 humbug/php-scoper: 0.18.2
 jetbrains/phpstorm-stubs: v2022.3
 justinrainbow/json-schema: 5.2.12
-laravel/serializable-closure: v1.2.2
+laravel/serializable-closure: v1.3.0
 nikic/iter: v2.2.0
-nikic/php-parser: v4.15.2
+nikic/php-parser: v4.15.3
 paragonie/constant_time_encoding: v2.6.3
 paragonie/pharaoh: v0.6.0
 phpdocumentor/reflection-common: 2.2.0
@@ -147,32 +147,32 @@ react/promise: v2.9.0
 seld/jsonlint: 1.9.0
 seld/phar-utils: 1.2.1
 seld/signal-handler: 2.0.1
-symfony/console: v6.2.3
+symfony/console: v6.2.5
 symfony/deprecation-contracts: v3.2.0
 symfony/event-dispatcher-contracts: v3.2.0
-symfony/filesystem: v6.2.0
-symfony/finder: v6.2.3
+symfony/filesystem: v6.2.5
+symfony/finder: v6.2.5
 symfony/polyfill-ctype: v1.27.0
 symfony/polyfill-intl-grapheme: v1.27.0
 symfony/polyfill-intl-normalizer: v1.27.0
 symfony/polyfill-mbstring: v1.27.0
 symfony/polyfill-php73: v1.27.0
-symfony/process: v6.2.0
-symfony/serializer: v6.2.3
+symfony/process: v6.2.5
+symfony/serializer: v6.2.5
 symfony/service-contracts: v3.2.0
-symfony/string: v6.2.2
-symfony/var-dumper: v6.2.3
+symfony/string: v6.2.5
+symfony/var-dumper: v6.2.5
 thecodingmachine/safe: v2.4.0
 ulrichsg/getopt-php: v3.4.0
 webmozart/assert: 1.11.0
 ```
 
-Manifest of  `` in DECORATED TEXT format, using `"metadata": "Bartlett\\BoxManifest\\Composer\\ManifestFactory::toHighlight"`
+Manifest of  `bartlett/box-manifest` in DECORATED TEXT format, using `"metadata": "Bartlett\\BoxManifest\\Composer\\ManifestFactory::toHighlight"`
 
 ```text
-  - bartlett/box-manifest: 2.x-dev@3e58f10
- requires php ^8.1: 8.1.7
- requires ext-phar *: 8.1.7
+  - bartlett/box-manifest: 1.0.0+no-version-set
+ requires php ^8.1: 8.1.16
+ requires ext-phar *: 8.1.16
  uses amphp/amp : v2.6.2
  uses amphp/byte-stream : v1.8.1
  uses amphp/parallel : v1.4.2
@@ -183,7 +183,7 @@ Manifest of  `` in DECORATED TEXT format, using `"metadata": "Bartlett\\BoxManif
  uses amphp/sync : v1.4.2
  uses composer/ca-bundle : 1.3.5
  uses composer/class-map-generator : 1.0.0
- requires composer/composer ^2.2: 2.5.1
+ requires composer/composer ^2.2: 2.5.4
  uses composer/metadata-minifier : 1.0.0
  uses composer/pcre : 3.1.0
  uses composer/semver : 3.3.2
@@ -195,9 +195,9 @@ Manifest of  `` in DECORATED TEXT format, using `"metadata": "Bartlett\\BoxManif
  uses humbug/php-scoper : 0.18.2
  uses jetbrains/phpstorm-stubs : v2022.3
  uses justinrainbow/json-schema : 5.2.12
- uses laravel/serializable-closure : v1.2.2
+ uses laravel/serializable-closure : v1.3.0
  uses nikic/iter : v2.2.0
- uses nikic/php-parser : v4.15.2
+ uses nikic/php-parser : v4.15.3
  uses paragonie/constant_time_encoding : v2.6.3
  uses paragonie/pharaoh : v0.6.0
  uses phpdocumentor/reflection-common : 2.2.0
@@ -210,21 +210,21 @@ Manifest of  `` in DECORATED TEXT format, using `"metadata": "Bartlett\\BoxManif
  uses seld/jsonlint : 1.9.0
  uses seld/phar-utils : 1.2.1
  uses seld/signal-handler : 2.0.1
- uses symfony/console : v6.2.3
+ uses symfony/console : v6.2.5
  uses symfony/deprecation-contracts : v3.2.0
  uses symfony/event-dispatcher-contracts : v3.2.0
- requires symfony/filesystem ^6.1: v6.2.0
- uses symfony/finder : v6.2.3
+ requires symfony/filesystem ^6.1: v6.2.5
+ uses symfony/finder : v6.2.5
  uses symfony/polyfill-ctype : v1.27.0
  uses symfony/polyfill-intl-grapheme : v1.27.0
  uses symfony/polyfill-intl-normalizer : v1.27.0
  uses symfony/polyfill-mbstring : v1.27.0
  uses symfony/polyfill-php73 : v1.27.0
- uses symfony/process : v6.2.0
- requires symfony/serializer ^6.1: v6.2.3
+ uses symfony/process : v6.2.5
+ requires symfony/serializer ^6.1: v6.2.5
  uses symfony/service-contracts : v3.2.0
- uses symfony/string : v6.2.2
- uses symfony/var-dumper : v6.2.3
+ uses symfony/string : v6.2.5
+ uses symfony/var-dumper : v6.2.5
  uses thecodingmachine/safe : v2.4.0
  uses ulrichsg/getopt-php : v3.4.0
  uses webmozart/assert : 1.11.0
