@@ -15,6 +15,13 @@ when calling the metadata callback.
 This is the reason, why this project used [`cweagans/composer-patches`](https://github.com/cweagans/composer-patches)
 composer plugin to patch `humbug/box` at install runtime.
 
+## Version Compatibility
+
+| Version            | Status         | Box Project Compatibility |
+|--------------------|----------------|---------------------------|
+| `2.0.x` to `2.3.x` | Active support | `4.0.x` to `4.2.x`        |
+| `1.0.x` to `1.2.0` | End Of Life    | `3.x`                     |
+
 ## Documentation
 
 All the documentation is available on [website](https://llaville.github.io/box-manifest/2.x),
