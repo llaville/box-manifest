@@ -7,7 +7,7 @@
         "ext-phar": "*",
         "composer/composer": "^2.2",
         "cweagans/composer-patches": "^1.7",
-        "humbug/box": "^4.0",
+        "humbug/box": "~4.0.0 || ~4.1.0 || ~4.2.0",
         "symfony/filesystem": "^6.1",
         "symfony/serializer": "^6.1"
     },
