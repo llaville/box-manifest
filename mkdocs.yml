@@ -28,5 +28,6 @@ markdown_extensions:
     - pymdownx.superfences # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#superfences
 nav:
     - "Home": README.md
+    - "Installation": installation.md
     - "Getting-Started": getting-started.md
     - "Contributing": contributing.md

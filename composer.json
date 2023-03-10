@@ -6,8 +6,8 @@
         "php": "^8.1",
         "ext-phar": "*",
         "composer/composer": "^2.2",
-        "cweagans/composer-patches": "^1.7",
-        "humbug/box": "~4.0.0 || ~4.1.0 || ~4.2.0",
+        "cyclonedx/cyclonedx-library": "^1.0",
+        "humbug/box": "^4.0",
         "symfony/filesystem": "^6.1",
         "symfony/serializer": "^6.1"
     },
@@ -29,19 +29,11 @@
     ],
     "minimum-stability": "stable",
     "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "cweagans/composer-patches": true
-        }
+        "sort-packages": true
     },
     "extra": {
-        "patches": {
-            "humbug/box": {
-                "send contextual metadata parameters with callable function": "patches/box4metadata.patch"
-            }
-        },
         "branch-alias": {
-            "dev-master": "2.x-dev"
+            "dev-master": "3.x-dev"
         }
     }
 }
