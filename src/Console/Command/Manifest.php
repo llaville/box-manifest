@@ -23,10 +23,12 @@ use function KevinGH\Box\check_php_settings;
 use function KevinGH\Box\get_box_version;
 
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 
 use stdClass;
 use function fclose;
+use function file_exists;
 use function fopen;
 use function sprintf;
 
@@ -46,6 +48,7 @@ final class Manifest implements CommandAware, LazyCommand
 
     private const NO_CONFIG_OPTION = 'no-config';
 
+    private const BOOTSTRAP_OPTION = 'bootstrap';
     private const FORMAT_OPTION = 'format';
     private const OUTPUT_OPTION = 'output-file';
 
@@ -57,6 +60,12 @@ final class Manifest implements CommandAware, LazyCommand
     {
         $arguments = [];
         $options = [
+            new InputOption(
+                self::BOOTSTRAP_OPTION,
+                null,
+                InputOption::VALUE_REQUIRED,
+                'A PHP script that is included before execution',
+            ),
             new InputOption(
                 self::FORMAT_OPTION,
                 'f',
@@ -97,6 +106,14 @@ final class Manifest implements CommandAware, LazyCommand
         check_php_settings($io);
 
         $io->writeln($this->header);
+
+        if (!empty($bootstrap = $io->getOption(self::BOOTSTRAP_OPTION)->asNullableString()) && file_exists($bootstrap)) {
+            $io->writeln(
+                sprintf('<info>[debug] Bootstrapped file "%s"</info>', $bootstrap),
+                OutputInterface::VERBOSITY_DEBUG,
+            );
+            include $bootstrap;
+        }
 
         $config = $io->getOption(self::NO_CONFIG_OPTION)->asBoolean()
             ? Configuration::create(null, new stdClass())
