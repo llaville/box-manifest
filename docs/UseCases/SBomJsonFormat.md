@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD013 -->
+<!-- markdownlint-disable MD013 MD033 -->
 # Manifest in `sbom` JSON format
 
 Run either following commands :

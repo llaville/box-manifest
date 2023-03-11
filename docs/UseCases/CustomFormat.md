@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD013 -->
+<!-- markdownlint-disable MD013 MD033 -->
 # Manifest in free format
 
 Additional free format is in charge of User to implement it.
@@ -97,4 +97,3 @@ The `--bootstrap` option is used to load resource (class) that implement the `Ba
 
 The `--format` option named the class that should implement the `ManifestBuilderInterface`.
 This class must be loadable with your autoloader or through the `--bootstrap` option.
-
