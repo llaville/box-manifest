@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 # Installation
 
 1. [Requirements](#requirements)

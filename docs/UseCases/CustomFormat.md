@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 # Manifest in free format
 
 Additional free format is in charge of User to implement it.

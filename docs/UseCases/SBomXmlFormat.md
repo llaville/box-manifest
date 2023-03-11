@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 # Manifest in `sbom` XML format
 
 Run following command :

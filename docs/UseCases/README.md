@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 # Use Cases
 
 - How to build a manifest in [`plain` TEXT format][plain-text]

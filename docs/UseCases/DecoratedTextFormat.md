@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 -->
 # Manifest in `ansi` decorated TEXT format
 
 Run following command :
