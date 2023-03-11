@@ -10,6 +10,7 @@ vendor/
 
 ###### PHPLint ######
 .phplint-cache
+.phplint.cache/
 
 ###### PHPUnit ######
 .phpunit.result.cache
