@@ -16,6 +16,17 @@ jobs:
                 name: Checkout code
                 uses: actions/checkout@v3
             -
+                name: Setup PHP runtime
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: "8.1"
+                    ini-values: phar.readonly=0
+            -
+                name: Install Composer dependencies
+                uses: ramsey/composer-install@v2
+                with:
+                    composer-options: "--prefer-dist"
+            -
                 name: Set up QEMU
                 uses: docker/setup-qemu-action@v2
             -
