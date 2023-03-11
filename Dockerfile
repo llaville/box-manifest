@@ -21,4 +21,4 @@ ENV PATH=$PATH:/usr/local/src/box-manifest/vendor/bin
 
 # Following recommendation at https://docs.github.com/en/actions/creating-actions/dockerfile-support-for-github-actions#workdir
 
-ENTRYPOINT ["/usr/local/src/box-manifest/bin/box"]
+ENTRYPOINT ["/usr/local/src/box-manifest/bin/box-manifest"]
