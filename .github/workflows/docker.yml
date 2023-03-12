@@ -49,3 +49,5 @@ jobs:
                     push: true
                     tags: |
                         ghcr.io/llaville/box-manifest:v3
+                    secrets: |
+                        "github_token=${{ secrets.GITHUB_TOKEN }}"
