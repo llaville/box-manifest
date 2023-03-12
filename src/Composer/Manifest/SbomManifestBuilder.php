@@ -13,11 +13,10 @@ use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Factories\LicenseFactory;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\MetaData;
+use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Serialization\Serializer;
 use CycloneDX\Core\Collections\ToolRepository;
-use CycloneDX\Core\Spdx\LicenseIdentifiers;
 use PackageUrl\PackageUrl;
 
 use function explode;
@@ -82,21 +81,15 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
         if (isset($composerJson['license'])) {
             $licenseFactory = new LicenseFactory();
 
-            $licenseIdentifiers = new LicenseIdentifiers();
-            if ($licenseIdentifiers->isKnownLicense($composerJson['license'])) {
-                $license = $composerJson['license'];
-            } else {
-                $license = $licenseIdentifiers->fixLicense($composerJson['license']);
+            if (!empty($composerJson['license'])) {
+                $component->getLicenses()->addItems(
+                    $licenseFactory->makeFromString($composerJson['license'])
+                );
             }
-            $licenses = $licenseFactory->makeDisjunctive($license);
-
-            $licenseRepository = $component->getLicenses();
-            $licenseRepository->addItems($licenses);
-            //$component->setLicenses($licenseRepository);
         }
 
         // metadata
-        $metadata = new MetaData();
+        $metadata = new Metadata();
         $metadata->setComponent($component);
 
         $boxTool = new Tool();
