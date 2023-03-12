@@ -9,6 +9,8 @@ namespace Bartlett\BoxManifest\Console\Command;
 
 use Bartlett\BoxManifest\Composer\ManifestFactory;
 
+use CycloneDX\Core\Spec\Version;
+
 use Fidry\Console\Command\CommandAware;
 use Fidry\Console\Command\CommandAwareness;
 use Fidry\Console\Command\Configuration as CommandConfiguration;
@@ -27,9 +29,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 
 use stdClass;
+use function array_column;
 use function fclose;
 use function file_exists;
 use function fopen;
+use function implode;
 use function sprintf;
 
 /**
@@ -50,6 +54,7 @@ final class Manifest implements CommandAware, LazyCommand
 
     private const BOOTSTRAP_OPTION = 'bootstrap';
     private const FORMAT_OPTION = 'format';
+    private const SBOM_SPEC_OPTION = 'sbom-spec';
     private const OUTPUT_OPTION = 'output-file';
 
     public function __construct(private string $header)
@@ -74,6 +79,13 @@ final class Manifest implements CommandAware, LazyCommand
                 'auto'
             ),
             new InputOption(
+                self::SBOM_SPEC_OPTION,
+                's',
+                InputOption::VALUE_REQUIRED,
+                'SBOM specification version: ' . implode(', ', array_column(Version::cases(), 'value')),
+                '1.4'
+            ),
+            new InputOption(
                 self::OUTPUT_OPTION,
                 'o',
                 InputOption::VALUE_REQUIRED,
@@ -89,7 +101,7 @@ final class Manifest implements CommandAware, LazyCommand
         ];
 
         return new CommandConfiguration(
-        // The name of the command (the part after "bin/console")
+            // The name of the command (the part after "bin/console")
             static::getName(),
             // The short description shown while running "php bin/console list"
             static::getDescription(),
@@ -123,9 +135,10 @@ final class Manifest implements CommandAware, LazyCommand
 
         $output = $io->getOption(self::OUTPUT_OPTION)->asNullableString();
         $format = $io->getOption(self::FORMAT_OPTION)->asString();
+        $sbomSpec = $io->getOption(self::SBOM_SPEC_OPTION)->asString();
 
         $factory = new ManifestFactory($config, $box, get_box_version());
-        $manifest = $factory->build($format, $output);
+        $manifest = $factory->build($format, $output, $sbomSpec);
 
         if ($io->isVerbose() || empty($output)) {
             $io->writeln($manifest);

@@ -16,11 +16,15 @@ use CycloneDX\Core\Serialization\JSON\NormalizerFactory as JsonNormalizerFactory
 use CycloneDX\Core\Serialization\JsonSerializer;
 use CycloneDX\Core\Serialization\XmlSerializer;
 use CycloneDX\Core\Spec\SpecFactory;
+use CycloneDX\Core\Spec\Version;
 
 use KevinGH\Box\Box;
 use KevinGH\Box\Configuration\Configuration;
+use ValueError;
+use function array_column;
 use function KevinGH\Box\FileSystem\make_path_absolute;
 
+use DomainException;
 use InvalidArgumentException;
 use function array_key_exists;
 use function class_exists;
@@ -31,6 +35,7 @@ use function is_readable;
 use function is_string;
 use function pathinfo;
 use function realpath;
+use function sprintf;
 use const PATHINFO_EXTENSION;
 
 /**
@@ -42,22 +47,22 @@ final class ManifestFactory
     {
     }
 
-    public function build(string $format, ?string $output): string
+    public function build(string $format, ?string $output, string $sbomSpec): string
     {
         return match ($format) {
             'auto' => match ($output) {
                 null, 'manifest.txt' => $this->toText(),
-                'sbom.xml' => $this->toSbomXml1dot3(),
-                'sbom.json' => $this->toSbomJson1dot3(),
+                'sbom.xml' => $this->toSbom('xml', $sbomSpec),
+                'sbom.json' => $this->toSbom('json', $sbomSpec),
                 default => match (pathinfo($output, PATHINFO_EXTENSION)) {
-                    'xml' => $this->toSbomXml1dot3(),
-                    'json' => $this->toSbomJson1dot3(),
+                    'xml' => $this->toSbom('xml', $sbomSpec),
+                    'json' => $this->toSbom('json', $sbomSpec),
                     '', 'txt' => $this->toText(),
                 }
             },
             'plain' => $this->toText(),
             'ansi' => $this->toHighlight(),
-            'sbom' => $this->toSbomJson1dot3(),
+            'sbom' => $this->toSbom('json', $sbomSpec),
             default => class_exists($format)
                 ? self::create($format, $this->config, $this->box)
                 : throw new InvalidArgumentException(sprintf('Format "%s" is not supported', $format))
@@ -150,15 +155,26 @@ final class ManifestFactory
         return self::create(new DecorateTextManifestBuilder(), $this->config, $this->box);
     }
 
-    public function toSbomXml1dot3(): ?string
+    public function toSbom(string $format, string $specVersion): ?string
     {
-        $xmlSerializer = new XmlSerializer(new DomNormalizerFactory(SpecFactory::make1dot3()));
-        return self::create(new SbomManifestBuilder($xmlSerializer, $this->boxVersion), $this->config, $this->box);
-    }
+        try {
+            $version = Version::from($specVersion);
+        } catch (ValueError) {
+            throw new DomainException(
+                sprintf(
+                    'Unsupported spec version "%s" for SBOM format. Expected one of these values: %s',
+                    $specVersion,
+                    implode(', ', array_column(Version::cases(), 'value'))
+                )
+            );
+        }
+        $spec = SpecFactory::makeForVersion($version);
 
-    public function toSbomJson1dot3(): ?string
-    {
-        $jsonSerializer = new JsonSerializer(new JsonNormalizerFactory(SpecFactory::make1dot3()));
-        return self::create(new SbomManifestBuilder($jsonSerializer, $this->boxVersion), $this->config, $this->box);
+        $serializer = match ($format) {
+            'xml' => new XmlSerializer(new DomNormalizerFactory($spec)),
+            'json' => new JsonSerializer(new JsonNormalizerFactory($spec)),
+            default => throw new DomainException(sprintf('Format "%s" is not supported.', $format)),
+        };
+        return self::create(new SbomManifestBuilder($serializer, $this->boxVersion), $this->config, $this->box);
     }
 }
