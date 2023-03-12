@@ -5,7 +5,7 @@ on:
     push:
         branches:
             - 'master'
-            - '3.x'
+#            - '3.x'
 
 jobs:
     build:
@@ -44,7 +44,6 @@ jobs:
                 name: Build and push Docker images
                 uses: docker/build-push-action@v4
                 with:
-                    context: .
                     platforms: linux/amd64
                     push: true
                     tags: |
