@@ -9,16 +9,15 @@ namespace Bartlett\BoxManifest\Composer\Manifest;
 
 use Bartlett\BoxManifest\Composer\ManifestBuilderInterface;
 
-use CycloneDX\Core\Enums\Classification;
+use CycloneDX\Core\Enums\ComponentType;
+use CycloneDX\Core\Factories\LicenseFactory;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\MetaData;
 use CycloneDX\Core\Models\Tool;
-use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
-use CycloneDX\Core\Repositories\ToolRepository;
-use CycloneDX\Core\Serialize\SerializerInterface;
-use CycloneDX\Core\Spdx\License as LicenseValidator;
+use CycloneDX\Core\Serialization\Serializer;
+use CycloneDX\Core\Collections\ToolRepository;
+use CycloneDX\Core\Spdx\LicenseIdentifiers;
 use PackageUrl\PackageUrl;
 
 use function explode;
@@ -31,10 +30,10 @@ use function substr;
  */
 final class SbomManifestBuilder implements ManifestBuilderInterface
 {
-    protected SerializerInterface $serializer;
+    protected Serializer $serializer;
     protected string $boxVersion;
 
-    public function __construct(SerializerInterface $serializer, string $boxVersion)
+    public function __construct(Serializer $serializer, string $boxVersion)
     {
         $this->serializer = $serializer;
         $this->boxVersion = $boxVersion;
@@ -66,10 +65,11 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
 
         [$group, $name] = explode('/', $rootPackage['name']);
 
-        $type = $rootPackage['type'] === 'library' ? Classification::LIBRARY : Classification::APPLICATION;
+        $type = $rootPackage['type'] === 'library' ? ComponentType::Library : ComponentType::Application;
 
         // publisher
-        $component = new Component($type, $name, $version);
+        $component = new Component($type, $name);
+        $component->setVersion($version);
         $component->setGroup($group);
         $component->setDescription($composerJson['description']);
 
@@ -80,10 +80,19 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
 
         // scope
         if (isset($composerJson['license'])) {
-            $licenseValidator = new LicenseValidator();
-            $license = DisjunctiveLicenseWithId::makeValidated($composerJson['license'], $licenseValidator);
-            $licenses = new DisjunctiveLicenseRepository($license);
-            $component->setLicense($licenses);
+            $licenseFactory = new LicenseFactory();
+
+            $licenseIdentifiers = new LicenseIdentifiers();
+            if ($licenseIdentifiers->isKnownLicense($composerJson['license'])) {
+                $license = $composerJson['license'];
+            } else {
+                $license = $licenseIdentifiers->fixLicense($composerJson['license']);
+            }
+            $licenses = $licenseFactory->makeDisjunctive($license);
+
+            $licenseRepository = $component->getLicenses();
+            $licenseRepository->addItems($licenses);
+            //$component->setLicenses($licenseRepository);
         }
 
         // metadata
@@ -100,7 +109,7 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
         $bom->setMetaData($metadata);
 
         // components
-        $componentRepository = $bom->getComponentRepository();
+        $componentRepository = $bom->getComponents();
 
         foreach ($installedPhp['versions'] as $package => $values) {
             if ($package === $rootPackage['name']) {
@@ -123,9 +132,10 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
 
             [$group, $name] = explode('/', $package);
 
-            $type = $values['type'] === 'library' ? Classification::LIBRARY : Classification::APPLICATION;
+            $type = $values['type'] === 'library' ? ComponentType::Library : ComponentType::Application;
 
-            $component = new Component($type, $name, $version);
+            $component = new Component($type, $name);
+            $component->setVersion($version);
             $component->setGroup($group);
 
             $purl = new PackageUrl('composer', $package);
@@ -133,9 +143,9 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
             $component->setPackageUrl($purl);
             $component->setBomRefValue((string) $purl);
 
-            $componentRepository->addComponent($component);
+            $componentRepository->addItems($component);
         }
 
-        return $this->serializer->serialize($bom);
+        return $this->serializer->serialize($bom, true);
     }
 }

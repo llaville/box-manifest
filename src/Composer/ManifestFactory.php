@@ -11,9 +11,11 @@ use Bartlett\BoxManifest\Composer\Manifest\DecorateTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SbomManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SimpleTextManifestBuilder;
 
-use CycloneDX\Core\Serialize\JsonSerializer;
-use CycloneDX\Core\Serialize\XmlSerializer;
-use CycloneDX\Core\Spec\Spec13;
+use CycloneDX\Core\Serialization\DOM\NormalizerFactory as DomNormalizerFactory;
+use CycloneDX\Core\Serialization\JSON\NormalizerFactory as JsonNormalizerFactory;
+use CycloneDX\Core\Serialization\JsonSerializer;
+use CycloneDX\Core\Serialization\XmlSerializer;
+use CycloneDX\Core\Spec\SpecFactory;
 
 use KevinGH\Box\Box;
 use KevinGH\Box\Configuration\Configuration;
@@ -150,11 +152,13 @@ final class ManifestFactory
 
     public function toSbomXml1dot3(): ?string
     {
-        return self::create(new SbomManifestBuilder(new XmlSerializer(new Spec13()), $this->boxVersion), $this->config, $this->box);
+        $xmlSerializer = new XmlSerializer(new DomNormalizerFactory(SpecFactory::make1dot3()));
+        return self::create(new SbomManifestBuilder($xmlSerializer, $this->boxVersion), $this->config, $this->box);
     }
 
     public function toSbomJson1dot3(): ?string
     {
-        return self::create(new SbomManifestBuilder(new JsonSerializer(new Spec13()), $this->boxVersion), $this->config, $this->box);
+        $jsonSerializer = new JsonSerializer(new JsonNormalizerFactory(SpecFactory::make1dot3()));
+        return self::create(new SbomManifestBuilder($jsonSerializer, $this->boxVersion), $this->config, $this->box);
     }
 }
