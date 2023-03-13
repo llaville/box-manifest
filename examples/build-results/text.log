@@ -1,0 +1,15 @@
+[debug] Current memory limit: "512MB"
+[debug] Checking BOX_ALLOW_XDEBUG
+[debug] phar.readonly is enabled
+[debug] The Xdebug extension is loaded (3.2.0) xdebug.mode=off
+[debug] Configured `phar.readonly=0`
+[debug] Process restarting (BOX_ALLOW_XDEBUG=internal|3.2.0|1|*|*)
+[debug] Running /usr/local/bin/php examples/phar-manifest.php
+[debug] Current memory limit: "512MB"
+[debug] Checking BOX_ALLOW_XDEBUG
+[debug] Restarted (93 ms). The Xdebug extension is not loaded
+[info] Using composer.json : /shared/backups/bartlett/box-manifest/examples/app-fixtures/composer.json
+[info] Using composer.lock : /shared/backups/bartlett/box-manifest/examples/app-fixtures/composer.lock
+root/app-fixtures: 3.x-dev@2e728d0
+psr/log: 3.0.0
+[debug] Restarted process exited 0
