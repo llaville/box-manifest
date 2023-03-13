@@ -1,0 +1,8 @@
+{
+    "main": null,
+    "output": "app-fixtures.phar",
+    "directories": ["bin", "src", "vendor"],
+    "directories-bin": ["../../vendor/humbug/box/res/requirement-checker"],
+    "compression": "GZ",
+    "metadata": "Bartlett\\BoxManifest\\Composer\\ManifestFactory::get"
+}

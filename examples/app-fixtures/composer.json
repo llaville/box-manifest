@@ -1,0 +1,18 @@
+{
+    "name": "root/app-fixtures",
+    "description": "Box-Manifest demo purpose only",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Root\\AppFixtures\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "ext-phar": "*"
+    },
+    "require-dev": {
+        "psr/log": "^3.0"
+    }
+}
