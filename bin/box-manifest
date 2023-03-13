@@ -10,6 +10,7 @@
 
 namespace Bartlett\BoxManifest;
 
+use Bartlett\BoxManifest\Composer\ManifestFactory;
 use Bartlett\BoxManifest\Console\Application;
 
 use Fidry\Console\Application\ApplicationRunner;
@@ -59,8 +60,10 @@ $io = IO::createDefault();
 OutputFormatterConfigurator::configure($io);
 
 if (true === $io->getInput()->hasParameterOption(['--manifest'], true)) {
+    // fallback strategy if https://github.com/box-project/box/pull/925 is not accepted
     $phar = new Phar($_SERVER['argv'][0]);
-    $io->writeln($phar->getMetadata());
+    $manifest = ManifestFactory::get() ?? $phar->getMetadata() ?? 'No manifest found.';
+    $io->writeln($manifest);
     exit(ExitCode::SUCCESS);
 }
 

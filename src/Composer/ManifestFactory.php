@@ -25,6 +25,7 @@ use function KevinGH\Box\FileSystem\make_path_absolute;
 
 use DomainException;
 use InvalidArgumentException;
+use Phar;
 use ValueError;
 use function array_key_exists;
 use function class_exists;
@@ -82,8 +83,16 @@ final class ManifestFactory
      */
     public static function get(): ?string
     {
+        if (Phar::running()) {
+            $phar = new Phar($_SERVER['argv'][0]);
+        }
+
         foreach (['manifest.txt', 'manifest.xml', 'sbom.xml', 'sbom.json'] as $resource) {
-            $resolved = realpath($resource) ?: (file_exists($resource) ? $resource : null);
+            if (Phar::running()) {
+                $resolved = isset($phar[$resource]) ? $phar[$resource]->getPathname() : false;
+            } else {
+                $resolved = realpath($resource) ?: (file_exists($resource) ? $resource : null);
+            }
             if ($resolved) {
                 return file_get_contents($resolved);
             }
