@@ -89,17 +89,11 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
         }
 
         // metadata
-        $metadata = new Metadata();
-        $metadata->setComponent($component);
-
         $boxTool = new Tool();
         $boxTool->setVendor('box-project');
         $boxTool->setName('box');
         $boxTool->setVersion($this->boxVersion);
-
-        $metadata->setTools(new ToolRepository($boxTool));
-
-        $bom->setMetadata($metadata);
+        $bom->getMetadata()->getTools()->addItems($boxTool);
 
         // components
         $componentRepository = $bom->getComponents();
