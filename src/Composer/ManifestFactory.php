@@ -20,12 +20,12 @@ use CycloneDX\Core\Spec\Version;
 
 use KevinGH\Box\Box;
 use KevinGH\Box\Configuration\Configuration;
-use ValueError;
 use function array_column;
 use function KevinGH\Box\FileSystem\make_path_absolute;
 
 use DomainException;
 use InvalidArgumentException;
+use ValueError;
 use function array_key_exists;
 use function class_exists;
 use function file_exists;
@@ -159,13 +159,13 @@ final class ManifestFactory
     {
         try {
             $version = Version::from($specVersion);
-        } catch (ValueError) {
+        } catch (ValueError $valueError) {
             throw new DomainException(
                 sprintf(
                     'Unsupported spec version "%s" for SBOM format. Expected one of these values: %s',
                     $specVersion,
                     implode(', ', array_column(Version::cases(), 'value'))
-                )
+                ), 0, $valueError
             );
         }
         $spec = SpecFactory::makeForVersion($version);
