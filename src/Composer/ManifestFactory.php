@@ -82,7 +82,7 @@ final class ManifestFactory
      */
     public static function get(): ?string
     {
-        foreach (['manifest.txt', 'sbom.xml', 'sbom.json'] as $resource) {
+        foreach (['manifest.txt', 'manifest.xml', 'sbom.xml', 'sbom.json'] as $resource) {
             $resolved = realpath($resource) ?: (file_exists($resource) ? $resource : null);
             if ($resolved) {
                 return file_get_contents($resolved);
