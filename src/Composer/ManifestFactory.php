@@ -165,7 +165,9 @@ final class ManifestFactory
                     'Unsupported spec version "%s" for SBOM format. Expected one of these values: %s',
                     $specVersion,
                     implode(', ', array_column(Version::cases(), 'value'))
-                ), 0, $valueError
+                ),
+                0,
+                $valueError
             );
         }
         $spec = SpecFactory::makeForVersion($version);
