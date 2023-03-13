@@ -13,12 +13,12 @@ That will print following results :
 <summary>standard output contents</summary>
 
 ```text
-Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
+Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
 
  // Loading the configuration file "/shared/backups/bartlett/box-manifest/box.json.dist".
 
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.3" version="1">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.4" version="1">
   <metadata>
     <tools>
       <tool>
@@ -27,18 +27,6 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
         <version><![CDATA[4.3.7@e89dfe8]]></version>
       </tool>
     </tools>
-    <component type="application" bom-ref="pkg:composer/bartlett/box-manifest@3.x-dev%4036c1394">
-      <group><![CDATA[bartlett]]></group>
-      <name><![CDATA[box-manifest]]></name>
-      <version><![CDATA[3.x-dev@36c1394]]></version>
-      <description><![CDATA[Create a manifest to a PHP Archive (PHAR) for the BOX project (https://github.com/box-project/box)]]></description>
-      <licenses>
-        <license>
-          <id><![CDATA[MIT]]></id>
-        </license>
-      </licenses>
-      <purl><![CDATA[pkg:composer/bartlett/box-manifest@3.x-dev%4036c1394]]></purl>
-    </component>
   </metadata>
   <components>
     <component type="library" bom-ref="pkg:composer/amphp/amp@v2.6.2">
@@ -137,11 +125,11 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
       <version><![CDATA[3.0.3]]></version>
       <purl><![CDATA[pkg:composer/composer/xdebug-handler@3.0.3]]></purl>
     </component>
-    <component type="library" bom-ref="pkg:composer/cyclonedx/cyclonedx-library@v1.6.3">
+    <component type="library" bom-ref="pkg:composer/cyclonedx/cyclonedx-library@v2.0.0-RC1">
       <group><![CDATA[cyclonedx]]></group>
       <name><![CDATA[cyclonedx-library]]></name>
-      <version><![CDATA[v1.6.3]]></version>
-      <purl><![CDATA[pkg:composer/cyclonedx/cyclonedx-library@v1.6.3]]></purl>
+      <version><![CDATA[v2.0.0-RC1]]></version>
+      <purl><![CDATA[pkg:composer/cyclonedx/cyclonedx-library@v2.0.0-RC1]]></purl>
     </component>
     <component type="library" bom-ref="pkg:composer/fidry/console@0.5.5">
       <group><![CDATA[fidry]]></group>
@@ -191,6 +179,24 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
       <version><![CDATA[v4.15.4]]></version>
       <purl><![CDATA[pkg:composer/nikic/php-parser@v4.15.4]]></purl>
     </component>
+    <component type="library" bom-ref="pkg:composer/opis/json-schema@2.3.0">
+      <group><![CDATA[opis]]></group>
+      <name><![CDATA[json-schema]]></name>
+      <version><![CDATA[2.3.0]]></version>
+      <purl><![CDATA[pkg:composer/opis/json-schema@2.3.0]]></purl>
+    </component>
+    <component type="library" bom-ref="pkg:composer/opis/string@2.0.1">
+      <group><![CDATA[opis]]></group>
+      <name><![CDATA[string]]></name>
+      <version><![CDATA[2.0.1]]></version>
+      <purl><![CDATA[pkg:composer/opis/string@2.0.1]]></purl>
+    </component>
+    <component type="library" bom-ref="pkg:composer/opis/uri@1.1.0">
+      <group><![CDATA[opis]]></group>
+      <name><![CDATA[uri]]></name>
+      <version><![CDATA[1.1.0]]></version>
+      <purl><![CDATA[pkg:composer/opis/uri@1.1.0]]></purl>
+    </component>
     <component type="library" bom-ref="pkg:composer/package-url/packageurl-php@1.0.5">
       <group><![CDATA[package-url]]></group>
       <name><![CDATA[packageurl-php]]></name>
@@ -226,12 +232,6 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
       <name><![CDATA[type-resolver]]></name>
       <version><![CDATA[1.6.2]]></version>
       <purl><![CDATA[pkg:composer/phpdocumentor/type-resolver@1.6.2]]></purl>
-    </component>
-    <component type="library" bom-ref="pkg:composer/phplang/scope-exit@1.0.0">
-      <group><![CDATA[phplang]]></group>
-      <name><![CDATA[scope-exit]]></name>
-      <version><![CDATA[1.0.0]]></version>
-      <purl><![CDATA[pkg:composer/phplang/scope-exit@1.0.0]]></purl>
     </component>
     <component type="library" bom-ref="pkg:composer/psr/container@2.0.2">
       <group><![CDATA[psr]]></group>
@@ -274,18 +274,6 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
       <name><![CDATA[signal-handler]]></name>
       <version><![CDATA[2.0.1]]></version>
       <purl><![CDATA[pkg:composer/seld/signal-handler@2.0.1]]></purl>
-    </component>
-    <component type="library" bom-ref="pkg:composer/swaggest/json-diff@v3.10.4">
-      <group><![CDATA[swaggest]]></group>
-      <name><![CDATA[json-diff]]></name>
-      <version><![CDATA[v3.10.4]]></version>
-      <purl><![CDATA[pkg:composer/swaggest/json-diff@v3.10.4]]></purl>
-    </component>
-    <component type="library" bom-ref="pkg:composer/swaggest/json-schema@v0.12.41">
-      <group><![CDATA[swaggest]]></group>
-      <name><![CDATA[json-schema]]></name>
-      <version><![CDATA[v0.12.41]]></version>
-      <purl><![CDATA[pkg:composer/swaggest/json-schema@v0.12.41]]></purl>
     </component>
     <component type="library" bom-ref="pkg:composer/symfony/console@v6.2.7">
       <group><![CDATA[symfony]]></group>
@@ -413,7 +401,7 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
     <dependency ref="pkg:composer/composer/semver@3.3.2"/>
     <dependency ref="pkg:composer/composer/spdx-licenses@1.5.7"/>
     <dependency ref="pkg:composer/composer/xdebug-handler@3.0.3"/>
-    <dependency ref="pkg:composer/cyclonedx/cyclonedx-library@v1.6.3"/>
+    <dependency ref="pkg:composer/cyclonedx/cyclonedx-library@v2.0.0-RC1"/>
     <dependency ref="pkg:composer/fidry/console@0.5.5"/>
     <dependency ref="pkg:composer/humbug/box@4.3.7"/>
     <dependency ref="pkg:composer/humbug/php-scoper@0.18.2"/>
@@ -422,13 +410,15 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
     <dependency ref="pkg:composer/laravel/serializable-closure@v1.3.0"/>
     <dependency ref="pkg:composer/nikic/iter@v2.2.0"/>
     <dependency ref="pkg:composer/nikic/php-parser@v4.15.4"/>
+    <dependency ref="pkg:composer/opis/json-schema@2.3.0"/>
+    <dependency ref="pkg:composer/opis/string@2.0.1"/>
+    <dependency ref="pkg:composer/opis/uri@1.1.0"/>
     <dependency ref="pkg:composer/package-url/packageurl-php@1.0.5"/>
     <dependency ref="pkg:composer/paragonie/constant_time_encoding@v2.6.3"/>
     <dependency ref="pkg:composer/paragonie/pharaoh@v0.6.0"/>
     <dependency ref="pkg:composer/phpdocumentor/reflection-common@2.2.0"/>
     <dependency ref="pkg:composer/phpdocumentor/reflection-docblock@5.3.0"/>
     <dependency ref="pkg:composer/phpdocumentor/type-resolver@1.6.2"/>
-    <dependency ref="pkg:composer/phplang/scope-exit@1.0.0"/>
     <dependency ref="pkg:composer/psr/container@2.0.2"/>
     <dependency ref="pkg:composer/psr/event-dispatcher@1.0.0"/>
     <dependency ref="pkg:composer/psr/log@3.0.0"/>
@@ -436,8 +426,6 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
     <dependency ref="pkg:composer/seld/jsonlint@1.9.0"/>
     <dependency ref="pkg:composer/seld/phar-utils@1.2.1"/>
     <dependency ref="pkg:composer/seld/signal-handler@2.0.1"/>
-    <dependency ref="pkg:composer/swaggest/json-diff@v3.10.4"/>
-    <dependency ref="pkg:composer/swaggest/json-schema@v0.12.41"/>
     <dependency ref="pkg:composer/symfony/console@v6.2.7"/>
     <dependency ref="pkg:composer/symfony/deprecation-contracts@v3.2.1"/>
     <dependency ref="pkg:composer/symfony/event-dispatcher-contracts@v3.2.1"/>
@@ -456,7 +444,6 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
     <dependency ref="pkg:composer/thecodingmachine/safe@v2.4.0"/>
     <dependency ref="pkg:composer/ulrichsg/getopt-php@v3.4.0"/>
     <dependency ref="pkg:composer/webmozart/assert@1.11.0"/>
-    <dependency ref="pkg:composer/bartlett/box-manifest@3.x-dev%4036c1394"/>
   </dependencies>
 </bom>
 

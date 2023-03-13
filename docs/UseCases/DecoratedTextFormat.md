@@ -13,11 +13,11 @@ That will print following results :
 <summary>standard output contents</summary>
 
 ```text
-Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
+Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
 
  // Loading the configuration file "/shared/backups/bartlett/box-manifest/box.json.dist".
 
-bartlett/box-manifest: 3.x-dev@36c1394
+bartlett/box-manifest: 3.x-dev@cd74376
  requires php ^8.1: 8.1.16
  requires ext-phar *: 8.1.16
  uses amphp/amp : v2.6.2
@@ -36,7 +36,7 @@ bartlett/box-manifest: 3.x-dev@36c1394
  uses composer/semver : 3.3.2
  uses composer/spdx-licenses : 1.5.7
  uses composer/xdebug-handler : 3.0.3
- requires cyclonedx/cyclonedx-library ^1.0: v1.6.3
+ requires cyclonedx/cyclonedx-library ^2.0@rc: v2.0.0-RC1
  uses fidry/console : 0.5.5
  requires humbug/box ^4.0: 4.3.7
  uses humbug/php-scoper : 0.18.2
@@ -45,13 +45,15 @@ bartlett/box-manifest: 3.x-dev@36c1394
  uses laravel/serializable-closure : v1.3.0
  uses nikic/iter : v2.2.0
  uses nikic/php-parser : v4.15.4
+ uses opis/json-schema : 2.3.0
+ uses opis/string : 2.0.1
+ uses opis/uri : 1.1.0
  uses package-url/packageurl-php : 1.0.5
  uses paragonie/constant_time_encoding : v2.6.3
  uses paragonie/pharaoh : v0.6.0
  uses phpdocumentor/reflection-common : 2.2.0
  uses phpdocumentor/reflection-docblock : 5.3.0
  uses phpdocumentor/type-resolver : 1.6.2
- uses phplang/scope-exit : 1.0.0
  uses psr/container : 2.0.2
  uses psr/event-dispatcher : 1.0.0
  uses psr/log : 3.0.0
@@ -59,8 +61,6 @@ bartlett/box-manifest: 3.x-dev@36c1394
  uses seld/jsonlint : 1.9.0
  uses seld/phar-utils : 1.2.1
  uses seld/signal-handler : 2.0.1
- uses swaggest/json-diff : v3.10.4
- uses swaggest/json-schema : v0.12.41
  uses symfony/console : v6.2.7
  uses symfony/deprecation-contracts : v3.2.1
  uses symfony/event-dispatcher-contracts : v3.2.1

@@ -19,14 +19,14 @@ That will print following results :
 <summary>standard output contents</summary>
 
 ```text
-Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
+Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
 
  // Loading the configuration file "/shared/backups/bartlett/box-manifest/box.json.dist".
 
 {
-    "$schema": "http://cyclonedx.org/schema/bom-1.3.schema.json",
+    "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
     "bomFormat": "CycloneDX",
-    "specVersion": "1.3",
+    "specVersion": "1.4",
     "version": 1,
     "metadata": {
         "tools": [
@@ -35,23 +35,7 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
                 "name": "box",
                 "version": "4.3.7@e89dfe8"
             }
-        ],
-        "component": {
-            "bom-ref": "pkg:composer/bartlett/box-manifest@3.x-dev%4036c1394",
-            "type": "application",
-            "name": "box-manifest",
-            "version": "3.x-dev@36c1394",
-            "group": "bartlett",
-            "description": "Create a manifest to a PHP Archive (PHAR) for the BOX project (https://github.com/box-project/box)",
-            "licenses": [
-                {
-                    "license": {
-                        "id": "MIT"
-                    }
-                }
-            ],
-            "purl": "pkg:composer/bartlett/box-manifest@3.x-dev%4036c1394"
-        }
+        ]
     },
     "components": [
         {
@@ -183,12 +167,12 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
             "purl": "pkg:composer/composer/xdebug-handler@3.0.3"
         },
         {
-            "bom-ref": "pkg:composer/cyclonedx/cyclonedx-library@v1.6.3",
+            "bom-ref": "pkg:composer/cyclonedx/cyclonedx-library@v2.0.0-RC1",
             "type": "library",
             "name": "cyclonedx-library",
-            "version": "v1.6.3",
+            "version": "v2.0.0-RC1",
             "group": "cyclonedx",
-            "purl": "pkg:composer/cyclonedx/cyclonedx-library@v1.6.3"
+            "purl": "pkg:composer/cyclonedx/cyclonedx-library@v2.0.0-RC1"
         },
         {
             "bom-ref": "pkg:composer/fidry/console@0.5.5",
@@ -255,6 +239,30 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
             "purl": "pkg:composer/nikic/php-parser@v4.15.4"
         },
         {
+            "bom-ref": "pkg:composer/opis/json-schema@2.3.0",
+            "type": "library",
+            "name": "json-schema",
+            "version": "2.3.0",
+            "group": "opis",
+            "purl": "pkg:composer/opis/json-schema@2.3.0"
+        },
+        {
+            "bom-ref": "pkg:composer/opis/string@2.0.1",
+            "type": "library",
+            "name": "string",
+            "version": "2.0.1",
+            "group": "opis",
+            "purl": "pkg:composer/opis/string@2.0.1"
+        },
+        {
+            "bom-ref": "pkg:composer/opis/uri@1.1.0",
+            "type": "library",
+            "name": "uri",
+            "version": "1.1.0",
+            "group": "opis",
+            "purl": "pkg:composer/opis/uri@1.1.0"
+        },
+        {
             "bom-ref": "pkg:composer/package-url/packageurl-php@1.0.5",
             "type": "library",
             "name": "packageurl-php",
@@ -301,14 +309,6 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
             "version": "1.6.2",
             "group": "phpdocumentor",
             "purl": "pkg:composer/phpdocumentor/type-resolver@1.6.2"
-        },
-        {
-            "bom-ref": "pkg:composer/phplang/scope-exit@1.0.0",
-            "type": "library",
-            "name": "scope-exit",
-            "version": "1.0.0",
-            "group": "phplang",
-            "purl": "pkg:composer/phplang/scope-exit@1.0.0"
         },
         {
             "bom-ref": "pkg:composer/psr/container@2.0.2",
@@ -365,22 +365,6 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
             "version": "2.0.1",
             "group": "seld",
             "purl": "pkg:composer/seld/signal-handler@2.0.1"
-        },
-        {
-            "bom-ref": "pkg:composer/swaggest/json-diff@v3.10.4",
-            "type": "library",
-            "name": "json-diff",
-            "version": "v3.10.4",
-            "group": "swaggest",
-            "purl": "pkg:composer/swaggest/json-diff@v3.10.4"
-        },
-        {
-            "bom-ref": "pkg:composer/swaggest/json-schema@v0.12.41",
-            "type": "library",
-            "name": "json-schema",
-            "version": "v0.12.41",
-            "group": "swaggest",
-            "purl": "pkg:composer/swaggest/json-schema@v0.12.41"
         },
         {
             "bom-ref": "pkg:composer/symfony/console@v6.2.7",
@@ -577,7 +561,7 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
             "ref": "pkg:composer/composer/xdebug-handler@3.0.3"
         },
         {
-            "ref": "pkg:composer/cyclonedx/cyclonedx-library@v1.6.3"
+            "ref": "pkg:composer/cyclonedx/cyclonedx-library@v2.0.0-RC1"
         },
         {
             "ref": "pkg:composer/fidry/console@0.5.5"
@@ -604,6 +588,15 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
             "ref": "pkg:composer/nikic/php-parser@v4.15.4"
         },
         {
+            "ref": "pkg:composer/opis/json-schema@2.3.0"
+        },
+        {
+            "ref": "pkg:composer/opis/string@2.0.1"
+        },
+        {
+            "ref": "pkg:composer/opis/uri@1.1.0"
+        },
+        {
             "ref": "pkg:composer/package-url/packageurl-php@1.0.5"
         },
         {
@@ -620,9 +613,6 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
         },
         {
             "ref": "pkg:composer/phpdocumentor/type-resolver@1.6.2"
-        },
-        {
-            "ref": "pkg:composer/phplang/scope-exit@1.0.0"
         },
         {
             "ref": "pkg:composer/psr/container@2.0.2"
@@ -644,12 +634,6 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
         },
         {
             "ref": "pkg:composer/seld/signal-handler@2.0.1"
-        },
-        {
-            "ref": "pkg:composer/swaggest/json-diff@v3.10.4"
-        },
-        {
-            "ref": "pkg:composer/swaggest/json-schema@v0.12.41"
         },
         {
             "ref": "pkg:composer/symfony/console@v6.2.7"
@@ -704,9 +688,6 @@ Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
         },
         {
             "ref": "pkg:composer/webmozart/assert@1.11.0"
-        },
-        {
-            "ref": "pkg:composer/bartlett/box-manifest@3.x-dev%4036c1394"
         }
     ]
 }

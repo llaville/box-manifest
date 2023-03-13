@@ -13,11 +13,11 @@ That will print following results :
 <summary>standard output contents</summary>
 
 ```text
-Box-Manifest version 3.x-dev for Box 4.3.7@e89dfe8
+Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
 
  // Loading the configuration file "/shared/backups/bartlett/box-manifest/box.json.dist".
 
-bartlett/box-manifest: 3.x-dev@36c1394
+bartlett/box-manifest: 3.x-dev@cd74376
 amphp/amp: v2.6.2
 amphp/byte-stream: v1.8.1
 amphp/parallel: v1.4.2
@@ -34,7 +34,7 @@ composer/pcre: 3.1.0
 composer/semver: 3.3.2
 composer/spdx-licenses: 1.5.7
 composer/xdebug-handler: 3.0.3
-cyclonedx/cyclonedx-library: v1.6.3
+cyclonedx/cyclonedx-library: v2.0.0-RC1
 fidry/console: 0.5.5
 humbug/box: 4.3.7
 humbug/php-scoper: 0.18.2
@@ -43,13 +43,15 @@ justinrainbow/json-schema: 5.2.12
 laravel/serializable-closure: v1.3.0
 nikic/iter: v2.2.0
 nikic/php-parser: v4.15.4
+opis/json-schema: 2.3.0
+opis/string: 2.0.1
+opis/uri: 1.1.0
 package-url/packageurl-php: 1.0.5
 paragonie/constant_time_encoding: v2.6.3
 paragonie/pharaoh: v0.6.0
 phpdocumentor/reflection-common: 2.2.0
 phpdocumentor/reflection-docblock: 5.3.0
 phpdocumentor/type-resolver: 1.6.2
-phplang/scope-exit: 1.0.0
 psr/container: 2.0.2
 psr/event-dispatcher: 1.0.0
 psr/log: 3.0.0
@@ -57,8 +59,6 @@ react/promise: v2.9.0
 seld/jsonlint: 1.9.0
 seld/phar-utils: 1.2.1
 seld/signal-handler: 2.0.1
-swaggest/json-diff: v3.10.4
-swaggest/json-schema: v0.12.41
 symfony/console: v6.2.7
 symfony/deprecation-contracts: v3.2.1
 symfony/event-dispatcher-contracts: v3.2.1
