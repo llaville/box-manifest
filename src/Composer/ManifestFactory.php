@@ -48,7 +48,7 @@ final class ManifestFactory
     {
     }
 
-    public function build(string $format, ?string $output, string $sbomSpec): string
+    public function build(string $format, ?string $output, string $sbomSpec): ?string
     {
         return match ($format) {
             'auto' => match ($output) {

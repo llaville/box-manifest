@@ -138,7 +138,7 @@ final class Manifest implements CommandAware, LazyCommand
         $sbomSpec = $io->getOption(self::SBOM_SPEC_OPTION)->asString();
 
         $factory = new ManifestFactory($config, $box, get_box_version());
-        $manifest = $factory->build($format, $output, $sbomSpec);
+        $manifest = $factory->build($format, $output, $sbomSpec) ?? '';
 
         if ($io->isVerbose() || empty($output)) {
             $io->writeln($manifest);
