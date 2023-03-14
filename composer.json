@@ -27,7 +27,8 @@
             "name": "Laurent Laville"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "rc",
+    "prefer-stable": true,
     "config": {
         "sort-packages": true
     },
