@@ -12,8 +12,8 @@ LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.authors="llaville"
 
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
+RUN chmod +x /entrypoint.sh \
+  && cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
 
 # Create a group and user
 RUN addgroup appgroup && adduser appuser -D -G appgroup
@@ -25,8 +25,8 @@ USER appuser
 COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-RUN composer global config minimum-stability dev
-RUN composer global require --no-progress bartlett/box-manifest ^3
+RUN composer global config minimum-stability dev \
+  && composer global require --no-progress bartlett/box-manifest ^3
 
 # Following recommendation at https://docs.github.com/en/actions/creating-actions/dockerfile-support-for-github-actions#workdir
 
