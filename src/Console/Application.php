@@ -20,7 +20,7 @@ use function trim;
  */
 final class Application implements FidryApplication
 {
-    public function __construct(private string $name = 'Box-Manifest', private string $version = '3.x-dev')
+    public function __construct(private string $name = 'Box-Manifest', private string $version = '3.0.0')
     {
     }
 
