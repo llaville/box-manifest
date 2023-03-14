@@ -29,6 +29,9 @@
     ],
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "bin": [
+        "bin/box-manifest"
+    ],
     "config": {
         "sort-packages": true
     },
