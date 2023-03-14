@@ -6,9 +6,16 @@ on:
         branches:
             - 'master'
             - '3.x'
+        tags:
+            - "[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
+    tests:
+        uses: ./.github/workflows/unit-tests.yml
+
     build:
+        needs: tests
+
         runs-on: ubuntu-20.04
 
         steps:
@@ -43,8 +50,29 @@ jobs:
             -
                 name: Build and push Docker images
                 uses: docker/build-push-action@v4
+                if: github.ref_type == 'tag'
                 with:
                     platforms: linux/amd64
                     push: true
                     tags: |
                         ghcr.io/llaville/box-manifest:v3
+                        ghcr.io/llaville/box-manifest:latest
+                    labels: |
+                        org.opencontainers.image.version=${{ github.ref_name }}
+                        org.opencontainers.image.revision=${{ github.sha }}
+                    cache-from: type=gha,scope=${{ github.workflow }}
+                    cache-to: type=gha,scope=${{ github.workflow }},mode=max
+            -
+                name: Build and push Docker images (snapshot)
+                uses: docker/build-push-action@v4
+                if: github.ref_type == 'branch'
+                with:
+                    platforms: linux/amd64
+                    push: true
+                    tags: |
+                        ghcr.io/llaville/box-manifest:snapshot
+                    labels: |
+                        org.opencontainers.image.version=3.x-dev
+                        org.opencontainers.image.revision=${{ github.sha }}
+                    cache-from: type=gha,scope=${{ github.workflow }}
+                    cache-to: type=gha,scope=${{ github.workflow }},mode=max            -
