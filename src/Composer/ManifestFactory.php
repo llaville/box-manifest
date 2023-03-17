@@ -63,7 +63,7 @@ final class ManifestFactory
             },
             'plain' => $this->toText(),
             'ansi' => $this->toHighlight(),
-            'sbom' => $this->toSbom('json', $sbomSpec),
+            'sbom' => $this->toSbom('xml', $sbomSpec),
             default => class_exists($format)
                 ? self::create($format, $this->config, $this->box)
                 : throw new InvalidArgumentException(sprintf('Format "%s" is not supported', $format))

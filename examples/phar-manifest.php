@@ -11,6 +11,7 @@ require_once  dirname(__DIR__) . '/vendor/autoload.php';
 use Bartlett\BoxManifest\Composer\ManifestFactory;
 
 use KevinGH\Box\Box;
+use KevinGH\Box\Configuration\ConfigurationLoader;
 use KevinGH\Box\Console\Php\PhpSettingsHandler;
 use function KevinGH\Box\get_box_version;
 
@@ -35,7 +36,7 @@ $logger = new class extends AbstractLogger {
 
 (new PhpSettingsHandler($logger))->check();
 
-$configLoader = new KevinGH\Box\Configuration\ConfigurationLoader();
+$configLoader = new ConfigurationLoader();
 
 $config = $configLoader->loadFile(__DIR__ . '/app-fixtures/app-fixtures-box.json');
 $box = Box::create($config->getTmpOutputPath());

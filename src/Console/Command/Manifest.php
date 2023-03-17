@@ -8,62 +8,54 @@
 namespace Bartlett\BoxManifest\Console\Command;
 
 use Bartlett\BoxManifest\Composer\ManifestFactory;
+use Bartlett\BoxManifest\Helper\BoxHelper;
 
 use CycloneDX\Core\Spec\Version;
 
-use Fidry\Console\Command\CommandAware;
-use Fidry\Console\Command\CommandAwareness;
-use Fidry\Console\Command\Configuration as CommandConfiguration;
-use Fidry\Console\Command\LazyCommand;
-use Fidry\Console\ExitCode;
 use Fidry\Console\Input\IO;
 
 use KevinGH\Box\Box;
-use KevinGH\Box\Configuration\Configuration;
-use KevinGH\Box\Console\Command\ConfigOption;
-use function KevinGH\Box\check_php_settings;
-use function KevinGH\Box\get_box_version;
 
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\DebugFormatterHelper;
+use Symfony\Component\Console\Helper\Helper;
+use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 
-use stdClass;
 use function array_column;
+use function array_merge;
 use function fclose;
 use function file_exists;
 use function fopen;
 use function implode;
+use function microtime;
+use function realpath;
 use function sprintf;
+use function uniqid;
 
 /**
  * @author Laurent Laville
  * @since Release 3.0.0
  */
-final class Manifest implements CommandAware, LazyCommand
+final class Manifest extends Command
 {
-    use CommandAwareness;
-
-    public const NAME = 'contrib:add-manifest';
+    public const NAME = 'build';
 
     private const HELP = <<<'HELP'
         The <info>%command.name%</info> command will generate a manifest of your application.
         HELP;
-
-    private const NO_CONFIG_OPTION = 'no-config';
 
     private const BOOTSTRAP_OPTION = 'bootstrap';
     private const FORMAT_OPTION = 'format';
     private const SBOM_SPEC_OPTION = 'sbom-spec';
     private const OUTPUT_OPTION = 'output-file';
 
-    public function __construct(private string $header)
+    protected function configure(): void
     {
-    }
-
-    public function getConfiguration(): CommandConfiguration
-    {
-        $arguments = [];
         $options = [
             new InputOption(
                 self::BOOTSTRAP_OPTION,
@@ -91,80 +83,97 @@ final class Manifest implements CommandAware, LazyCommand
                 InputOption::VALUE_REQUIRED,
                 'Write results to file (<comment>default to standard output</comment>)'
             ),
-            new InputOption(
-                self::NO_CONFIG_OPTION,
-                null,
-                InputOption::VALUE_NONE,
-                'Ignore the config file even when one is specified with the --config option',
-            ),
-            ConfigOption::getOptionInput(),
         ];
 
-        return new CommandConfiguration(
-            // The name of the command (the part after "bin/console")
-            static::getName(),
-            // The short description shown while running "php bin/console list"
-            static::getDescription(),
-            // The full command description shown when running the command with
-            // the "--help" option
-            self::HELP,
-            $arguments,
-            $options,
-        );
+        $this->setName(self::NAME)
+            ->setDescription('Creates a manifest of your software components and dependencies.')
+            ->setDefinition(
+                new InputDefinition(
+                    array_merge((new BoxHelper())->getBoxConfigOptions(), $options)
+                )
+            )
+            ->setHelp(self::HELP)
+        ;
     }
 
-    public function execute(IO $io): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        check_php_settings($io);
+        $startTime = microtime(true);
 
-        $io->writeln($this->header);
+        $io = new IO($input, $output);
 
-        if (!empty($bootstrap = $io->getOption(self::BOOTSTRAP_OPTION)->asNullableString()) && file_exists($bootstrap)) {
-            $io->writeln(
-                sprintf('<info>[debug] Bootstrapped file "%s"</info>', $bootstrap),
-                OutputInterface::VERBOSITY_DEBUG,
-            );
-            include $bootstrap;
-        }
+        /** @var BoxHelper $boxHelper */
+        $boxHelper = $this->getHelper(BoxHelper::NAME);
 
-        $config = $io->getOption(self::NO_CONFIG_OPTION)->asBoolean()
-            ? Configuration::create(null, new stdClass())
-            : ConfigOption::getConfig($io, true);
+        $boxHelper->checkPhpSettings($io);
 
-        $box = Box::create($config->getTmpOutputPath());
-
-        $output = $io->getOption(self::OUTPUT_OPTION)->asNullableString();
+        $outputFile = $io->getOption(self::OUTPUT_OPTION)->asNullableString();
         $format = $io->getOption(self::FORMAT_OPTION)->asString();
         $sbomSpec = $io->getOption(self::SBOM_SPEC_OPTION)->asString();
 
-        $factory = new ManifestFactory($config, $box, get_box_version());
-        $manifest = $factory->build($format, $output, $sbomSpec) ?? '';
+        $toFormat = match ($format) {
+            'auto' => 'AUTO detection mode',
+            'plain', 'ansi' => 'TEXT',
+            'sbom' => 'SBom ' . $sbomSpec,
+            default => $format,
+        };
 
-        if ($io->isVerbose() || empty($output)) {
+        /** @var DebugFormatterHelper $debugFormatter */
+        $debugFormatter = $this->getHelper('debug_formatter');
+
+        $pid = uniqid();
+
+        if ($io->isVeryVerbose()) {
+            $io->write(
+                $debugFormatter->start($pid, sprintf('Generating manifest in %s format', $toFormat), 'STARTED')
+            );
+        }
+
+        if (!empty($bootstrap = $io->getOption(self::BOOTSTRAP_OPTION)->asNullableString()) && file_exists($bootstrap)) {
+            if ($io->isVeryVerbose()) {
+                $io->write(
+                    $debugFormatter->progress($pid, sprintf('Bootstrapped file "<info>%s</info>"', $bootstrap), false, 'DEBUG')
+                );
+            }
+            include $bootstrap;
+        }
+
+        $config = $boxHelper->getBoxConfiguration(
+            $io->isVerbose() ? $io : $io->withOutput(new NullOutput()),
+            true,
+            $io->getOption(BoxHelper::NO_CONFIG_OPTION)->asBoolean()
+        );
+
+        $box = Box::create($config->getTmpOutputPath());
+
+        $factory = new ManifestFactory($config, $box, $boxHelper->getBoxVersion());
+        $manifest = $factory->build($format, $outputFile, $sbomSpec) ?? '';
+
+        if (empty($outputFile)) {
             $io->writeln($manifest);
-
-            $io->comment('Writing results to standard output');
+            $message = 'Writing results to standard output';
         } else {
-            $stream = new StreamOutput(fopen($output, 'w'));
+            $stream = new StreamOutput(fopen($outputFile, 'w'));
             if ('ansi' === $format) {
                 $stream->setDecorated(true);
             }
             $stream->write($manifest);
             fclose($stream->getStream());
 
-            $io->comment(sprintf('Writing manifest to file "<comment>%s</comment>"', $output));
+            $message = sprintf('Writing manifest to file "<comment>%s</comment>"', realpath($outputFile));
         }
 
-        return ExitCode::SUCCESS;
-    }
+        if ($io->isVeryVerbose()) {
+            $io->write(
+                $debugFormatter->stop($pid, $message, true, 'RESPONSE')
+            );
+            $io->write(
+                $debugFormatter->stop($pid, 'Process elapsed time ' . Helper::formatTime(microtime(true) - $startTime), true, 'FINISHED')
+            );
+        } elseif ($io->isVerbose()) {
+            $io->comment($message);
+        }
 
-    public static function getName(): string
-    {
-        return self::NAME;
-    }
-
-    public static function getDescription(): string
-    {
-        return 'Creates a manifest of your software components and dependencies.';
+        return Command::SUCCESS;
     }
 }

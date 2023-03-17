@@ -13,10 +13,8 @@ use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Factories\LicenseFactory;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Serialization\Serializer;
-use CycloneDX\Core\Collections\ToolRepository;
 use PackageUrl\PackageUrl;
 
 use function explode;
