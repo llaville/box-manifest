@@ -7,7 +7,7 @@
 [debug] Running /usr/local/bin/php examples/phar-manifest.php
 [debug] Current memory limit: "512MB"
 [debug] Checking BOX_ALLOW_XDEBUG
-[debug] Restarted (73 ms). The Xdebug extension is not loaded
+[debug] Restarted (69 ms). The Xdebug extension is not loaded
 [info] Using composer.json : /shared/backups/bartlett/box-manifest/examples/app-fixtures/composer.json
 [info] Using composer.lock : /shared/backups/bartlett/box-manifest/examples/app-fixtures/composer.lock
 <?xml version="1.0" encoding="UTF-8"?>
@@ -17,7 +17,7 @@
       <tool>
         <vendor><![CDATA[box-project]]></vendor>
         <name><![CDATA[box]]></name>
-        <version><![CDATA[4.3.7@e89dfe8]]></version>
+        <version><![CDATA[4.3.8@5534406]]></version>
       </tool>
     </tools>
   </metadata>

@@ -54,7 +54,7 @@ final class Application extends ManifestApplication
         $boxHelper = $this->getHelperSet()->get(BoxHelper::NAME);
 
         return sprintf(
-            '<comment>%s</comment><info>Box %s</info> version <comment>%s</comment> for Box <comment>%s</comment>',
+            '%s<info>Box %s</info> version <comment>%s</comment> for Box <comment>%s</comment>',
             self::$logo,
             $this->getName(),
             $this->getVersion(),

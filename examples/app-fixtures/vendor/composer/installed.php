@@ -3,7 +3,7 @@
         'name' => 'root/app-fixtures',
         'pretty_version' => '3.x-dev',
         'version' => '3.9999999.9999999.9999999-dev',
-        'reference' => '2e728d08899946a0e4e5ab2fc5507236e12f71a7',
+        'reference' => '966188206a550366b0e3fe30b6722a16d2246bce',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'root/app-fixtures' => array(
             'pretty_version' => '3.x-dev',
             'version' => '3.9999999.9999999.9999999-dev',
-            'reference' => '2e728d08899946a0e4e5ab2fc5507236e12f71a7',
+            'reference' => '966188206a550366b0e3fe30b6722a16d2246bce',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
