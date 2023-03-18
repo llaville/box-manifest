@@ -1,0 +1,2 @@
+root/app-fixtures: 3.x-dev@9661882
+psr/log: 3.0.0

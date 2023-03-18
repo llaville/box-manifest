@@ -5,7 +5,8 @@
     "directories": ["bin", "src", "vendor"],
     "directories-bin": ["../../vendor/humbug/box/res/requirement-checker"],
     "files-bin": [
-        "sbom.xml"
+        "sbom.xml",
+        "manifest.txt"
     ],
     "metadata": "MyCallbacks::manifest",
     "compression": "GZ"
