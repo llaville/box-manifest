@@ -15,7 +15,7 @@ if ($argc > 1 && $argv[1] === '--manifest') {
     foreach ($resources as $resource) {
         $filename = "phar://app-fixtures-alias.phar/{$resource}";
         if (file_exists($filename)) {
-            echo (file_get_contents($filename));
+            echo file_get_contents($filename), PHP_EOL;
             $status = 0;
             break;
         } elseif (count($resources) === 1) {
