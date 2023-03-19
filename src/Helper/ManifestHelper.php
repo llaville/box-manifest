@@ -9,6 +9,7 @@ namespace Bartlett\BoxManifest\Helper;
 
 use Bartlett\BoxManifest\Helper\Manifest as ManifestEnum;
 
+use Bartlett\BoxManifest\StubGenerator;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
@@ -72,6 +73,15 @@ class ManifestHelper extends Helper
         }
 
         return null;
+    }
+
+    /**
+     * @param string|null $template
+     * @param string[]|null $resources
+     */
+    public function getStubGenerator(string $template = null, array $resources = null): object
+    {
+        return new StubGenerator($template, $resources);
     }
 
     public function getName(): string

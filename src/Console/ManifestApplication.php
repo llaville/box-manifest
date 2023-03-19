@@ -23,9 +23,7 @@ class ManifestApplication extends SymfonyApplication
     protected function getDefaultHelperSet(): HelperSet
     {
         $helperSet = parent::getDefaultHelperSet();
-        if (Phar::running()) {
-            $helperSet->set(new ManifestHelper());
-        }
+        $helperSet->set(new ManifestHelper());
         return $helperSet;
     }
 }

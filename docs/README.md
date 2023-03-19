@@ -10,6 +10,7 @@ built with the [BOX](https://github.com/box-project/box) tool.
 - Can generate manifest in a simple key-value pairs plain text format (`key: value`)
 - Can generate manifest in a decorated text format (distinguish direct dependencies requirement and other uses)
 - Can generate manifest in a custom user format
+- Can generate a stub that should be able to display one or all manifests provided by the PHP Archive
 
 ## Table Of Contents
 
