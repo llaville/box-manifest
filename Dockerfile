@@ -28,13 +28,14 @@ COPY composer.json /usr/src/box-manifest/composer.json
 COPY composer.lock /usr/src/box-manifest/composer.lock
 
 # Install dependencies
-RUN composer install  \
-    --working-dir=/usr/src/box-manifest \
-    --prefer-dist  \
-    --no-scripts  \
-    --no-dev  \
-    --no-progress \
-    --no-interaction \
+RUN apk add --no-cache --update git \
+    && composer install  \
+      --working-dir=/usr/src/box-manifest \
+      --prefer-dist  \
+      --no-scripts  \
+      --no-dev  \
+      --no-progress \
+      --no-interaction \
     && ln -sfv /usr/src/box-manifest/bin/box-manifest /usr/local/bin \
     && ln -sfv /usr/src/box-manifest/bin/box-stub /usr/local/bin \
     && ln -sfv /usr/src/box-manifest/bin/box-compile /usr/local/bin
