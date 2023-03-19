@@ -291,7 +291,7 @@ Adding a `--manifest` option that will either :
 - search for the first manifest available in a priority files list
 - show a specific version
 
-Create, for example this custom stub :
+Create, for example this custom stub, either manually or with the `bin/box-stub` command.
 
 ```php
 <?php
