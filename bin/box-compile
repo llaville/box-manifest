@@ -41,7 +41,7 @@ return function (InputInterface $input) {
 
     if ($input->hasOption('bootstrap')) {
         $filename = $input->getOption('bootstrap');
-        if (file_exists($filename)) {
+        if ($filename && file_exists($filename)) {
             include_once $filename;
         }
     }
