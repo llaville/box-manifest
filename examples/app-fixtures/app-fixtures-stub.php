@@ -10,7 +10,7 @@
 Phar::mapPhar('app-fixtures-alias.phar');
 
 if ($argc > 1 && $argv[1] === '--manifest') {
-    $resources = $argc > 2 ? [$argv[2]] : ['manifest.txt', 'manifest.xml', 'sbom.xml', 'sbom.json'];
+    $resources = ($argc > 2 && !str_starts_with($argv[2], '-')) ? [$argv[2]] : ['manifest.txt', 'manifest.xml', 'sbom.xml', 'sbom.json'];
 
     foreach ($resources as $resource) {
         $filename = "phar://app-fixtures-alias.phar/{$resource}";
