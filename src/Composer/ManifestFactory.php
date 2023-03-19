@@ -60,6 +60,7 @@ final class ManifestFactory
                     'xml' => $this->toSbom('xml', $sbomSpec),
                     'json' => $this->toSbom('json', $sbomSpec),
                     '', 'txt' => $this->toText(),
+                    default => throw new InvalidArgumentException('Cannot auto-detect format with such output file')
                 }
             },
             'plain' => $this->toText(),
