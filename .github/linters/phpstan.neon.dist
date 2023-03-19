@@ -2,8 +2,3 @@ parameters:
     level: 6
     paths:
         - ../../src/
-    ignoreErrors:
-        -
-            message: "#^Match expression does not handle remaining value\\: non\\-empty\\-string$#"
-            count: 1
-            path: ../../src/Composer/ManifestFactory.php
