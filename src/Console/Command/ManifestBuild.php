@@ -41,9 +41,9 @@ use function uniqid;
  * @author Laurent Laville
  * @since Release 3.0.0
  */
-final class Manifest extends Command
+final class ManifestBuild extends Command
 {
-    public const NAME = 'build';
+    public const NAME = 'manifest:build';
 
     private const HELP = <<<'HELP'
         The <info>%command.name%</info> command will generate a manifest of your application.

@@ -8,14 +8,14 @@
  */
 
 use Bartlett\BoxManifest\Console\Application;
-use Bartlett\BoxManifest\Console\Command\Manifest;
+use Bartlett\BoxManifest\Console\Command\ManifestBuild;
 
 $_SERVER['APP_SCRIPT_FILENAME'] = __FILE__;
 
 require_once dirname(__DIR__) . '/vendor/autoload_runtime.php';
 
-return function (array $context) {
-    $command = new Manifest();
+return function () {
+    $command = new ManifestBuild();
 
     $app = new Application();
     $app->add($command);
