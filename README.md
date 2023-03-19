@@ -6,7 +6,9 @@ built with the [BOX](https://github.com/box-project/box) tool.
 
 ## Goals
 
-- Add a new command `contrib:add-manifest` to generate any manifest in multiple format (`plain`, `ansi`, `sbom`).
+- Add a new command `manifest:build` (`bin/box-manifest`) to generate any manifest in multiple format (`plain`, `ansi`, `sbom`).
+- Add a new wrapper command `bin/box-compile` around standard BOX compile command (with bootstrapping support: `--boostrap` option).
+- Generate a custom phar stub that will support `--manifest` option at runtime (with new command `manifest:stub` -> `bin/box-stub`).
 - Include such generation as any other file of your project when your compile the PHP Archive via `box compile` command.
 
 **IMPORTANT** :
