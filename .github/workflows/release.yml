@@ -44,9 +44,9 @@ jobs:
             -   # Build the current release with artifacts (php archive)
                 name: Build Release Artifact
                 run: |
-                    ${{ github.workspace }}/bin/box-manifest -c box.json --output-file=sbom.xml
-                    ${{ github.workspace }}/bin/box-manifest -c box.json --output-file=manifest.txt
-                    ${{ github.workspace }}/bin/box-stub -c box.json --output-file=stub.php
+                    ${{ github.workspace }}/bin/box-manifest -c box.json --output-file=manifest-sbom.xml
+                    ${{ github.workspace }}/bin/box-manifest -c box.json --output-file=manifest-manifest.txt
+                    ${{ github.workspace }}/bin/box-stub -c box.json --output-file=manifest-stub.php
                     ${{ github.workspace }}/bin/box-compile -c box.json.dist
 
             -   # Create a new Release (from a tag)

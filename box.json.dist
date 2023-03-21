@@ -1,14 +1,14 @@
 {
     "main": "bin/box-manifest",
     "output": "bin/box-manifest.phar",
-    "stub": "stub.php",
+    "stub": "manifest-stub.php",
     "directories": ["bin", "src", "vendor"],
     "directories-bin": ["vendor/humbug/box/res/requirement-checker"],
     "files-bin": [
         "vendor/humbug/php-scoper/vendor-hotfix/.gitkeep",
         "autoload_phar_runtime.template",
-        "sbom.xml",
-        "manifest.txt"
+        "manifest-sbom.xml",
+        "manifest-manifest.txt"
     ],
     "compression": "GZ",
     "git-version": "git-version"
