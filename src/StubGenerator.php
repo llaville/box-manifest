@@ -28,11 +28,11 @@ class StubGenerator
     private string $stubTemplate;
 
     /**
-     * @param string[]|null $resources
+     * @param string[] $resources
      */
     public function __construct(
         string $templatePath,
-        array $resources = null
+        array $resources
     ) {
         if (!file_exists($templatePath) || !is_readable($templatePath)) {
             throw new InvalidArgumentException(sprintf('Filename "%s" does not exists or is not readable.', $templatePath));
@@ -40,10 +40,6 @@ class StubGenerator
 
         $template = file_get_contents($templatePath);
         $template = ltrim($template, "<?php\n");
-
-        if (null === $resources) {
-            $resources = ['manifest.txt', 'manifest.xml', 'sbom.xml', 'sbom.json'];
-        }
 
         $this->stubTemplate = str_replace(
             '%manifest_files%',

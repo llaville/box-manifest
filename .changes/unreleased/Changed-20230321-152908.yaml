@@ -1,0 +1,4 @@
+kind: Changed
+body: 'box-stub command: manifest files is no more hard coded and may be changed at
+  runtime'
+time: 2023-03-21T15:29:08.181466059Z
