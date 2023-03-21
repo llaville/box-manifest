@@ -43,11 +43,18 @@ final class ManifestStub extends Command
         The <info>%command.name%</info> command will generate a stub of your manifest application.
         HELP;
 
+    private const TEMPLATE_OPTION = 'template';
     private const OUTPUT_OPTION = 'output-file';
 
     protected function configure(): void
     {
         $options = [
+            new InputOption(
+                self::TEMPLATE_OPTION,
+                't',
+                InputOption::VALUE_REQUIRED,
+                'PHP template file to customize the stub'
+            ),
             new InputOption(
                 self::OUTPUT_OPTION,
                 'o',
@@ -90,7 +97,7 @@ final class ManifestStub extends Command
         /** @var ManifestHelper $manifestHelper */
         $manifestHelper = $this->getHelper(ManifestHelper::NAME);
 
-        $stubGenerator = $manifestHelper->getStubGenerator();
+        $stubGenerator = $manifestHelper->getStubGenerator($io->getOption(self::TEMPLATE_OPTION)->asNullableString());
 
         $config = $boxHelper->getBoxConfiguration(
             $io->isVerbose() ? $io : $io->withOutput(new NullOutput()),

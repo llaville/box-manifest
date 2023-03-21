@@ -9,8 +9,14 @@ namespace Bartlett\BoxManifest;
 
 use KevinGH\Box\StubGenerator as BaseStubGenerator;
 
+use InvalidArgumentException;
+use function file_exists;
+use function file_get_contents;
 use function implode;
+use function is_readable;
+use function ltrim;
 use function preg_match;
+use function sprintf;
 use function str_replace;
 
 /**
@@ -21,37 +27,20 @@ class StubGenerator
 {
     private string $stubTemplate;
 
-    private const MANIFEST_STUB_TEMPLATE = <<<'STUB'
-        if ($argc > 1 && $argv[1] === '--manifest') {
-            $resources = ($argc > 2 && !str_starts_with($argv[2], '-')) ? [$argv[2]] : [%manifest_files%];
-
-            foreach ($resources as $resource) {
-                $filename = "phar://%alias%/{$resource}";
-                if (file_exists($filename)) {
-                    echo file_get_contents($filename), PHP_EOL;
-                    $status = 0;
-                    break;
-                } elseif (count($resources) === 1) {
-                    echo sprintf('Manifest "%s" is not available in this PHP Archive.', $resource), PHP_EOL;
-                    $status = 1;
-                    break;
-                }
-            }
-            exit($status);
-        }
-        STUB;
-
     /**
-     * @param string|null $template
      * @param string[]|null $resources
      */
     public function __construct(
-        string $template = null,
+        string $templatePath,
         array $resources = null
     ) {
-        if (null === $template) {
-            $template = self::MANIFEST_STUB_TEMPLATE;
+        if (!file_exists($templatePath) || !is_readable($templatePath)) {
+            throw new InvalidArgumentException(sprintf('Filename "%s" does not exists or is not readable.', $templatePath));
         }
+
+        $template = file_get_contents($templatePath);
+        $template = ltrim($template, "<?php\n");
+
         if (null === $resources) {
             $resources = ['manifest.txt', 'manifest.xml', 'sbom.xml', 'sbom.json'];
         }
@@ -62,6 +51,7 @@ class StubGenerator
             $template
         );
     }
+
     public function generateStub(
         ?string $alias = null,
         ?string $banner = null,

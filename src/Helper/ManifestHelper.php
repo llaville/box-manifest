@@ -8,13 +8,14 @@
 namespace Bartlett\BoxManifest\Helper;
 
 use Bartlett\BoxManifest\Helper\Manifest as ManifestEnum;
-
 use Bartlett\BoxManifest\StubGenerator;
+
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 
 use Phar;
+use function dirname;
 use function file_exists;
 use function file_get_contents;
 use function implode;
@@ -76,12 +77,15 @@ class ManifestHelper extends Helper
     }
 
     /**
-     * @param string|null $template
+     * @param string|null $templatePath
      * @param string[]|null $resources
      */
-    public function getStubGenerator(string $template = null, array $resources = null): object
+    public function getStubGenerator(string $templatePath = null, array $resources = null): object
     {
-        return new StubGenerator($template, $resources);
+        if (null === $templatePath) {
+            $templatePath = dirname(__DIR__, 2) . '/resources/default_stub.template';
+        }
+        return new StubGenerator($templatePath, $resources);
     }
 
     public function getName(): string
