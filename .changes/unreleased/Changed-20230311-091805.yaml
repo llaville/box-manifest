@@ -1,4 +1,0 @@
-kind: Changed
-body: Entrypoint in Dockerfile refer now to single command box-manifest application
-  (bin/box is for standard BOX v4)
-time: 2023-03-11T09:18:05.537386904Z

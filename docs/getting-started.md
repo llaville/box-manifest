@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD013 -->
+<!-- markdownlint-disable MD013 MD028 -->
 # Getting Started
 
 ## Requirements
@@ -6,6 +6,23 @@
 * PHP 8.1 or greater
 * ext-phar
 * PHPUnit 10 or greater (if you want to run unit tests)
+
+## Docker
+
+> v3.x docker images provided run in rootless mode, so you don't have to specify `-u $(id -u ${USER}):$(id -g ${USER})` options.
+
+> Please mount the code directory to `/app` in the container.
+
+Usage examples :
+
+```shell
+docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 box-manifest -c box.json --output-file=manifest-sbom.xml
+docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 box-manifest -c box.json --output-file=manifest-manifest.txt
+docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 box-stub -c box.json --output-file=manifest-stub.php
+docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 box-compile -c box.json.dist
+
+docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 box-manifest --bootstrap tests/fixtures/my-manifest.php --format \\Bartlett\\BoxManifest\\Tests\\fixtures\\ConsoleManifest -v
+```
 
 ## Usage
 

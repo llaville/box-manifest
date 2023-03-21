@@ -4,12 +4,11 @@
 Main goal of this project is to write a manifest in any [PHP Archive (PHAR)](https://www.php.net/phar)
 built with the [BOX](https://github.com/box-project/box) tool.
 
-## Goals
+## Features
 
-- Add a new command `manifest:build` (`bin/box-manifest`) to generate any manifest in multiple format (`plain`, `ansi`, `sbom`).
-- Add a new wrapper command `bin/box-compile` around standard BOX compile command (with bootstrapping support: `--boostrap` option).
-- Generate a custom phar stub that will support `--manifest` option at runtime (with new command `manifest:stub` -> `bin/box-stub`).
-- Include such generation as any other file of your project when your compile the PHP Archive via `box compile` command.
+- Add a new command `box-manifest` to generate any manifest in multiple format (`plain`, `ansi`, `sbom`).
+- Add a new wrapper command `box-compile` around standard BOX compile command (with bootstrapping support: `--boostrap` option).
+- Add a new command `box-stub` to generate a custom phar stub that will support `--manifest` option at runtime.
 
 **IMPORTANT** :
 
