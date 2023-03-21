@@ -1,0 +1,15 @@
+{
+    "main": "bin/box-stub",
+    "output": "bin/box-stub.phar",
+    "stub": "stub-stub.php",
+    "directories": ["bin", "src", "vendor"],
+    "directories-bin": ["vendor/humbug/box/res/requirement-checker"],
+    "files-bin": [
+        "vendor/humbug/php-scoper/vendor-hotfix/.gitkeep",
+        "autoload_phar_runtime.template",
+        "stub-sbom.xml",
+        "stub-manifest.txt"
+    ],
+    "compression": "GZ",
+    "git-version": "git-version"
+}
