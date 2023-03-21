@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD013 -->
+<!-- markdownlint-disable MD013 MD029 MD033 -->
 # Examples
 
 Table Of Contents :
@@ -288,6 +288,7 @@ php -r "var_export((new Phar(getcwd() . '/app-fixtures.phar'))['manifest.txt']->
 
 Of course running CLI commands to verify contents is not so hard, but we may expect a better user experience.
 Adding a `--manifest` option that will either :
+
 - search for the first manifest available in a priority files list
 - show a specific version
 
@@ -389,7 +390,6 @@ You'll get
 ```text
 Manifest "sbom.json" is not available in this PHP Archive.
 ```
-
 
 [metadata-box-setting]: https://github.com/box-project/box/blob/main/doc/configuration.md#metadata-metadata
 [php-callables]: https://www.php.net/manual/en/language.types.callable.php
