@@ -26,6 +26,8 @@ You can install `box-manifest` with [Docker][docker]
 
 ```shell
 docker pull ghcr.io/llaville/box-manifest:v3
+or
+docker pull ghcr.io/llaville/box-manifest:latest
 ```
 
 ## Phive
