@@ -10,6 +10,16 @@
         "stub-sbom.xml",
         "stub-manifest.txt"
     ],
+    "blacklist": [
+        "bin/box-manifest.phar",
+        "bin/box-compile.phar",
+        "fixtures",
+        "tests",
+        "Test",
+        "doc",
+        "dist",
+        "vendor-bin"
+    ],
     "compression": "GZ",
     "git-version": "git-version"
 }

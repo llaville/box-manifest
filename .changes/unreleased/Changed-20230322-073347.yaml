@@ -1,0 +1,3 @@
+kind: Changed
+body: Optimize size of PHAR distributions for box-* commands
+time: 2023-03-22T07:33:47.774180301Z
