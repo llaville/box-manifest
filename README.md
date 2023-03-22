@@ -7,7 +7,7 @@ built with the [BOX](https://github.com/box-project/box) tool.
 ## Features
 
 - Add a new command `box-manifest` to generate any manifest in multiple format (`plain`, `ansi`, `sbom`).
-- Add a new wrapper command `box-compile` around standard BOX compile command (with bootstrapping support: `--boostrap` option).
+- Add a new wrapper command `box-compile` around standard BOX compile command (with bootstrapping support: `--bootstrap` option).
 - Add a new command `box-stub` to generate a custom phar stub that will support `--manifest` option at runtime.
 
 **IMPORTANT** :
