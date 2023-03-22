@@ -4,6 +4,7 @@
 
 if ($argc > 1 && $argv[1] === '--manifest') {
     $resources = ($argc > 2 && !str_starts_with($argv[2], '-')) ? [$argv[2]] : [%manifest_files%];
+    $status = 1;    // default exit code if none manifest found
 
     foreach ($resources as $resource) {
         $filename = "phar://%alias%/{$resource}";
@@ -13,7 +14,7 @@ if ($argc > 1 && $argv[1] === '--manifest') {
             break;
         } elseif (count($resources) === 1) {
             echo sprintf('Manifest "%s" is not available in this PHP Archive.', $resource), PHP_EOL;
-            $status = 1;
+            $status = 2;
             break;
         }
     }
