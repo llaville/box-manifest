@@ -2,7 +2,7 @@
     "main": "bin/box-stub",
     "output": "bin/box-stub.phar",
     "stub": "stub-stub.php",
-    "directories": ["bin", "src", "vendor"],
+    "directories": ["bin", "src", "resources", "vendor"],
     "directories-bin": ["vendor/humbug/box/res/requirement-checker"],
     "files-bin": [
         "vendor/humbug/php-scoper/vendor-hotfix/.gitkeep",
