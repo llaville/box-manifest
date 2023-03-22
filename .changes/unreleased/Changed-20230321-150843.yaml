@@ -1,4 +1,0 @@
-kind: Changed
-body: 'box-stub command: stub code is no more hard coded and may be changed at runtime
-  with --template option'
-time: 2023-03-21T15:08:43.450222331Z
