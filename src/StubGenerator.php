@@ -43,7 +43,7 @@ class StubGenerator
 
         $this->stubTemplate = str_replace(
             '%manifest_files%',
-            "'" . implode("', '", $resources) . "'",
+            implode("', '", $resources),
             $template
         );
     }
