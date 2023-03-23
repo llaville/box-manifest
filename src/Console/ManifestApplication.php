@@ -12,8 +12,6 @@ use Bartlett\BoxManifest\Helper\ManifestHelper;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Helper\HelperSet;
 
-use Phar;
-
 /**
  * @author Laurent Laville
  * @since Release 3.0.0
