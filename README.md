@@ -12,14 +12,14 @@ built with the [BOX](https://github.com/box-project/box) tool.
 
 **IMPORTANT** :
 
-Major version `3.0` will not use anymore the [`cweagans/composer-patches`](https://github.com/cweagans/composer-patches)
+Major version 3 will not use anymore the [`cweagans/composer-patches`](https://github.com/cweagans/composer-patches)
 composer plugin to patch `humbug/box` at install runtime.
 
 ## Version Compatibility
 
 | Version            | Status             | Box Project Compatibility |
 |--------------------|--------------------|---------------------------|
-| `3.0.x`            | Active development | `4.x`                     |
+| `3.0.x` to `3.2.x` | Active development | `4.x`                     |
 | `2.0.x` to `2.3.x` | Active support     | `4.0.x` to `4.2.x`        |
 | `1.0.x` to `1.2.0` | End Of Life        | `3.x`                     |
 
