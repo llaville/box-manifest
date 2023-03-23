@@ -86,7 +86,7 @@ class ManifestHelper extends Helper
             $templatePath = dirname(__DIR__, 2) . '/resources/default_stub.template';
         }
         if (empty($resources)) {
-            $resources = ['manifest.txt', 'manifest.xml', 'sbom.xml', 'sbom.json'];
+            $resources = ManifestEnum::values();
         }
         return new StubGenerator($templatePath, $resources);
     }
