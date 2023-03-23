@@ -7,17 +7,13 @@
  */
 namespace Bartlett\BoxManifest\Console;
 
-use Bartlett\BoxManifest\Helper\Manifest as ManifestEnum;
 use Bartlett\BoxManifest\Helper\BoxHelper;
 use Bartlett\BoxManifest\Helper\ManifestHelper;
 
-use Phar;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use InvalidArgumentException;
 use function sprintf;
 use function str_starts_with;
 
@@ -60,27 +56,6 @@ final class Application extends ManifestApplication
             $this->getVersion(),
             $boxHelper->getBoxVersion()
         );
-    }
-
-    public function doRun(InputInterface $input, OutputInterface $output): int
-    {
-        if (Phar::running() && true === $input->hasParameterOption('--manifest', true)) {
-            $resource = $input->getParameterOption('--manifest', null, true);
-            if (null === $resource) {
-                $resources = ManifestEnum::values();
-            } else {
-                $enum = ManifestEnum::tryFrom($resource);
-                if (null === $enum) {
-                    throw new InvalidArgumentException(sprintf('Manifest "%s" is not provided by this PHP Archive', $resource));
-                }
-                $resources = [$resource];
-            }
-            /** @var ManifestHelper $manifestHelper */
-            $manifestHelper = $this->getHelperSet()->get(ManifestHelper::NAME);
-            $output->writeln($manifestHelper->get($resources) ?? 'No Manifest found.');
-            return Command::SUCCESS;
-        }
-        return parent::doRun($input, $output);
     }
 
     protected function getDefaultHelperSet(): HelperSet

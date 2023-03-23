@@ -7,7 +7,6 @@ $withoutAnsi = array_search('--no-ansi', $argv);
 
 if ($withManifest !== false) {
     $resources = (($argc - 1 > $withManifest) && !str_starts_with($argv[$withManifest + 1], '-')) ? [$argv[$withManifest + 1]] : ['%manifest_files%'];
-    $status = 1;    // default exit code if none manifest found
 
     foreach ($resources as $resource) {
         $filename = "phar://%alias%/{$resource}";
@@ -17,13 +16,12 @@ if ($withManifest !== false) {
                 $manifest = preg_replace('#\\x1b[[][^A-Za-z]*[A-Za-z]#', '', $manifest);
             }
             echo $manifest, PHP_EOL;
-            $status = 0;
-            break;
+            exit(0);
         } elseif (count($resources) === 1) {
             echo sprintf('Manifest "%s" is not available in this PHP Archive.', $resource), PHP_EOL;
-            $status = 2;
-            break;
+            exit(2);
         }
     }
-    exit($status);
+    echo 'No manifest found in this PHP Archive', PHP_EOL;
+    exit(1);
 }
