@@ -45,21 +45,21 @@ jobs:
                 name: Build Release Artifacts -- Manifest
                 run: |
                     ${{ github.workspace }}/bin/box-manifest -c box.json --output-file=manifest-sbom.xml
-                    ${{ github.workspace }}/bin/box-manifest -c box.json --output-file=manifest-manifest.txt
+                    ${{ github.workspace }}/bin/box-manifest -c box.json --output-file=manifest-manifest.txt --format ansi
                     ${{ github.workspace }}/bin/box-stub -c box.json --output-file=manifest-stub.php --resource manifest-manifest.txt --resource manifest.sbom.xml
                     ${{ github.workspace }}/bin/box-compile -c box.json.dist
             -
                 name: Build Release Artifacts -- Stub
                 run: |
                     ${{ github.workspace }}/bin/box-manifest -c box-stub.json --output-file=stub-sbom.xml
-                    ${{ github.workspace }}/bin/box-manifest -c box-stub.json --output-file=stub-manifest.txt
+                    ${{ github.workspace }}/bin/box-manifest -c box-stub.json --output-file=stub-manifest.txt --format ansi
                     ${{ github.workspace }}/bin/box-stub -c box-stub.json --output-file=stub-stub.php --resource stub-manifest.txt --resource stub.sbom.xml
                     ${{ github.workspace }}/bin/box-compile -c box-stub.json.dist
             -
                 name: Build Release Artifacts -- Compile
                 run: |
                     ${{ github.workspace }}/bin/box-manifest -c box-compile.json --output-file=compile-sbom.xml
-                    ${{ github.workspace }}/bin/box-manifest -c box-compile.json --output-file=compile-manifest.txt
+                    ${{ github.workspace }}/bin/box-manifest -c box-compile.json --output-file=compile-manifest.txt --format ansi
                     ${{ github.workspace }}/bin/box-stub -c box-compile.json --output-file=compile-stub.php --resource compile-manifest.txt --resource compile.sbom.xml
                     ${{ github.workspace }}/bin/box-compile -c box-compile.json.dist
 
