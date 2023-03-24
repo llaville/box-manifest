@@ -1,5 +1,6 @@
 {
-    "main": null,
+    "main": "index.php",
+    "alias": "app-fixtures-alias.phar",
     "stub": "app-fixtures-stub.php",
     "output": "app-fixtures.phar",
     "directories": ["bin", "src", "vendor"],
