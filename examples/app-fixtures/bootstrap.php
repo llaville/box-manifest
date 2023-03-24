@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+use Bartlett\BoxManifest\Helper\Manifest as ManifestEnum;
 use Bartlett\BoxManifest\Helper\ManifestHelper;
 
 use Composer\InstalledVersions;
@@ -30,8 +31,11 @@ class MyCallbacks
         return sprintf('%s@%s', $rootPackage['pretty_version'], substr($rootPackage['reference'], 0, 7));
     }
 
-    public static function manifest(array $resources = ['manifest.txt', 'manifest.xml', 'sbom.xml', 'sbom.json']): ?string
+    public static function manifest(array $resources = null): ?string
     {
+        if (empty($resources)) {
+            $resources = ManifestEnum::values();
+        }
         return (new ManifestHelper())->get($resources) ?? self::metadata();
     }
 }
