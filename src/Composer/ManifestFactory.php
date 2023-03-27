@@ -7,11 +7,11 @@
  */
 namespace Bartlett\BoxManifest\Composer;
 
+use Bartlett\BoxManifest\Composer\Manifest\ConsoleTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\DecorateTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SbomManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SimpleTextManifestBuilder;
 
-use Bartlett\BoxManifest\Helper\ManifestHelper;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory as DomNormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory as JsonNormalizerFactory;
 use CycloneDX\Core\Serialization\JsonSerializer;
@@ -21,22 +21,19 @@ use CycloneDX\Core\Spec\Version;
 
 use KevinGH\Box\Box;
 use KevinGH\Box\Configuration\Configuration;
-use function array_column;
 use function KevinGH\Box\FileSystem\make_path_absolute;
 
 use DomainException;
 use InvalidArgumentException;
-use Phar;
 use ValueError;
+use function array_column;
 use function array_key_exists;
 use function class_exists;
 use function file_exists;
-use function file_get_contents;
 use function implode;
 use function is_readable;
 use function is_string;
 use function pathinfo;
-use function realpath;
 use function sprintf;
 use const PATHINFO_EXTENSION;
 
@@ -65,6 +62,7 @@ final class ManifestFactory
             },
             'plain' => $this->toText(),
             'ansi' => $this->toHighlight(),
+            'console' => $this->toConsole(),
             'sbom' => $this->toSbom('xml', $sbomSpec),
             default => class_exists($format)
                 ? self::create($format, $this->config, $this->box)
@@ -134,6 +132,11 @@ final class ManifestFactory
     public function toHighlight(): ?string
     {
         return self::create(new DecorateTextManifestBuilder(), $this->config, $this->box);
+    }
+
+    public function toConsole(): ?string
+    {
+        return self::create(new ConsoleTextManifestBuilder(), $this->config, $this->box);
     }
 
     public function toSbom(string $format, string $specVersion): ?string

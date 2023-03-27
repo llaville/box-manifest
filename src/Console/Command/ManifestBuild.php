@@ -113,7 +113,7 @@ final class ManifestBuild extends Command
 
         $toFormat = match ($format) {
             'auto' => 'AUTO detection mode',
-            'plain', 'ansi' => 'TEXT',
+            'plain', 'ansi', 'console' => 'TEXT',
             'sbom' => 'SBom ' . $sbomSpec,
             default => $format,
         };
