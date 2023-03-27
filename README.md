@@ -6,9 +6,11 @@ built with the [BOX](https://github.com/box-project/box) tool.
 
 ## Features
 
-- Add a new command `box-manifest` to generate any manifest in multiple format (`plain`, `ansi`, `sbom`).
-- Add a new wrapper command `box-compile` around standard BOX compile command (with bootstrapping support: `--bootstrap` option).
-- Add a new command `box-stub` to generate a custom phar stub that will support `--manifest` option at runtime.
+Provides a Symfony Console Application with the binary command `box-manifest` that is able to :
+
+- generate any manifest in multiple format (`plain`, `ansi`, `sbom`) even in a custom format.
+- generate a custom phar stub that will support `--manifest` option at runtime.
+- compile your PHAR with a wrapper around standard BOX compile command (with bootstrapping support: `--bootstrap` option).
 
 **IMPORTANT** :
 
