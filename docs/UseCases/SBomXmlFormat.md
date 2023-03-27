@@ -4,7 +4,7 @@
 Run following command :
 
 ```shell
-bin/box-manifest contrib:add-manifest --output-file sbom.xml -v
+bin/box-manifest manifest:build --format sbom -v
 ```
 
 That will print following results :
@@ -13,9 +13,8 @@ That will print following results :
 <summary>standard output contents</summary>
 
 ```text
-Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
 
- // Loading the configuration file "/shared/backups/bartlett/box-manifest/box.json.dist".
+ // Loading the configuration file "/path/to/box.json".
 
 <?xml version="1.0" encoding="UTF-8"?>
 <bom xmlns="http://cyclonedx.org/schema/bom/1.4" version="1">
@@ -24,7 +23,7 @@ Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
       <tool>
         <vendor><![CDATA[box-project]]></vendor>
         <name><![CDATA[box]]></name>
-        <version><![CDATA[4.3.7@e89dfe8]]></version>
+        <version><![CDATA[4.3.8@5534406]]></version>
       </tool>
     </tools>
   </metadata>
@@ -125,11 +124,11 @@ Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
       <version><![CDATA[3.0.3]]></version>
       <purl><![CDATA[pkg:composer/composer/xdebug-handler@3.0.3]]></purl>
     </component>
-    <component type="library" bom-ref="pkg:composer/cyclonedx/cyclonedx-library@v2.0.0-RC1">
+    <component type="library" bom-ref="pkg:composer/cyclonedx/cyclonedx-library@v2.0.0">
       <group><![CDATA[cyclonedx]]></group>
       <name><![CDATA[cyclonedx-library]]></name>
-      <version><![CDATA[v2.0.0-RC1]]></version>
-      <purl><![CDATA[pkg:composer/cyclonedx/cyclonedx-library@v2.0.0-RC1]]></purl>
+      <version><![CDATA[v2.0.0]]></version>
+      <purl><![CDATA[pkg:composer/cyclonedx/cyclonedx-library@v2.0.0]]></purl>
     </component>
     <component type="library" bom-ref="pkg:composer/fidry/console@0.5.5">
       <group><![CDATA[fidry]]></group>
@@ -137,17 +136,17 @@ Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
       <version><![CDATA[0.5.5]]></version>
       <purl><![CDATA[pkg:composer/fidry/console@0.5.5]]></purl>
     </component>
-    <component type="library" bom-ref="pkg:composer/humbug/box@4.3.7">
+    <component type="library" bom-ref="pkg:composer/humbug/box@4.3.8">
       <group><![CDATA[humbug]]></group>
       <name><![CDATA[box]]></name>
-      <version><![CDATA[4.3.7]]></version>
-      <purl><![CDATA[pkg:composer/humbug/box@4.3.7]]></purl>
+      <version><![CDATA[4.3.8]]></version>
+      <purl><![CDATA[pkg:composer/humbug/box@4.3.8]]></purl>
     </component>
-    <component type="library" bom-ref="pkg:composer/humbug/php-scoper@0.18.2">
+    <component type="library" bom-ref="pkg:composer/humbug/php-scoper@0.18.3">
       <group><![CDATA[humbug]]></group>
       <name><![CDATA[php-scoper]]></name>
-      <version><![CDATA[0.18.2]]></version>
-      <purl><![CDATA[pkg:composer/humbug/php-scoper@0.18.2]]></purl>
+      <version><![CDATA[0.18.3]]></version>
+      <purl><![CDATA[pkg:composer/humbug/php-scoper@0.18.3]]></purl>
     </component>
     <component type="library" bom-ref="pkg:composer/jetbrains/phpstorm-stubs@v2022.3">
       <group><![CDATA[jetbrains]]></group>
@@ -197,23 +196,17 @@ Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
       <version><![CDATA[1.1.0]]></version>
       <purl><![CDATA[pkg:composer/opis/uri@1.1.0]]></purl>
     </component>
-    <component type="library" bom-ref="pkg:composer/package-url/packageurl-php@1.0.5">
+    <component type="library" bom-ref="pkg:composer/package-url/packageurl-php@1.0.6">
       <group><![CDATA[package-url]]></group>
       <name><![CDATA[packageurl-php]]></name>
-      <version><![CDATA[1.0.5]]></version>
-      <purl><![CDATA[pkg:composer/package-url/packageurl-php@1.0.5]]></purl>
+      <version><![CDATA[1.0.6]]></version>
+      <purl><![CDATA[pkg:composer/package-url/packageurl-php@1.0.6]]></purl>
     </component>
     <component type="library" bom-ref="pkg:composer/paragonie/constant_time_encoding@v2.6.3">
       <group><![CDATA[paragonie]]></group>
       <name><![CDATA[constant_time_encoding]]></name>
       <version><![CDATA[v2.6.3]]></version>
       <purl><![CDATA[pkg:composer/paragonie/constant_time_encoding@v2.6.3]]></purl>
-    </component>
-    <component type="library" bom-ref="pkg:composer/paragonie/pharaoh@v0.6.0">
-      <group><![CDATA[paragonie]]></group>
-      <name><![CDATA[pharaoh]]></name>
-      <version><![CDATA[v0.6.0]]></version>
-      <purl><![CDATA[pkg:composer/paragonie/pharaoh@v0.6.0]]></purl>
     </component>
     <component type="library" bom-ref="pkg:composer/phpdocumentor/reflection-common@2.2.0">
       <group><![CDATA[phpdocumentor]]></group>
@@ -341,6 +334,12 @@ Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
       <version><![CDATA[v6.2.7]]></version>
       <purl><![CDATA[pkg:composer/symfony/process@v6.2.7]]></purl>
     </component>
+    <component type="application" bom-ref="pkg:composer/symfony/runtime@v6.2.7">
+      <group><![CDATA[symfony]]></group>
+      <name><![CDATA[runtime]]></name>
+      <version><![CDATA[v6.2.7]]></version>
+      <purl><![CDATA[pkg:composer/symfony/runtime@v6.2.7]]></purl>
+    </component>
     <component type="library" bom-ref="pkg:composer/symfony/serializer@v6.2.7">
       <group><![CDATA[symfony]]></group>
       <name><![CDATA[serializer]]></name>
@@ -371,12 +370,6 @@ Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
       <version><![CDATA[v2.4.0]]></version>
       <purl><![CDATA[pkg:composer/thecodingmachine/safe@v2.4.0]]></purl>
     </component>
-    <component type="library" bom-ref="pkg:composer/ulrichsg/getopt-php@v3.4.0">
-      <group><![CDATA[ulrichsg]]></group>
-      <name><![CDATA[getopt-php]]></name>
-      <version><![CDATA[v3.4.0]]></version>
-      <purl><![CDATA[pkg:composer/ulrichsg/getopt-php@v3.4.0]]></purl>
-    </component>
     <component type="library" bom-ref="pkg:composer/webmozart/assert@1.11.0">
       <group><![CDATA[webmozart]]></group>
       <name><![CDATA[assert]]></name>
@@ -401,10 +394,10 @@ Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
     <dependency ref="pkg:composer/composer/semver@3.3.2"/>
     <dependency ref="pkg:composer/composer/spdx-licenses@1.5.7"/>
     <dependency ref="pkg:composer/composer/xdebug-handler@3.0.3"/>
-    <dependency ref="pkg:composer/cyclonedx/cyclonedx-library@v2.0.0-RC1"/>
+    <dependency ref="pkg:composer/cyclonedx/cyclonedx-library@v2.0.0"/>
     <dependency ref="pkg:composer/fidry/console@0.5.5"/>
-    <dependency ref="pkg:composer/humbug/box@4.3.7"/>
-    <dependency ref="pkg:composer/humbug/php-scoper@0.18.2"/>
+    <dependency ref="pkg:composer/humbug/box@4.3.8"/>
+    <dependency ref="pkg:composer/humbug/php-scoper@0.18.3"/>
     <dependency ref="pkg:composer/jetbrains/phpstorm-stubs@v2022.3"/>
     <dependency ref="pkg:composer/justinrainbow/json-schema@5.2.12"/>
     <dependency ref="pkg:composer/laravel/serializable-closure@v1.3.0"/>
@@ -413,9 +406,8 @@ Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
     <dependency ref="pkg:composer/opis/json-schema@2.3.0"/>
     <dependency ref="pkg:composer/opis/string@2.0.1"/>
     <dependency ref="pkg:composer/opis/uri@1.1.0"/>
-    <dependency ref="pkg:composer/package-url/packageurl-php@1.0.5"/>
+    <dependency ref="pkg:composer/package-url/packageurl-php@1.0.6"/>
     <dependency ref="pkg:composer/paragonie/constant_time_encoding@v2.6.3"/>
-    <dependency ref="pkg:composer/paragonie/pharaoh@v0.6.0"/>
     <dependency ref="pkg:composer/phpdocumentor/reflection-common@2.2.0"/>
     <dependency ref="pkg:composer/phpdocumentor/reflection-docblock@5.3.0"/>
     <dependency ref="pkg:composer/phpdocumentor/type-resolver@1.6.2"/>
@@ -437,17 +429,39 @@ Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
     <dependency ref="pkg:composer/symfony/polyfill-mbstring@v1.27.0"/>
     <dependency ref="pkg:composer/symfony/polyfill-php73@v1.27.0"/>
     <dependency ref="pkg:composer/symfony/process@v6.2.7"/>
+    <dependency ref="pkg:composer/symfony/runtime@v6.2.7"/>
     <dependency ref="pkg:composer/symfony/serializer@v6.2.7"/>
     <dependency ref="pkg:composer/symfony/service-contracts@v3.2.1"/>
     <dependency ref="pkg:composer/symfony/string@v6.2.7"/>
     <dependency ref="pkg:composer/symfony/var-dumper@v6.2.7"/>
     <dependency ref="pkg:composer/thecodingmachine/safe@v2.4.0"/>
-    <dependency ref="pkg:composer/ulrichsg/getopt-php@v3.4.0"/>
     <dependency ref="pkg:composer/webmozart/assert@1.11.0"/>
   </dependencies>
 </bom>
 
  // Writing results to standard output
+
 ```
+
+</details>
+
+Or even
+
+```shell
+bin/box-manifest manifest:build --output-file sbom.xml -v
+```
+
+That will print following results :
+
+<details>
+<summary>standard output contents</summary>
+
+```text
+
+ // Loading the configuration file "/path/to/box.json".
+
+ // Writing manifest to file "/path/to/sbom.xml"
+
+ ```
 
 </details>

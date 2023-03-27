@@ -4,7 +4,7 @@
 Run following command :
 
 ```shell
-bin/box-manifest contrib:add-manifest --format plain
+bin/box-manifest manifest:build --format plain -v
 ```
 
 That will print following results :
@@ -13,9 +13,8 @@ That will print following results :
 <summary>standard output contents</summary>
 
 ```text
-Box-Manifest version 3.0.0 for Box 4.3.7@e89dfe8
 
- // Loading the configuration file "/shared/backups/bartlett/box-manifest/box.json.dist".
+ // Loading the configuration file "/path/to/box.json".
 
 bartlett/box-manifest: 3.x-dev@cd74376
 amphp/amp: v2.6.2
@@ -79,6 +78,28 @@ ulrichsg/getopt-php: v3.4.0
 webmozart/assert: 1.11.0
 
  // Writing results to standard output
+
+```
+
+</details>
+
+Or even
+
+```shell
+bin/box-manifest manifest:build --output-file manifest.txt -v
+```
+
+That will print following results :
+
+<details>
+<summary>standard output contents</summary>
+
+```text
+
+// Loading the configuration file "/path/to/box.json".
+
+// Writing manifest to file "/path/to/manifest.txt"
+
 ```
 
 </details>

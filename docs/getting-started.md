@@ -16,12 +16,12 @@
 Usage examples :
 
 ```shell
-docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 manifest:build -c box.json --output-file=manifest-sbom.xml
-docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 manifest:build -c box.json --output-file=manifest-manifest.txt
-docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 manifest:stub -c box.json --output-file=manifest-stub.php
-docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 box:compile -c box.json.dist
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:build -c box.json --output-file=sbom.xml
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:build -c box.json --output-file=manifest.txt
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:stub -c box.json --output-file=stub.php
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 box:compile -c box.json.dist
 
-docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 manifest:build --bootstrap tests/fixtures/my-manifest.php --format \\Bartlett\\BoxManifest\\Tests\\fixtures\\ConsoleManifest -v
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:build --bootstrap tests/fixtures/my-manifest.php --format \\Bartlett\\BoxManifest\\Tests\\fixtures\\ConsoleManifest -v
 ```
 
 ## Usage
@@ -34,7 +34,7 @@ docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/b
  | |  | | (_| | | | | |  _|  __/\__ \ |_
  |_|  |_|\__,_|_| |_|_|_|  \___||___/\__|
 
-Box Manifest version 3.x-dev for Box 4.3.8@5534406
+Box Manifest version 3.2.0 for Box 4.3.8@5534406
 
 Usage:
   command [options] [arguments]
@@ -210,7 +210,7 @@ E.g: See also the [tutorial](./Tutorial/README.md) to learn more.
 }
 ```
 
-**NOTE** if none of files (`manifest.txt`, `manifest.xml`, `sbom.xml`, `sbom.json`) are found, when you execute `box:compile` command,
+**NOTE** if none of manifest files (default: `manifest.txt`, `manifest.xml`, `sbom.xml`, `sbom.json`) are found, when you execute `box:compile` command,
 then metadata field of your PHAR will contain NULL value (default BOX behavior).
 
 [metadata-directive]: https://github.com/box-project/box/blob/main/doc/configuration.md#metadata-metadata
