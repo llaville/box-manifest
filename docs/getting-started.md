@@ -16,21 +16,55 @@
 Usage examples :
 
 ```shell
-docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 box-manifest -c box.json --output-file=manifest-sbom.xml
-docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 box-manifest -c box.json --output-file=manifest-manifest.txt
-docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 box-stub -c box.json --output-file=manifest-stub.php
-docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 box-compile -c box.json.dist
+docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 manifest:build -c box.json --output-file=manifest-sbom.xml
+docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 manifest:build -c box.json --output-file=manifest-manifest.txt
+docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 manifest:stub -c box.json --output-file=manifest-stub.php
+docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 box:compile -c box.json.dist
 
-docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 box-manifest --bootstrap tests/fixtures/my-manifest.php --format \\Bartlett\\BoxManifest\\Tests\\fixtures\\ConsoleManifest -v
+docker run --rm -it -v $(pwd):/app -w /app -e APP_DEBUG=false ghcr.io/llaville/box-manifest:v3 manifest:build --bootstrap tests/fixtures/my-manifest.php --format \\Bartlett\\BoxManifest\\Tests\\fixtures\\ConsoleManifest -v
 ```
 
 ## Usage
 
-There are three binaries commands :
+```text
 
-### Binary `box-manifest`
+  __  __             _  __           _
+ |  \/  | __ _ _ __ (_)/ _| ___  ___| |_
+ | |\/| |/ _` | '_ \| | |_ / _ \/ __| __|
+ | |  | | (_| | | | | |  _|  __/\__ \ |_
+ |_|  |_|\__,_|_| |_|_|_|  \___||___/\__|
 
-(Symfony `manifest:build` command) to build your application's manifest.
+Box Manifest version 3.x-dev for Box 4.3.8@5534406
+
+Usage:
+  command [options] [arguments]
+
+Options:
+  -h, --help            Display help for the given command. When no command is given display help for the list command
+  -q, --quiet           Do not output any message
+  -V, --version         Display this application version
+      --ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction  Do not ask any interactive question
+  -e, --env=ENV         The Environment name. [default: "dev"]
+      --no-debug        Switches off debug mode.
+  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Available commands:
+  completion      Dump the shell completion script
+  help            Display help for a command
+  list            List commands
+ box
+  box:compile     🔨  Compiles an application into a PHAR
+ manifest
+  manifest:build  Creates a manifest of your software components and dependencies.
+  manifest:stub   Generates a stub for your manifest application.
+```
+
+This Symfony Console application combines two native commands, and one other inherited from BOX Application.
+
+### Symfony `manifest:build` command
+
+To build your application's manifest file(s).
 
 ```text
 Description:
@@ -72,9 +106,9 @@ The `--no-config` option must be specified if you don't want to use BOX default 
 
 Once generated with the `--output-file` option, the manifest may be included as any other files you want to add into your PHP Archive.
 
-### Binary `box-stub`
+### Symfony `manifest:stub` command
 
-(Symfony `manifest:stub` command) to build the stub that will support `--manifest` option, to display its contents at runtime.
+To build the stub that will support `--manifest` option, to display its contents at runtime.
 
 ```text
 Description:
@@ -108,16 +142,16 @@ that are not found in current working directory.
 
 The `--no-config` option must be specified if you don't want to use BOX default configuration files (`box.json.dist` or `box.json`)
 
-### Binary `box-compile`
+### Symfony `box:compile` command
 
-(Box `compile` command with `--bootstrap` option) to compile your PHAR application.
+This is just the BOX compile command, with additional `--bootstrap` option, to compile your PHAR application.
 
 ```text
 Description:
   🔨  Compiles an application into a PHAR
 
 Usage:
-  compile [options]
+  box:compile [options]
 
 Options:
       --debug                         Dump the files added to the PHAR in a `.box_dump` directory
@@ -141,7 +175,7 @@ Options:
   -v|vv|vvv, --verbose                Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 
 Help:
-  The compile command will compile code in a new PHAR based on a variety of settings.
+  The box:compile command will compile code in a new PHAR based on a variety of settings.
 
     This command relies on a configuration file for loading
     PHAR packaging settings. If a configuration file is not
@@ -168,7 +202,7 @@ The `--no-config` option must be specified if you don't want to use BOX default 
 Like in previous versions  (1.x and 2.x), if you want to keep the manifest included in the metadata field of your PHAR,
 then you must configure [`metadata`][metadata-directive] directive with a [PHP callable][php-callables].
 
-E.g: See also the [tutorial](../examples/README.md) to learn more.
+E.g: See also the [tutorial](./Tutorial/README.md) to learn more.
 
 ```json
 {
@@ -176,7 +210,7 @@ E.g: See also the [tutorial](../examples/README.md) to learn more.
 }
 ```
 
-**NOTE** if none of files (`manifest.txt`, `manifest.xml`, `sbom.xml`, `sbom.json`) are found, when you execute `box-compile` command,
+**NOTE** if none of files (`manifest.txt`, `manifest.xml`, `sbom.xml`, `sbom.json`) are found, when you execute `box:compile` command,
 then metadata field of your PHAR will contain NULL value (default BOX behavior).
 
 [metadata-directive]: https://github.com/box-project/box/blob/main/doc/configuration.md#metadata-metadata

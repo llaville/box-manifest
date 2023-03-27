@@ -8,18 +8,27 @@
  */
 
 use Bartlett\BoxManifest\Console\Application;
+use Bartlett\BoxManifest\Console\Command\BoxCompile;
 use Bartlett\BoxManifest\Console\Command\ManifestBuild;
+use Bartlett\BoxManifest\Console\Command\ManifestStub;
+
+use KevinGH\Box\Console\Application as BoxApplication;
+use KevinGH\Box\Console\Command\Compile;
 
 $_SERVER['APP_SCRIPT_FILENAME'] = __FILE__;
 
 require_once dirname(__DIR__) . '/vendor/autoload_runtime.php';
 
 return function () {
-    $command = new ManifestBuild();
+    $boxApp = new BoxApplication();
+    $boxCommand = new Compile($boxApp->getHeader());
 
     $app = new Application();
-    $app->add($command);
-    $app->setDefaultCommand($command->getName(), true);
+    // native BOX Manifest commands
+    $app->add(new ManifestBuild());
+    $app->add(new ManifestStub());
+    // inherits from BOX application
+    $app->add(new BoxCompile($boxCommand));
 
     return $app;
 };

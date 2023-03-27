@@ -67,11 +67,10 @@ final class Application extends ManifestApplication
 
     protected function configureIO(InputInterface $input, OutputInterface $output): void
     {
-        if ($this->getHelperSet()->has(ManifestHelper::NAME)) {
-            /** @var ManifestHelper $manifestHelper */
-            $manifestHelper = $this->getHelperSet()->get(ManifestHelper::NAME);
-            $manifestHelper->configureOption($this->getDefinition());
-        }
+        /** @var ManifestHelper $manifestHelper */
+        $manifestHelper = $this->getHelperSet()->get(ManifestHelper::NAME);
+        $manifestHelper->configureOption($this->getDefinition());
+
         parent::configureIO($input, $output);
     }
 }
