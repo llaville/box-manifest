@@ -17,7 +17,7 @@ built with the [BOX](https://github.com/box-project/box) tool.
 1. [How to install the tool](./installation.md)
 1. [Getting Started Guide](./getting-started.md)
 1. [Learn more with different Use Cases](./UseCases/README.md)
-1. [Leran more with the tutorial](../examples/README.md)
+1. [Learn more with the tutorial](./Tutorial/README.md)
 1. [How to contribute](./contributing.md)
 
 [cyclonedx]: https://github.com/CycloneDX
