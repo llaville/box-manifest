@@ -15,6 +15,7 @@ use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Serialization\Serializer;
+use CycloneDX\Core\Utils\BomUtility;
 use PackageUrl\PackageUrl;
 
 use function explode;
@@ -59,6 +60,7 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
         }
 
         $bom = new Bom();
+        $bom->setSerialNumber(BomUtility::randomSerialNumber());
 
         [$group, $name] = explode('/', $rootPackage['name']);
 
