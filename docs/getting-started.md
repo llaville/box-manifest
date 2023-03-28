@@ -55,12 +55,14 @@ Available commands:
   list            List commands
  box
   box:compile     🔨  Compiles an application into a PHAR
+  box:info        🔍  Displays information about the PHAR extension or file
+  box:validate    ⚙  Validates the configuration file
  manifest
   manifest:build  Creates a manifest of your software components and dependencies.
   manifest:stub   Generates a stub for your manifest application.
 ```
 
-This Symfony Console application combines two native commands, and one other inherited from BOX Application.
+This Symfony Console application combines two native commands, and three others inherited from BOX Application.
 
 ### Symfony `manifest:build` command
 
@@ -196,6 +198,83 @@ The `--config` option can be used to specify path to alternate version of a `box
 that are not found in current working directory.
 
 The `--no-config` option must be specified if you don't want to use BOX default configuration files (`box.json.dist` or `box.json`)
+
+### Symfony `box:info` command
+
+This is just a wrapper around the BOX info command.
+
+```text
+Description:
+  🔍  Displays information about the PHAR extension or file
+
+Usage:
+  box:info [options] [--] [<phar>]
+
+Arguments:
+  phar                  The Phar file.
+
+Options:
+  -l, --list            List the contents of the Phar?
+  -m, --mode=MODE       The listing mode. Modes available: "indent", "flat" [default: "indent"]
+  -d, --depth=DEPTH     The depth of the tree displayed [default: "-1"]
+  -h, --help            Display help for the given command. When no command is given display help for the list command
+  -q, --quiet           Do not output any message
+  -V, --version         Display this application version
+      --ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction  Do not ask any interactive question
+  -e, --env=ENV         The Environment name. [default: "dev"]
+      --no-debug        Switches off debug mode.
+  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Help:
+  The box:info command will display information about the Phar extension,
+  or the Phar file if specified.
+
+  If the phar argument (the PHAR file path) is provided, information
+  about the PHAR file itself will be displayed.
+
+  If the --list|-l option is used, the contents of the PHAR file will
+  be listed. By default, the list is shown as an indented tree. You may
+  instead choose to view a flat listing, by setting the --mode|-m option
+  to flat.
+```
+
+### Symfony `box:validate` command
+
+This is just a wrapper around the BOX validate command.
+
+```text
+Description:
+  ⚙  Validates the configuration file
+
+Usage:
+  box:validate [options] [--] [<file>]
+
+Arguments:
+  file                                       The configuration file. (default: box.json, box.json.dist)
+
+Options:
+  -i, --ignore-recommendations-and-warnings  Will not return a faulty code when a recommendation or warning is found
+  -h, --help                                 Display help for the given command. When no command is given display help for the list command
+  -q, --quiet                                Do not output any message
+  -V, --version                              Display this application version
+      --ansi|--no-ansi                       Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction                       Do not ask any interactive question
+  -e, --env=ENV                              The Environment name. [default: "dev"]
+      --no-debug                             Switches off debug mode.
+  -v|vv|vvv, --verbose                       Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Help:
+  The box:validate command will validate the configuration file
+  and report any errors found, if any.
+
+    This command relies on a configuration file for loading
+    PHAR packaging settings. If a configuration file is not
+    specified through the --configuration|-c option, one of
+    the following files will be used (in order): box.json,
+    box.json.dist
+
+```
 
 ### Define the manifest in the `metadata` field of your PHP Archive
 
