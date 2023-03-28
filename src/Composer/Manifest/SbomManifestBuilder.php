@@ -18,6 +18,7 @@ use CycloneDX\Core\Serialization\Serializer;
 use CycloneDX\Core\Utils\BomUtility;
 use PackageUrl\PackageUrl;
 
+use DateTime;
 use function explode;
 use function sprintf;
 use function substr;
@@ -94,6 +95,7 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
         $boxTool->setName('box');
         $boxTool->setVersion($this->boxVersion);
         $bom->getMetadata()->getTools()->addItems($boxTool);
+        $bom->getMetadata()->setTimestamp(new DateTime());
 
         // components
         $componentRepository = $bom->getComponents();
