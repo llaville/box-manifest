@@ -51,7 +51,8 @@ final class ManifestFactory
     {
         return match ($format) {
             'auto' => match ($output) {
-                null, 'manifest.txt' => $this->toText(),
+                null => $this->toConsole(),
+                'manifest.txt' => $this->toText(),
                 'sbom.xml' => $this->toSbom('xml', $sbomSpec),
                 'sbom.json' => $this->toSbom('json', $sbomSpec),
                 default => match (pathinfo($output, PATHINFO_EXTENSION)) {
