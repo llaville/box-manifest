@@ -36,9 +36,7 @@ RUN apk add --no-cache --update git \
       --no-dev  \
       --no-progress \
       --no-interaction \
-    && ln -sfv /usr/src/box-manifest/bin/box-manifest /usr/local/bin \
-    && ln -sfv /usr/src/box-manifest/bin/box-stub /usr/local/bin \
-    && ln -sfv /usr/src/box-manifest/bin/box-compile /usr/local/bin
+    && ln -sfv /usr/src/box-manifest/bin/box-manifest /usr/local/bin
 
 # Create a group and user
 RUN addgroup appgroup && adduser appuser -D -G appgroup
