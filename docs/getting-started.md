@@ -16,12 +16,12 @@
 Usage examples :
 
 ```shell
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:build -c box.json --output-file=sbom.xml
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:build -c box.json --output-file=manifest.txt
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:stub -c box.json --output-file=stub.php
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 box:compile -c box.json.dist
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 box-manifest manifest:build -c box.json --output-file=sbom.xml
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 box-manifest manifest:build -c box.json --output-file=manifest.txt
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 box-manifest manifest:stub -c box.json --output-file=stub.php
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 box-manifest box:compile -c box.json.dist
 
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:build --bootstrap tests/fixtures/my-manifest.php --format \\Bartlett\\BoxManifest\\Tests\\fixtures\\ConsoleManifest -v
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 box-manifest manifest:build --bootstrap tests/fixtures/my-manifest.php --format \\Bartlett\\BoxManifest\\Tests\\fixtures\\ConsoleManifest -v
 ```
 
 ## Usage
