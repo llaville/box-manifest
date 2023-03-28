@@ -146,7 +146,7 @@ final class ManifestBuild extends Command
 
         $box = Box::create($config->getTmpOutputPath());
 
-        $factory = new ManifestFactory($config, $box, $boxHelper->getBoxVersion());
+        $factory = new ManifestFactory($config, $box, $boxHelper->getBoxVersion(), $output->isDecorated());
         $manifest = $factory->build($format, $outputFile, $sbomSpec) ?? '';
 
         if (empty($outputFile)) {

@@ -9,11 +9,11 @@
 require_once  dirname(__DIR__) . '/vendor/autoload.php';
 
 use Bartlett\BoxManifest\Composer\ManifestFactory;
+use Bartlett\BoxManifest\Helper\BoxHelper;
 
 use KevinGH\Box\Box;
 use KevinGH\Box\Configuration\ConfigurationLoader;
 use KevinGH\Box\Console\Php\PhpSettingsHandler;
-use function KevinGH\Box\get_box_version;
 
 use Psr\Log\AbstractLogger;
 
@@ -41,7 +41,7 @@ $configLoader = new ConfigurationLoader();
 $config = $configLoader->loadFile(__DIR__ . '/app-fixtures/app-fixtures-box.json');
 $box = Box::create($config->getTmpOutputPath());
 
-$factory = new ManifestFactory($config, $box, get_box_version());
+$factory = new ManifestFactory($config, $box, (new BoxHelper())->getBoxVersion(), true);
 
 try {
     // 1.

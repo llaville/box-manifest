@@ -69,7 +69,7 @@ final class ManifestFactoryTest extends TestCase
         $raw->{$main} = false;
         $config = Configuration::create($configFilePath, $raw);
 
-        $manifest = ManifestFactory::create(SimpleTextManifestBuilder::class, $config, $this->box);
+        $manifest = ManifestFactory::create(SimpleTextManifestBuilder::class, $config, $this->box, true);
         $this->assertIsString($manifest);
 
         $dependencies = explode(PHP_EOL, $manifest);
@@ -90,7 +90,7 @@ final class ManifestFactoryTest extends TestCase
         $raw->{$main} = false;
         $config = Configuration::create($configFilePath, $raw);
 
-        $manifest = ManifestFactory::create(SimpleTextManifestBuilder::class, $config, $this->box);
+        $manifest = ManifestFactory::create(SimpleTextManifestBuilder::class, $config, $this->box, true);
         $this->assertNull($manifest);
     }
 
@@ -107,7 +107,7 @@ final class ManifestFactoryTest extends TestCase
         $raw->{$main} = false;
         $config = Configuration::create($configFilePath, $raw);
 
-        $manifest = ManifestFactory::create(SimpleTextManifestBuilder::class, $config, $this->box);
+        $manifest = ManifestFactory::create(SimpleTextManifestBuilder::class, $config, $this->box, true);
         $this->assertIsString($manifest);
 
         $dependencies = explode(PHP_EOL, $manifest);
@@ -127,7 +127,7 @@ final class ManifestFactoryTest extends TestCase
         $raw->{$main} = false;
         $config = Configuration::create($configFilePath, $raw);
 
-        $manifest = ManifestFactory::create(DecorateTextManifestBuilder::class, $config, $this->box);
+        $manifest = ManifestFactory::create(DecorateTextManifestBuilder::class, $config, $this->box, true);
         $this->assertIsString($manifest);
 
         $dependencies = explode(PHP_EOL, $manifest);
