@@ -6,9 +6,17 @@
     "files-bin": [
         "vendor/humbug/php-scoper/vendor-hotfix/.gitkeep",
         "autoload_phar_runtime.template",
-        "sbom.xml",
-        "manifest.txt"
+        "console.txt",
+        "manifest.txt",
+        "sbom.xml"
     ],
+    "metadata": {
+        "manifests": [
+            "console.txt",
+            "manifest.txt",
+            "sbom.xml"
+        ]
+    },
     "blacklist": [
         "fixtures",
         "tests",
