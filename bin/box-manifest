@@ -9,11 +9,15 @@
 
 use Bartlett\BoxManifest\Console\Application;
 use Bartlett\BoxManifest\Console\Command\BoxCompile;
+use Bartlett\BoxManifest\Console\Command\BoxInfo;
+use Bartlett\BoxManifest\Console\Command\BoxValidate;
 use Bartlett\BoxManifest\Console\Command\ManifestBuild;
 use Bartlett\BoxManifest\Console\Command\ManifestStub;
 
 use KevinGH\Box\Console\Application as BoxApplication;
 use KevinGH\Box\Console\Command\Compile;
+use KevinGH\Box\Console\Command\Info;
+use KevinGH\Box\Console\Command\Validate;
 
 $_SERVER['APP_SCRIPT_FILENAME'] = __FILE__;
 
@@ -29,6 +33,8 @@ return function () {
     $app->add(new ManifestStub());
     // inherits from BOX application
     $app->add(new BoxCompile($boxCommand));
+    $app->add(new BoxInfo(new Info()));
+    $app->add(new BoxValidate(new Validate()));
 
     return $app;
 };
