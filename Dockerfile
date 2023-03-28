@@ -23,6 +23,7 @@ ENV COMPOSER_PREFER_STABLE 1
 # Copy codebase
 COPY bin /usr/src/box-manifest/bin
 COPY src /usr/src/box-manifest/src
+COPY resources /usr/src/box-manifest/resources
 COPY autoload_phar_runtime.template /usr/src/box-manifest/autoload_phar_runtime.template
 COPY composer.json /usr/src/box-manifest/composer.json
 COPY composer.lock /usr/src/box-manifest/composer.lock
