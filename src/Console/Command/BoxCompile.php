@@ -83,7 +83,17 @@ final class BoxCompile extends Command
         );
 
         $io = new IO($input, $output);
+        $noDebug = $io->getOption('no-debug')->asBoolean();
 
-        return $this->boxCommand->execute($io);
+        if ($output->isDebug() && $noDebug) {
+            // Symfony Runtime Component introduces the `--no-debug` option
+            // But native BOX compile command did not support yet (4.3.8) this component
+            $newOutput = clone $output;
+            $newOutput->setVerbosity(OutputInterface::VERBOSITY_VERY_VERBOSE);
+        } else {
+            $newOutput = $output;
+        }
+
+        return $this->boxCommand->execute($io->withOutput($newOutput));
     }
 }
