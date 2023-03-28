@@ -66,7 +66,7 @@ final class ManifestFactory
             'console' => $this->toConsole(),
             'sbom' => $this->toSbom('xml', $sbomSpec),
             default => class_exists($format)
-                ? self::create($format, $this->config, $this->box)
+                ? self::create($format, $this->config, $this->box, $this->isDecorated)
                 : throw new InvalidArgumentException(sprintf('Format "%s" is not supported', $format))
         };
     }
