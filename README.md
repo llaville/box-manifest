@@ -11,6 +11,8 @@ Provides a Symfony Console Application with the binary command `box-manifest` th
 - generate any manifest in multiple format (`plain`, `ansi`, `sbom`) even in a custom format.
 - generate a custom phar stub that will support `--manifest` option at runtime.
 - compile your PHAR with a wrapper around standard BOX compile command (with bootstrapping support: `--bootstrap` option).
+- display information about the PHAR extension or file.
+- validate the BOX configuration file.
 
 **IMPORTANT** :
 
