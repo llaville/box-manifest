@@ -42,26 +42,13 @@ jobs:
                     composer-options: "--prefer-dist"
 
             -   # Build the current release with artifacts (php archive)
-                name: Build Release Artifacts -- Manifest
+                name: Build Release Artifact
                 run: |
-                    ${{ github.workspace }}/bin/box-manifest -c box.json --output-file=manifest-sbom.xml
-                    ${{ github.workspace }}/bin/box-manifest -c box.json --output-file=manifest-manifest.txt --format ansi
-                    ${{ github.workspace }}/bin/box-stub -c box.json --output-file=manifest-stub.php --resource manifest-manifest.txt --resource manifest-sbom.xml
-                    ${{ github.workspace }}/bin/box-compile -c box.json.dist
-            -
-                name: Build Release Artifacts -- Stub
-                run: |
-                    ${{ github.workspace }}/bin/box-manifest -c box-stub.json --output-file=stub-sbom.xml
-                    ${{ github.workspace }}/bin/box-manifest -c box-stub.json --output-file=stub-manifest.txt --format ansi
-                    ${{ github.workspace }}/bin/box-stub -c box-stub.json --output-file=stub-stub.php --resource stub-manifest.txt --resource stub-sbom.xml
-                    ${{ github.workspace }}/bin/box-compile -c box-stub.json.dist
-            -
-                name: Build Release Artifacts -- Compile
-                run: |
-                    ${{ github.workspace }}/bin/box-manifest -c box-compile.json --output-file=compile-sbom.xml
-                    ${{ github.workspace }}/bin/box-manifest -c box-compile.json --output-file=compile-manifest.txt --format ansi
-                    ${{ github.workspace }}/bin/box-stub -c box-compile.json --output-file=compile-stub.php --resource compile-manifest.txt --resource compile-sbom.xml
-                    ${{ github.workspace }}/bin/box-compile -c box-compile.json.dist
+                    bin/box-manifest manifest:build -c box.json --output-file=sbom.xml
+                    bin/box-manifest manifest:build -c box.json --output-file=manifest.txt --format ansi
+                    bin/box-manifest manifest:build -c box.json --output-file=console.txt --format console
+                    bin/box-manifest manifest:stub  -c box.json --output-file=stub.php --resource console.txt --resource manifest.txt --resource sbom.xml
+                    bin/box-manifest box:compile -c box.json.dist
 
             -   # Create a new Release (from a tag)
                 name: Create Release from current tag
@@ -74,7 +61,5 @@ jobs:
                     # https://github.com/softprops/action-gh-release#%EF%B8%8F-uploading-release-assets
                     files: |
                         ${{ github.workspace }}/bin/box-manifest.phar
-                        ${{ github.workspace }}/bin/box-stub.phar
-                        ${{ github.workspace }}/bin/box-compile.phar
                     fail_on_unmatched_files: true
                     tag_name: ${{ github.ref_name }}
