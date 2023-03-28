@@ -101,11 +101,14 @@ final class ManifestBuild extends Command
         $startTime = microtime(true);
 
         $io = new IO($input, $output);
+        $noDebug = $io->getOption('no-debug')->asBoolean();
 
         /** @var BoxHelper $boxHelper */
         $boxHelper = $this->getHelper(BoxHelper::NAME);
 
-        $boxHelper->checkPhpSettings($io);
+        if (!$noDebug) {
+            $boxHelper->checkPhpSettings($io);
+        }
 
         $outputFile = $io->getOption(self::OUTPUT_OPTION)->asNullableString();
         $format = $io->getOption(self::FORMAT_OPTION)->asString();
@@ -123,7 +126,7 @@ final class ManifestBuild extends Command
 
         $pid = uniqid();
 
-        if ($io->isVeryVerbose()) {
+        if ($io->isVeryVerbose() && !$noDebug) {
             $io->write(
                 $debugFormatter->start($pid, sprintf('Generating manifest in %s format', $toFormat), 'STARTED')
             );
@@ -163,7 +166,7 @@ final class ManifestBuild extends Command
             $message = sprintf('Writing manifest to file "<comment>%s</comment>"', realpath($outputFile));
         }
 
-        if ($io->isVeryVerbose()) {
+        if ($io->isVeryVerbose() && !$noDebug) {
             $io->write(
                 $debugFormatter->stop($pid, $message, true, 'RESPONSE')
             );
