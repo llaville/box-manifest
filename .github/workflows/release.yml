@@ -44,11 +44,11 @@ jobs:
             -   # Build the current release with artifacts (php archive)
                 name: Build Release Artifact
                 run: |
-                    bin/box-manifest manifest:build -c box.json --output-file=sbom.xml
-                    bin/box-manifest manifest:build -c box.json --output-file=manifest.txt --format ansi
-                    bin/box-manifest manifest:build -c box.json --output-file=console.txt --format console
-                    bin/box-manifest manifest:stub  -c box.json --output-file=stub.php --resource console.txt --resource manifest.txt --resource sbom.xml
-                    bin/box-manifest box:compile -c box.json.dist
+                    bin/box-manifest manifest:build --ansi -vv -c box.json --output-file=sbom.xml
+                    bin/box-manifest manifest:build --ansi -vv -c box.json --output-file=manifest.txt --format ansi
+                    bin/box-manifest manifest:build --ansi -vv -c box.json --output-file=console.txt --format console
+                    bin/box-manifest manifest:stub  --ansi -vv -c box.json --output-file=stub.php --resource console.txt --resource manifest.txt --resource sbom.xml
+                    bin/box-manifest box:compile    --ansi -vv -c box.json.dist
 
             -   # Create a new Release (from a tag)
                 name: Create Release from current tag
