@@ -24,15 +24,15 @@ use function str_starts_with;
 final class Application extends ManifestApplication
 {
     /**
-     * @link http://patorjk.com/software/taag/#p=display&f=Standard&t=Manifest
+     * @link http://patorjk.com/software/taag/#p=display&f=Slant&t=Box%20Manifest
      * editorconfig-checker-disable
      */
     private static string $logo = "
-  __  __             _  __           _
- |  \/  | __ _ _ __ (_)/ _| ___  ___| |_
- | |\/| |/ _` | '_ \| | |_ / _ \/ __| __|
- | |  | | (_| | | | | |  _|  __/\__ \ |_
- |_|  |_|\__,_|_| |_|_|_|  \___||___/\__|
+    ____                __  ___            _ ____          __
+   / __ )____  _  __   /  |/  /___ _____  (_) __/__  _____/ /_
+  / __  / __ \| |/_/  / /|_/ / __ `/ __ \/ / /_/ _ \/ ___/ __/
+ / /_/ / /_/ />  <   / /  / / /_/ / / / / / __/  __(__  ) /_
+/_____/\____/_/|_|  /_/  /_/\__,_/_/ /_/_/_/  \___/____/\__/
 
 ";
 
