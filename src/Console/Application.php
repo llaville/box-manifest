@@ -50,12 +50,16 @@ final class Application extends ManifestApplication
         $boxHelper = $this->getHelperSet()->get(BoxHelper::NAME);
 
         return sprintf(
-            '%s<info>Box %s</info> version <comment>%s</comment> for Box <comment>%s</comment>',
-            self::$logo,
+            '<info>Box %s</info> version <comment>%s</comment> for Box <comment>%s</comment>',
             $this->getName(),
             $this->getVersion(),
             $boxHelper->getBoxVersion()
         );
+    }
+
+    public function getHelp(): string
+    {
+        return self::$logo . $this->getLongVersion();
     }
 
     protected function getDefaultHelperSet(): HelperSet
