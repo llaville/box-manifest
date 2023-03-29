@@ -43,7 +43,7 @@ use const PATHINFO_EXTENSION;
  */
 final class ManifestFactory
 {
-    public function __construct(private Configuration $config, private Box $box, private string $boxVersion, private bool $isDecorated)
+    public function __construct(private Configuration $config, private Box $box, private string $boxVersion, private bool $isDecorated, private string $boxManifestVersion)
     {
     }
 
@@ -169,6 +169,6 @@ final class ManifestFactory
             'json' => new JsonSerializer(new JsonNormalizerFactory($spec)),
             default => throw new DomainException(sprintf('Format "%s" is not supported.', $format)),
         };
-        return self::create(new SbomManifestBuilder($serializer, $this->boxVersion), $this->config, $this->box, $this->isDecorated);
+        return self::create(new SbomManifestBuilder($serializer, $this->boxVersion, $this->boxManifestVersion), $this->config, $this->box, $this->isDecorated);
     }
 }

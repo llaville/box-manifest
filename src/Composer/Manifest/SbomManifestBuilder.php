@@ -31,11 +31,13 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
 {
     protected Serializer $serializer;
     protected string $boxVersion;
+    protected string $boxManifestVersion;
 
-    public function __construct(Serializer $serializer, string $boxVersion)
+    public function __construct(Serializer $serializer, string $boxVersion, string $boxManifestVersion)
     {
         $this->serializer = $serializer;
         $this->boxVersion = $boxVersion;
+        $this->boxManifestVersion = $boxManifestVersion;
     }
 
     public function __invoke(array $content): string
@@ -94,7 +96,13 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
         $boxTool->setVendor('box-project');
         $boxTool->setName('box');
         $boxTool->setVersion($this->boxVersion);
-        $bom->getMetadata()->getTools()->addItems($boxTool);
+
+        $boxManifestTool = new Tool();
+        $boxManifestTool->setVendor('bartlett');
+        $boxManifestTool->setName('box-manifest');
+        $boxManifestTool->setVersion($this->boxManifestVersion);
+
+        $bom->getMetadata()->getTools()->addItems($boxTool, $boxManifestTool);
         $bom->getMetadata()->setTimestamp(new DateTime());
 
         // components

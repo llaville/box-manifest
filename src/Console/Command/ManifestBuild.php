@@ -10,6 +10,7 @@ namespace Bartlett\BoxManifest\Console\Command;
 use Bartlett\BoxManifest\Composer\ManifestFactory;
 use Bartlett\BoxManifest\Helper\BoxHelper;
 
+use Bartlett\BoxManifest\Helper\ManifestHelper;
 use CycloneDX\Core\Spec\Version;
 
 use Fidry\Console\Input\IO;
@@ -149,7 +150,7 @@ final class ManifestBuild extends Command
 
         $box = Box::create($config->getTmpOutputPath());
 
-        $factory = new ManifestFactory($config, $box, $boxHelper->getBoxVersion(), $output->isDecorated());
+        $factory = new ManifestFactory($config, $box, $boxHelper->getBoxVersion(), $output->isDecorated(), $this->getApplication()->getVersion());
         $manifest = $factory->build($format, $outputFile, $sbomSpec) ?? '';
 
         if (empty($outputFile)) {
