@@ -20,6 +20,7 @@ use function file_exists;
 use function file_get_contents;
 use function implode;
 use function realpath;
+use function str_starts_with;
 
 /**
  * @author Laurent Laville
@@ -79,11 +80,22 @@ class ManifestHelper extends Helper
     /**
      * @param string|null $templatePath
      * @param string[]|null $resources
+     * @param string[][]|null $mapFiles
      */
-    public function getStubGenerator(string $templatePath = null, array $resources = null): object
+    public function getStubGenerator(string $templatePath = null, array $resources = null, array $mapFiles = null): object
     {
         if (null === $templatePath) {
             $templatePath = dirname(__DIR__, 2) . '/resources/default_stub.template';
+        }
+        if (!empty($mapFiles) && empty($resources)) {
+            $resources = [];
+            foreach ($mapFiles as $mapFile) {
+                foreach ($mapFile as $target) {
+                    if (str_starts_with($target, 'manifests-bin/')) {
+                        $resources[] = $target;
+                    }
+                }
+            }
         }
         if (empty($resources)) {
             $resources = ManifestEnum::values();

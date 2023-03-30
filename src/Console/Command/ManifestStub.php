@@ -105,15 +105,16 @@ final class ManifestStub extends Command
         /** @var ManifestHelper $manifestHelper */
         $manifestHelper = $this->getHelper(ManifestHelper::NAME);
 
-        $stubGenerator = $manifestHelper->getStubGenerator(
-            $io->getOption(self::TEMPLATE_OPTION)->asNullableString(),
-            $io->getOption(self::RESOURCE_OPTION)->asNonEmptyStringList()
-        );
-
         $config = $boxHelper->getBoxConfiguration(
             $io->isVerbose() ? $io : $io->withOutput(new NullOutput()),
             true,
             $io->getOption(BoxHelper::NO_CONFIG_OPTION)->asBoolean()
+        );
+
+        $stubGenerator = $manifestHelper->getStubGenerator(
+            $io->getOption(self::TEMPLATE_OPTION)->asNullableString(),
+            $io->getOption(self::RESOURCE_OPTION)->asNonEmptyStringList(),
+            $config->getFileMapper()->getMap()
         );
 
         $configPath = $config->getConfigurationFile();
