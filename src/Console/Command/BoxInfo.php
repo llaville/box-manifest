@@ -7,6 +7,7 @@
  */
 namespace Bartlett\BoxManifest\Console\Command;
 
+use Bartlett\BoxManifest\Helper\BoxHelper;
 use Fidry\Console\Input\IO;
 
 use KevinGH\Box\Console\Command\Info;
@@ -39,6 +40,21 @@ final class BoxInfo extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new IO($input, $output);
+        $noDebug = $io->getOption('no-debug')->asBoolean();
+
+        if ($output->isDebug() && $noDebug) {
+            // Symfony Runtime Component introduces the `--no-debug` option
+            // But native BOX info command did not support yet (4.3.8) this component
+            $newOutput = clone $output;
+            $newOutput->setVerbosity(OutputInterface::VERBOSITY_VERY_VERBOSE);
+        } else {
+            $newOutput = $output;
+        }
+
+        /** @var BoxHelper $boxHelper */
+        $boxHelper = $this->getHelper(BoxHelper::NAME);
+
+        $boxHelper->checkPhpSettings($io->withOutput($newOutput));
 
         $pharFile = $io->getArgument('phar')->asNullableString();
 
@@ -55,7 +71,7 @@ final class BoxInfo extends Command
             $tmpFile = false;
         }
 
-        $status = $this->boxCommand->execute($io);
+        $status = $this->boxCommand->execute($io->withOutput($newOutput));
 
         if (Command::SUCCESS === $status && $tmpFile) {
             $this->renderManifests($manifests, $io);    // @phpstan-ignore-line
