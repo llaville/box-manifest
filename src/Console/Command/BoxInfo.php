@@ -64,7 +64,6 @@ final class BoxInfo extends Command
             $phar = $pharInfo->getPhar();
             $metadata = $phar->getMetadata();
             $manifests = $metadata['manifests'] ?? [];
-            unset($metadata['manifests']);
             $phar->setMetadata($metadata['metadata-box-settings'] ?? null);
             $input->setArgument('phar', $tmpFile);
         } else {
