@@ -1,5 +1,4 @@
 {
-    "main": "bin/box-manifest",
     "stub": "stub.php",
     "directories": ["bin", "src", "vendor"],
     "directories-bin": [
@@ -11,15 +10,16 @@
         "autoload_phar_runtime.template",
         "console.txt",
         "manifest.txt",
+        "sbom.json",
         "sbom.xml"
     ],
-    "metadata": {
-        "manifests": [
-            "console.txt",
-            "manifest.txt",
-            "sbom.xml"
-        ]
-    },
+    "metadata": "native BOX metadata setting : see https://box-project.github.io/box/configuration/#metadata-metadata",
+    "map": [
+        { "console.txt": "manifests-bin/console.txt" },
+        { "manifest.txt": "manifests-bin/manifest.txt" },
+        { "sbom.xml": "manifests-bin/sbom.xml" },
+        { "sbom.json": "manifests-bin/sbom.json" }
+    ],
     "blacklist": [
         "fixtures",
         "tests",

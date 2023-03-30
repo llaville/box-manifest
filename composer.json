@@ -31,8 +31,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "bin": [
-        "bin/box-compile",
-        "bin/box-stub",
         "bin/box-manifest"
     ],
     "config": {

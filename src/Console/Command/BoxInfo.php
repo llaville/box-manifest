@@ -7,9 +7,18 @@
  */
 namespace Bartlett\BoxManifest\Console\Command;
 
+use Fidry\Console\Input\IO;
+
 use KevinGH\Box\Console\Command\Info;
+use KevinGH\Box\PharInfo\PharInfo;
+use function KevinGH\Box\create_temporary_phar;
+use function KevinGH\Box\FileSystem\remove;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+use function sprintf;
 
 /**
  * @author Laurent Laville
@@ -25,5 +34,56 @@ final class BoxInfo extends Command
     {
         $this->boxCommand = $boxCommand;
         parent::__construct(self::NAME);
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $io = new IO($input, $output);
+
+        $pharFile = $io->getArgument('phar')->asNullableString();
+
+        if ($pharFile) {
+            $tmpFile = create_temporary_phar($pharFile);
+            $pharInfo = new PharInfo($tmpFile);
+            $phar = $pharInfo->getPhar();
+            $metadata = $phar->getMetadata();
+            $manifests = $metadata['manifests'] ?? [];
+            unset($metadata['manifests']);
+            $phar->setMetadata($metadata['metadata-box-settings'] ?? null);
+            $input->setArgument('phar', $tmpFile);
+        } else {
+            $tmpFile = false;
+        }
+
+        $status = $this->boxCommand->execute($io);
+
+        if (Command::SUCCESS === $status && $tmpFile) {
+            $this->renderManifests($manifests, $io);    // @phpstan-ignore-line
+        }
+
+        if ($pharFile) {
+            remove($tmpFile);
+        }
+
+        return $status;
+    }
+
+    /**
+     * @param array<string, string[]> $manifests
+     */
+    private function renderManifests(array $manifests, IO $io): void
+    {
+        if (empty($manifests)) {
+            $io->writeln('<comment>Manifests:</comment> None');
+        } else {
+            $io->writeln('<comment>Manifests:</comment>');
+        }
+
+        foreach ($manifests as $filename => $meta) {
+            $io->writeln(sprintf('- <info>%s</info>', $filename));
+            foreach ($meta as $key => $value) {
+                $io->writeln(sprintf('  > <comment>%s</comment> : %s', $key, $value));
+            }
+        }
     }
 }

@@ -7,19 +7,31 @@
  */
 namespace Bartlett\BoxManifest\Console\Command;
 
+use Bartlett\BoxManifest\Helper\BoxHelper;
+
 use Fidry\Console\Input\IO;
 
 use KevinGH\Box\Console\Command\Compile;
+use KevinGH\Box\Console\Logger\CompilerLogger;
+use KevinGH\Box\PharInfo\PharInfo;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use DirectoryIterator;
+use PharFileInfo;
 use function array_merge;
 use function file_exists;
+use function file_get_contents;
+use function is_string;
+use function json_encode;
+use function mime_content_type;
+use const JSON_UNESCAPED_SLASHES;
 
 /**
  * @author Laurent Laville
@@ -94,6 +106,76 @@ final class BoxCompile extends Command
             $newOutput = $output;
         }
 
-        return $this->boxCommand->execute($io->withOutput($newOutput));
+        $status = $this->boxCommand->execute($io->withOutput($newOutput));
+
+        if (Command::SUCCESS === $status) {
+            $this->updateMetadata($io);
+        }
+        return $status;
+    }
+
+    private function updateMetadata(IO $io): void
+    {
+        /** @var BoxHelper $boxHelper */
+        $boxHelper = $this->getHelper(BoxHelper::NAME);
+
+        $config = $boxHelper->getBoxConfiguration(
+            $io->isVerbose() ? $io : $io->withOutput(new NullOutput()),
+            true,
+            $io->getOption(BoxHelper::NO_CONFIG_OPTION)->asBoolean()
+        );
+
+        $pharInfo = new PharInfo($config->getOutputPath());
+        $phar = $pharInfo->getPhar();
+        $meta = $phar->hasMetadata() ? ['metadata-box-settings' => $phar->getMetadata()] : [];
+
+        $manifests = [];
+        $manifestDirectory = 'manifests-bin';
+        if (isset($phar[$manifestDirectory])) {
+            foreach (new DirectoryIterator($phar[$manifestDirectory]->getPathname()) as $manifestFileInfo) {
+                /** @var PharFileInfo $manifestFileInfo */
+                $mimeType = mime_content_type($manifestFileInfo->getFilename());
+                $manifests[$manifestFileInfo->getFilename()] = [
+                    'mime_type' => is_string($mimeType) ? $mimeType : 'application/octet-stream',
+                    'format' => $this->autoDetectFormat(file_get_contents($manifestFileInfo->getFilename())),
+                ];
+            }
+            $meta['manifests'] = $manifests;
+
+            $logger = new CompilerLogger($io);
+            $logger->log(
+                CompilerLogger::QUESTION_MARK_PREFIX,
+                'Compiling PHAR Post-actions',
+            );
+            $logger->log(
+                CompilerLogger::MINUS_PREFIX,
+                'Updating metadata with manifests',
+            );
+
+            foreach ($meta['manifests'] as $key => $value) {
+                $io->writeln(
+                    '    <comment>+</comment> ' .
+                    sprintf(
+                        '"<info>%s</info>": %s',
+                        $key,
+                        json_encode($value, JSON_UNESCAPED_SLASHES),
+                    ),
+                );
+            }
+
+            $phar->setMetadata($meta);
+        }
+    }
+
+    private function autoDetectFormat(string $contents): string
+    {
+        $matches = [];
+        if (preg_match('/.*<bom xmlns="http:\/\/cyclonedx\.org\/schema\/bom\/(\d*\.\d*)".*/smi', $contents, $matches)) {
+            return 'CycloneDX v' . $matches[1] . ' XML';
+        } elseif (preg_match('/.*"\$schema": "http:\/\/cyclonedx\.org\/schema\//smi', $contents, $matches)) {
+            $array = json_decode($contents, true);
+            return 'CycloneDX v' . $array['specVersion'] . ' JSON';
+        }
+        return '';
     }
 }
