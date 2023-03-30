@@ -31,6 +31,7 @@ use function file_get_contents;
 use function is_string;
 use function json_encode;
 use function mime_content_type;
+use function str_replace;
 use const JSON_UNESCAPED_SLASHES;
 
 /**
@@ -127,6 +128,7 @@ final class BoxCompile extends Command
 
         $pharInfo = new PharInfo($config->getOutputPath());
         $phar = $pharInfo->getPhar();
+        $root = $pharInfo->getRoot();
         $meta = $phar->hasMetadata() ? ['metadata-box-settings' => $phar->getMetadata()] : [];
 
         $manifests = [];
@@ -134,8 +136,9 @@ final class BoxCompile extends Command
         if (isset($phar[$manifestDirectory])) {
             foreach (new DirectoryIterator($phar[$manifestDirectory]->getPathname()) as $manifestFileInfo) {
                 /** @var PharFileInfo $manifestFileInfo */
+                $filename = str_replace($root, '', $manifestFileInfo->getPathname());
                 $mimeType = mime_content_type($manifestFileInfo->getFilename());
-                $manifests[$manifestFileInfo->getFilename()] = [
+                $manifests[$filename] = [
                     'mime_type' => is_string($mimeType) ? $mimeType : 'application/octet-stream',
                     'format' => $this->autoDetectFormat(file_get_contents($manifestFileInfo->getFilename())),
                 ];
