@@ -12,8 +12,6 @@ use Fidry\Console\Input\IO;
 
 use KevinGH\Box\Console\Command\Info;
 use KevinGH\Box\PharInfo\PharInfo;
-use function KevinGH\Box\create_temporary_phar;
-use function KevinGH\Box\FileSystem\remove;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -59,7 +57,7 @@ final class BoxInfo extends Command
         $pharFile = $io->getArgument('phar')->asNullableString();
 
         if ($pharFile) {
-            $tmpFile = create_temporary_phar($pharFile);
+            $tmpFile = $boxHelper->createTemporaryPhar($pharFile);
             $pharInfo = new PharInfo($tmpFile);
             $phar = $pharInfo->getPhar();
             $metadata = $phar->getMetadata();
@@ -77,7 +75,7 @@ final class BoxInfo extends Command
         }
 
         if ($pharFile) {
-            remove($tmpFile);
+            $boxHelper->removeTemporaryFile($tmpFile);
         }
 
         return $status;
