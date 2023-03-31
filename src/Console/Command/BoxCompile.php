@@ -29,10 +29,14 @@ use function array_merge;
 use function file_exists;
 use function file_get_contents;
 use function is_string;
-use function json_encode;
+use function json_decode;
 use function mime_content_type;
-use function str_replace;
-use const JSON_UNESCAPED_SLASHES;
+use function serialize;
+use function simplexml_load_string;
+use function sprintf;
+use function str_contains;
+use function str_starts_with;
+use const LIBXML_NOCDATA;
 
 /**
  * @author Laurent Laville
@@ -128,56 +132,64 @@ final class BoxCompile extends Command
 
         $pharInfo = new PharInfo($config->getOutputPath());
         $phar = $pharInfo->getPhar();
-        $root = $pharInfo->getRoot();
-        $meta = $phar->hasMetadata() ? ['metadata-box-settings' => $phar->getMetadata()] : [];
+        $manifestDirectory = '.box.manifests';
+        $metaFile =  $manifestDirectory . '/.manifests.bin';
+
+        if (!isset($phar[$manifestDirectory])) {
+            return;
+        }
 
         $manifests = [];
-        $manifestDirectory = 'manifests-bin';
-        if (isset($phar[$manifestDirectory])) {
-            foreach (new DirectoryIterator($phar[$manifestDirectory]->getPathname()) as $manifestFileInfo) {
-                /** @var PharFileInfo $manifestFileInfo */
-                $filename = str_replace($root, '', $manifestFileInfo->getPathname());
-                $mimeType = mime_content_type($manifestFileInfo->getFilename());
-                $manifests[$filename] = [
-                    'mime_type' => is_string($mimeType) ? $mimeType : 'application/octet-stream',
-                    'format' => $this->autoDetectFormat(file_get_contents($manifestFileInfo->getFilename())),
-                ];
-            }
-            $meta['manifests'] = $manifests;
+        foreach (new DirectoryIterator($phar[$manifestDirectory]->getPathname()) as $manifestFileInfo) {
+            /** @var PharFileInfo $manifestFileInfo */
+            $mimeType = mime_content_type($manifestFileInfo->getFilename());
+            $manifests[$manifestFileInfo->getFilename()] = [
+                'mime_type' => is_string($mimeType) ? $mimeType : 'application/octet-stream',
+                'format' => $this->autoDetectFormat(file_get_contents($manifestFileInfo->getFilename())),
+            ];
+        }
+        $phar[$metaFile] = serialize($manifests);
 
-            $logger = new CompilerLogger($io);
-            $logger->log(
-                CompilerLogger::QUESTION_MARK_PREFIX,
-                'Compiling PHAR Post-actions',
-            );
+        $logger = new CompilerLogger($io);
+        $logger->log(
+            CompilerLogger::QUESTION_MARK_PREFIX,
+            'Setting manifests',
+        );
+
+        foreach ($manifests as $key => $value) {
             $logger->log(
                 CompilerLogger::MINUS_PREFIX,
-                'Updating metadata with manifests',
+                "$key <info>></info> {$value['mime_type']} : {$value['format']}",
             );
-
-            foreach ($meta['manifests'] as $key => $value) {
-                $io->writeln(
-                    '    <comment>+</comment> ' .
-                    sprintf(
-                        '"<info>%s</info>": %s',
-                        $key,
-                        json_encode($value, JSON_UNESCAPED_SLASHES),
-                    ),
-                );
-            }
-
-            $phar->setMetadata($meta);
         }
     }
 
     private function autoDetectFormat(string $contents): string
     {
-        $matches = [];
-        if (preg_match('/.*<bom xmlns="http:\/\/cyclonedx\.org\/schema\/bom\/(\d*\.\d*)".*/smi', $contents, $matches)) {
-            return 'CycloneDX v' . $matches[1] . ' XML';
-        } elseif (preg_match('/.*"\$schema": "http:\/\/cyclonedx\.org\/schema\//smi', $contents, $matches)) {
+        $properties = [];
+        $metadataProperties = [];
+
+        if (str_starts_with($contents, '<?xml')) {
+            // XML format
+            $bom = simplexml_load_string($contents, null, LIBXML_NOCDATA);
+            if (isset($bom->metadata->properties)) {
+                $metadataProperties = $bom->metadata->properties->property;
+            }
+        }
+
+        if (str_contains($contents, '$schema')) {
+            // JSON format
             $array = json_decode($contents, true);
-            return 'CycloneDX v' . $array['specVersion'] . ' JSON';
+            $metadataProperties = $array['metadata']['properties'];
+        }
+
+        // Whatever format is (XML or JSON)
+        foreach ($metadataProperties as $property) {
+            $properties[(string) $property['name']] = (string) ($property['value'] ?? $property);
+        }
+
+        if (isset($properties['bomFormat']) && isset($properties['specVersion'])) {
+            return sprintf('%s v%s', $properties['bomFormat'], $properties['specVersion']);
         }
         return '';
     }

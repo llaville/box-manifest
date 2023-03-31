@@ -13,13 +13,20 @@ use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Factories\LicenseFactory;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Component;
+use CycloneDX\Core\Models\Property;
 use CycloneDX\Core\Models\Tool;
+use CycloneDX\Core\Serialization\DOM\NormalizerFactory as DOMNormalizerFactory;
+use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
+use CycloneDX\Core\Serialization\JsonSerializer;
 use CycloneDX\Core\Serialization\Serializer;
+use CycloneDX\Core\Serialization\XmlSerializer;
 use CycloneDX\Core\Utils\BomUtility;
 use PackageUrl\PackageUrl;
 
 use DateTime;
+use DomainException;
 use function explode;
+use function get_debug_type;
 use function sprintf;
 use function substr;
 
@@ -33,8 +40,20 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
     protected string $boxVersion;
     protected string $boxManifestVersion;
 
-    public function __construct(Serializer $serializer, string $boxVersion, string $boxManifestVersion)
+    protected string $specVersion;
+    protected string $bomFormat = 'CycloneDX';
+
+    public function __construct(object $normalizer, string $boxVersion, string $boxManifestVersion)
     {
+        if ($normalizer instanceof DOMNormalizerFactory) {
+            $serializer = new XmlSerializer($normalizer);
+        } elseif ($normalizer instanceof NormalizerFactory) {
+            $serializer = new JsonSerializer($normalizer);
+        } else {
+            throw new DomainException(sprintf('Normalizer "%s" is not supported.', get_debug_type($normalizer)));
+        }
+
+        $this->specVersion = $normalizer->getSpec()->getVersion()->value;
         $this->serializer = $serializer;
         $this->boxVersion = $boxVersion;
         $this->boxManifestVersion = $boxManifestVersion;
@@ -104,6 +123,10 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
 
         $bom->getMetadata()->getTools()->addItems($boxTool, $boxManifestTool);
         $bom->getMetadata()->setTimestamp(new DateTime());
+        $bom->getMetadata()->getProperties()->addItems(
+            new Property('specVersion', $this->specVersion),
+            new Property('bomFormat', $this->bomFormat),
+        );
 
         // components
         $componentRepository = $bom->getComponents();

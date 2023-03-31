@@ -12,8 +12,6 @@ use Fidry\Console\Input\IO;
 use KevinGH\Box\Configuration\Configuration;
 use KevinGH\Box\Console\Command\ConfigOption;
 use KevinGH\Box\Console\Php\PhpSettingsHandler;
-use function KevinGH\Box\create_temporary_phar;
-use function KevinGH\Box\FileSystem\remove;
 use function KevinGH\Box\get_box_version;
 
 use Symfony\Component\Console\Helper\Helper;
@@ -41,16 +39,6 @@ class BoxHelper extends Helper
     public function checkPhpSettings(IO $io): void
     {
         (new PhpSettingsHandler(new ConsoleLogger($io->getOutput())))->check();
-    }
-
-    public function createTemporaryPhar(string $filename): string
-    {
-        return create_temporary_phar($filename);
-    }
-
-    public function removeTemporaryFile(string $filename): void
-    {
-        remove($filename);
     }
 
     /**

@@ -14,8 +14,6 @@ use Bartlett\BoxManifest\Composer\Manifest\SimpleTextManifestBuilder;
 
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory as DomNormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory as JsonNormalizerFactory;
-use CycloneDX\Core\Serialization\JsonSerializer;
-use CycloneDX\Core\Serialization\XmlSerializer;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Spec\Version;
 
@@ -164,11 +162,11 @@ final class ManifestFactory
         }
         $spec = SpecFactory::makeForVersion($version);
 
-        $serializer = match ($format) {
-            'xml' => new XmlSerializer(new DomNormalizerFactory($spec)),
-            'json' => new JsonSerializer(new JsonNormalizerFactory($spec)),
+        $normalizer = match ($format) {
+            'xml' => new DomNormalizerFactory($spec),
+            'json' => new JsonNormalizerFactory($spec),
             default => throw new DomainException(sprintf('Format "%s" is not supported.', $format)),
         };
-        return self::create(new SbomManifestBuilder($serializer, $this->boxVersion, $this->boxManifestVersion), $this->config, $this->box, $this->isDecorated);
+        return self::create(new SbomManifestBuilder($normalizer, $this->boxVersion, $this->boxManifestVersion), $this->config, $this->box, $this->isDecorated);
     }
 }

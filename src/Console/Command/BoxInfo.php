@@ -8,6 +8,7 @@
 namespace Bartlett\BoxManifest\Console\Command;
 
 use Bartlett\BoxManifest\Helper\BoxHelper;
+
 use Fidry\Console\Input\IO;
 
 use KevinGH\Box\Console\Command\Info;
@@ -17,7 +18,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use function file_get_contents;
 use function sprintf;
+use function unserialize;
 
 /**
  * @author Laurent Laville
@@ -57,25 +60,19 @@ final class BoxInfo extends Command
         $pharFile = $io->getArgument('phar')->asNullableString();
 
         if ($pharFile) {
-            $tmpFile = $boxHelper->createTemporaryPhar($pharFile);
-            $pharInfo = new PharInfo($tmpFile);
-            $phar = $pharInfo->getPhar();
-            $metadata = $phar->getMetadata();
-            $manifests = $metadata['manifests'] ?? [];
-            $phar->setMetadata($metadata['metadata-box-settings'] ?? null);
-            $input->setArgument('phar', $tmpFile);
-        } else {
-            $tmpFile = false;
+            $phar = (new PharInfo($pharFile))->getPhar();
+            $metaFile = '.box.manifests/.manifests.bin';
+            if (isset($phar[$metaFile])) {
+                $manifests = unserialize(file_get_contents($phar[$metaFile]->getPathname()));
+            } else {
+                $manifests = [];
+            }
         }
 
         $status = $this->boxCommand->execute($io->withOutput($newOutput));
 
-        if (Command::SUCCESS === $status && $tmpFile) {
-            $this->renderManifests($manifests, $io);    // @phpstan-ignore-line
-        }
-
-        if ($pharFile) {
-            $boxHelper->removeTemporaryFile($tmpFile);
+        if (Command::SUCCESS === $status && $pharFile) {
+            $this->renderManifests($manifests, $io);
         }
 
         return $status;

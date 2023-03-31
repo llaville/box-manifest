@@ -15,10 +15,10 @@
     ],
     "metadata": "native BOX metadata setting : see https://box-project.github.io/box/configuration/#metadata-metadata",
     "map": [
-        { "console.txt": "manifests-bin/console.txt" },
-        { "manifest.txt": "manifests-bin/manifest.txt" },
-        { "sbom.xml": "manifests-bin/sbom.xml" },
-        { "sbom.json": "manifests-bin/sbom.json" }
+        { "console.txt": ".box.manifests/console.txt" },
+        { "manifest.txt": ".box.manifests/manifest.txt" },
+        { "sbom.xml": ".box.manifests/sbom.xml" },
+        { "sbom.json": ".box.manifests/sbom.json" }
     ],
     "blacklist": [
         "fixtures",

@@ -88,10 +88,11 @@ class ManifestHelper extends Helper
             $templatePath = dirname(__DIR__, 2) . '/resources/default_stub.template';
         }
         if (!empty($mapFiles) && empty($resources)) {
+            $manifestDir = '.box.manifests/';
             $resources = [];
             foreach ($mapFiles as $mapFile) {
                 foreach ($mapFile as $target) {
-                    if (str_starts_with($target, 'manifests-bin/')) {
+                    if (str_starts_with($target, $manifestDir)) {
                         $resources[] = $target;
                     }
                 }
