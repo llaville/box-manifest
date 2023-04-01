@@ -11,8 +11,9 @@ use Bartlett\BoxManifest\Composer\Manifest\ConsoleTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\DecorateTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SbomManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SimpleTextManifestBuilder;
-
+use Bartlett\BoxManifest\Helper\ManifestFile;
 use Bartlett\BoxManifest\Helper\ManifestFormat;
+
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory as DomNormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory as JsonNormalizerFactory;
 use CycloneDX\Core\Spec\SpecFactory;
@@ -27,6 +28,7 @@ use InvalidArgumentException;
 use ValueError;
 use function array_column;
 use function array_key_exists;
+use function basename;
 use function class_exists;
 use function file_exists;
 use function implode;
@@ -46,16 +48,18 @@ final class ManifestFactory
     {
     }
 
-    public function build(string $rawFormat, ?string $output, string $sbomSpec): ?string
+    public function build(string $rawFormat, ?string $outputFile, string $sbomSpec): ?string
     {
         $format = ManifestFormat::tryFrom($rawFormat);
 
+        $output = $outputFile ? ManifestFile::tryFrom(basename($outputFile)) : null;
+
         return match ($format) {
             ManifestFormat::auto => match ($output) {
-                null => $this->toConsole(),
-                'manifest.txt' => $this->toText(),
-                'sbom.xml' => $this->toSbom('xml', $sbomSpec),
-                'sbom.json' => $this->toSbom('json', $sbomSpec),
+                null, ManifestFile::consoleTable => $this->toConsole(),
+                ManifestFile::txt => $this->toText(),
+                ManifestFile::sbomXml => $this->toSbom('xml', $sbomSpec),
+                ManifestFile::sbomJson => $this->toSbom('json', $sbomSpec),
                 default => match (pathinfo($output, PATHINFO_EXTENSION)) {
                     'xml' => $this->toSbom('xml', $sbomSpec),
                     'json' => $this->toSbom('json', $sbomSpec),

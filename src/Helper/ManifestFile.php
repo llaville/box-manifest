@@ -19,6 +19,7 @@ enum ManifestFile: string
     case xml = 'manifest.xml';
     case sbomXml = 'sbom.xml';
     case sbomJson = 'sbom.json';
+    case consoleTable = 'console.txt';
 
     /**
      * Domain of valid values.
