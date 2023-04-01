@@ -1,4 +1,0 @@
-kind: Changed
-body: 'BC breaks: ManifestFactory did not used anymore the Box instance (affect class
-  constructor and static create method)'
-time: 2023-04-01T14:45:51.466061053Z

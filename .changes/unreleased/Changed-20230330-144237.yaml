@@ -1,4 +1,0 @@
-kind: Changed
-body: The `manifest:stub` command is now able to use resources list defined by the
-  BOX map settings
-time: 2023-03-30T14:42:37.044599737Z
