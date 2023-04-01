@@ -10,7 +10,6 @@ namespace Bartlett\BoxManifest\Console\Command;
 use Bartlett\BoxManifest\Composer\ManifestFactory;
 use Bartlett\BoxManifest\Helper\BoxHelper;
 
-use Bartlett\BoxManifest\Helper\ManifestHelper;
 use CycloneDX\Core\Spec\Version;
 
 use Fidry\Console\Input\IO;
