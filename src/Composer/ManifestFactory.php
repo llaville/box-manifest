@@ -46,9 +46,8 @@ final class ManifestFactory
 {
     public function __construct(
         private Configuration $config,
-        private Box $box,
-        private string $boxVersion,
         private bool $isDecorated,
+        private string $boxVersion,
         private string $boxManifestVersion
     ) {
     }
@@ -78,12 +77,12 @@ final class ManifestFactory
             ManifestFormat::sbomXml => $this->toSbom('xml', $sbomSpec),
             ManifestFormat::sbomJson => $this->toSbom('json', $sbomSpec),
             default => class_exists($rawFormat)
-                ? self::create($rawFormat, $this->config, $this->box, $this->isDecorated)
+                ? self::create($rawFormat, $this->config, $this->isDecorated)
                 : throw new InvalidArgumentException(sprintf('Format "%s" is not supported', $rawFormat))
         };
     }
 
-    public static function create(string|object $from, Configuration $config, Box $box, bool $isDecorated): ?string
+    public static function create(string|object $from, Configuration $config, bool $isDecorated): ?string
     {
         if (is_string($from)) {
             if (!class_exists($from)) {
@@ -145,17 +144,17 @@ final class ManifestFactory
 
     public function toText(): ?string
     {
-        return self::create(SimpleTextManifestBuilder::class, $this->config, $this->box, $this->isDecorated);
+        return self::create(SimpleTextManifestBuilder::class, $this->config, $this->isDecorated);
     }
 
     public function toHighlight(): ?string
     {
-        return self::create(new DecorateTextManifestBuilder(), $this->config, $this->box, $this->isDecorated);
+        return self::create(new DecorateTextManifestBuilder(), $this->config, $this->isDecorated);
     }
 
     public function toConsole(): ?string
     {
-        return self::create(new ConsoleTextManifestBuilder(), $this->config, $this->box, $this->isDecorated);
+        return self::create(new ConsoleTextManifestBuilder(), $this->config, $this->isDecorated);
     }
 
     public function toSbom(string $format, string $specVersion): ?string
@@ -180,6 +179,6 @@ final class ManifestFactory
             'json' => new JsonNormalizerFactory($spec),
             default => throw new DomainException(sprintf('Format "%s" is not supported.', $format)),
         };
-        return self::create(new SbomManifestBuilder($normalizer, $this->boxVersion, $this->boxManifestVersion), $this->config, $this->box, $this->isDecorated);
+        return self::create(new SbomManifestBuilder($normalizer, $this->boxVersion, $this->boxManifestVersion), $this->config, $this->isDecorated);
     }
 }

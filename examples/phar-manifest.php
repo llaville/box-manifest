@@ -42,7 +42,7 @@ $configLoader = new ConfigurationLoader();
 $config = $configLoader->loadFile(__DIR__ . '/app-fixtures/app-fixtures-box.json');
 $box = Box::create($config->getTmpOutputPath());
 
-$factory = new ManifestFactory($config, $box, (new BoxHelper())->getBoxVersion(), true, (new Application())->getVersion());
+$factory = new ManifestFactory($config, true, (new BoxHelper())->getBoxVersion(), (new Application())->getVersion());
 
 try {
     // 1.

@@ -9,13 +9,11 @@ namespace Bartlett\BoxManifest\Console\Command;
 
 use Bartlett\BoxManifest\Composer\ManifestFactory;
 use Bartlett\BoxManifest\Helper\BoxHelper;
-
 use Bartlett\BoxManifest\Helper\ManifestFormat;
+
 use CycloneDX\Core\Spec\Version;
 
 use Fidry\Console\Input\IO;
-
-use KevinGH\Box\Box;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DebugFormatterHelper;
@@ -149,9 +147,7 @@ final class ManifestBuild extends Command
             $io->getOption(BoxHelper::NO_CONFIG_OPTION)->asBoolean()
         );
 
-        $box = Box::create($config->getTmpOutputPath());
-
-        $factory = new ManifestFactory($config, $box, $boxHelper->getBoxVersion(), $output->isDecorated(), $this->getApplication()->getVersion());
+        $factory = new ManifestFactory($config, $output->isDecorated(), $boxHelper->getBoxVersion(), $this->getApplication()->getVersion());
         $manifest = $factory->build($rawFormat, $outputFile, $sbomSpec) ?? '';
 
         if (empty($outputFile)) {
