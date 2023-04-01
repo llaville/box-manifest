@@ -8,7 +8,7 @@ built with the [BOX](https://github.com/box-project/box) tool.
 
 Provides a Symfony Console Application with the binary command `box-manifest` that is able to :
 
-- generate any manifest in multiple format (`plain`, `ansi`, `sbom`) even in a custom format.
+- generate any manifest in multiple format (`plain`, `ansi`, `console`, `sbom` XML or JSON) even in a custom format.
 - generate a custom phar stub that will support `--manifest` option at runtime.
 - compile your PHAR with a wrapper around standard BOX compile command (with bootstrapping support: `--bootstrap` option).
 - display information about the PHAR extension or file.
@@ -23,7 +23,7 @@ composer plugin to patch `humbug/box` at install runtime.
 
 | Version            | Status             | Box Project Compatibility |
 |--------------------|--------------------|---------------------------|
-| `3.0.x` to `3.2.x` | Active development | `4.x`                     |
+| `3.0.x` to `3.3.x` | Active development | `4.x`                     |
 | `2.0.x` to `2.3.x` | Active support     | `4.0.x` to `4.2.x`        |
 | `1.0.x` to `1.2.0` | End Of Life        | `3.x`                     |
 

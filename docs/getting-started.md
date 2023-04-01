@@ -16,12 +16,13 @@
 Usage examples :
 
 ```shell
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 box-manifest manifest:build -c box.json --output-file=sbom.xml
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 box-manifest manifest:build -c box.json --output-file=manifest.txt
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 box-manifest manifest:stub -c box.json --output-file=stub.php
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 box-manifest box:compile -c box.json.dist
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:build -c box.json --output-file=sbom.xml
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:build -c box.json --output-file=manifest.txt
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:build -c box.json --output-file=console.txt
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:stub -c box.json --output-file=stub.php
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 box:compile -c box.json.dist
 
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 box-manifest manifest:build --bootstrap tests/fixtures/my-manifest.php --format \\Bartlett\\BoxManifest\\Tests\\fixtures\\ConsoleManifest -v
+docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:build --bootstrap tests/fixtures/my-manifest.php --format \\Bartlett\\BoxManifest\\Tests\\fixtures\\ConsoleManifest -v
 ```
 
 ## Usage
@@ -79,10 +80,10 @@ Options:
       --no-config                Ignore the config file even when one is specified with the --config option
   -c, --config=CONFIG            The alternative configuration file path.
       --bootstrap=BOOTSTRAP      A PHP script that is included before execution
-  -f, --format=FORMAT            Format of the output: auto, plain, ansi, sbom [default: "auto"]
+  -f, --format=FORMAT            Format of the output: auto, plain, ansi, console, sbom-xml, sbom-json [default: "auto"]
   -s, --sbom-spec=SBOM-SPEC      SBOM specification version: 1.1, 1.2, 1.3, 1.4 [default: "1.4"]
   -o, --output-file=OUTPUT-FILE  Write results to file (default to standard output)
-  -h, --help                     Display help for the given command. When no command is given display help for the manifest:build command
+  -h, --help                     Display help for the given command. When no command is given display help for the list command
   -q, --quiet                    Do not output any message
   -V, --version                  Display this application version
       --ansi|--no-ansi           Force (or disable --no-ansi) ANSI output

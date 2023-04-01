@@ -92,7 +92,7 @@ That will print following results :
 Or even
 
 ```shell
-bin/box-manifest manifest:build --output-file console.txt --format console -v
+bin/box-manifest manifest:build --output-file console.txt -v
 ```
 
 That will print following results :
