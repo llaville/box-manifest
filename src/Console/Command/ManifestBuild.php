@@ -159,7 +159,7 @@ final class ManifestBuild extends Command
             $message = 'Writing results to standard output';
         } else {
             $stream = new StreamOutput(fopen($outputFile, 'w'));
-            if ('ansi' === $format) {
+            if (ManifestFormat::ansi === $format) {
                 $stream->setDecorated(true);
             }
             $stream->write($manifest);

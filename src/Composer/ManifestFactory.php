@@ -44,8 +44,13 @@ use const PATHINFO_EXTENSION;
  */
 final class ManifestFactory
 {
-    public function __construct(private Configuration $config, private Box $box, private string $boxVersion, private bool $isDecorated, private string $boxManifestVersion)
-    {
+    public function __construct(
+        private Configuration $config,
+        private Box $box,
+        private string $boxVersion,
+        private bool $isDecorated,
+        private string $boxManifestVersion
+    ) {
     }
 
     public function build(string $rawFormat, ?string $outputFile, string $sbomSpec): ?string
@@ -60,7 +65,7 @@ final class ManifestFactory
                 ManifestFile::txt => $this->toText(),
                 ManifestFile::sbomXml => $this->toSbom('xml', $sbomSpec),
                 ManifestFile::sbomJson => $this->toSbom('json', $sbomSpec),
-                default => match (pathinfo($output, PATHINFO_EXTENSION)) {
+                default => match (pathinfo($outputFile, PATHINFO_EXTENSION)) {
                     'xml' => $this->toSbom('xml', $sbomSpec),
                     'json' => $this->toSbom('json', $sbomSpec),
                     '', 'txt' => $this->toText(),
