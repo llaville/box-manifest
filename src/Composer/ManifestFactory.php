@@ -12,6 +12,7 @@ use Bartlett\BoxManifest\Composer\Manifest\DecorateTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SbomManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SimpleTextManifestBuilder;
 
+use Bartlett\BoxManifest\Helper\ManifestFormat;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory as DomNormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory as JsonNormalizerFactory;
 use CycloneDX\Core\Spec\SpecFactory;
@@ -45,10 +46,12 @@ final class ManifestFactory
     {
     }
 
-    public function build(string $format, ?string $output, string $sbomSpec): ?string
+    public function build(string $rawFormat, ?string $output, string $sbomSpec): ?string
     {
+        $format = ManifestFormat::tryFrom($rawFormat);
+
         return match ($format) {
-            'auto' => match ($output) {
+            ManifestFormat::auto => match ($output) {
                 null => $this->toConsole(),
                 'manifest.txt' => $this->toText(),
                 'sbom.xml' => $this->toSbom('xml', $sbomSpec),
@@ -60,13 +63,14 @@ final class ManifestFactory
                     default => throw new InvalidArgumentException('Cannot auto-detect format with such output file')
                 }
             },
-            'plain' => $this->toText(),
-            'ansi' => $this->toHighlight(),
-            'console' => $this->toConsole(),
-            'sbom' => $this->toSbom('xml', $sbomSpec),
-            default => class_exists($format)
-                ? self::create($format, $this->config, $this->box, $this->isDecorated)
-                : throw new InvalidArgumentException(sprintf('Format "%s" is not supported', $format))
+            ManifestFormat::plain => $this->toText(),
+            ManifestFormat::ansi => $this->toHighlight(),
+            ManifestFormat::console => $this->toConsole(),
+            ManifestFormat::sbomXml => $this->toSbom('xml', $sbomSpec),
+            ManifestFormat::sbomJson => $this->toSbom('json', $sbomSpec),
+            default => class_exists($rawFormat)
+                ? self::create($rawFormat, $this->config, $this->box, $this->isDecorated)
+                : throw new InvalidArgumentException(sprintf('Format "%s" is not supported', $rawFormat))
         };
     }
 

@@ -10,6 +10,7 @@ namespace Bartlett\BoxManifest\Console\Command;
 use Bartlett\BoxManifest\Composer\ManifestFactory;
 use Bartlett\BoxManifest\Helper\BoxHelper;
 
+use Bartlett\BoxManifest\Helper\ManifestFormat;
 use CycloneDX\Core\Spec\Version;
 
 use Fidry\Console\Input\IO;
@@ -67,15 +68,15 @@ final class ManifestBuild extends Command
                 self::FORMAT_OPTION,
                 'f',
                 InputOption::VALUE_REQUIRED,
-                'Format of the output: auto, plain, ansi, sbom',
-                'auto'
+                'Format of the output: <comment>' . implode(', ', array_column(ManifestFormat::cases(), 'value')) . '</comment>',
+                ManifestFormat::auto->value
             ),
             new InputOption(
                 self::SBOM_SPEC_OPTION,
                 's',
                 InputOption::VALUE_REQUIRED,
-                'SBOM specification version: ' . implode(', ', array_column(Version::cases(), 'value')),
-                '1.4'
+                'SBOM specification version: <comment>' . implode(', ', array_column(Version::cases(), 'value')) . '</comment>',
+                Version::v1dot4->value
             ),
             new InputOption(
                 self::OUTPUT_OPTION,
@@ -111,14 +112,15 @@ final class ManifestBuild extends Command
         }
 
         $outputFile = $io->getOption(self::OUTPUT_OPTION)->asNullableString();
-        $format = $io->getOption(self::FORMAT_OPTION)->asString();
+        $rawFormat = $io->getOption(self::FORMAT_OPTION)->asString();
+        $format = ManifestFormat::tryFrom($rawFormat);
         $sbomSpec = $io->getOption(self::SBOM_SPEC_OPTION)->asString();
 
         $toFormat = match ($format) {
-            'auto' => 'AUTO detection mode',
-            'plain', 'ansi', 'console' => 'TEXT',
-            'sbom' => 'SBom ' . $sbomSpec,
-            default => $format,
+            ManifestFormat::auto => 'AUTO detection mode',
+            ManifestFormat::plain, ManifestFormat::ansi, ManifestFormat::console => 'TEXT',
+            ManifestFormat::sbomXml, ManifestFormat::sbomJson => 'SBom ' . $sbomSpec,
+            default => $rawFormat,
         };
 
         /** @var DebugFormatterHelper $debugFormatter */
@@ -150,7 +152,7 @@ final class ManifestBuild extends Command
         $box = Box::create($config->getTmpOutputPath());
 
         $factory = new ManifestFactory($config, $box, $boxHelper->getBoxVersion(), $output->isDecorated(), $this->getApplication()->getVersion());
-        $manifest = $factory->build($format, $outputFile, $sbomSpec) ?? '';
+        $manifest = $factory->build($rawFormat, $outputFile, $sbomSpec) ?? '';
 
         if (empty($outputFile)) {
             $io->writeln($manifest);
