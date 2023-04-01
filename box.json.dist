@@ -13,7 +13,6 @@
         "sbom.json",
         "sbom.xml"
     ],
-    "metadata": "native BOX metadata setting : see https://box-project.github.io/box/configuration/#metadata-metadata",
     "map": [
         { "console.txt": ".box.manifests/console.txt" },
         { "manifest.txt": ".box.manifests/manifest.txt" },
