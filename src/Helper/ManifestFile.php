@@ -13,7 +13,7 @@ use function array_column;
  * @author Laurent Laville
  * @since Release 3.0.0
  */
-enum Manifest: string
+enum ManifestFile: string
 {
     case txt = 'manifest.txt';
     case xml = 'manifest.xml';

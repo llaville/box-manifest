@@ -7,7 +7,6 @@
  */
 namespace Bartlett\BoxManifest\Helper;
 
-use Bartlett\BoxManifest\Helper\Manifest as ManifestEnum;
 use Bartlett\BoxManifest\StubGenerator;
 
 use Symfony\Component\Console\Helper\Helper;
@@ -39,7 +38,7 @@ class ManifestHelper extends Helper
                     null,
                     InputOption::VALUE_OPTIONAL,
                     'Show software components bundled (either from : ' .
-                    implode(', ', ManifestEnum::values()) .
+                    implode(', ', ManifestFile::values()) .
                     ' or phar metadata field)'
                 )
             );
@@ -99,7 +98,7 @@ class ManifestHelper extends Helper
             }
         }
         if (empty($resources)) {
-            $resources = ManifestEnum::values();
+            $resources = ManifestFile::values();
         }
         return new StubGenerator($templatePath, $resources);
     }
