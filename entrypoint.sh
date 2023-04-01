@@ -8,4 +8,4 @@ then
   echo "> You will act as user: $(id -u -n)"
 fi
 
-$@
+/usr/local/bin/box-manifest $@
