@@ -29,7 +29,7 @@ COPY composer.json /usr/src/box-manifest/composer.json
 COPY composer.lock /usr/src/box-manifest/composer.lock
 
 # Install dependencies
-RUN apk add --no-cache --update git \
+RUN apk add --no-cache --update git bash \
     && composer install  \
       --working-dir=/usr/src/box-manifest \
       --prefer-dist  \
