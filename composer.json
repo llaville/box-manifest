@@ -1,6 +1,6 @@
 {
     "name": "bartlett/box-manifest",
-    "description": "Create a manifest to a PHP Archive (PHAR) for the BOX project (https://github.com/box-project/box)",
+    "description": "Creates manifests for a PHP Archive (PHAR) and the BOX project (https://github.com/box-project/box)",
     "type": "project",
     "require": {
         "php": "^8.1",
