@@ -72,6 +72,7 @@ final class BoxInfo extends Command
         $status = $this->boxCommand->execute($io->withOutput($newOutput));
 
         if (Command::SUCCESS === $status && $pharFile) {
+            $io->newLine();
             $this->renderManifests($manifests, $io);
         }
 
