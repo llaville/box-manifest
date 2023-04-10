@@ -47,10 +47,10 @@ the root of the PHP Archive.
 The `ManifestHelper` component is in charge to find and retrieve the resource contents (if exists).
 Otherwise, fallback strategy is to return the contents that will be used for the PHAR `metadata` field.
 
-Compile your PHP Archive as usal, either with standard `vendor/bin/box compile` command or the `bin/box-compile` (single command application).
+Compile your PHP Archive as usual, either with standard `vendor/bin/box compile` command or the `bin/box-manifest box:compile` command.
 
 ```shell
-bin/box-compile --config app-fixtures-box.json -v
+bin/box-manifest box:compile --config app-fixtures-box.json -v
 ```
 
 <details>
@@ -132,7 +132,7 @@ That means, you should specify by the `--bootstrap` option where is the file tha
 **IMPORTANT** Use the `bin/box-compile` command here, because standard BOX compile version does not support the `--bootstrap` option.
 
 ```shell
-bin/box-compile --config app-fixtures-box.json --bootstrap bootstrap.php
+bin/box-manifest box:compile --config app-fixtures-box.json --bootstrap bootstrap.php
 ```
 
 And we will get the expected results :

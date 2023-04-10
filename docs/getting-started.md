@@ -35,7 +35,7 @@ docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 mani
  / /_/ / /_/ />  <   / /  / / /_/ / / / / / __/  __(__  ) /_
 /_____/\____/_/|_|  /_/  /_/\__,_/_/ /_/_/_/  \___/____/\__/
 
-Box Manifest version 3.3.0 for Box 4.3.8@5534406
+Box Manifest version 3.4.0 for Box 4.3.8@5534406
 
 Usage:
   command [options] [arguments]

@@ -50,7 +50,7 @@ Then finally, compile your PHP Archive with (or without `--boostrap` option),
 the metadata contents is only used as fallback contents in case you forgot to declare `files-bin` entries.
 
 ```shell
-bin/box-compile --config app-fixtures-box.json --bootstrap bootstrap.php -v
+bin/box-manifest box:compile --config app-fixtures-box.json --bootstrap bootstrap.php -v
 ```
 
 <details>
