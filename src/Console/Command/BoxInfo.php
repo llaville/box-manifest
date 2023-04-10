@@ -18,8 +18,10 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use PharData;
 use function file_get_contents;
 use function sprintf;
+use function str_contains;
 use function unserialize;
 
 /**
@@ -67,6 +69,11 @@ final class BoxInfo extends Command
             } else {
                 $manifests = [];
             }
+
+            $stub = ($phar instanceof PharData) ? '' : $phar->getStub();
+            $defaultStub = str_contains($stub, 'Extract_Phar::go();');
+            $manifestSupport = str_contains($stub, '--manifest');
+            unset($phar);
         }
 
         $status = $this->boxCommand->execute($io->withOutput($newOutput));
@@ -74,6 +81,18 @@ final class BoxInfo extends Command
         if (Command::SUCCESS === $status && $pharFile) {
             $io->newLine();
             $this->renderManifests($manifests, $io);
+
+            $io->newLine();
+            if (empty($stub)) {
+                $stubInfo = 'None';
+            } else {
+                if ($defaultStub) {
+                    $stubInfo = 'Default';
+                } else {
+                    $stubInfo = 'Generated' . ($manifestSupport ? ' with manifest display support' : ' by BOX stub generator');
+                }
+            }
+            $io->writeln('<comment>Stub:</comment> ' . $stubInfo);
         }
 
         return $status;
