@@ -12,7 +12,6 @@ use Bartlett\BoxManifest\Composer\ManifestFactory;
 use Bartlett\BoxManifest\Console\Application;
 use Bartlett\BoxManifest\Helper\BoxHelper;
 
-use KevinGH\Box\Box;
 use KevinGH\Box\Configuration\ConfigurationLoader;
 use KevinGH\Box\Console\Php\PhpSettingsHandler;
 
@@ -40,7 +39,6 @@ $logger = new class extends AbstractLogger {
 $configLoader = new ConfigurationLoader();
 
 $config = $configLoader->loadFile(__DIR__ . '/app-fixtures/app-fixtures-box.json');
-$box = Box::create($config->getTmpOutputPath());
 
 $factory = new ManifestFactory($config, true, (new BoxHelper())->getBoxVersion(), (new Application())->getVersion());
 
