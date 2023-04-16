@@ -11,75 +11,51 @@ use Bartlett\BoxManifest\Composer\Manifest\ConsoleTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\DecorateTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SbomManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SimpleTextManifestBuilder;
-use Bartlett\BoxManifest\Helper\ManifestFile;
-use Bartlett\BoxManifest\Helper\ManifestFormat;
 
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory as DomNormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory as JsonNormalizerFactory;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Spec\Version;
 
-use KevinGH\Box\Box;
 use KevinGH\Box\Configuration\Configuration;
 use function KevinGH\Box\FileSystem\make_path_absolute;
 
 use DomainException;
-use InvalidArgumentException;
 use ValueError;
 use function array_column;
 use function array_key_exists;
-use function basename;
 use function class_exists;
 use function file_exists;
 use function implode;
 use function is_readable;
 use function is_string;
-use function pathinfo;
 use function preg_replace;
 use function sprintf;
-use const PATHINFO_EXTENSION;
 
 /**
  * @author Laurent Laville
  */
 final class ManifestFactory
 {
+    private ManifestBuildStrategy $strategy;
+
     public function __construct(
         private Configuration $config,
         private bool $isDecorated,
         private string $boxVersion,
         private string $boxManifestVersion
     ) {
+        $this->setStrategy(new DefaultStrategy($this));
     }
 
-    public function build(string $rawFormat, ?string $outputFile, string $sbomSpec): ?string
+    public function setStrategy(ManifestBuildStrategy $strategy): void
     {
-        $format = ManifestFormat::tryFrom($rawFormat);
+        $this->strategy = $strategy;
+    }
 
-        $output = $outputFile ? ManifestFile::tryFrom(basename($outputFile)) : null;
-
-        return match ($format) {
-            ManifestFormat::auto => match ($output) {
-                null, ManifestFile::consoleTable => $this->toConsole(),
-                ManifestFile::txt => $this->toText(),
-                ManifestFile::sbomXml => $this->toSbom('xml', $sbomSpec),
-                ManifestFile::sbomJson => $this->toSbom('json', $sbomSpec),
-                default => match (pathinfo($outputFile, PATHINFO_EXTENSION)) {
-                    'xml' => $this->toSbom('xml', $sbomSpec),
-                    'json' => $this->toSbom('json', $sbomSpec),
-                    '', 'txt' => $this->toText(),
-                    default => throw new InvalidArgumentException('Cannot auto-detect format with such output file')
-                }
-            },
-            ManifestFormat::plain => $this->toText(),
-            ManifestFormat::ansi => $this->toHighlight(),
-            ManifestFormat::console => $this->toConsole(),
-            ManifestFormat::sbomXml => $this->toSbom('xml', $sbomSpec),
-            ManifestFormat::sbomJson => $this->toSbom('json', $sbomSpec),
-            default => class_exists($rawFormat)
-                ? self::create($rawFormat, $this->config, $this->isDecorated)
-                : throw new InvalidArgumentException(sprintf('Format "%s" is not supported', $rawFormat))
-        };
+    public function build(ManifestOptions $options): ?string
+    {
+        return $this->strategy->build($options);
     }
 
     public static function create(string|object $from, Configuration $config, bool $isDecorated): ?string
@@ -140,6 +116,11 @@ final class ManifestFactory
         }
 
         return $manifest;
+    }
+
+    public function fromClass(string|object $from): ?string
+    {
+        return self::create($from, $this->config, $this->isDecorated);
     }
 
     public function toText(): ?string

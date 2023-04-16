@@ -7,7 +7,9 @@
  */
 namespace Bartlett\BoxManifest\Console\Command;
 
+use Bartlett\BoxManifest\Composer\DefaultStrategy;
 use Bartlett\BoxManifest\Composer\ManifestFactory;
+use Bartlett\BoxManifest\Composer\ManifestOptions;
 use Bartlett\BoxManifest\Helper\BoxHelper;
 use Bartlett\BoxManifest\Helper\ManifestFormat;
 
@@ -100,7 +102,15 @@ final class ManifestBuild extends Command
         $startTime = microtime(true);
 
         $io = new IO($input, $output);
-        $noDebug = $io->getOption('no-debug')->asBoolean();
+
+        $options = new ManifestOptions($io);
+
+        $noDebug = $options->hasNoDebug();
+        $bootstrap = $options->getBootstrap();
+        $outputFile = $options->getOutputFile();
+        $rawFormat = $options->getFormat(true);
+        $format = $options->getFormat();
+        $sbomSpec = $options->getSbomSpec();
 
         /** @var BoxHelper $boxHelper */
         $boxHelper = $this->getHelper(BoxHelper::NAME);
@@ -109,18 +119,6 @@ final class ManifestBuild extends Command
             $boxHelper->checkPhpSettings($io);
         }
 
-        $outputFile = $io->getOption(self::OUTPUT_OPTION)->asNullableString();
-        $rawFormat = $io->getOption(self::FORMAT_OPTION)->asString();
-        $format = ManifestFormat::tryFrom($rawFormat);
-        $sbomSpec = $io->getOption(self::SBOM_SPEC_OPTION)->asString();
-
-        $toFormat = match ($format) {
-            ManifestFormat::auto => 'AUTO detection mode',
-            ManifestFormat::plain, ManifestFormat::ansi, ManifestFormat::console => 'TEXT',
-            ManifestFormat::sbomXml, ManifestFormat::sbomJson => 'SBom ' . $sbomSpec,
-            default => $rawFormat,
-        };
-
         /** @var DebugFormatterHelper $debugFormatter */
         $debugFormatter = $this->getHelper('debug_formatter');
 
@@ -128,11 +126,11 @@ final class ManifestBuild extends Command
 
         if ($io->isVeryVerbose() && !$noDebug) {
             $io->write(
-                $debugFormatter->start($pid, sprintf('Generating manifest in %s format', $toFormat), 'STARTED')
+                $debugFormatter->start($pid, sprintf('Generating manifest in %s format', $options->getFormatDisplay()), 'STARTED')
             );
         }
 
-        if (!empty($bootstrap = $io->getOption(self::BOOTSTRAP_OPTION)->asNullableString()) && file_exists($bootstrap)) {
+        if (!empty($bootstrap) && file_exists($bootstrap)) {
             if ($io->isVeryVerbose()) {
                 $io->write(
                     $debugFormatter->progress($pid, sprintf('Bootstrapped file "<info>%s</info>"', $bootstrap), false, 'DEBUG')
@@ -148,7 +146,7 @@ final class ManifestBuild extends Command
         );
 
         $factory = new ManifestFactory($config, $output->isDecorated(), $boxHelper->getBoxVersion(), $this->getApplication()->getVersion());
-        $manifest = $factory->build($rawFormat, $outputFile, $sbomSpec) ?? '';
+        $manifest = $factory->build($options) ?? '';
 
         if (empty($outputFile)) {
             $io->writeln($manifest);
