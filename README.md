@@ -23,7 +23,7 @@ composer plugin to patch `humbug/box` at install runtime.
 
 | Version            | Status             | Box Project Compatibility |
 |--------------------|--------------------|---------------------------|
-| `3.0.x` to `3.4.x` | Active development | `4.x`                     |
+| `3.0.x` to `3.5.x` | Active development | `4.x`                     |
 | `2.0.x` to `2.3.x` | Active support     | `4.0.x` to `4.2.x`        |
 | `1.0.x` to `1.2.0` | End Of Life        | `3.x`                     |
 
