@@ -28,7 +28,7 @@
             "name": "Laurent Laville"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "bin": [
         "bin/box-manifest"
