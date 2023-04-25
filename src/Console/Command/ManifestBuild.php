@@ -7,7 +7,6 @@
  */
 namespace Bartlett\BoxManifest\Console\Command;
 
-use Bartlett\BoxManifest\Composer\DefaultStrategy;
 use Bartlett\BoxManifest\Composer\ManifestFactory;
 use Bartlett\BoxManifest\Composer\ManifestOptions;
 use Bartlett\BoxManifest\Helper\BoxHelper;
@@ -35,8 +34,10 @@ use function fopen;
 use function implode;
 use function microtime;
 use function realpath;
+use function rtrim;
 use function sprintf;
 use function uniqid;
+use const PHP_EOL;
 
 /**
  * @author Laurent Laville
@@ -147,9 +148,10 @@ final class ManifestBuild extends Command
 
         $factory = new ManifestFactory($config, $output->isDecorated(), $boxHelper->getBoxVersion(), $this->getApplication()->getVersion());
         $manifest = $factory->build($options) ?? '';
+        $manifest = rtrim($manifest, PHP_EOL) . PHP_EOL;
 
         if (empty($outputFile)) {
-            $io->writeln($manifest);
+            $io->write($manifest);
             $message = 'Writing results to standard output';
         } else {
             $stream = new StreamOutput(fopen($outputFile, 'w'));
