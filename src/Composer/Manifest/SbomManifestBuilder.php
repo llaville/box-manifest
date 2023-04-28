@@ -64,6 +64,7 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
         $composerJson = $content['composer.json'];
         $installedPhp = $content['installed.php'];
         $rootPackage = $installedPhp['root'];
+        $reference = $rootPackage['reference'] ?? '';
 
         if (!empty($rootPackage['aliases'])) {
             $version = sprintf(
@@ -75,7 +76,7 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
             $version = sprintf(
                 '%s@%s',
                 $rootPackage['pretty_version'],
-                substr($rootPackage['reference'], 0, 7)
+                substr($reference, 0, 7)
             );
         } else {
             $version = $rootPackage['version'];
