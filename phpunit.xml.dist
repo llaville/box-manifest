@@ -17,7 +17,8 @@
 >
     <coverage/>
     <testsuite name="Box Manifest Test Suite">
-        <file>tests/ManifestFactoryTest.php</file>
+        <exclude>tests/fixtures/plugin/**/vendor/</exclude>
+        <directory>tests/</directory>
     </testsuite>
     <source>
         <include>
