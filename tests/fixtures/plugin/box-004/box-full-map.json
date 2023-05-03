@@ -1,0 +1,9 @@
+{
+    "main": false,
+    "map": [
+        { "console.txt": ".box.manifests/console.txt" },
+        { "manifest.txt": ".box.manifests/manifest.txt" },
+        { "sbom.xml": ".box.manifests/sbom.xml" },
+        { "sbom.json": ".box.manifests/sbom.json" }
+    ]
+}

@@ -1,0 +1,41 @@
+{
+    "name": "bartlett/box-manifest-tests",
+    "description": "feature tests of box-manifest composer plugin with humbug/box",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Laurent Laville"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "humbug/box": "^4.3"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../../../../",
+            "symlink": true
+        }
+    ],
+    "require-dev": {
+        "bartlett/box-manifest": "@dev"
+    },
+    "config": {
+        "allow-plugins": {
+            "bartlett/box-manifest": true,
+            "symfony/runtime": true,
+            "cweagans/composer-patches": true
+        }
+    },
+    "extra": {
+        "box-manifest": {
+            "config-file": "box-full-map.json",
+            "map": [
+                { "console.txt": ".box.manifests/console.txt" },
+                { "sbom.json": ".box.manifests/sbom.json" }
+            ]
+        }
+    }
+}
