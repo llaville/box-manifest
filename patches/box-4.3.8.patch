@@ -1,0 +1,13 @@
+diff --git a/src/functions.php b/src/functions.php
+index 0f8ecc6..c08f169 100644
+--- a/src/functions.php
++++ b/src/functions.php
+@@ -56,7 +56,7 @@ function get_box_version(): string
+     // results an incorrect classmap entry in the scoped code.
+     // This strategy avoids having to exclude completely the file from the scoping.
+     foreach ([__DIR__.'/../vendor/composer/InstalledVersions.php', __DIR__.'/../../../composer/InstalledVersions.php'] as $file) {
+-        if (file_exists($file)) {
++        if (!class_exists(InstalledVersions::class, false) && file_exists($file)) {
+             require_once $file;
+             break;
+         }
