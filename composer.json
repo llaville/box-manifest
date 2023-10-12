@@ -7,7 +7,7 @@
         "ext-phar": "*",
         "composer/composer": "^2.2",
         "cyclonedx/cyclonedx-library": "^2.1",
-        "humbug/box": "^4.0",
+        "humbug/box": ">=4.0 <4.4",
         "symfony/filesystem": "^6.1",
         "symfony/runtime": "^6.1",
         "symfony/serializer": "^6.1"
