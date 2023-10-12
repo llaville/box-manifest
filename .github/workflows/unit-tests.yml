@@ -59,4 +59,4 @@ jobs:
 
             -   # PHPUnit
                 name: PHPUnit
-                run: phpunit --testdox --do-not-cache-result
+                run: phpunit --testdox --do-not-cache-result tests/unit

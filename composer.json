@@ -19,9 +19,9 @@
         }
     },
     "autoload-dev": {
-        "psr-4": {
-            "Bartlett\\BoxManifest\\Tests\\": "tests/"
-        }
+        "classmap": [
+            "tests/unit"
+        ]
     },
     "authors": [
         {
