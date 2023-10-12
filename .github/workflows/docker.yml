@@ -29,6 +29,21 @@ jobs:
       - # https://github.com/actions/checkout
         name: Checkout code
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - # https://github.com/shivammathur/setup-php
+        name: Setup PHP runtime
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+
+      - # https://github.com/ramsey/composer-install
+        name: Install Composer dependencies
+        uses: ramsey/composer-install@v2
+        with:
+          composer-options: "--prefer-dist"
 
       - # https://github.com/docker/setup-qemu-action
         name: Set up QEMU
