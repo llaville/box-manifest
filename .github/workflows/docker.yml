@@ -65,6 +65,7 @@ jobs:
         name: Build and push Docker images
         uses: docker/build-push-action@v5
         with:
+          context: .
           push: true
           tags: |
             ghcr.io/llaville/box-manifest:${{ env.DOCKER_LATEST_TAG }}
