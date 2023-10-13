@@ -17,7 +17,7 @@
 >
     <coverage/>
     <testsuite name="Box Manifest Test Suite">
-        <directory suffix="Test.php">tests/</directory>
+        <directory suffix="Test.php">tests/unit/</directory>
     </testsuite>
     <source>
         <include>
