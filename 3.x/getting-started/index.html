@@ -1,0 +1,924 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Laurent Laville">
+      
+      
+        <link rel="canonical" href="https://llaville.github.io/box-manifest/getting-started/">
+      
+      
+        <link rel="prev" href="../installation/">
+      
+      
+        <link rel="next" href="../contributing/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+    
+    
+      
+        <title>Getting-Started - BOX Manifest</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6a10b989.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="amber" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#getting-started" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="BOX Manifest" class="md-header__button md-logo" aria-label="BOX Manifest" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BOX Manifest
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Getting-Started
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="amber" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/llaville/box-manifest" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../installation/" class="md-tabs__link">
+        
+  
+    
+  
+  Installation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  Getting-Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contributing/" class="md-tabs__link">
+        
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="BOX Manifest" class="md-nav__button md-logo" aria-label="BOX Manifest" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    BOX Manifest
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/llaville/box-manifest" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Getting-Started
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Getting-Started
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    Docker
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symfony-manifestbuild-command" class="md-nav__link">
+    Symfony manifest:build command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symfony-manifeststub-command" class="md-nav__link">
+    Symfony manifest:stub command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symfony-boxcompile-command" class="md-nav__link">
+    Symfony box:compile command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symfony-boxinfo-command" class="md-nav__link">
+    Symfony box:info command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symfony-boxvalidate-command" class="md-nav__link">
+    Symfony box:validate command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-the-manifest-in-the-metadata-field-of-your-php-archive" class="md-nav__link">
+    Define the manifest in the metadata field of your PHP Archive
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    Docker
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symfony-manifestbuild-command" class="md-nav__link">
+    Symfony manifest:build command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symfony-manifeststub-command" class="md-nav__link">
+    Symfony manifest:stub command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symfony-boxcompile-command" class="md-nav__link">
+    Symfony box:compile command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symfony-boxinfo-command" class="md-nav__link">
+    Symfony box:info command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symfony-boxvalidate-command" class="md-nav__link">
+    Symfony box:validate command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-the-manifest-in-the-metadata-field-of-your-php-archive" class="md-nav__link">
+    Define the manifest in the metadata field of your PHP Archive
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<!-- markdownlint-disable MD013 MD028 -->
+<h1 id="getting-started">Getting Started</h1>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>PHP 8.1 or greater</li>
+<li>ext-phar</li>
+<li>PHPUnit 10 or greater (if you want to run unit tests)</li>
+</ul>
+<h2 id="docker">Docker</h2>
+<blockquote>
+<p>v3.x docker images provided run in rootless mode, so you don't have to specify <code>-u $(id -u ${USER}):$(id -g ${USER})</code> options.</p>
+<p>Please mount the code directory to <code>/app</code> in the container.</p>
+</blockquote>
+<p>Usage examples :</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app<span class="w"> </span>-w<span class="w"> </span>/app<span class="w"> </span>ghcr.io/llaville/box-manifest:v3<span class="w"> </span>manifest:build<span class="w"> </span>-c<span class="w"> </span>box.json<span class="w"> </span>--output-file<span class="o">=</span>sbom.xml
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app<span class="w"> </span>-w<span class="w"> </span>/app<span class="w"> </span>ghcr.io/llaville/box-manifest:v3<span class="w"> </span>manifest:build<span class="w"> </span>-c<span class="w"> </span>box.json<span class="w"> </span>--output-file<span class="o">=</span>manifest.txt
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app<span class="w"> </span>-w<span class="w"> </span>/app<span class="w"> </span>ghcr.io/llaville/box-manifest:v3<span class="w"> </span>manifest:build<span class="w"> </span>-c<span class="w"> </span>box.json<span class="w"> </span>--output-file<span class="o">=</span>console.txt
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app<span class="w"> </span>-w<span class="w"> </span>/app<span class="w"> </span>ghcr.io/llaville/box-manifest:v3<span class="w"> </span>manifest:stub<span class="w"> </span>-c<span class="w"> </span>box.json<span class="w"> </span>--output-file<span class="o">=</span>stub.php
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app<span class="w"> </span>-w<span class="w"> </span>/app<span class="w"> </span>ghcr.io/llaville/box-manifest:v3<span class="w"> </span>box:compile<span class="w"> </span>-c<span class="w"> </span>box.json.dist
+
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app<span class="w"> </span>-w<span class="w"> </span>/app<span class="w"> </span>ghcr.io/llaville/box-manifest:v3<span class="w"> </span>manifest:build<span class="w"> </span>--bootstrap<span class="w"> </span>tests/fixtures/my-manifest.php<span class="w"> </span>--format<span class="w"> </span><span class="se">\\</span>Bartlett<span class="se">\\</span>BoxManifest<span class="se">\\</span>Tests<span class="se">\\</span>fixtures<span class="se">\\</span>ConsoleManifest<span class="w"> </span>-v
+</code></pre></div>
+<h2 id="usage">Usage</h2>
+<div class="highlight"><pre><span></span><code>    ____                __  ___            _ ____          __
+   / __ )____  _  __   /  |/  /___ _____  (_) __/__  _____/ /_
+  / __  / __ \| |/_/  / /|_/ / __ `/ __ \/ / /_/ _ \/ ___/ __/
+ / /_/ / /_/ /&gt;  &lt;   / /  / / /_/ / / / / / __/  __(__  ) /_
+/_____/\____/_/|_|  /_/  /_/\__,_/_/ /_/_/_/  \___/____/\__/
+
+Box Manifest version 3.5.1 for Box 4.3.8@5534406
+
+Usage:
+  command [options] [arguments]
+
+Options:
+  -h, --help            Display help for the given command. When no command is given display help for the list command
+  -q, --quiet           Do not output any message
+  -V, --version         Display this application version
+      --ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction  Do not ask any interactive question
+  -e, --env=ENV         The Environment name. [default: &quot;dev&quot;]
+      --no-debug        Switches off debug mode.
+  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Available commands:
+  completion      Dump the shell completion script
+  help            Display help for a command
+  list            List commands
+ box
+  box:compile     🔨  Compiles an application into a PHAR
+  box:info        🔍  Displays information about the PHAR extension or file
+  box:validate    ⚙  Validates the configuration file
+ manifest
+  manifest:build  Creates a manifest of your software components and dependencies.
+  manifest:stub   Generates a stub for your manifest application.
+</code></pre></div>
+<p>This Symfony Console application combines two native commands, and three others inherited from BOX Application.</p>
+<h3 id="symfony-manifestbuild-command">Symfony <code>manifest:build</code> command</h3>
+<p>To build your application's manifest file(s).</p>
+<div class="highlight"><pre><span></span><code>Description:
+  Creates a manifest of your software components and dependencies.
+
+Usage:
+  manifest:build [options]
+
+Options:
+      --no-config                Ignore the config file even when one is specified with the --config option
+  -c, --config=CONFIG            The alternative configuration file path.
+      --bootstrap=BOOTSTRAP      A PHP script that is included before execution
+  -f, --format=FORMAT            Format of the output: auto, plain, ansi, console, sbom-xml, sbom-json [default: &quot;auto&quot;]
+  -s, --sbom-spec=SBOM-SPEC      SBOM specification version: 1.1, 1.2, 1.3, 1.4, 1.5 [default: &quot;1.5&quot;]
+  -o, --output-file=OUTPUT-FILE  Write results to file (default to standard output)
+  -h, --help                     Display help for the given command. When no command is given display help for the list command
+  -q, --quiet                    Do not output any message
+  -V, --version                  Display this application version
+      --ansi|--no-ansi           Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction           Do not ask any interactive question
+  -e, --env=ENV                  The Environment name. [default: &quot;dev&quot;]
+      --no-debug                 Switches off debug mode.
+  -v|vv|vvv, --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Help:
+  The manifest:build command will generate a manifest of your application.
+</code></pre></div>
+<p>The <code>--output-file</code> and <code>--format</code> options can be used to control the formatting and destination
+of the output generated by <code>box-manifest</code>.
+The default is to report to the console standard output but can be stored in a file (specified using <code>--output-file</code> option).
+The format of the output can be changed using the <code>--format</code> option which may be useful if the output is to be used
+as an input by another tool like <code>box</code>.</p>
+<p>The <code>--config</code> option can be used to specify path to alternate version of a <code>box.json.dist</code> or <code>box.json</code>
+that are not found in current working directory.</p>
+<p>The <code>--no-config</code> option must be specified if you don't want to use BOX default configuration files (<code>box.json.dist</code> or <code>box.json</code>)</p>
+<p>Once generated with the <code>--output-file</code> option, the manifest may be included as any other files you want to add into your PHP Archive.</p>
+<h3 id="symfony-manifeststub-command">Symfony <code>manifest:stub</code> command</h3>
+<p>To build the stub that will support <code>--manifest</code> option, to display its contents at runtime.</p>
+<div class="highlight"><pre><span></span><code>Description:
+  Generates a stub for your manifest application.
+
+Usage:
+  manifest:stub [options]
+
+Options:
+      --no-config                Ignore the config file even when one is specified with the --config option
+  -c, --config=CONFIG            The alternative configuration file path.
+  -o, --output-file=OUTPUT-FILE  Write results to file (default to standard output)
+  -h, --help                     Display help for the given command. When no command is given display help for the manifest:stub command
+  -q, --quiet                    Do not output any message
+  -V, --version                  Display this application version
+      --ansi|--no-ansi           Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction           Do not ask any interactive question
+  -e, --env=ENV                  The Environment name. [default: &quot;dev&quot;]
+      --no-debug                 Switches off debug mode.
+  -v|vv|vvv, --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Help:
+  The manifest:stub command will generate a stub of your manifest application.
+</code></pre></div>
+<p>The <code>--output-file</code> option can be used to control the destination of the output generated by <code>box-stub</code>.
+The default is to report to the console standard output but can be stored in a file</p>
+<p>The <code>--config</code> option can be used to specify path to alternate version of a <code>box.json.dist</code> or <code>box.json</code>
+that are not found in current working directory.</p>
+<p>The <code>--no-config</code> option must be specified if you don't want to use BOX default configuration files (<code>box.json.dist</code> or <code>box.json</code>)</p>
+<h3 id="symfony-boxcompile-command">Symfony <code>box:compile</code> command</h3>
+<p>This is just the BOX compile command, with additional <code>--bootstrap</code> option, to compile your PHAR application.</p>
+<div class="highlight"><pre><span></span><code>Description:
+  🔨  Compiles an application into a PHAR
+
+Usage:
+  box:compile [options]
+
+Options:
+      --debug                         Dump the files added to the PHAR in a `.box_dump` directory
+      --no-parallel                   Disable the parallel processing
+      --no-restart                    Do not restart the PHP process. Box restarts the process by default to disable xdebug and set `phar.readonly=0`
+      --dev                           Skips the compression step
+      --no-config                     Ignore the config file even when one is specified with the --config option
+      --with-docker                   Generates a Dockerfile
+      --composer-bin=COMPOSER-BIN     Composer binary to use
+      --allow-composer-check-failure  To continue even if an unsupported Composer version is detected
+  -c, --config=CONFIG                 The alternative configuration file path.
+  -d, --working-dir=WORKING-DIR       If specified, use the given directory as working directory.
+      --bootstrap=BOOTSTRAP           A PHP script that is included before execution
+  -h, --help                          Display help for the given command. When no command is given display help for the list command
+  -q, --quiet                         Do not output any message
+  -V, --version                       Display this application version
+      --ansi|--no-ansi                Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction                Do not ask any interactive question
+  -e, --env=ENV                       The Environment name. [default: &quot;dev&quot;]
+      --no-debug                      Switches off debug mode.
+  -v|vv|vvv, --verbose                Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Help:
+  The box:compile command will compile code in a new PHAR based on a variety of settings.
+
+    This command relies on a configuration file for loading
+    PHAR packaging settings. If a configuration file is not
+    specified through the --config|-c option, one of
+    the following files will be used (in order): box.json,
+    box.json.dist
+
+  The configuration file is actually a JSON object saved to a file. For more
+  information check the documentation online:
+
+    https://github.com/humbug/box
+</code></pre></div>
+<p>The <code>--bootstrap</code> option can be used to specify what PHP file to include at runtime. It's particular useful when you're callable
+is not in the scope of your autoloader.</p>
+<p>The <code>--config</code> option can be used to specify path to alternate version of a <code>box.json.dist</code> or <code>box.json</code>
+that are not found in current working directory.</p>
+<p>The <code>--no-config</code> option must be specified if you don't want to use BOX default configuration files (<code>box.json.dist</code> or <code>box.json</code>)</p>
+<h3 id="symfony-boxinfo-command">Symfony <code>box:info</code> command</h3>
+<p>This is just a wrapper around the BOX info command.</p>
+<div class="highlight"><pre><span></span><code>Description:
+  🔍  Displays information about the PHAR extension or file
+
+Usage:
+  box:info [options] [--] [&lt;phar&gt;]
+
+Arguments:
+  phar                  The Phar file.
+
+Options:
+  -l, --list            List the contents of the Phar?
+  -m, --mode=MODE       The listing mode. Modes available: &quot;indent&quot;, &quot;flat&quot; [default: &quot;indent&quot;]
+  -d, --depth=DEPTH     The depth of the tree displayed [default: &quot;-1&quot;]
+  -h, --help            Display help for the given command. When no command is given display help for the list command
+  -q, --quiet           Do not output any message
+  -V, --version         Display this application version
+      --ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction  Do not ask any interactive question
+  -e, --env=ENV         The Environment name. [default: &quot;dev&quot;]
+      --no-debug        Switches off debug mode.
+  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Help:
+  The box:info command will display information about the Phar extension,
+  or the Phar file if specified.
+
+  If the phar argument (the PHAR file path) is provided, information
+  about the PHAR file itself will be displayed.
+
+  If the --list|-l option is used, the contents of the PHAR file will
+  be listed. By default, the list is shown as an indented tree. You may
+  instead choose to view a flat listing, by setting the --mode|-m option
+  to flat.
+</code></pre></div>
+<h3 id="symfony-boxvalidate-command">Symfony <code>box:validate</code> command</h3>
+<p>This is just a wrapper around the BOX validate command.</p>
+<div class="highlight"><pre><span></span><code>Description:
+  ⚙  Validates the configuration file
+
+Usage:
+  box:validate [options] [--] [&lt;file&gt;]
+
+Arguments:
+  file                                       The configuration file. (default: box.json, box.json.dist)
+
+Options:
+  -i, --ignore-recommendations-and-warnings  Will not return a faulty code when a recommendation or warning is found
+  -h, --help                                 Display help for the given command. When no command is given display help for the list command
+  -q, --quiet                                Do not output any message
+  -V, --version                              Display this application version
+      --ansi|--no-ansi                       Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction                       Do not ask any interactive question
+  -e, --env=ENV                              The Environment name. [default: &quot;dev&quot;]
+      --no-debug                             Switches off debug mode.
+  -v|vv|vvv, --verbose                       Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Help:
+  The box:validate command will validate the configuration file
+  and report any errors found, if any.
+
+    This command relies on a configuration file for loading
+    PHAR packaging settings. If a configuration file is not
+    specified through the --configuration|-c option, one of
+    the following files will be used (in order): box.json,
+    box.json.dist
+</code></pre></div>
+<h3 id="define-the-manifest-in-the-metadata-field-of-your-php-archive">Define the manifest in the <code>metadata</code> field of your PHP Archive</h3>
+<p>Like in previous versions  (1.x and 2.x), if you want to keep the manifest included in the metadata field of your PHAR,
+then you must configure <a href="https://github.com/box-project/box/blob/main/doc/configuration.md#metadata-metadata"><code>metadata</code></a> directive with a <a href="https://www.php.net/manual/en/language.types.callable.php">PHP callable</a>.</p>
+<p>E.g: See also the <a href="../Tutorial/">tutorial</a> to learn more.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MyCallbacks::manifest&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>NOTE</strong> if none of manifest files (default: <code>manifest.txt</code>, <code>manifest.xml</code>, <code>sbom.xml</code>, <code>sbom.json</code>) are found, when you execute <code>box:compile</code> command,
+then metadata field of your PHAR will contain NULL value (default BOX behavior).</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tabs", "navigation.indexes", "navigation.top"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.aecac24b.min.js"></script>
+      
+    
+  </body>
+</html>
