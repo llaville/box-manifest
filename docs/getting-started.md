@@ -35,7 +35,7 @@ docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 mani
  / /_/ / /_/ />  <   / /  / / /_/ / / / / / __/  __(__  ) /_
 /_____/\____/_/|_|  /_/  /_/\__,_/_/ /_/_/_/  \___/____/\__/
 
-Box Manifest version 3.4.0 for Box 4.3.8@5534406
+Box Manifest version 3.5.1 for Box 4.3.8@5534406
 
 Usage:
   command [options] [arguments]
@@ -81,7 +81,7 @@ Options:
   -c, --config=CONFIG            The alternative configuration file path.
       --bootstrap=BOOTSTRAP      A PHP script that is included before execution
   -f, --format=FORMAT            Format of the output: auto, plain, ansi, console, sbom-xml, sbom-json [default: "auto"]
-  -s, --sbom-spec=SBOM-SPEC      SBOM specification version: 1.1, 1.2, 1.3, 1.4 [default: "1.4"]
+  -s, --sbom-spec=SBOM-SPEC      SBOM specification version: 1.1, 1.2, 1.3, 1.4, 1.5 [default: "1.5"]
   -o, --output-file=OUTPUT-FILE  Write results to file (default to standard output)
   -h, --help                     Display help for the given command. When no command is given display help for the list command
   -q, --quiet                    Do not output any message

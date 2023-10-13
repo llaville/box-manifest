@@ -50,7 +50,7 @@ Otherwise, fallback strategy is to return the contents that will be used for the
 Compile your PHP Archive as usual, either with standard `vendor/bin/box compile` command or the `bin/box-manifest box:compile` command.
 
 ```shell
-bin/box-manifest box:compile --config app-fixtures-box.json -v
+box-manifest box:compile --config app-fixtures-box.json -v
 ```
 
 <details>
@@ -68,15 +68,15 @@ Box version 4.3.8@5534406
 
  // Loading the configuration file "app-fixtures-box.json".
 
-🔨  Building the PHAR "/shared/backups/bartlett/box-manifest/examples/app-fixtures/app-fixtures.phar"
+🔨  Building the PHAR "/path/to/examples/app-fixtures/app-fixtures.phar"
 
-? Removing the existing PHAR "/shared/backups/bartlett/box-manifest/examples/app-fixtures/app-fixtures.phar"
+? Removing the existing PHAR "/path/to/examples/app-fixtures/app-fixtures.phar"
 ? Checking Composer compatibility
     > '/usr/local/bin/composer' '--version'
-    > 2.5.4 (Box requires ^2.2.0)
+    > 2.6.4 (Box requires ^2.2.0)
     > Supported version detected
 ? No compactor to register
-? Adding main file: /shared/backups/bartlett/box-manifest/examples/app-fixtures/index.php
+? Adding main file: /path/to/examples/app-fixtures/index.php
 ? Adding requirements checker
 ? Adding binary files
     > 34 file(s)
@@ -104,12 +104,16 @@ Generated optimized autoload files (authoritative) containing 1 classes
 * Done.
 
 No recommendation found.
-No warning found.
+⚠️  1 warning found:
+    - The "alias" setting has been set but is ignored since a custom stub path is used
 
- // PHAR: 58 files (46.67KB)
+ // PHAR: 60 files (48.24KB)
  // You can inspect the generated PHAR with the "info" command.
 
- // Memory usage: 12.32MB (peak: 12.78MB), time: <1sec
+ // Memory usage: 12.35MB (peak: 12.81MB), time: <1sec
+
+
+ // Loading the configuration file "app-fixtures-box.json".
 
 ```
 
@@ -129,17 +133,18 @@ because the callable defined is out of autoloader scope !
 
 That means, you should specify by the `--bootstrap` option where is the file that contains the callable.
 
-**IMPORTANT** Use the `bin/box-compile` command here, because standard BOX compile version does not support the `--bootstrap` option.
+**IMPORTANT** Use the `box:compile` command here, because standard BOX compile version does not support the `--bootstrap` option.
 
 ```shell
-bin/box-manifest box:compile --config app-fixtures-box.json --bootstrap bootstrap.php
+box-manifest box:compile --config app-fixtures-box.json --bootstrap bootstrap.php
 ```
 
 And we will get the expected results :
 
 ```text
 ? Setting metadata
-  - 3.x-dev@b526ccc
+  - root/app-fixtures: 3.x-dev@9661882
+psr/log: 3.0.0
 ```
 
 [metadata-box-setting]: https://github.com/box-project/box/blob/main/doc/configuration.md#metadata-metadata
