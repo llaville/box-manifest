@@ -1,0 +1,3 @@
+kind: Changed
+body: use latest SBOM spec version (1.5) on manifest:build command
+time: 2023-10-13T08:08:42.999665756Z

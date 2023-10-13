@@ -6,7 +6,7 @@
         "php": "^8.1",
         "ext-phar": "*",
         "composer/composer": "^2.2",
-        "cyclonedx/cyclonedx-library": "^2.1",
+        "cyclonedx/cyclonedx-library": "^2.3",
         "humbug/box": ">=4.0 <4.4",
         "symfony/filesystem": "^6.1",
         "symfony/runtime": "^6.1",

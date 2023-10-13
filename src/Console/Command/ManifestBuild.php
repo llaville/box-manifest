@@ -76,7 +76,7 @@ final class ManifestBuild extends Command
                 's',
                 InputOption::VALUE_REQUIRED,
                 'SBOM specification version: <comment>' . implode(', ', array_column(Version::cases(), 'value')) . '</comment>',
-                Version::v1dot4->value
+                Version::v1dot5->value
             ),
             new InputOption(
                 self::OUTPUT_OPTION,
