@@ -7,9 +7,14 @@
  */
 namespace Bartlett\BoxManifest\Console\Command;
 
+use Fidry\Console\Input\IO;
+
 use KevinGH\Box\Console\Command\Validate;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @author Laurent Laville
@@ -25,5 +30,18 @@ final class BoxValidate extends Command
     {
         $this->boxCommand = $boxCommand;
         parent::__construct(self::NAME);
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $formatter = $output->getFormatter();
+        $formatter->setStyle(
+            'recommendation',
+            new OutputFormatterStyle('black', 'yellow'),
+        );
+
+        $io = new IO($input, $output);
+
+        return $this->boxCommand->execute($io);
     }
 }

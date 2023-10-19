@@ -11,8 +11,8 @@
 
 | Version | Status                                    | Requirements                                                            |
 |:--------|:------------------------------------------|:------------------------------------------------------------------------|
-| **3.x** | **Active development**                    | **PHP >= 8.1, ext-phar**, without box patches                           |
-| 2.x     | Active support                            | PHP >= 8.1, ext-phar, cweagans/composer-patches >=1.7 with box v4 patch |
+| **3.x** | **Active support**                        | **PHP >= 8.1, ext-phar**, without box patches                           |
+| 2.x     | End Of Life                               | PHP >= 8.1, ext-phar, cweagans/composer-patches >=1.7 with box v4 patch |
 | 1.x     | End Of Life                               | PHP >= 7.4, ext-phar, cweagans/composer-patches >=1.7 with box v3 patch |
 
 ## PHAR
@@ -25,7 +25,7 @@ The preferred method of installation is to use the PHPLint PHAR which can be dow
 You can install `box-manifest` with [Docker][docker]
 
 ```shell
-docker pull ghcr.io/llaville/box-manifest:v3.4
+docker pull ghcr.io/llaville/box-manifest:v3.5
 or
 docker pull ghcr.io/llaville/box-manifest:v3
 or

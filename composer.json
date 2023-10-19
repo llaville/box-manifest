@@ -1,20 +1,16 @@
 {
     "name": "bartlett/box-manifest",
     "description": "Creates manifests for a PHP Archive (PHAR) and the BOX project (https://github.com/box-project/box)",
-    "type": "composer-plugin",
+    "type": "project",
     "require": {
         "php": "^8.1",
         "ext-phar": "*",
-        "composer-plugin-api": "^2.3.0",
-        "cweagans/composer-patches": "^1.0",
-        "cyclonedx/cyclonedx-library": "^2.1",
-        "humbug/box": "^4.0",
+        "composer/composer": "^2.2",
+        "cyclonedx/cyclonedx-library": "^2.3",
+        "humbug/box": ">=4.0 <4.4",
         "symfony/filesystem": "^6.1",
         "symfony/runtime": "^6.1",
         "symfony/serializer": "^6.1"
-    },
-    "require-dev": {
-        "composer/composer": "^2.0"
     },
     "license": "MIT",
     "autoload": {
@@ -23,9 +19,9 @@
         }
     },
     "autoload-dev": {
-        "psr-4": {
-            "Bartlett\\BoxManifest\\Tests\\": "tests/"
-        }
+        "classmap": [
+            "tests/unit"
+        ]
     },
     "authors": [
         {
@@ -38,36 +34,17 @@
         "bin/box-manifest"
     ],
     "config": {
-        "preferred-install": {
-            "humbug/box": "source",
-            "*": "dist"
-        },
         "sort-packages": true,
         "allow-plugins": {
-            "symfony/runtime": true,
-            "cweagans/composer-patches": true
+            "symfony/runtime": true
         }
     },
     "extra": {
-        "patches": {
-            "humbug/box" : {
-                "Solve issue https://github.com/box-project/box/issues/991" : "patches/box-4.3.8.patch"
-            }
-        },
-        "class": "Bartlett\\BoxManifest\\Composer\\Plugin",
         "branch-alias": {
             "dev-master": "3.x-dev"
         },
         "runtime": {
             "autoload_template": "autoload_phar_runtime.template"
         }
-    },
-    "scripts": {
-        "post-autoload-dump": [
-            "@composer -d tests/fixtures/plugin/box-001/ install",
-            "@composer -d tests/fixtures/plugin/box-002/ install",
-            "@composer -d tests/fixtures/plugin/box-003/ install",
-            "@composer -d tests/fixtures/plugin/box-004/ install"
-        ]
     }
 }

@@ -36,8 +36,6 @@ final class ManifestFactoryTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->markAsSkippedIfPharReadonlyIsOn();
-
         parent::setUp();
 
         $this->box = Box::create('/tmp/box-manifest/test.phar');
@@ -62,7 +60,7 @@ final class ManifestFactoryTest extends TestCase
      */
     public function testCreateSimpleTextManifest(): void
     {
-        $configFilePath = __DIR__ . '/fixtures/phario-manifest-2.0.x-dev/box.json';
+        $configFilePath = __DIR__ . '/../fixtures/phario-manifest-2.0.x-dev/box.json';
 
         $raw = new stdClass();
         $main = 'main';
@@ -83,7 +81,7 @@ final class ManifestFactoryTest extends TestCase
      */
     public function testBuildArtifactWithoutManifest(): void
     {
-        $configFilePath = __DIR__ . '/fixtures/vendor-package-not-yet-released/box.json';
+        $configFilePath = __DIR__ . '/../fixtures/vendor-package-not-yet-released/box.json';
 
         $raw = new stdClass();
         $main = 'main';
@@ -100,7 +98,7 @@ final class ManifestFactoryTest extends TestCase
      */
     public function testBuildSimpleManifestOnPackageWithoutPublicReleases(): void
     {
-        $configFilePath = __DIR__ . '/fixtures/vendor-package-no-public-releases/box-metadata-simpletext.json';
+        $configFilePath = __DIR__ . '/../fixtures/vendor-package-no-public-releases/box-metadata-simpletext.json';
 
         $raw = new stdClass();
         $main = 'main';
@@ -120,7 +118,7 @@ final class ManifestFactoryTest extends TestCase
      */
     public function testBuildDecoratedManifestOnPackageWithoutPublicReleases(): void
     {
-        $configFilePath = __DIR__ . '/fixtures/vendor-package-no-public-releases/box-metadata-decoratetext.json';
+        $configFilePath = __DIR__ . '/../fixtures/vendor-package-no-public-releases/box-metadata-decoratetext.json';
 
         $raw = new stdClass();
         $main = 'main';
