@@ -36,8 +36,6 @@ final class ManifestFactoryTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->markAsSkippedIfPharReadonlyIsOn();
-
         parent::setUp();
 
         $this->box = Box::create('/tmp/box-manifest/test.phar');

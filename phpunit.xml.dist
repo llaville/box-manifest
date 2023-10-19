@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.4/phpunit.xsd"
     backupGlobals="false"
     backupStaticProperties="false"
-    bootstrap="vendor/autoload.php"
+    bootstrap="bootstrap.php"
     colors="true"
     stopOnError="false"
     stopOnFailure="false"
@@ -16,7 +16,7 @@
     cacheDirectory=".phpunit.cache"
 >
     <coverage/>
-    <testsuite name="Box Manifest Test Suite">
+    <testsuite name="unit">
         <directory suffix="Test.php">tests/unit/</directory>
     </testsuite>
     <source>
