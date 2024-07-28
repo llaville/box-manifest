@@ -10,19 +10,26 @@ namespace Bartlett\BoxManifest\Console;
 use Bartlett\BoxManifest\Helper\BoxHelper;
 use Bartlett\BoxManifest\Helper\ManifestHelper;
 
+use Composer\InstalledVersions;
+
+use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use OutOfBoundsException;
 use function sprintf;
-use function str_starts_with;
+use function substr;
 
 /**
  * @author Laurent Laville
  * @since Release 3.0.0
  */
-final class Application extends ManifestApplication
+final class Application extends SymfonyApplication
 {
+    public const APPLICATION_NAME = 'BOX Manifest';
+    public const PACKAGE_NAME = 'bartlett/box-manifest';
+
     /**
      * @link http://patorjk.com/software/taag/#p=display&f=Slant&t=Box%20Manifest
      * editorconfig-checker-disable
@@ -36,25 +43,39 @@ final class Application extends ManifestApplication
 
 ";
 
-    public function __construct(string $version = '@git-version@')
+    public function __construct(string $name = 'UNKNOWN', string $version = 'UNKNOWN')
     {
-        if (str_starts_with($version, '@')) {
-            $version = '3.x-dev';
+        if ('UNKNOWN' === $name) {
+            $name = self::APPLICATION_NAME;
         }
-        parent::__construct('Manifest', $version);
+        if ('UNKNOWN' === $version) {
+            $version = self::getPrettyVersion();
+        }
+        parent::__construct($name, $version);
     }
 
-    public function getLongVersion(): string
+    public static function getPrettyVersion(): string
     {
-        /** @var BoxHelper $boxHelper */
-        $boxHelper = $this->getHelperSet()->get(BoxHelper::NAME);
+        foreach (InstalledVersions::getAllRawData() as $installed) {
+            if (!isset($installed['versions'][self::PACKAGE_NAME])) {
+                continue;
+            }
 
-        return sprintf(
-            '<info>Box %s</info> version <comment>%s</comment> for Box <comment>%s</comment>',
-            $this->getName(),
-            $this->getVersion(),
-            $boxHelper->getBoxVersion()
-        );
+            $version = $installed['versions'][self::PACKAGE_NAME]['pretty_version']
+                ?? $installed['versions'][self::PACKAGE_NAME]['version']
+                ?? 'dev'
+            ;
+
+            $aliases = $installed['versions'][self::PACKAGE_NAME]['aliases'] ?? [];
+
+            return sprintf(
+                '%s@%s',
+                $aliases[0] ?? $version,
+                substr(InstalledVersions::getReference(self::PACKAGE_NAME), 0, 7)
+            );
+        }
+
+        throw new OutOfBoundsException(sprintf('Package "%s" is not installed', self::PACKAGE_NAME));
     }
 
     public function getHelp(): string
@@ -66,6 +87,7 @@ final class Application extends ManifestApplication
     {
         $helperSet = parent::getDefaultHelperSet();
         $helperSet->set(new BoxHelper());
+        $helperSet->set(new ManifestHelper());
         return $helperSet;
     }
 

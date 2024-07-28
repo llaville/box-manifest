@@ -18,7 +18,6 @@ use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Spec\Version;
 
 use KevinGH\Box\Configuration\Configuration;
-use function KevinGH\Box\FileSystem\make_path_absolute;
 
 use DomainException;
 use ValueError;
@@ -31,6 +30,7 @@ use function is_readable;
 use function is_string;
 use function preg_replace;
 use function sprintf;
+use const DIRECTORY_SEPARATOR;
 
 /**
  * @author Laurent Laville
@@ -83,10 +83,10 @@ final class ManifestFactory
             return null;
         }
 
-        $decodedJsonContents = $config->getDecodedComposerJsonContents();
+        $decodedJsonContents = $config->getComposerJson() ? $config->getComposerJson()->decodedContents : null;
 
         $normalizePath = function ($file, $basePath) {
-            return make_path_absolute(trim($file), $basePath);
+            return ($basePath . DIRECTORY_SEPARATOR . trim($file));
         };
 
         $basePath = $config->getBasePath();
@@ -103,10 +103,12 @@ final class ManifestFactory
         }
         $installedPhp = include $file;
 
+        $decodedJsonLockContents = $config->getComposerLock() ? $config->getComposerLock()->decodedContents : null;
+
         $manifest = $builder(
             [
                 'composer.json' => $decodedJsonContents,
-                'composer.lock' => $config->getDecodedComposerLockContents(),
+                'composer.lock' => $decodedJsonLockContents,
                 'installed.php' => (array) $installedPhp,
             ]
         );

@@ -1,11 +1,8 @@
 {
     "main": "bin/box-manifest",
-    "directories": ["bin", "src", "vendor"],
-    "directories-bin": ["vendor/humbug/box/res/requirement-checker"],
-    "files-bin": [
-        "vendor/humbug/php-scoper/vendor-hotfix/.gitkeep",
-        "autoload_phar_runtime.template"
-    ],
     "compression": "GZ",
-    "git-version": "git-version"
+    "directories": ["bin", "src", "vendor"],
+    "directories-bin": [
+        "vendor/humbug/box/res/requirement-checker"
+    ]
 }

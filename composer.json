@@ -3,14 +3,14 @@
     "description": "Creates manifests for a PHP Archive (PHAR) and the BOX project (https://github.com/box-project/box)",
     "type": "project",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-phar": "*",
-        "composer/composer": "^2.2",
+        "composer/composer": "^2.7",
         "cyclonedx/cyclonedx-library": "^2.3",
-        "humbug/box": ">=4.0 <4.4",
-        "symfony/filesystem": "^6.1",
-        "symfony/runtime": "^6.1",
-        "symfony/serializer": "^6.1"
+        "humbug/box": "^4.6",
+        "symfony/console": "^6.4 || ^7.0",
+        "symfony/filesystem": "^6.4 || ^7.0",
+        "symfony/serializer": "^6.4 || ^7.0"
     },
     "license": "MIT",
     "autoload": {
@@ -41,7 +41,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.x-dev"
+            "dev-master": "4.x-dev"
         },
         "runtime": {
             "autoload_template": "autoload_phar_runtime.template"

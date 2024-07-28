@@ -86,14 +86,13 @@ final class ManifestStub extends Command
         $startTime = microtime(true);
 
         $io = new IO($input, $output);
-        $noDebug = $io->getOption('no-debug')->asBoolean();
 
         /** @var DebugFormatterHelper $debugFormatter */
         $debugFormatter = $this->getHelper('debug_formatter');
 
         $pid = uniqid();
 
-        if ($io->isVeryVerbose() && !$noDebug) {
+        if ($io->isVeryVerbose()) {
             $io->write(
                 $debugFormatter->start($pid, 'Generating stub', 'STARTED')
             );
@@ -154,7 +153,7 @@ final class ManifestStub extends Command
             $message = sprintf('Writing stub to file "<comment>%s</comment>"', realpath($outputFile));
         }
 
-        if ($io->isVeryVerbose() && !$noDebug) {
+        if ($io->isVeryVerbose()) {
             $io->write(
                 $debugFormatter->stop($pid, $message, true, 'RESPONSE')
             );

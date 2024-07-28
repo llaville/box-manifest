@@ -13,7 +13,6 @@ use Bartlett\BoxManifest\Composer\ManifestFactory;
 
 use KevinGH\Box\Box;
 use KevinGH\Box\Configuration\Configuration;
-use KevinGH\Box\Test\RequiresPharReadonlyOff;
 
 use Phar;
 use stdClass;
@@ -27,12 +26,10 @@ use const PHP_EOL;
  */
 final class ManifestFactoryTest extends TestCase
 {
-    use RequiresPharReadonlyOff;
-
     private Box $box;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function setUp(): void
     {
@@ -42,7 +39,7 @@ final class ManifestFactoryTest extends TestCase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function tearDown(): void
     {

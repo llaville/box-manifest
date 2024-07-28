@@ -14,5 +14,5 @@ jobs:
     deploy:
         uses: llaville/.github/.github/workflows/gh-pages.yml@master
         with:
-            destination-dir: 3.x
-            php-version: "8.1"
+            destination-dir: 4.x
+            php-version: "8.2"

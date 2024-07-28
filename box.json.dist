@@ -1,5 +1,6 @@
 {
-    "stub": "stub.php",
+    "main": "bin/box-manifest",
+    "compression": "GZ",
     "directories": ["bin", "src", "vendor"],
     "directories-bin": [
         "vendor/humbug/box/res/requirement-checker",
@@ -7,12 +8,12 @@
     ],
     "files-bin": [
         "vendor/humbug/php-scoper/vendor-hotfix/.gitkeep",
-        "autoload_phar_runtime.template",
         "console.txt",
         "manifest.txt",
         "sbom.json",
         "sbom.xml"
     ],
+    "stub": "stub.php",
     "map": [
         { "console.txt": ".box.manifests/console.txt" },
         { "manifest.txt": ".box.manifests/manifest.txt" },
@@ -26,7 +27,5 @@
         "doc",
         "dist",
         "vendor-bin"
-    ],
-    "compression": "GZ",
-    "git-version": "git-version"
+    ]
 }

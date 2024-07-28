@@ -10,6 +10,7 @@ namespace Bartlett\BoxManifest\Composer;
 use Bartlett\BoxManifest\Helper\ManifestFormat;
 
 use Fidry\Console\Input\IO;
+use Symfony\Component\Console\Style\StyleInterface;
 
 /**
  * @author Laurent Laville
@@ -17,19 +18,13 @@ use Fidry\Console\Input\IO;
  */
 final class ManifestOptions
 {
-    private const NO_DEBUG_OPTION = 'no-debug';
     private const BOOTSTRAP_OPTION = 'bootstrap';
     private const FORMAT_OPTION = 'format';
     private const SBOM_SPEC_OPTION = 'sbom-spec';
     private const OUTPUT_OPTION = 'output-file';
 
-    public function __construct(private IO $io)
+    public function __construct(private StyleInterface $io)
     {
-    }
-
-    public function hasNoDebug(): bool
-    {
-        return $this->io->getOption(self::NO_DEBUG_OPTION)->asBoolean();
     }
 
     public function getBootstrap(): ?string

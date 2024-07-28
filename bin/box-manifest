@@ -8,59 +8,14 @@
  */
 
 use Bartlett\BoxManifest\Console\Application;
-use Bartlett\BoxManifest\Console\Command\BoxCompile;
-use Bartlett\BoxManifest\Console\Command\BoxInfo;
-use Bartlett\BoxManifest\Console\Command\BoxValidate;
 use Bartlett\BoxManifest\Console\Command\ManifestBuild;
 use Bartlett\BoxManifest\Console\Command\ManifestStub;
 
-use KevinGH\Box\Console\Application as BoxApplication;
-use KevinGH\Box\Console\Command\Compile;
-use KevinGH\Box\Console\Command\Info;
-use KevinGH\Box\Console\Command\Validate;
+gc_disable(); // performance boost
 
-$_SERVER['APP_SCRIPT_FILENAME'] = __FILE__;
+require_once dirname(__DIR__) . '/autoload.php';
 
-$autoloader = 'vendor/autoload_runtime.php';
-
-$possibleAutoloadPaths = [
-    // local dev repository
-    dirname(__DIR__),
-    // dependency
-    dirname(__DIR__, 4),
-];
-
-$isAutoloadFound = false;
-foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
-    if (file_exists($possibleAutoloadPath . DIRECTORY_SEPARATOR . $autoloader)) {
-        require_once $possibleAutoloadPath . DIRECTORY_SEPARATOR . $autoloader;
-        $isAutoloadFound = true;
-        break;
-    }
-}
-
-if ($isAutoloadFound === false) {
-    throw new RuntimeException(
-        sprintf(
-            'Unable to find "%s" in "%s" paths.',
-            $autoloader,
-            implode('", "', $possibleAutoloadPaths)
-        )
-    );
-}
-
-return function () {
-    $boxApp = new BoxApplication();
-    $boxCommand = new Compile($boxApp->getHeader());
-
-    $app = new Application();
-    // native BOX Manifest commands
-    $app->add(new ManifestBuild());
-    $app->add(new ManifestStub());
-    // inherits from BOX application
-    $app->add(new BoxCompile($boxCommand));
-    $app->add(new BoxInfo(new Info()));
-    $app->add(new BoxValidate(new Validate()));
-
-    return $app;
-};
+$application = new Application();
+$application->add(new ManifestBuild());
+$application->add(new ManifestStub());
+$application->run();

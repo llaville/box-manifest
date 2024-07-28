@@ -7,7 +7,6 @@
  */
 namespace Bartlett\BoxManifest\Console\Command;
 
-use Bartlett\BoxManifest\Composer\DefaultStrategy;
 use Bartlett\BoxManifest\Composer\ManifestFactory;
 use Bartlett\BoxManifest\Composer\ManifestOptions;
 use Bartlett\BoxManifest\Helper\BoxHelper;
@@ -105,7 +104,6 @@ final class ManifestBuild extends Command
 
         $options = new ManifestOptions($io);
 
-        $noDebug = $options->hasNoDebug();
         $bootstrap = $options->getBootstrap();
         $outputFile = $options->getOutputFile();
         $rawFormat = $options->getFormat(true);
@@ -114,17 +112,14 @@ final class ManifestBuild extends Command
 
         /** @var BoxHelper $boxHelper */
         $boxHelper = $this->getHelper(BoxHelper::NAME);
-
-        if (!$noDebug) {
-            $boxHelper->checkPhpSettings($io);
-        }
+        $boxHelper->checkPhpSettings($io);
 
         /** @var DebugFormatterHelper $debugFormatter */
         $debugFormatter = $this->getHelper('debug_formatter');
 
         $pid = uniqid();
 
-        if ($io->isVeryVerbose() && !$noDebug) {
+        if ($io->isVeryVerbose()) {
             $io->write(
                 $debugFormatter->start($pid, sprintf('Generating manifest in %s format', $options->getFormatDisplay()), 'STARTED')
             );
@@ -162,7 +157,7 @@ final class ManifestBuild extends Command
             $message = sprintf('Writing manifest to file "<comment>%s</comment>"', realpath($outputFile));
         }
 
-        if ($io->isVeryVerbose() && !$noDebug) {
+        if ($io->isVeryVerbose()) {
             $io->write(
                 $debugFormatter->stop($pid, $message, true, 'RESPONSE')
             );
