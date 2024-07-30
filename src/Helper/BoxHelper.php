@@ -7,7 +7,7 @@
  */
 namespace Bartlett\BoxManifest\Helper;
 
-use Fidry\Console\Input\IO;
+use Fidry\Console\IO;
 
 use KevinGH\Box\Configuration\Configuration;
 use KevinGH\Box\Console\Command\ConfigOption;

@@ -14,7 +14,7 @@ use Bartlett\BoxManifest\Helper\ManifestFormat;
 
 use CycloneDX\Core\Spec\Version;
 
-use Fidry\Console\Input\IO;
+use Fidry\Console\IO;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DebugFormatterHelper;
@@ -137,7 +137,7 @@ final class ManifestBuild extends Command
         $config = $boxHelper->getBoxConfiguration(
             $io->isVerbose() ? $io : $io->withOutput(new NullOutput()),
             true,
-            $io->getOption(BoxHelper::NO_CONFIG_OPTION)->asBoolean()
+            $io->getTypedOption(BoxHelper::NO_CONFIG_OPTION)->asBoolean()
         );
 
         $factory = new ManifestFactory($config, $output->isDecorated(), $boxHelper->getBoxVersion(), $this->getApplication()->getVersion());

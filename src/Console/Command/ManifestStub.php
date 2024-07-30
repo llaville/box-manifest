@@ -10,7 +10,7 @@ namespace Bartlett\BoxManifest\Console\Command;
 use Bartlett\BoxManifest\Helper\BoxHelper;
 use Bartlett\BoxManifest\Helper\ManifestHelper;
 
-use Fidry\Console\Input\IO;
+use Fidry\Console\IO;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DebugFormatterHelper;
@@ -107,12 +107,12 @@ final class ManifestStub extends Command
         $config = $boxHelper->getBoxConfiguration(
             $io->isVerbose() ? $io : $io->withOutput(new NullOutput()),
             true,
-            $io->getOption(BoxHelper::NO_CONFIG_OPTION)->asBoolean()
+            $io->getTypedOption(BoxHelper::NO_CONFIG_OPTION)->asBoolean()
         );
 
         $stubGenerator = $manifestHelper->getStubGenerator(
-            $io->getOption(self::TEMPLATE_OPTION)->asNullableString(),
-            $io->getOption(self::RESOURCE_OPTION)->asNonEmptyStringList(),
+            $io->getTypedOption(self::TEMPLATE_OPTION)->asNullableString(),
+            $io->getTypedOption(self::RESOURCE_OPTION)->asNonEmptyStringList(),
             $config->getFileMapper()->getMap()
         );
 
@@ -140,7 +140,7 @@ final class ManifestStub extends Command
             $stub = $stubGenerator->generateStub(null, null, null, false, null, false);
         }
 
-        $outputFile = $io->getOption(self::OUTPUT_OPTION)->asNullableString();
+        $outputFile = $io->getTypedOption(self::OUTPUT_OPTION)->asNullableString();
 
         if (empty($outputFile)) {
             $output->writeln($stub);

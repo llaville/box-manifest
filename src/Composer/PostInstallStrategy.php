@@ -13,7 +13,7 @@ use Bartlett\BoxManifest\Helper\BoxHelper;
 
 use Composer\Script\Event;
 
-use Fidry\Console\Input\IO;
+use Fidry\Console\IO;
 
 use KevinGH\Box\Configuration\ConfigurationLoader;
 

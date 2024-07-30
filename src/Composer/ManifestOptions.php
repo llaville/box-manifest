@@ -9,8 +9,7 @@ namespace Bartlett\BoxManifest\Composer;
 
 use Bartlett\BoxManifest\Helper\ManifestFormat;
 
-use Fidry\Console\Input\IO;
-use Symfony\Component\Console\Style\StyleInterface;
+use Fidry\Console\IO;
 
 /**
  * @author Laurent Laville
@@ -23,18 +22,18 @@ final class ManifestOptions
     private const SBOM_SPEC_OPTION = 'sbom-spec';
     private const OUTPUT_OPTION = 'output-file';
 
-    public function __construct(private StyleInterface $io)
+    public function __construct(private IO $io)
     {
     }
 
     public function getBootstrap(): ?string
     {
-        return $this->io->getOption(self::BOOTSTRAP_OPTION)->asNullableString();
+        return $this->io->getTypedOption(self::BOOTSTRAP_OPTION)->asNullableString();
     }
 
     public function getFormat(bool $raw = false): string|null|ManifestFormat
     {
-        $rawFormat = $this->io->getOption(self::FORMAT_OPTION)->asString();
+        $rawFormat = $this->io->getTypedOption(self::FORMAT_OPTION)->asString();
 
         if ($raw) {
             return $rawFormat;
@@ -54,11 +53,11 @@ final class ManifestOptions
 
     public function getSbomSpec(): string
     {
-        return $this->io->getOption(self::SBOM_SPEC_OPTION)->asString();
+        return $this->io->getTypedOption(self::SBOM_SPEC_OPTION)->asString();
     }
 
     public function getOutputFile(): ?string
     {
-        return $this->io->getOption(self::OUTPUT_OPTION)->asNullableString();
+        return $this->io->getTypedOption(self::OUTPUT_OPTION)->asNullableString();
     }
 }
