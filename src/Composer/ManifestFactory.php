@@ -83,7 +83,7 @@ final class ManifestFactory
             return null;
         }
 
-        $decodedJsonContents = $config->getComposerJson() ? $config->getComposerJson()->decodedContents : null;
+        $decodedJsonContents = $config->getComposerJson()?->decodedContents;
 
         $normalizePath = function ($file, $basePath) {
             return ($basePath . DIRECTORY_SEPARATOR . trim($file));
@@ -103,7 +103,7 @@ final class ManifestFactory
         }
         $installedPhp = include $file;
 
-        $decodedJsonLockContents = $config->getComposerLock() ? $config->getComposerLock()->decodedContents : null;
+        $decodedJsonLockContents = $config->getComposerLock()?->decodedContents;
 
         $manifest = $builder(
             [
