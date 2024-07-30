@@ -22,7 +22,7 @@ use function sprintf;
  */
 final class DefaultStrategy implements ManifestBuildStrategy
 {
-    public function __construct(private ManifestFactory $factory)
+    public function __construct(private readonly ManifestFactory $factory)
     {
     }
 

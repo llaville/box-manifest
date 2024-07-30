@@ -24,7 +24,7 @@ final class ManifestOptions
     public const TEMPLATE_OPTION = 'template';
     public const RESOURCE_OPTION = 'resource';
 
-    public function __construct(private IO $io)
+    public function __construct(private readonly IO $io)
     {
     }
 

@@ -40,10 +40,10 @@ final class ManifestFactory
     private ManifestBuildStrategy $strategy;
 
     public function __construct(
-        private Configuration $config,
-        private bool $isDecorated,
-        private string $boxVersion,
-        private string $boxManifestVersion
+        private readonly Configuration $config,
+        private readonly bool $isDecorated,
+        private readonly string $boxVersion,
+        private readonly string $boxManifestVersion
     ) {
         $this->setStrategy(new DefaultStrategy($this));
     }
