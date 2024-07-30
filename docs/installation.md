@@ -9,11 +9,12 @@
 
 ## Requirements
 
-| Version | Status                                    | Requirements                                                            |
-|:--------|:------------------------------------------|:------------------------------------------------------------------------|
-| **3.x** | **Active support**                        | **PHP >= 8.1, ext-phar**, without box patches                           |
-| 2.x     | End Of Life                               | PHP >= 8.1, ext-phar, cweagans/composer-patches >=1.7 with box v4 patch |
-| 1.x     | End Of Life                               | PHP >= 7.4, ext-phar, cweagans/composer-patches >=1.7 with box v3 patch |
+| Version | Status                 | Requirements                                                            |
+|:--------|:-----------------------|:------------------------------------------------------------------------|
+| **4.x** | **Active development** | **PHP >= 8.2, ext-phar**, without patches                               |
+| 3.x     | Active support         | PHP >= 8.1, ext-phar, without patches                                   |
+| 2.x     | End Of Life            | PHP >= 8.1, ext-phar, cweagans/composer-patches >=1.7 with box v4 patch |
+| 1.x     | End Of Life            | PHP >= 7.4, ext-phar, cweagans/composer-patches >=1.7 with box v3 patch |
 
 ## PHAR
 
@@ -25,9 +26,7 @@ The preferred method of installation is to use the PHPLint PHAR which can be dow
 You can install `box-manifest` with [Docker][docker]
 
 ```shell
-docker pull ghcr.io/llaville/box-manifest:v3.5
-or
-docker pull ghcr.io/llaville/box-manifest:v3
+docker pull ghcr.io/llaville/box-manifest:v4
 or
 docker pull ghcr.io/llaville/box-manifest:latest
 ```
@@ -51,7 +50,7 @@ phive update llaville/box-manifest --force-accept-unsigned
 You can install `box-manifest` with [Composer][composer]
 
 ```shell
-composer global require bartlett/box-manifest ^3
+composer global require bartlett/box-manifest ^4
 ```
 
 If you cannot install it because of a dependency conflict, or you prefer to install it for your project, we recommend
