@@ -25,6 +25,7 @@ use PackageUrl\PackageUrl;
 
 use DateTime;
 use DomainException;
+use Exception;
 use function explode;
 use function get_debug_type;
 use function sprintf;
@@ -82,7 +83,10 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
         }
 
         $bom = new Bom();
-        $bom->setSerialNumber(BomUtility::randomSerialNumber());
+        try {
+            $bom->setSerialNumber(BomUtility::randomSerialNumber());
+        } catch (Exception) {
+        }
 
         [$group, $name] = explode('/', $rootPackage['name']);
 
