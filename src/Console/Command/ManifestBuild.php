@@ -59,7 +59,7 @@ final class ManifestBuild extends Command
         $options = [
             new InputOption(
                 self::BOOTSTRAP_OPTION,
-                null,
+                'b',
                 InputOption::VALUE_REQUIRED,
                 'A PHP script that is included before execution',
             ),
