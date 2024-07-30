@@ -49,36 +49,31 @@ final class ManifestBuild extends Command
         The <info>%command.name%</info> command will generate a manifest of your application.
         HELP;
 
-    private const BOOTSTRAP_OPTION = 'bootstrap';
-    private const FORMAT_OPTION = 'format';
-    private const SBOM_SPEC_OPTION = 'sbom-spec';
-    private const OUTPUT_OPTION = 'output-file';
-
     protected function configure(): void
     {
         $options = [
             new InputOption(
-                self::BOOTSTRAP_OPTION,
+                ManifestOptions::BOOTSTRAP_OPTION,
                 'b',
                 InputOption::VALUE_REQUIRED,
                 'A PHP script that is included before execution',
             ),
             new InputOption(
-                self::FORMAT_OPTION,
+                ManifestOptions::FORMAT_OPTION,
                 'f',
                 InputOption::VALUE_REQUIRED,
                 'Format of the output: <comment>' . implode(', ', array_column(ManifestFormat::cases(), 'value')) . '</comment>',
                 ManifestFormat::auto->value
             ),
             new InputOption(
-                self::SBOM_SPEC_OPTION,
+                ManifestOptions::SBOM_SPEC_OPTION,
                 's',
                 InputOption::VALUE_REQUIRED,
                 'SBOM specification version: <comment>' . implode(', ', array_column(Version::cases(), 'value')) . '</comment>',
                 Version::v1dot5->value
             ),
             new InputOption(
-                self::OUTPUT_OPTION,
+                ManifestOptions::OUTPUT_OPTION,
                 'o',
                 InputOption::VALUE_REQUIRED,
                 'Write results to file (<comment>default to standard output</comment>)'

@@ -17,10 +17,10 @@ use Fidry\Console\IO;
  */
 final class ManifestOptions
 {
-    private const BOOTSTRAP_OPTION = 'bootstrap';
-    private const FORMAT_OPTION = 'format';
-    private const SBOM_SPEC_OPTION = 'sbom-spec';
-    private const OUTPUT_OPTION = 'output-file';
+    public const BOOTSTRAP_OPTION = 'bootstrap';
+    public const FORMAT_OPTION = 'output-format';
+    public const SBOM_SPEC_OPTION = 'sbom-spec';
+    public const OUTPUT_OPTION = 'output-file';
 
     public function __construct(private IO $io)
     {

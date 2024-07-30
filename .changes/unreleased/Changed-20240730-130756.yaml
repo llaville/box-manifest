@@ -1,0 +1,3 @@
+kind: Changed
+body: rename --format option to --output-format, and change origin of constants and visibility
+time: 2024-07-30T13:07:56.610467314Z
