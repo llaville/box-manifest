@@ -21,6 +21,8 @@ final class ManifestOptions
     public const FORMAT_OPTION = 'output-format';
     public const SBOM_SPEC_OPTION = 'sbom-spec';
     public const OUTPUT_OPTION = 'output-file';
+    public const TEMPLATE_OPTION = 'template';
+    public const RESOURCE_OPTION = 'resource';
 
     public function __construct(private IO $io)
     {
