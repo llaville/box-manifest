@@ -45,6 +45,19 @@ To upgrade `box-manifest` use the following command:
 phive update llaville/box-manifest --force-accept-unsigned
 ```
 
+You can also install `box-manifest` locally to your project with [Phive][phive] and configuration file `.phive/phars.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<phive xmlns="https://phar.io/phive">
+    <phar name="llaville/box-manifest" version="^4.0" copy="false" />
+</phive>
+```
+
+```shell
+phive install --force-accept-unsigned
+```
+
 ## Composer
 
 You can install `box-manifest` with [Composer][composer]
