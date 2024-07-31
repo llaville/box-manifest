@@ -68,10 +68,16 @@ final class Application extends SymfonyApplication
 
             $aliases = $installed['versions'][self::PACKAGE_NAME]['aliases'] ?? [];
 
+            // @phpstan-ignore offsetAccess.notFound
+            $reference = $installed['versions'][self::PACKAGE_NAME]['reference'];
+            if (null === $reference) {
+                return sprintf('%s', $aliases[0] ?? $version);
+            }
+
             return sprintf(
                 '%s@%s',
                 $aliases[0] ?? $version,
-                substr(InstalledVersions::getReference(self::PACKAGE_NAME), 0, 7)
+                substr($reference, 0, 7)
             );
         }
 

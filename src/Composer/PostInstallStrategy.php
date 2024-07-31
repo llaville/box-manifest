@@ -108,6 +108,12 @@ final class PostInstallStrategy implements ManifestBuildStrategy
                         continue;
                     }
 
+                    if (empty($manifest)) {
+                        $message = sprintf('- No manifest contents for file "<comment>%s</comment>"', realpath($source));
+                        $io->writeError($message);
+                        continue;
+                    }
+
                     $stream = new StreamOutput($resource);
                     $stream->setDecorated($io->isDecorated());
                     $stream->write($manifest);

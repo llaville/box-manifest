@@ -44,7 +44,7 @@ final class DefaultStrategy implements ManifestBuildStrategy
                 ManifestFile::txt => $factory->toText(),
                 ManifestFile::sbomXml => $factory->toSbom('xml', $sbomSpec),
                 ManifestFile::sbomJson => $factory->toSbom('json', $sbomSpec),
-                default => match (pathinfo($outputFile, PATHINFO_EXTENSION)) {
+                default => match (pathinfo($outputFile ? : '', PATHINFO_EXTENSION)) {
                     'xml' => $factory->toSbom('xml', $sbomSpec),
                     'json' => $factory->toSbom('json', $sbomSpec),
                     '', 'txt' => $factory->toText(),

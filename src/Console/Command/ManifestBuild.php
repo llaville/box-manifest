@@ -135,7 +135,8 @@ final class ManifestBuild extends Command
             $io->getTypedOption(BoxHelper::NO_CONFIG_OPTION)->asBoolean()
         );
 
-        $factory = new ManifestFactory($config, $output->isDecorated(), $boxHelper->getBoxVersion(), $this->getApplication()->getVersion());
+        $boxManifestVersion = $this->getApplication()?->getVersion() ? : '@dev';
+        $factory = new ManifestFactory($config, $output->isDecorated(), $boxHelper->getBoxVersion(), $boxManifestVersion);
         $manifest = $factory->build($options) ?? '';
 
         if (empty($outputFile)) {
