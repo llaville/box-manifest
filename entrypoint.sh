@@ -3,9 +3,12 @@
 [ "$APP_DEBUG" == 'true' ] && set -x
 set -e
 
+composer_global_home="/home/$(id -u -n)/.composer"
+
 if [ "$APP_DEBUG" == 'true' ]
 then
-  echo "> You will act as user: $(id -u -n)"
+    echo "> You will act as user: $(id -u -n)"
+    echo "> Path to Composer home dir: ${composer_global_home}"
 fi
 
-/usr/local/bin/box-manifest $@
+php "${composer_global_home}/vendor/bin/box-manifest" $@
