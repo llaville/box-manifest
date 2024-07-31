@@ -70,7 +70,7 @@ final class PostInstallStrategy implements ManifestBuildStrategy
 
         // checks if BOX config file declared exists
         if (!empty($configFilePath) && file_exists($configFilePath)) {
-            $configFilePath = realpath($configFilePath);
+            $configFilePath = realpath($configFilePath) ? : null;
         } else {
             // otherwise, try with root base dir package and "box.json.dist" BOX config file
             $configFilePath = dirname($vendorDir) . '/box.json.dist';
@@ -101,7 +101,14 @@ final class PostInstallStrategy implements ManifestBuildStrategy
                     $boxIO = new IO($arrayInput, new NullOutput());
                     $manifest = $strategy->build(new ManifestOptions($boxIO));
 
-                    $stream = new StreamOutput(fopen($source, 'w'));
+                    $resource = fopen($source, 'w');
+                    if (!$resource) {
+                        $message = sprintf('- Unable to write manifest to file "<comment>%s</comment>"', realpath($source));
+                        $io->writeError($message);
+                        continue;
+                    }
+
+                    $stream = new StreamOutput($resource);
                     $stream->setDecorated($io->isDecorated());
                     $stream->write($manifest);
                     fclose($stream->getStream());

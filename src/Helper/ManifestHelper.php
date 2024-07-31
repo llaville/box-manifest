@@ -65,7 +65,7 @@ class ManifestHelper extends Helper
                 $resolved = realpath($resource) ?: (file_exists($resource) ? $resource : null);
             }
             if ($resolved) {
-                return file_get_contents($resolved);
+                return file_get_contents($resolved) ?: null;
             }
         }
 
@@ -81,7 +81,7 @@ class ManifestHelper extends Helper
      * @param string[]|null $resources
      * @param string[][]|null $mapFiles
      */
-    public function getStubGenerator(string $templatePath = null, array $resources = null, array $mapFiles = null): object
+    public function getStubGenerator(string $templatePath = null, array $resources = null, array $mapFiles = null): StubGenerator
     {
         if (null === $templatePath) {
             $templatePath = dirname(__DIR__, 2) . '/resources/default_stub.template';

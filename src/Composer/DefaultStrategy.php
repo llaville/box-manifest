@@ -30,6 +30,7 @@ final class DefaultStrategy implements ManifestBuildStrategy
     {
         $factory = $this->factory;
 
+        /** @var string $rawFormat */
         $rawFormat = $options->getFormat(true);
         $format = $options->getFormat();
         $outputFile = $options->getOutputFile();

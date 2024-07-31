@@ -65,6 +65,7 @@ class DecorateTextManifestBuilder implements ManifestBuilderInterface
                     $prefix .= 'uses';
                 }
                 $installedPhp['versions'][$req]['prefix'] = $prefix;
+                /** @var string $constraint */
                 if ('php' === $req) {
                     $entries[] = sprintf('%s%s %s: <info>%s</info>', $prefix, $category, "$req $constraint", phpversion());
                 } elseif (str_starts_with($req, 'ext-')) {

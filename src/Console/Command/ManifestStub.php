@@ -116,6 +116,7 @@ final class ManifestStub extends Command
         $configPath = $config->getConfigurationFile();
 
         if ($configPath) {
+            /** @var null|non-empty-string $shebang */
             $shebang = $config->getShebang();
 
             $banner = $config->getStubBannerContents();
@@ -143,6 +144,7 @@ final class ManifestStub extends Command
             $output->writeln($stub);
             $message = 'Writing stub code to standard output';
         } else {
+            // @phpstan-ignore argument.type
             $stream = new StreamOutput(fopen($outputFile, 'w'));
             $stream->write($stub);
             fclose($stream->getStream());

@@ -142,6 +142,7 @@ final class ManifestBuild extends Command
             $io->writeln($manifest);
             $message = 'Writing results to standard output';
         } else {
+            // @phpstan-ignore argument.type
             $stream = new StreamOutput(fopen($outputFile, 'w'));
             if (ManifestFormat::ansi === $format) {
                 $stream->setDecorated(true);

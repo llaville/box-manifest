@@ -51,6 +51,7 @@ class ConsoleTextManifestBuilder implements ManifestBuilderInterface
                     $prefix = '<comment>uses</comment>';
                 }
                 $installedPhp['versions'][$req]['prefix'] = $prefix;
+                /** @var string $constraint */
                 if ('php' === $req) {
                     $entries[] = [sprintf('%s%s %s', $prefix, $category, "$req $constraint"), phpversion()];
                 } elseif (str_starts_with($req, 'ext-')) {

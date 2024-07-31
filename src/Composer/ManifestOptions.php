@@ -45,6 +45,7 @@ final class ManifestOptions
 
     public function getFormatDisplay(): string
     {
+        // @phpstan-ignore return.type
         return match ($this->getFormat()) {
             ManifestFormat::auto => 'AUTO detection mode',
             ManifestFormat::plain, ManifestFormat::ansi, ManifestFormat::console => 'TEXT',

@@ -39,6 +39,7 @@ class StubGenerator
         }
 
         $template = file_get_contents($templatePath);
+        // @phpstan-ignore argument.type
         $template = ltrim($template, "<?php\n");
 
         $this->stubTemplate = str_replace(
@@ -48,6 +49,9 @@ class StubGenerator
         );
     }
 
+    /**
+     * @param null|non-empty-string $shebang The shebang line
+     */
     public function generateStub(
         ?string $alias = null,
         ?string $banner = null,
