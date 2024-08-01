@@ -4,4 +4,4 @@
 Table Of Contents :
 
 1. A `phar-manifest.php` script that demonstrate how to use programmatically the API to generate manifests in different format.
-1. A basic `app-fixtures` application that will be support of a tutorial.
+2. A basic `app-fixtures` application that will be support of a tutorial.
