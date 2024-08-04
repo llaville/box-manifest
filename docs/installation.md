@@ -6,6 +6,7 @@
 3. [Docker](#docker)
 4. [Phive](#phive)
 5. [Composer](#composer)
+6. [Git](#git)
 
 ## Requirements
 
@@ -76,8 +77,17 @@ composer bin box-manifest require --dev bartlett/box-manifest
 vendor/bin/phplint
 ```
 
+## Git
+
+The BOX Manifest can be directly used from [GitHub][github-repo] by cloning the repository into a directory of your choice.
+
+```shell
+git clone -b 4.x https://github.com/llaville/box-manifest.git
+```
+
 [releases]: https://github.com/llaville/box-manifest/releases
 [composer]: https://getcomposer.org
 [bamarni/composer-bin-plugin]: https://github.com/bamarni/composer-bin-plugin
 [phive]: https://github.com/phar-io/phive
 [docker]: https://docs.docker.com/get-docker/
+[github-repo]: https://github.com/llaville/box-manifest.git
