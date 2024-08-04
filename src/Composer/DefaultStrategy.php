@@ -40,7 +40,7 @@ final class DefaultStrategy implements ManifestBuildStrategy
 
         return match ($format) {
             ManifestFormat::auto => match ($output) {
-                null, ManifestFormat::ansi => $factory->toHighlight(),
+                null => $factory->toHighlight(),
                 ManifestFile::consoleTable => $factory->toConsole(),
                 ManifestFile::txt => $factory->toText(),
                 ManifestFile::sbomXml => $factory->toSbom('xml', $sbomSpec),
