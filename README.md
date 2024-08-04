@@ -1,16 +1,20 @@
 <!-- markdownlint-disable MD013 MD033 -->
 # BOX Manifest
 
-Main goal of this project is to write a manifest in any [PHP Archive (PHAR)](https://www.php.net/phar)
-built with the [BOX](https://github.com/box-project/box) tool.
+[![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
+[![GitHub Discussions](https://img.shields.io/github/discussions/llaville/box-manifest)](https://github.com/llaville/box-manifest/discussions)
+
+Main goal of this project is to write a manifest in any [PHP Archive (PHAR)][php-phar] built with the [BOX][box-project] tool.
 
 ## Features
 
-Provides a Symfony Console Application with the binary command `box-manifest` that is able to :
+Provides a Symfony Console Application with the binary command `box-manifest` that :
 
-- generate any manifest in multiple format (`plain`, `ansi`, `console`, `sbom` XML or JSON) even in a custom format.
-- generate a custom phar stub that will support `--manifest` option at runtime.
-- compile your PHAR with a wrapper around standard BOX compile command (with bootstrapping support: `--bootstrap` option).
+- Can generate manifest in [CycloneDX SBOM Standard][cyclonedx] format (`sbom-json` or `sbom-xml`)
+- Can generate manifest in a simple key-value pairs `plain` text format (`key: value`)
+- Can generate manifest in a decorated text format `ansi` or `console` (distinguish direct dependencies requirement and other uses)
+- Can generate manifest in a custom user format
+- Can generate a stub that should be able to display one or all manifests provided by the PHP Archive
 
 ## Version Compatibility
 
@@ -23,9 +27,14 @@ Provides a Symfony Console Application with the binary command `box-manifest` th
 
 ## Documentation
 
-All the documentation is available on [website](https://llaville.github.io/box-manifest/4.x),
-generated from the [docs](https://github.com/llaville/box-manifest/tree/4.x/docs) folder.
+All the documentation is available on [website][docs-website], generated from the [docs][docs-folder] folder.
 
 ## Contributors
 
 - Laurent Laville (Lead Developer)
+
+[php-phar]: https://www.php.net/phar
+[box-project]: https://github.com/box-project/box
+[cyclonedx]: https://github.com/CycloneDX
+[docs-folder]: https://github.com/llaville/box-manifest/tree/4.x/docs
+[docs-website]: https://llaville.github.io/box-manifest/4.x

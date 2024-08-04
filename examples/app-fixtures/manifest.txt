@@ -1,2 +1,4 @@
-root/app-fixtures: 3.x-dev@9661882
-psr/log: 3.0.0
+root/app-fixtures: [32m3.x-dev@9661882[39m
+ [33mrequires[39m php [33m^8.1[39m: [32m8.2.21[39m
+ [33mrequires[39m ext-phar [33m*[39m: [32m8.2.21[39m
+ [33mrequires[39m (for development) psr/log [33m^3.0[39m: [32m3.0.0[39m

@@ -7,7 +7,7 @@ Adding a `--manifest` option that will either :
 - search for the first manifest available in a priority files list
 - show a specific version
 
-Create, for example this custom stub, either manually or with the `box-manifest box:stub` command.
+Create, for example this custom stub, either manually or with the `box-manifest stub` command.
 
 ```php
 <?php
@@ -47,7 +47,7 @@ require 'phar://app-fixtures-alias.phar/.box/bin/check-requirements.php';
 __HALT_COMPILER(); ?>
 ```
 
-And declare it, in the BOX config file `app-fixtures-box.json`, with excerpt :
+And declare it, in the BOX config file `app-fixtures.box.json.dist`, with excerpt :
 
 ```json
 {

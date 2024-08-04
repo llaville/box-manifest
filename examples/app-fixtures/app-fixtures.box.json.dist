@@ -1,11 +1,10 @@
 {
     "main": "index.php",
-    "alias": "app-fixtures-alias.phar",
-    "stub": "app-fixtures-stub.php",
     "output": "app-fixtures.phar",
+    "compression": "GZ",
     "directories": ["bin", "src", "vendor"],
     "directories-bin": ["../../vendor/humbug/box/res/requirement-checker"],
     "files-bin": ["sbom.xml", "manifest.txt"],
-    "metadata": "MyCallbacks::manifest",
-    "compression": "GZ"
+    "alias": "app-fixtures-alias.phar",
+    "stub": "app-fixtures-stub.php"
 }

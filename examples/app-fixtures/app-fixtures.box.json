@@ -1,0 +1,7 @@
+{
+    "main": "index.php",
+    "output": "app-fixtures.phar",
+    "compression": "GZ",
+    "directories": ["bin", "src", "vendor"],
+    "directories-bin": ["../../vendor/humbug/box/res/requirement-checker"]
+}

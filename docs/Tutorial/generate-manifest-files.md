@@ -3,54 +3,33 @@
 
 Begins by generate the manifest files.
 
-1. First we will build a SBOM XML version following default (CycloneDX) specification 1.5
+1. First we will build a SBOM XML version following default (CycloneDX) specification 1.6
 
 ```shell
-box-manifest manifest:build --config app-fixtures-box.json --output-file sbom.xml -v
-```
-
-That prints such results :
-
-```text
-
- // Loading the configuration file "app-fixtures-box.json".
-
- // Writing manifest to file "/path/to/examples/app-fixtures/sbom.xml"
-
+box-manifest build --config app-fixtures.box.json --output-file sbom.xml
 ```
 
 2. Second we will build a decorated TEXT version
 
 ```shell
-box-manifest manifest:build --config app-fixtures-box.json --output-file manifest.txt -v
-```
-
-That prints such results :
-
-```text
-
- // Loading the configuration file "app-fixtures-box.json".
-
- // Writing manifest to file "/path/to/examples/app-fixtures/manifest.txt"
-
+box-manifest build --config app-fixtures.box.json --output-file manifest.txt --output-format ansi
 ```
 
 Now its turn to declare these files to the BOX config file, with :
 
 ```json
 {
-    "files-bin": [
-      "sbom.xml",
-      "manifest.txt"
-    ]
+    "files-bin": ["sbom.xml", "manifest.txt"]
 }
 ```
 
-Then finally, compile your PHP Archive with (or without `--boostrap` option),
+Then finally, compile your PHP Archive with `box compile` command,
 the metadata contents is only used as fallback contents in case you forgot to declare `files-bin` entries.
 
+For example :
+
 ```shell
-box-manifest box:compile --config app-fixtures-box.json --bootstrap bootstrap.php -v
+vendor/bin/box compile --config app-fixtures.box.json.dist
 ```
 
 <details>
@@ -64,18 +43,16 @@ box-manifest box:compile --config app-fixtures-box.json --bootstrap bootstrap.ph
 /_____/\____/_/|_|
 
 
-Box version 4.3.8@5534406
+Box version 4.6.2@29c3585
 
- // Loading the configuration file "app-fixtures-box.json".
+ // Loading the configuration file "app-fixtures.box.json.dist".
 
-🔨  Building the PHAR "/path/to/examples/app-fixtures/app-fixtures.phar"
+🔨  Building the PHAR "/shared/backups/bartlett/box-manifest/examples/app-fixtures/app-fixtures.phar"
 
 ? Checking Composer compatibility
-    > '/usr/local/bin/composer' '--version'
-    > 2.6.4 (Box requires ^2.2.0)
     > Supported version detected
 ? No compactor to register
-? Adding main file: /path/to/examples/app-fixtures/index.php
+? Adding main file: /shared/backups/bartlett/box-manifest/examples/app-fixtures/index.php
 ? Adding requirements checker
 ? Adding binary files
     > 36 file(s)
@@ -83,15 +60,8 @@ Box version 4.3.8@5534406
 ? Exclude dev files? Yes
 ? Adding files
     > 25 file(s)
-? Using stub file: /path/to/examples/app-fixtures/app-fixtures-stub.php
-? Setting metadata
-  - root/app-fixtures: 3.x-dev@9661882
-psr/log: 3.0.0
+? Using stub file: /shared/backups/bartlett/box-manifest/examples/app-fixtures/app-fixtures-stub.php
 ? Dumping the Composer autoloader
-    > '/usr/local/bin/composer' 'dump-autoload' '--classmap-authoritative' '--no-dev' '--ansi'
-Generating optimized autoload files (authoritative)
-Generated optimized autoload files (authoritative) containing 1 classes
-
 ? Removing the Composer dump artefacts
 ? Compressing with the algorithm "GZ"
     > Warning: the extension "zlib" will now be required to execute the PHAR
@@ -102,13 +72,10 @@ No recommendation found.
 ⚠️  1 warning found:
     - The "alias" setting has been set but is ignored since a custom stub path is used
 
- // PHAR: 60 files (48.27KB)
+ // PHAR: 60 files (48.53KB)
  // You can inspect the generated PHAR with the "info" command.
 
- // Memory usage: 12.36MB (peak: 12.82MB), time: <1sec
-
-
- // Loading the configuration file "app-fixtures-box.json".
+ // Memory usage: 12.85MB (peak: 13.30MB), time: <1sec
 
 ```
 
