@@ -18,12 +18,12 @@ Provides a Symfony Console Application with the binary command `box-manifest` th
 
 ## Version Compatibility
 
-| Version            | Status             | Box Project Compatibility |
-|--------------------|--------------------|---------------------------|
-| `4.0.x`            | Active development | `4.6.x`                   |
-| `3.0.x` to `3.5.x` | Active support     | `4.0.x` to `4.3.x`        |
-| `2.0.x` to `2.3.x` | End Of Life        | `4.0.x` to `4.2.x`        |
-| `1.0.x` to `1.2.0` | End Of Life        | `3.x`                     |
+| Version            | Status             | Box Project Compatibility | PHP      |
+|--------------------|--------------------|---------------------------|----------|
+| `4.0.x`            | Active development | `4.6.x`                   | `>= 8.2` |
+| `3.0.x` to `3.5.x` | Active support     | `4.0.x` to `4.3.x`        | `>= 8.1` |
+| `2.0.x` to `2.3.x` | End Of Life        | `4.0.x` to `4.2.x`        | `>= 8.1` |
+| `1.0.x` to `1.2.0` | End Of Life        | `3.x`                     | `>= 7.4` |
 
 ## Documentation
 
