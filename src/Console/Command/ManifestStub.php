@@ -88,11 +88,14 @@ final class ManifestStub extends Command
         /** @var DebugFormatterHelper $debugFormatter */
         $debugFormatter = $this->getHelper('debug_formatter');
 
+        $templateFile = $io->getTypedOption(ManifestOptions::TEMPLATE_OPTION)->asNullableString();
+
         $pid = uniqid();
 
         if ($io->isVeryVerbose()) {
+            $templatePath = $templateFile ? : dirname(__DIR__, 3) . '/resources/default_stub.template';
             $io->write(
-                $debugFormatter->start($pid, 'Generating stub', 'STARTED')
+                $debugFormatter->start($pid, 'Generating stub ' . sprintf('from template "%s"', $templatePath), 'STARTED')
             );
         }
 
@@ -103,18 +106,28 @@ final class ManifestStub extends Command
         $manifestHelper = $this->getHelper(ManifestHelper::NAME);
 
         $config = $boxHelper->getBoxConfiguration(
-            $io->isVerbose() ? $io : $io->withOutput(new NullOutput()),
+            $io->withOutput(new NullOutput()),
             true,
             $io->getTypedOption(BoxHelper::NO_CONFIG_OPTION)->asBoolean()
         );
 
+        $configPath = $config->getConfigurationFile();
+
+        if ($io->isVeryVerbose()) {
+            $message =  $configPath
+                ? sprintf('Using the configuration file "<info>%s</info>"', $configPath)
+                : 'Ignoring any configuration file'
+            ;
+            $io->writeln(
+                $debugFormatter->progress($pid, $message, false, 'STARTED')
+            );
+        }
+
         $stubGenerator = $manifestHelper->getStubGenerator(
-            $io->getTypedOption(ManifestOptions::TEMPLATE_OPTION)->asNullableString(),
+            $templateFile,
             $io->getTypedOption(ManifestOptions::RESOURCE_OPTION)->asNonEmptyStringList(),
             $config->getFileMapper()->getMap()
         );
-
-        $configPath = $config->getConfigurationFile();
 
         if ($configPath) {
             /** @var null|non-empty-string $shebang */
@@ -143,14 +156,14 @@ final class ManifestStub extends Command
 
         if (empty($outputFile)) {
             $output->writeln($stub);
-            $message = 'Writing stub code to standard output';
+            $message = 'Writing stub PHP code to standard output';
         } else {
             // @phpstan-ignore argument.type
             $stream = new StreamOutput(fopen($outputFile, 'w'));
             $stream->write($stub);
             fclose($stream->getStream());
 
-            $message = sprintf('Writing stub to file "<comment>%s</comment>"', realpath($outputFile));
+            $message = sprintf('Writing stub PHP code to file "<comment>%s</comment>"', realpath($outputFile));
         }
 
         if ($io->isVeryVerbose()) {
@@ -158,10 +171,13 @@ final class ManifestStub extends Command
                 $debugFormatter->stop($pid, $message, true, 'RESPONSE')
             );
             $io->write(
-                $debugFormatter->stop($pid, 'Process elapsed time ' . Helper::formatTime(microtime(true) - $startTime), true, 'FINISHED')
+                $debugFormatter->stop(
+                    $pid,
+                    'Process elapsed time ' . Helper::formatTime(microtime(true) - $startTime),
+                    true,
+                    'FINISHED'
+                )
             );
-        } elseif ($io->isVerbose()) {
-            $io->comment($message);
         }
 
         return Command::SUCCESS;

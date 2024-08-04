@@ -49,7 +49,7 @@ final class ManifestOptions
         return match ($this->getFormat()) {
             ManifestFormat::auto => 'AUTO detection mode',
             ManifestFormat::plain, ManifestFormat::ansi, ManifestFormat::console => 'TEXT',
-            ManifestFormat::sbomXml, ManifestFormat::sbomJson => 'SBom ' . $this->getSbomSpec(),
+            ManifestFormat::sbomXml, ManifestFormat::sbomJson => 'SBOM ' . $this->getSbomSpec(),
             default => $this->getFormat(true),
         };
     }
