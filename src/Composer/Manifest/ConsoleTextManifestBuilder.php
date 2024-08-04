@@ -35,7 +35,7 @@ final class ConsoleTextManifestBuilder implements ManifestBuilderInterface
         } else {
             $version = $rootPackage['version'];
         }
-        $entries[] = [$rootPackage['name'], '', $version, ''];
+        $entries[] = [$this->getPackageLink($rootPackage['name']), '', $version, ''];
 
         $allRequirements = [
             'Direct (for production)' => $composerJson['require'],
@@ -68,7 +68,7 @@ final class ConsoleTextManifestBuilder implements ManifestBuilderInterface
             if (isset($values['pretty_version'])) {
                 $category = $values['category'] ?? 'Transitive';
                 $constraint = $values['constraint'] ?? '';
-                $entries[] = [$package, $constraint, $values['pretty_version'], $category];
+                $entries[] = [$this->getPackageLink($package), $constraint, $values['pretty_version'], $category];
             } // otherwise, it's a virtual package
         }
 
@@ -86,5 +86,10 @@ final class ConsoleTextManifestBuilder implements ManifestBuilderInterface
         $table->render();
 
         return $output->fetch();
+    }
+
+    private function getPackageLink(string $name): string
+    {
+        return sprintf('<href=https://packagist.org/packages/%s>%s</>', $name, $name);
     }
 }
