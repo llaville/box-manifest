@@ -43,7 +43,7 @@ use function uniqid;
  */
 final class ManifestBuild extends Command
 {
-    public const NAME = 'manifest:build';
+    public const NAME = 'build';
 
     private const HELP = <<<'HELP'
         The <info>%command.name%</info> command will generate a manifest of your application.
@@ -81,6 +81,7 @@ final class ManifestBuild extends Command
         ];
 
         $this->setName(self::NAME)
+            ->setAliases(['manifest:' . self::NAME])  // give a chance to keep migration from v3 to v4 still working (but consider it as @deprecated)
             ->setDescription('Creates a manifest of your software components and dependencies.')
             ->setDefinition(
                 new InputDefinition(

@@ -1,0 +1,3 @@
+kind: Changed
+body: give a chance to keep migration from v3 to v4 still working, but consider legacy commands as deprecated
+time: 2024-08-04T07:10:47.946091183Z

@@ -38,7 +38,7 @@ use function uniqid;
  */
 final class ManifestStub extends Command
 {
-    public const NAME = 'manifest:stub';
+    public const NAME = 'stub';
 
     private const HELP = <<<'HELP'
         The <info>%command.name%</info> command will generate a stub of your manifest application.
@@ -68,6 +68,7 @@ final class ManifestStub extends Command
         ];
 
         $this->setName(self::NAME)
+            ->setAliases(['manifest:' . self::NAME])  // give a chance to keep migration from v3 to v4 still working (but consider it as @deprecated)
             ->setDescription('Generates a stub for your manifest application.')
             ->setDefinition(
                 new InputDefinition(
