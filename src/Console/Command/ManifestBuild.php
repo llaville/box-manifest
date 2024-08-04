@@ -152,7 +152,7 @@ final class ManifestBuild extends Command
             $io->write(
                 $debugFormatter->progress(
                     $pid,
-                    sprintf((!empty($bootstrap) ? PHP_EOL: '') . 'Loading the configuration file "<info>%s</info>"', $configFile),
+                    sprintf((!empty($bootstrap) ? PHP_EOL : '') . 'Loading the configuration file "<info>%s</info>"', $configFile),
                     false,
                     'STARTED'
                 )
