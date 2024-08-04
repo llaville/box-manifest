@@ -36,6 +36,7 @@ use function microtime;
 use function realpath;
 use function sprintf;
 use function uniqid;
+use const PHP_EOL;
 
 /**
  * @author Laurent Laville
@@ -117,24 +118,46 @@ final class ManifestBuild extends Command
 
         if ($io->isVeryVerbose()) {
             $io->write(
-                $debugFormatter->start($pid, sprintf('Generating manifest in %s format', $options->getFormatDisplay()), 'STARTED')
+                $debugFormatter->start(
+                    $pid,
+                    sprintf('Generating manifest in %s format', $options->getFormatDisplay()),
+                    'STARTED'
+                )
             );
         }
 
         if (!empty($bootstrap) && file_exists($bootstrap)) {
             if ($io->isVeryVerbose()) {
                 $io->write(
-                    $debugFormatter->progress($pid, sprintf('Bootstrapped file "<info>%s</info>"', $bootstrap), false, 'DEBUG')
+                    $debugFormatter->progress(
+                        $pid,
+                        sprintf('Bootstrapped file "<info>%s</info>"', $bootstrap),
+                        false,
+                        'STARTED'
+                    )
                 );
             }
             include $bootstrap;
         }
 
         $config = $boxHelper->getBoxConfiguration(
-            $io->isVerbose() ? $io : $io->withOutput(new NullOutput()),
+            $io->withOutput(new NullOutput()),
             true,
             $io->getTypedOption(BoxHelper::NO_CONFIG_OPTION)->asBoolean()
         );
+
+        $configFile = $config->getConfigurationFile();
+
+        if (null !== $configFile && $io->isVeryVerbose()) {
+            $io->write(
+                $debugFormatter->progress(
+                    $pid,
+                    sprintf((!empty($bootstrap) ? PHP_EOL: '') . 'Loading the configuration file "<info>%s</info>"', $configFile),
+                    false,
+                    'STARTED'
+                )
+            );
+        }
 
         $boxManifestVersion = $this->getApplication()?->getVersion() ? : '@dev';
         $factory = new ManifestFactory($config, $output->isDecorated(), $boxHelper->getBoxVersion(), $boxManifestVersion);
@@ -160,10 +183,13 @@ final class ManifestBuild extends Command
                 $debugFormatter->stop($pid, $message, true, 'RESPONSE')
             );
             $io->write(
-                $debugFormatter->stop($pid, 'Process elapsed time ' . Helper::formatTime(microtime(true) - $startTime), true, 'FINISHED')
+                $debugFormatter->stop(
+                    $pid,
+                    'Process elapsed time ' . Helper::formatTime(microtime(true) - $startTime),
+                    true,
+                    'FINISHED'
+                )
             );
-        } elseif ($io->isVerbose()) {
-            $io->comment($message);
         }
 
         return Command::SUCCESS;
