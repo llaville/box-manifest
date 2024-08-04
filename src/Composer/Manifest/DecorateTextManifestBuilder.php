@@ -19,13 +19,10 @@ use const PHP_EOL;
  * @author Laurent Laville
  * @since Release 2.1.0
  */
-class DecorateTextManifestBuilder implements ManifestBuilderInterface
+final class DecorateTextManifestBuilder implements ManifestBuilderInterface
 {
-    private string $prefix;
-
-    public function __construct(string $prefix = '')
+    public function __construct(private readonly string $prefix = '')
     {
-        $this->prefix = $prefix;
     }
 
     /**
@@ -60,9 +57,9 @@ class DecorateTextManifestBuilder implements ManifestBuilderInterface
                 $prefix = $this->prefix . ' ';
                 if (!empty($constraint)) {
                     $constraint = sprintf('<comment>%s</comment>', $constraint);
-                    $prefix .= 'requires';
+                    $prefix .= '<comment>requires</comment>';
                 } else {
-                    $prefix .= 'uses';
+                    $prefix .= '<comment>uses</comment>';
                 }
                 $installedPhp['versions'][$req]['prefix'] = $prefix;
                 /** @var string $constraint */
@@ -85,7 +82,7 @@ class DecorateTextManifestBuilder implements ManifestBuilderInterface
             if (isset($values['pretty_version'])) {
                 $category = $values['category'] ?? '';
                 $constraint = $values['constraint'] ?? '';
-                $prefix = $values['prefix'] ?? $this->prefix . ' uses';
+                $prefix = $values['prefix'] ?? $this->prefix . ' <comment>uses</comment>';
                 $entries[] = sprintf('%s%s %s: <info>%s</info>', $prefix, $category, "$package $constraint", $values['pretty_version']);
             } // otherwise, it's a virtual package
         }

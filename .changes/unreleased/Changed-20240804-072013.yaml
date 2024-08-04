@@ -1,0 +1,3 @@
+kind: Changed
+body: Default build strategy has evolved to produce ansi format first rather than console format (that was replaced by tests/fixtures/my-manifest.php implementation)
+time: 2024-08-04T07:20:13.133179881Z
