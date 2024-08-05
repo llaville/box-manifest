@@ -126,7 +126,8 @@ final class ManifestStub extends Command
         $stubGenerator = $manifestHelper->getStubGenerator(
             $templateFile,
             $io->getTypedOption(ManifestOptions::RESOURCE_OPTION)->asNonEmptyStringList(),
-            $config->getFileMapper()->getMap()
+            $config->getFileMapper()->getMap(),
+            $this->getApplication()?->getVersion()
         );
 
         if ($configPath) {

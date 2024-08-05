@@ -81,7 +81,7 @@ class ManifestHelper extends Helper
      * @param string[]|null $resources
      * @param string[][]|null $mapFiles
      */
-    public function getStubGenerator(string $templatePath = null, array $resources = null, array $mapFiles = null): StubGenerator
+    public function getStubGenerator(?string $templatePath = null, array $resources = null, array $mapFiles = null, ?string $version = null): StubGenerator
     {
         if (null === $templatePath) {
             $templatePath = dirname(__DIR__, 2) . '/resources/default_stub.template';
@@ -100,7 +100,7 @@ class ManifestHelper extends Helper
         if (empty($resources)) {
             $resources = ManifestFile::values();
         }
-        return new StubGenerator($templatePath, $resources);
+        return new StubGenerator($templatePath, $resources, $version ?? '@dev');
     }
 
     public function getName(): string
