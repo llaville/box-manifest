@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.6" version="1" serialNumber="urn:uuid:09f87ed3-e9d5-4a17-8447-3eea55ac1f7c">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.6" version="1" serialNumber="urn:uuid:ad64fd89-99e9-4976-b9d2-6ec4e88b4b15">
   <metadata>
-    <timestamp><![CDATA[2024-08-04T12:52:03Z]]></timestamp>
+    <timestamp><![CDATA[2024-08-07T04:23:01Z]]></timestamp>
     <tools>
       <tool>
         <vendor><![CDATA[box-project]]></vendor>
@@ -11,7 +11,7 @@
       <tool>
         <vendor><![CDATA[bartlett]]></vendor>
         <name><![CDATA[box-manifest]]></name>
-        <version><![CDATA[4.x-dev@becaea8]]></version>
+        <version><![CDATA[4.x-dev@3eff4eb]]></version>
       </tool>
     </tools>
     <properties>
