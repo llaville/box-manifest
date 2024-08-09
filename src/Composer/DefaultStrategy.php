@@ -20,9 +20,9 @@ use function sprintf;
  * @author Laurent Laville
  * @since Release 3.5.0
  */
-final class DefaultStrategy implements ManifestBuildStrategy
+final readonly class DefaultStrategy implements ManifestBuildStrategy
 {
-    public function __construct(private readonly ManifestFactory $factory)
+    public function __construct(private ManifestFactory $factory)
     {
     }
 
@@ -40,7 +40,7 @@ final class DefaultStrategy implements ManifestBuildStrategy
 
         return match ($format) {
             ManifestFormat::auto => match ($output) {
-                null => $factory->toHighlight(),
+                null, ManifestFile::ansi => $factory->toHighlight(),
                 ManifestFile::consoleTable => $factory->toConsole(),
                 ManifestFile::txt => $factory->toText(),
                 ManifestFile::sbomXml => $factory->toSbom('xml', $sbomSpec),
