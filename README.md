@@ -33,6 +33,31 @@ All the documentation is available on [website][docs-website], generated from th
 
 - Laurent Laville (Lead Developer)
 
+## Roadmap
+
+```mermaid
+%%{init: { 'gitGraph': {'mainBranchName': 'master', 'rotateCommitLabel': false, 'mainBranchOrder': 1}} }%%
+gitGraph TB:
+    commit id: "5a1721a" type: HIGHLIGHT tag: "3.5.1"
+    commit id: "(fixed issue #11) 8f2bd10"
+    branch 4.x
+    commit id: "(only keep manifest:* commands and removed legacy box:* commands) cb90b40"
+    commit id: "(replaced deprecated import about fidry/console) 2794e2d"
+    commit id: "(add shorcut for bootstrap option) dd5766f"
+    commit id: "(rename format option to output-format) 4d3d306"
+    commit id: "(add shortcut for resource option) c2aba93"
+    commit id: "(upgrade cyclonedx/cyclonedx-library constraint to use major version 3) 8a1e05d"
+    commit id: "(use SBOM spec 1.6 as default for sbom-json and sbom-xml output format) 29e0b2c"
+    commit id: "(consider serialNumber as optional and do not stop SBOM generation by Exception) f33bc49"
+    commit id: "(add alias on legacy command and renamed it to shortnames) 670500f"
+    commit id: "(build ansi format first rather than console with new render) 42e8c93"
+    commit id: "(add link to Packagist homepage of each dependency into console table format) 26b3262"
+    commit id: "(version of BOX Manifest used to generate stub (from template) is now identified) 39eb52e"
+    commit id: "(introduces auto detection by filename ansi.txt) 5a174e2"
+    checkout master
+    commit id: "upcoming major version" type: HIGHLIGHT tag: "4.0.0"
+```
+
 [php-phar]: https://www.php.net/phar
 [box-project]: https://github.com/box-project/box
 [cyclonedx]: https://github.com/CycloneDX
