@@ -15,6 +15,7 @@ use function array_column;
  */
 enum ManifestFile: string
 {
+    case custom = 'custom.bin';
     case ansi = 'ansi.txt';
     case txt = 'manifest.txt';
     case xml = 'manifest.xml';

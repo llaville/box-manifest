@@ -17,12 +17,16 @@ use Fidry\Console\IO;
  */
 final class ManifestOptions
 {
+    public const STAGES_OPTION =  'stages';
     public const BOOTSTRAP_OPTION = 'bootstrap';
     public const FORMAT_OPTION = 'output-format';
     public const SBOM_SPEC_OPTION = 'sbom-spec';
     public const OUTPUT_OPTION = 'output-file';
+    public const OUTPUT_STUB_OPTION = 'output-stub';
+    public const OUTPUT_CONF_OPTION = 'output-conf';
     public const TEMPLATE_OPTION = 'template';
     public const RESOURCE_OPTION = 'resource';
+    public const RESOURCE_DIR_OPTION = 'resource-dir';
 
     public function __construct(private readonly IO $io)
     {
@@ -62,5 +66,15 @@ final class ManifestOptions
     public function getOutputFile(): ?string
     {
         return $this->io->getTypedOption(self::OUTPUT_OPTION)->asNullableString();
+    }
+
+    public function getOutputStubFile(): ?string
+    {
+        return $this->io->getTypedOption(self::OUTPUT_STUB_OPTION)->asNullableString();
+    }
+
+    public function getOutputConfFile(): ?string
+    {
+        return $this->io->getTypedOption(self::OUTPUT_CONF_OPTION)->asNullableString();
     }
 }

@@ -10,6 +10,7 @@
 use Bartlett\BoxManifest\Console\Application;
 use Bartlett\BoxManifest\Console\Command\ManifestBuild;
 use Bartlett\BoxManifest\Console\Command\ManifestStub;
+use Bartlett\BoxManifest\Console\Command\Make;
 
 gc_disable(); // performance boost
 
@@ -18,4 +19,5 @@ require_once dirname(__DIR__) . '/autoload.php';
 $application = new Application();
 $application->add(new ManifestBuild());
 $application->add(new ManifestStub());
+$application->add(new Make());
 $application->run();
