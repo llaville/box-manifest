@@ -8,6 +8,7 @@
  */
 
 use Bartlett\BoxManifest\Console\Application;
+use Bartlett\BoxManifest\Console\Command\Inspect;
 use Bartlett\BoxManifest\Console\Command\ManifestBuild;
 use Bartlett\BoxManifest\Console\Command\ManifestStub;
 use Bartlett\BoxManifest\Console\Command\Make;
@@ -20,4 +21,5 @@ $application = new Application();
 $application->add(new ManifestBuild());
 $application->add(new ManifestStub());
 $application->add(new Make());
+$application->add(new Inspect());
 $application->run();
