@@ -54,6 +54,8 @@ gitGraph TB:
     commit id: "(add link to Packagist homepage of each dependency into console table format) 26b3262"
     commit id: "(version of BOX Manifest used to generate stub (from template) is now identified) 39eb52e"
     commit id: "(introduces auto detection by filename ansi.txt) 5a174e2"
+    commit id: "(introduces new make command to replace legacy commands) 734ecb6"
+    commit id: "(introduces new inspect command) 36e0540"
     checkout master
     commit id: "upcoming major version" type: HIGHLIGHT tag: "4.0.0"
 ```
