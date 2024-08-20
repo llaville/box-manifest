@@ -14,6 +14,9 @@
         "symfony/process": "^6.4 || ^7.0",
         "symfony/serializer": "^6.4 || ^7.0"
     },
+    "require-dev": {
+        "bamarni/composer-bin-plugin": "^1.8"
+    },
     "license": "MIT",
     "autoload": {
         "psr-4": {
@@ -37,7 +40,9 @@
     ],
     "config": {
         "sort-packages": true,
+        "optimize-autoloader": true,
         "allow-plugins": {
+            "bamarni/composer-bin-plugin": true,
             "symfony/runtime": true
         }
     },
@@ -45,8 +50,19 @@
         "branch-alias": {
             "dev-master": "4.x-dev"
         },
-        "runtime": {
-            "autoload_template": "autoload_phar_runtime.template"
+        "bamarni-bin": {
+            "bin-links": true,
+            "target-directory": "vendor-bin",
+            "forward-command": true
         }
+    },
+    "scripts": {
+        "bin": "echo 'bin not installed'",
+        "post-update-cmd": [
+            "@composer bin all update --ansi"
+        ],
+        "post-install-cmd": [
+            "@composer bin all install --ansi"
+        ]
     }
 }
