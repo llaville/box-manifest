@@ -19,9 +19,9 @@ use const PHP_EOL;
  * @author Laurent Laville
  * @since Release 2.1.0
  */
-final class DecorateTextManifestBuilder implements ManifestBuilderInterface
+final readonly class DecorateTextManifestBuilder implements ManifestBuilderInterface
 {
-    public function __construct(private readonly string $prefix = '')
+    public function __construct(private string $prefix = '')
     {
     }
 

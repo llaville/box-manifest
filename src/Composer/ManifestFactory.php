@@ -127,12 +127,12 @@ final class ManifestFactory
 
     public function toText(): ?string
     {
-        return self::create(SimpleTextManifestBuilder::class, $this->config, $this->isDecorated);
+        return self::create(SimpleTextManifestBuilder::class, $this->config, false);
     }
 
     public function toHighlight(): ?string
     {
-        return self::create(new DecorateTextManifestBuilder(), $this->config, $this->isDecorated);
+        return self::create(new DecorateTextManifestBuilder(), $this->config, true);
     }
 
     public function toConsole(): ?string
@@ -162,6 +162,6 @@ final class ManifestFactory
             'json' => new JsonNormalizerFactory($spec),
             default => throw new DomainException(sprintf('Format "%s" is not supported.', $format)),
         };
-        return self::create(new SbomManifestBuilder($normalizer, $this->boxVersion, $this->boxManifestVersion), $this->config, $this->isDecorated);
+        return self::create(new SbomManifestBuilder($normalizer, $this->boxVersion, $this->boxManifestVersion), $this->config, false);
     }
 }

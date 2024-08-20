@@ -46,9 +46,9 @@ use function str_starts_with;
  * @author Laurent Laville
  * @since Release 3.5.0
  */
-final class PostInstallStrategy implements ManifestBuildStrategy
+final readonly class PostInstallStrategy implements ManifestBuildStrategy
 {
-    public function __construct(private readonly ManifestFactory $factory)
+    public function __construct(private ManifestFactory $factory)
     {
     }
 
