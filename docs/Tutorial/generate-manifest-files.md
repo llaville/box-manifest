@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD013 MD029 MD033 -->
+<!-- markdownlint-disable MD013 MD029 MD033 MD046 -->
 # Generate manifest files
 
 In this tutorial we will build a manifest in two formats (SBOM XML and ANSI text).

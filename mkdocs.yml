@@ -1,13 +1,15 @@
 ---
-site_name: BOX Manifest
+site_name: Box Manifest
 site_url: https://llaville.github.io/box-manifest
 repo_url: https://github.com/llaville/box-manifest # https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#repository
 site_author: Laurent Laville
 edit_uri: "" # hide edit button -- https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#edit-button
 theme:
     name: material
+    favicon: assets/images/box.png
+    logo: assets/images/box.png
     icon:
-        logo: material/zip-box
+        annotation: material/arrow-right-circle
     palette: # Color palette toggle -- https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#color-palette-toggle
         # editorconfig-checker-disable
         - scheme: default
@@ -26,14 +28,19 @@ theme:
         - navigation.indexes # Section index pages -- https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#section-index-pages
         - navigation.top # Back-To-Top button -- https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#back-to-top-button
         - content.code.copy # Code copy button -- https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-copy-button
+        - content.code.annotate # Code blocks, Adding annotations -- https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#adding-annotations
 plugins:
     - asciinema-player # https://github.com/pa-decarvalho/mkdocs-asciinema-player
 markdown_extensions:
     - attr_list
     - md_in_html # https://squidfunk.github.io/mkdocs-material/reference/grids/
+    - tables # https://squidfunk.github.io/mkdocs-material/reference/data-tables/
+    - footnotes # https://squidfunk.github.io/mkdocs-material/reference/footnotes/
     - pymdownx.highlight:  # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#highlight
-          use_pygments: true
+          anchor_linenums: true
+          line_spans: __span
           pygments_lang_class: true
+    - pymdownx.snippets
     - pymdownx.tabbed: # https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#content-tabs
           alternate_style: true
     - pymdownx.superfences: # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#superfences
@@ -42,11 +49,35 @@ markdown_extensions:
                 class: mermaid
                 format: !!python/name:pymdownx.superfences.fence_code_format
     - pymdownx.emoji: # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#emoji
-        emoji_index: !!python/name:material.extensions.emoji.twemoji
-        emoji_generator: !!python/name:material.extensions.emoji.to_svg
+          emoji_index: !!python/name:material.extensions.emoji.twemoji
+          emoji_generator: !!python/name:material.extensions.emoji.to_svg
     - github-callouts
 nav:
     - "Home": README.md
-    - "Installation": installation.md
-    - "Getting-Started": getting-started.md
+    - "Getting-Started":
+          - "Installation": getting-started.md
+          - "Build your manifests": build-your-manifests.md
+          - "Build your stub": build-your-stub.md
+          - "Build your Box config file": build-your-config.md
+          - "Customization":
+                - "Built-in stages": stages/builtin.md
+                - "Additional stages": stages/custom.md
+          - "Tutorial":
+                - Tutorial/README.md
+                - "Generate manifest files": Tutorial/generate-manifest-files.md
+                - "Generate your PHAR bootstrapping file": Tutorial/generate-custom-stub.md
+                - "Generate a final BOX configuration file": Tutorial/generate-box-json-dist.md
+          - "Use Cases":
+                - UseCases/README.md
+                - "Manifest in plain text format": UseCases/PlainTextFormat.md
+                - "Manifest in decorated text format": UseCases/DecoratedTextFormat.md
+                - "Manifest in console text format": UseCases/ConsoleTextFormat.md
+                - "Manifest in SBOM JSON format": UseCases/SBomJsonFormat.md
+                - "Manifest in SBOM XML format": UseCases/SBomXmlFormat.md
+                - "Manifest in user format": UseCases/CustomFormat.md
     - "Contributing": contributing.md
+extra:
+    social:
+        - icon: material/zip-box
+          link: https://www.flaticon.com/free-icon/box_2954144
+          name: Shipping and delivery icons created by Smashicons - Flaticon

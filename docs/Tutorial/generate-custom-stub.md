@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD013 MD029 MD033 -->
+<!-- markdownlint-disable MD013 MD027 MD029 MD033 MD046 -->
 # Generate your PHAR bootstrapping file
 
 Of course running CLI commands to verify contents is not so hard. For example:
@@ -115,7 +115,6 @@ Then compile your PHP Archive.
 === "Output"
 
     ![console format](../assets/images/app-fixtures-console.png)
-
 
 :material-numeric-2-box: Or the second manifest available (`manifest.txt`)
 

@@ -183,4 +183,5 @@ either by your autoloader or with bootstrap helper feature (see `--bootstrap|-b`
     )
     ```
 
+<!-- markdownlint-disable-next-line MD053 -->
 [var-export]: https://www.php.net/manual/en/function.var-export.php

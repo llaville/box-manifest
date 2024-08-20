@@ -1,5 +1,10 @@
-<!-- markdownlint-disable MD013 MD028 -->
+<!-- markdownlint-disable MD013 MD028 MD033 MD046 -->
 # Getting Started
+
+Box Manifest is a powerful PHAR framework on top of [BOX project][box-project], that simplifies the PHAR building process.
+
+If you're familiar with PHP, you can install Box Manifest with [`composer`][composer], the PHP package manager.
+If not, we recommend using [`docker`][docker].
 
 ## Requirements
 
@@ -7,131 +12,117 @@
 * ext-phar
 * PHPUnit 10 or greater (if you want to run unit tests)
 
-## Docker
+## Installation
 
-> v4.x docker images provided run in rootless mode, so you don't have to specify `-u $(id -u ${USER}):$(id -g ${USER})` options.
+### with composer <small>recommended</small> { #with-composer data-toc-label="with composer" }
 
-> Please mount the code directory to `/app` in the container.
+=== "Latest"
 
-Usage examples :
+    ```shell
+    composer require bartlett/box-manifest
+    ```
+
+=== "4.x"
+
+    ```shell
+    composer require bartlett/box-manifest ^4
+    ```
+
+> [!TIP]
+>
+> If you cannot install it because of a dependency conflict, or you prefer to install it for your project, we recommend
+> you to take a look at [bamarni/composer-bin-plugin][bamarni/composer-bin-plugin].
+>
+> Example:
+>
+> ```shell
+> composer require --dev bamarni/composer-bin-plugin
+> composer bin box-manifest require --dev bartlett/box-manifest
+> ```
+
+### with docker
+
+=== "Latest"
+
+    ```shell
+    docker pull ghcr.io/llaville/box-manifest
+    ```
+
+=== "4.x"
+
+    ```shell
+    docker pull ghcr.io/llaville/box-manifest:v4
+    ```
+
+### with phive
+
+[PHIVE][phive] : The Phar Installation and Verification Environment
+
+=== "Globally"
+
+    Install
+
+    ```shell
+    phive install llaville/box-manifest --force-accept-unsigned
+    ```
+
+    or update previous installation
+
+    ```shell
+    phive update llaville/box-manifest --force-accept-unsigned
+    ```
+
+=== "Locally"
+
+    To your project, with an XML configuration file :
+
+    === ":octicons-file-code-16: .phive/phars.xml"
+
+        ```xml
+        <?xml version="1.0" encoding="UTF-8"?>
+        <phive xmlns="https://phar.io/phive">
+            <phar name="llaville/box-manifest" version="^4.0" copy="false" />
+        </phive>
+        ```
+
+    === "Command(s)"
+
+        ```shell
+        phive install --force-accept-unsigned
+        ```
+
+        or
+
+        ```shell
+        phive update --force-accept-unsigned
+        ```
+
+### with git
+
+Box Manifest can be directly used from [GitHub][github-repo] by cloning the repository into a subfolder of your project root
+which might be useful if you want to use the very latest version.
+
+=== "Master"
+
+    ```shell
+    git clone https://github.com/llaville/box-manifest.git
+    ```
+
+=== "4.x"
+
+    ```shell
+    git clone -b 4.x https://github.com/llaville/box-manifest.git
+    ```
+
+Next, install the dependencies
 
 ```shell
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v4 build -c box.json --output-file=sbom.xml
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v4 build -c box.json --output-file=manifest.txt
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v4 build -c box.json --output-file=console.txt
-
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v4 stub -c box.json --output-file=stub.php
+composer update
 ```
 
-## Usage
-
-```text
-
-    ____                __  ___            _ ____          __
-   / __ )____  _  __   /  |/  /___ _____  (_) __/__  _____/ /_
-  / __  / __ \| |/_/  / /|_/ / __ `/ __ \/ / /_/ _ \/ ___/ __/
- / /_/ / /_/ />  <   / /  / / /_/ / / / / / __/  __(__  ) /_
-/_____/\____/_/|_|  /_/  /_/\__,_/_/ /_/_/_/  \___/____/\__/
-
-BOX Manifest 4.0.0
-
-Usage:
-  command [options] [arguments]
-
-Options:
-  -h, --help            Display help for the given command. When no command is given display help for the list command
-  -q, --quiet           Do not output any message
-  -V, --version         Display this application version
-      --ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
-  -n, --no-interaction  Do not ask any interactive question
-  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
-
-Available commands:
-  build       [manifest:build] Creates a manifest of your software components and dependencies.
-  completion  Dump the shell completion script
-  help        Display help for a command
-  list        List commands
-  stub        [manifest:stub] Generates a stub for your manifest application.
-```
-
-This Symfony Console application combines two native commands.
-
-### Symfony `build` command
-
-To build your application's manifest file(s).
-
-```text
-Description:
-  Creates a manifest of your software components and dependencies.
-
-Usage:
-  build [options]
-  manifest:build
-
-Options:
-      --no-config                    Ignore the config file even when one is specified with the --config option
-  -c, --config=CONFIG                The alternative configuration file path.
-  -b, --bootstrap=BOOTSTRAP          A PHP script that is included before execution
-  -f, --output-format=OUTPUT-FORMAT  Format of the output: auto, plain, ansi, console, sbom-xml, sbom-json [default: "auto"]
-  -s, --sbom-spec=SBOM-SPEC          SBOM specification version: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6 [default: "1.6"]
-  -o, --output-file=OUTPUT-FILE      Write results to file (default to standard output)
-  -h, --help                         Display help for the given command. When no command is given display help for the list command
-  -q, --quiet                        Do not output any message
-  -V, --version                      Display this application version
-      --ansi|--no-ansi               Force (or disable --no-ansi) ANSI output
-  -n, --no-interaction               Do not ask any interactive question
-  -v|vv|vvv, --verbose               Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
-
-Help:
-  The build command will generate a manifest of your application.
-```
-
-The `--output-file` and `--output-format` options can be used to control the formatting and destination
-of the artifacts generated by `box-manifest`.
-The default is to report to the console standard output but can be stored in a file (specified using `--output-file` option).
-The format of the output can be changed using the `--output-format` option which may be useful if the output is to be used
-as an input by another tool like `box`.
-
-The `--config` option can be used to specify path to alternate version of a `box.json.dist` or `box.json`
-that are not found in current working directory.
-
-The `--no-config` option must be specified if you don't want to use BOX default configuration files (`box.json.dist` or `box.json`)
-
-Once generated with the `--output-file` option, the manifest may be included as any other files you want to add into your PHP Archive.
-
-### Symfony `stub` command
-
-To build the stub that will support `--manifest` option, to display its contents at runtime.
-
-```text
-Description:
-  Generates a stub for your manifest application.
-
-Usage:
-  stub [options]
-  manifest:stub
-
-Options:
-      --no-config                Ignore the config file even when one is specified with the --config option
-  -c, --config=CONFIG            The alternative configuration file path.
-  -t, --template=TEMPLATE        PHP template file to customize the stub
-  -r, --resource=RESOURCE        File(s) generated by the box-manifest binary command (multiple values allowed)
-  -o, --output-file=OUTPUT-FILE  Write results to file (default to standard output)
-  -h, --help                     Display help for the given command. When no command is given display help for the list command
-  -q, --quiet                    Do not output any message
-  -V, --version                  Display this application version
-      --ansi|--no-ansi           Force (or disable --no-ansi) ANSI output
-  -n, --no-interaction           Do not ask any interactive question
-  -v|vv|vvv, --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
-
-Help:
-  The stub command will generate a stub of your manifest application.
-```
-
-The `--output-file` option can be used to control the destination of the output generated by `box-stub`.
-The default is to report to the console standard output but can be stored in a file
-
-The `--config` option can be used to specify path to alternate version of a `box.json.dist` or `box.json`
-that are not found in current working directory.
-
-The `--no-config` option must be specified if you don't want to use BOX default configuration files (`box.json.dist` or `box.json`)
+[box-project]: https://github.com/box-project/box
+[bamarni/composer-bin-plugin]: https://github.com/bamarni/composer-bin-plugin
+[composer]: https://getcomposer.org/
+[docker]: https://docs.docker.com/get-docker/
+[phive]: https://github.com/phar-io/phive
+[github-repo]: https://github.com/llaville/box-manifest.git
