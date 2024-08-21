@@ -51,7 +51,6 @@ final readonly class BuildStage extends AbstractStage implements StageInterface
                 ],
                 $this->command->getDefinition()
             );
-            $this->io->writeln((string) $input);
             $io = $this->io->withInput($input);
             $options = new ManifestOptions($io);
             $manifest = $factory->build($options);
