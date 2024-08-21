@@ -8,6 +8,7 @@
 
 [Get Started](./getting-started.md){ .md-button .md-button--primary }
 [Learn more](#everything-you-would-expect-but-not-have-yet-with-phars){ .md-button }
+[Watch :material-movie-play:](#play-terminal-sessions){ .md-button }
 
 ## Features at a glance
 
@@ -64,6 +65,36 @@
 
 </div>
 
+## Play terminal sessions
+
+<div class="annotate" markdown>
+
+Play following movies (1), and see how it's so easy to include some manifests in your PHAR distribution.
+
+</div>
+
+1.  Created by [asciinema][asciinema] and play online with [asciinema-player][asciinema-player] with help of this [Mkdocs plugin][mkdocs-asciinema-player]
+
+### Installation
+
+```asciinema-player
+{
+    "file": "assets/asciinema/installation.cast"
+}
+```
+
+### Make your first manifests and stub
+
+```asciinema-player
+{
+    "file": "assets/asciinema/make.cast"
+}
+```
+
+
 [box-project]: https://github.com/box-project/box
 [github-repo]: https://github.com/llaville/box-manifest
 [composer]: https://getcomposer.org/
+[asciinema]: https://asciinema.org/
+[asciinema-player]: https://github.com/asciinema/asciinema-player
+[mkdocs-asciinema-player]: https://github.com/pa-decarvalho/mkdocs-asciinema-player
