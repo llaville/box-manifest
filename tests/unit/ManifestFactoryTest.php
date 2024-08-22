@@ -15,6 +15,7 @@ use KevinGH\Box\Box;
 use KevinGH\Box\Configuration\Configuration;
 
 use Phar;
+use PharException;
 use stdClass;
 use function explode;
 use const PHP_EOL;
@@ -28,9 +29,6 @@ final class ManifestFactoryTest extends TestCase
 {
     private Box $box;
 
-    /**
-     * @inheritDoc
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -39,7 +37,7 @@ final class ManifestFactoryTest extends TestCase
     }
 
     /**
-     * @inheritDoc
+     * @throws PharException
      */
     protected function tearDown(): void
     {
