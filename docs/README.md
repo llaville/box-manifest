@@ -73,7 +73,7 @@ Play following movies (1), and see how it's so easy to include some manifests in
 
 </div>
 
-1.  Created by [asciinema][asciinema] and play online with [asciinema-player][asciinema-player] with help of this [Mkdocs plugin][mkdocs-asciinema-player]
+1. Created by [asciinema][asciinema] and play online with [asciinema-player][asciinema-player] with help of this [Mkdocs plugin][mkdocs-asciinema-player]
 
 ### Installation
 
@@ -90,7 +90,6 @@ Play following movies (1), and see how it's so easy to include some manifests in
     "file": "assets/asciinema/make.cast"
 }
 ```
-
 
 [box-project]: https://github.com/box-project/box
 [github-repo]: https://github.com/llaville/box-manifest
