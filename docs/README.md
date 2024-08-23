@@ -79,7 +79,7 @@ Play following movies (1), and see how it's so easy to include some manifests in
 
 ```asciinema-player
 {
-    "file": "assets/asciinema/installation.cast"
+    "file": "./assets/asciinema/installation.cast"
 }
 ```
 
@@ -87,7 +87,7 @@ Play following movies (1), and see how it's so easy to include some manifests in
 
 ```asciinema-player
 {
-    "file": "assets/asciinema/make.cast"
+    "file": "./assets/asciinema/make.cast"
 }
 ```
 
