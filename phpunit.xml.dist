@@ -15,7 +15,11 @@
     processIsolation="false"
     cacheDirectory=".phpunit.cache"
 >
-    <coverage/>
+    <coverage includeUncoveredFiles="true">
+        <report>
+            <text outputFile="php://stdout" showUncoveredFiles="true" showOnlySummary="false"/>
+        </report>
+    </coverage>
     <testsuite name="unit">
         <directory suffix="Test.php">tests/unit/</directory>
     </testsuite>
