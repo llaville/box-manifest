@@ -164,4 +164,20 @@ final class ManifestFactory
         };
         return self::create(new SbomManifestBuilder($normalizer, $this->boxVersion, $this->boxManifestVersion), $this->config, false);
     }
+
+    /**
+     * @since Release 4.0.0
+     */
+    public function toSbomJson(string $specVersion): ?string
+    {
+        return $this->toSbom('json', $specVersion);
+    }
+
+    /**
+     * @since Release 4.0.0
+     */
+    public function toSbomXml(string $specVersion): ?string
+    {
+        return $this->toSbom('xml', $specVersion);
+    }
 }

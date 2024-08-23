@@ -1,0 +1,3 @@
+kind: Added
+body: 'introduces new ManifestFactory methods: toSbomJson and toSbomXml'
+time: 2024-08-23T15:17:42.531028987Z
