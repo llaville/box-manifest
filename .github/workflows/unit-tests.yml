@@ -48,7 +48,6 @@ jobs:
                 with:
                     php-version: ${{ matrix.php }}
                     ini-values: phar.readonly=0
-                    tools: phpunit:10.5
 
             -   # https://github.com/ramsey/composer-install
                 name: Install Composer dependencies
@@ -58,4 +57,4 @@ jobs:
 
             -   # https://github.com/sebastianbergmann/phpunit/tree/10.5
                 name: PHPUnit 10
-                run: phpunit --testdox --do-not-cache-result --coverage-text --colors=auto tests/unit
+                run: composer tests:unit
