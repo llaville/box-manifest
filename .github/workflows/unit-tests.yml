@@ -58,4 +58,4 @@ jobs:
 
             -   # https://github.com/sebastianbergmann/phpunit/tree/10.5
                 name: PHPUnit 10
-                run: phpunit --testdox --do-not-cache-result --coverage-text tests/unit
+                run: phpunit --testdox --do-not-cache-result --coverage-text --colors=auto tests/unit
