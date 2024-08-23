@@ -7,12 +7,12 @@
  */
 namespace Bartlett\BoxManifest\Composer;
 
-use Bartlett\BoxManifest\Helper\ManifestFile;
-use Bartlett\BoxManifest\Helper\ManifestFormat;
-
 use InvalidArgumentException;
 use function class_exists;
+use function is_array;
 use function sprintf;
+use function str_ends_with;
+use function str_starts_with;
 
 /**
  * This is the default strategy used to build your manifest(s).
@@ -26,40 +26,66 @@ final readonly class DefaultStrategy implements ManifestBuildStrategy
     {
     }
 
+    public function getCallable(string $outputFormat, ?string $resourceFile): callable
+    {
+        if ('auto' == $outputFormat) {
+            if (null === $resourceFile) {
+                return [$this->factory, 'toConsole'];
+            }
+
+            $recognizedFilePatternsRules = [
+                'sbom.json' => [$this->factory, 'toSbomJson'],
+                'sbom.xml' => [$this->factory, 'toSbomXml'],
+                '.cdx.json' => [$this->factory, 'toSbomJson'],
+                '.cdx.xml' => [$this->factory, 'toSbomXml'],
+                'manifest.txt' => [$this->factory, 'toText'],
+                'plain.txt' => [$this->factory, 'toText'],
+                'ansi.txt' => [$this->factory, 'toHighlight'],
+                'console.txt' => [$this->factory, 'toConsole'],
+                'custom.bin' => [$this->factory, 'fromClass'],
+            ];
+
+            foreach ($recognizedFilePatternsRules as $extension => $callable) {
+                if (str_ends_with($resourceFile, $extension)) {
+                    return $callable;
+                }
+            }
+
+            throw new InvalidArgumentException(sprintf('Cannot auto-detect format for "%s" resource file', $resourceFile));
+        }
+
+        $recognizedOutputFormatRules = [
+            'console' => [$this->factory, 'toConsole'],
+            'ansi' => [$this->factory, 'toHighlight'],
+            'plain' => [$this->factory, 'toText'],
+            'sbom-json' => [$this->factory, 'toSbomJson'],
+            'sbom-xml' => [$this->factory, 'toSbomXml'],
+        ];
+
+        foreach ($recognizedOutputFormatRules as $format => $callable) {
+            if ($outputFormat === $format) {
+                return $callable;
+            }
+        }
+
+        if (!class_exists($outputFormat)) {
+            throw new InvalidArgumentException(sprintf('Format "%s" is not supported', $outputFormat));
+        }
+
+        return [$this->factory, 'fromClass'];
+    }
+
     public function build(ManifestOptions $options): ?string
     {
-        $factory = $this->factory;
-
         /** @var string $rawFormat */
         $rawFormat = $options->getFormat(true);
-        $format = $options->getFormat();
-        $outputFile = $options->getOutputFile();
-        $sbomSpec = $options->getSbomSpec();
 
-        $output = $outputFile ? ManifestFile::tryFrom(basename($outputFile)) : null;
+        $callable = $this->getCallable($rawFormat, $options->getOutputFile());
 
-        return match ($format) {
-            ManifestFormat::auto => match ($output) {
-                null, ManifestFile::ansi => $factory->toHighlight(),
-                ManifestFile::consoleTable => $factory->toConsole(),
-                ManifestFile::txt => $factory->toText(),
-                ManifestFile::sbomXml => $factory->toSbom('xml', $sbomSpec),
-                ManifestFile::sbomJson => $factory->toSbom('json', $sbomSpec),
-                default => match (pathinfo($outputFile ? : '', PATHINFO_EXTENSION)) {
-                    'xml' => $factory->toSbom('xml', $sbomSpec),
-                    'json' => $factory->toSbom('json', $sbomSpec),
-                    '', 'txt' => $factory->toText(),
-                    default => throw new InvalidArgumentException('Cannot auto-detect format with such output file')
-                }
-            },
-            ManifestFormat::plain => $factory->toText(),
-            ManifestFormat::ansi => $factory->toHighlight(),
-            ManifestFormat::console => $factory->toConsole(),
-            ManifestFormat::sbomXml => $factory->toSbom('xml', $sbomSpec),
-            ManifestFormat::sbomJson => $factory->toSbom('json', $sbomSpec),
-            default => class_exists($rawFormat)
-                ? $factory->fromClass($rawFormat)
-                : throw new InvalidArgumentException(sprintf('Format "%s" is not supported', $rawFormat))
-        };
+        if (is_array($callable) && str_starts_with($callable[1], 'toSbom')) {
+            return $callable($options->getSbomSpec());
+        }
+
+        return $callable();
     }
 }

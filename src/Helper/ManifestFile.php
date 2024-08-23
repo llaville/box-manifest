@@ -18,6 +18,7 @@ enum ManifestFile: string
     case custom = 'custom.bin';
     case ansi = 'ansi.txt';
     case txt = 'manifest.txt';
+    case plain = 'plain.txt';
     case xml = 'manifest.xml';
     case sbomXml = 'sbom.xml';
     case sbomJson = 'sbom.json';
