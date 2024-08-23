@@ -7,13 +7,15 @@
  */
 namespace Bartlett\BoxManifest\Helper;
 
+use Bartlett\BoxManifest\Composer\RestartHandler;
+
 use Fidry\Console\IO;
 
 use KevinGH\Box\Configuration\Configuration;
 use KevinGH\Box\Console\Command\ConfigOption;
-use KevinGH\Box\Console\Php\PhpSettingsHandler;
 use function KevinGH\Box\get_box_version;
 
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Logger\ConsoleLogger;
@@ -38,7 +40,12 @@ class BoxHelper extends Helper
 
     public function checkPhpSettings(IO $io): void
     {
-        (new PhpSettingsHandler(new ConsoleLogger($io->getOutput())))->check();
+        $out = $io->getOutput();
+        $out->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+
+        $restart = (new RestartHandler('box'));
+        $restart->setLogger(new ConsoleLogger($out));
+        $restart->check();
     }
 
     /**
