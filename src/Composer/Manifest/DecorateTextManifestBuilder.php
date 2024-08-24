@@ -11,6 +11,7 @@ use Bartlett\BoxManifest\Composer\ManifestBuilderInterface;
 
 use function implode;
 use function phpversion;
+use function rtrim;
 use function sprintf;
 use function substr;
 use const PHP_EOL;
@@ -87,6 +88,6 @@ final readonly class DecorateTextManifestBuilder implements ManifestBuilderInter
             } // otherwise, it's a virtual package
         }
 
-        return implode(PHP_EOL, $entries);
+        return rtrim(implode(PHP_EOL, $entries), PHP_EOL);
     }
 }
