@@ -8,6 +8,7 @@
 namespace Bartlett\BoxManifest\Tests;
 
 use Bartlett\BoxManifest\Composer\DefaultStrategy;
+use Bartlett\BoxManifest\Composer\ManifestBuildStrategy;
 use Bartlett\BoxManifest\Composer\ManifestFactory;
 
 use KevinGH\Box\Configuration\Configuration;
@@ -27,24 +28,10 @@ use InvalidArgumentException;
 #[CoversClass(DefaultStrategy::class)]
 final class DefaultStrategyTest extends TestCase
 {
-    #[DataProviderExternal(ExternalDataProvider::class, 'recognizedFilePatterns')]
-    public function testRecognizedFilePatterns(string $outputFormat, ?string $resource, bool $expectedException): void
-    {
-        $this->testAutoDetection($outputFormat, $resource, $expectedException);
-    }
+    protected ManifestBuildStrategy $strategy;
 
-    #[DataProviderExternal(ExternalDataProvider::class, 'recognizedOutputFormat')]
-    public function testRecognizedOutputFormat(string $outputFormat, ?string $resource, bool $expectedException): void
+    protected function setUp(): void
     {
-        $this->testAutoDetection($outputFormat, $resource, $expectedException);
-    }
-
-    private function testAutoDetection(string $outputFormat, ?string $resource, bool $expectedException): void
-    {
-        if ($expectedException) {
-            $this->expectException(InvalidArgumentException::class);
-        }
-
         $configFilePath = __DIR__ . '/../fixtures/phario-manifest-2.0.x-dev/box.json';
 
         $raw = new stdClass();
@@ -52,10 +39,35 @@ final class DefaultStrategyTest extends TestCase
         $raw->{$main} = false;
         $config = Configuration::create($configFilePath, $raw);
 
-        $factory = new ManifestFactory($config, true, '4.x-dev', '4.x-dev');
-        $strategy = new DefaultStrategy($factory);
+        $factory = new ManifestFactory($config, true, '4.x-dev', '4.x-dev', true);
+        $this->strategy = new DefaultStrategy($factory);
+    }
 
-        $callable = $strategy->getCallable($outputFormat, $resource);
+    #[DataProviderExternal(ExternalDataProvider::class, 'recognizedFilePatterns')]
+    public function testRecognizedFilePatterns(string $outputFormat, ?string $resource, bool $expectedException): void
+    {
+        if ($expectedException) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        $callable = $this->strategy->getCallable($outputFormat, $resource);
         $this->assertIsCallable($callable);
+    }
+
+    #[DataProviderExternal(ExternalDataProvider::class, 'recognizedOutputFormat')]
+    public function testRecognizedOutputFormat(string $outputFormat, ?string $resource, bool $expectedException): void
+    {
+        if ($expectedException) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        $callable = $this->strategy->getCallable($outputFormat, $resource);
+        $this->assertIsCallable($callable);
+    }
+
+    #[DataProviderExternal(ExternalDataProvider::class, 'recognizedMimeType')]
+    public function testMimeTypeResource(string $resource, $mimeTypeExpected): void
+    {
+        $this->assertSame($mimeTypeExpected, $this->strategy->getMimeType($resource, null));
     }
 }

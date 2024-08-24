@@ -52,6 +52,11 @@ final readonly class PostInstallStrategy implements ManifestBuildStrategy
     {
     }
 
+    public function getMimeType(string $resourceFile, ?string $version): string
+    {
+        return (new DefaultStrategy($this->factory))->getMimeType($resourceFile, $version);
+    }
+
     public function getCallable(string $outputFormat, ?string $resourceFile): callable
     {
         return (new DefaultStrategy($this->factory))->getCallable($outputFormat, $resourceFile);

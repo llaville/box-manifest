@@ -9,6 +9,7 @@ namespace Bartlett\BoxManifest\Composer;
 
 use InvalidArgumentException;
 use function class_exists;
+use function in_array;
 use function sprintf;
 use function str_ends_with;
 
@@ -22,6 +23,29 @@ final readonly class DefaultStrategy implements ManifestBuildStrategy
 {
     public function __construct(private ManifestFactory $factory)
     {
+    }
+
+    public function getMimeType(string $resourceFile, ?string $version): string
+    {
+        $recognizedFilePatternsRules = [
+            'sbom.json' => self::MIME_TYPE_SBOM_JSON,
+            'sbom.xml' => self::MIME_TYPE_SBOM_XML,
+            '.cdx.json' => self::MIME_TYPE_SBOM_JSON,
+            '.cdx.xml' => self::MIME_TYPE_SBOM_XML,
+            'manifest.txt' => self::MIME_TYPE_TEXT_PLAIN,
+            'plain.txt' => self::MIME_TYPE_TEXT_PLAIN,
+        ];
+
+        foreach ($recognizedFilePatternsRules as $extension => $mimeType) {
+            if (str_ends_with($resourceFile, $extension)) {
+                if (in_array($mimeType, [self::MIME_TYPE_SBOM_JSON, self::MIME_TYPE_SBOM_XML]) && !empty($version)) {
+                    $mimeType .= '; version=' . $version;
+                }
+                return $mimeType;
+            }
+        }
+
+        return self::MIME_TYPE_OCTET_STREAM;
     }
 
     public function getCallable(string $outputFormat, ?string $resourceFile): callable
@@ -38,8 +62,8 @@ final readonly class DefaultStrategy implements ManifestBuildStrategy
                 '.cdx.xml' => [$this->factory, 'toSbomXml'],
                 'manifest.txt' => [$this->factory, 'toText'],
                 'plain.txt' => [$this->factory, 'toText'],
-                'ansi.txt' => [$this->factory, 'toHighlight'],
-                'console.txt' => [$this->factory, 'toConsole'],
+                'console-style.txt' => [$this->factory, 'toHighlight'],
+                'console-table.txt' => [$this->factory, 'toConsole'],
             ];
 
             foreach ($recognizedFilePatternsRules as $extension => $callable) {
@@ -52,8 +76,8 @@ final readonly class DefaultStrategy implements ManifestBuildStrategy
         }
 
         $recognizedOutputFormatRules = [
-            'console' => [$this->factory, 'toConsole'],
-            'ansi' => [$this->factory, 'toHighlight'],
+            'console-table' => [$this->factory, 'toConsole'],
+            'console-style' => [$this->factory, 'toHighlight'],
             'plain' => [$this->factory, 'toText'],
             'sbom-json' => [$this->factory, 'toSbomJson'],
             'sbom-xml' => [$this->factory, 'toSbomXml'],
