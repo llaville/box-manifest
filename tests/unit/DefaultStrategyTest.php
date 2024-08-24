@@ -12,6 +12,8 @@ use Bartlett\BoxManifest\Composer\ManifestFactory;
 
 use KevinGH\Box\Configuration\Configuration;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 use stdClass;
 use InvalidArgumentException;
 
@@ -23,17 +25,13 @@ use InvalidArgumentException;
  */
 final class DefaultStrategyTest extends TestCase
 {
-    /**
-     * @dataProvider dpRecognizedFilePatterns
-     */
+    #[DataProvider('dpRecognizedFilePatterns')]
     public function testRecognizedFilePatterns(string $outputFormat, ?string $resource, bool $expectedException): void
     {
         $this->testAutoDetection($outputFormat, $resource, $expectedException);
     }
 
-    /**
-     * @dataProvider dpRecognizedOutputFormat
-     */
+    #[DataProvider('dpRecognizedOutputFormat')]
     public function testRecognizedOutputFormat(string $outputFormat, ?string $resource, bool $expectedException): void
     {
         $this->testAutoDetection($outputFormat, $resource, $expectedException);
