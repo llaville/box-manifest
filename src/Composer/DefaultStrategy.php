@@ -9,10 +9,8 @@ namespace Bartlett\BoxManifest\Composer;
 
 use InvalidArgumentException;
 use function class_exists;
-use function is_array;
 use function sprintf;
 use function str_ends_with;
-use function str_starts_with;
 
 /**
  * This is the default strategy used to build your manifest(s).
@@ -42,7 +40,6 @@ final readonly class DefaultStrategy implements ManifestBuildStrategy
                 'plain.txt' => [$this->factory, 'toText'],
                 'ansi.txt' => [$this->factory, 'toHighlight'],
                 'console.txt' => [$this->factory, 'toConsole'],
-                'custom.bin' => [$this->factory, 'fromClass'],
             ];
 
             foreach ($recognizedFilePatternsRules as $extension => $callable) {
@@ -73,19 +70,5 @@ final readonly class DefaultStrategy implements ManifestBuildStrategy
         }
 
         return [$this->factory, 'fromClass'];
-    }
-
-    public function build(ManifestOptions $options): ?string
-    {
-        /** @var string $rawFormat */
-        $rawFormat = $options->getFormat(true);
-
-        $callable = $this->getCallable($rawFormat, $options->getOutputFile());
-
-        if (is_array($callable) && str_starts_with($callable[1], 'toSbom')) {
-            return $callable($options->getSbomSpec());
-        }
-
-        return $callable();
     }
 }
