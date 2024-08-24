@@ -90,10 +90,9 @@ final readonly class PostInstallStrategy implements ManifestBuildStrategy
             $config,
             $io->isDecorated(),
             (new BoxHelper())->getBoxVersion(),
-            (new Application())->getVersion()
+            (new Application())->getVersion(),
+            false
         );
-
-        $strategy = new self($factory);
 
         $inputDefinition = (new ManifestBuild())->getDefinition();
 
@@ -104,7 +103,7 @@ final readonly class PostInstallStrategy implements ManifestBuildStrategy
                 if (str_starts_with($target, '.box.manifests/')) {
                     $arrayInput = new ArrayInput(['--format' => 'auto', '--output-file' => $source], $inputDefinition);
                     $boxIO = new IO($arrayInput, new NullOutput());
-                    $manifest = $strategy->build(new ManifestOptions($boxIO));
+                    $manifest = $factory->build(new ManifestOptions($boxIO));
 
                     $resource = fopen($source, 'w');
                     if (!$resource) {

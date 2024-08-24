@@ -53,7 +53,7 @@ final class ManifestOptions
         // @phpstan-ignore return.type
         return match ($this->getFormat()) {
             ManifestFormat::auto => 'AUTO detection mode',
-            ManifestFormat::plain, ManifestFormat::ansi, ManifestFormat::console => 'TEXT',
+            ManifestFormat::plain, ManifestFormat::consoleStyle, ManifestFormat::consoleTable => 'TEXT',
             ManifestFormat::sbomXml, ManifestFormat::sbomJson => 'SBOM ' . $this->getSbomSpec(),
             default => $this->getFormat(true),
         };
@@ -64,6 +64,9 @@ final class ManifestOptions
         return $this->io->getTypedOption(self::SBOM_SPEC_OPTION)->asString();
     }
 
+    /**
+     * @return string[]
+     */
     public function getResources(): array
     {
         return $this->io->getTypedOption(self::RESOURCE_OPTION)->asStringList();

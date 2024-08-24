@@ -160,7 +160,7 @@ final class ManifestBuild extends Command
         }
 
         $boxManifestVersion = $this->getApplication()?->getVersion() ? : '@dev';
-        $factory = new ManifestFactory($config, $output->isDecorated(), $boxHelper->getBoxVersion(), $boxManifestVersion);
+        $factory = new ManifestFactory($config, $output->isDecorated(), $boxHelper->getBoxVersion(), $boxManifestVersion, false);
         $manifest = $factory->build($options) ?? '';
 
         if (empty($outputFile)) {
@@ -169,7 +169,7 @@ final class ManifestBuild extends Command
         } else {
             // @phpstan-ignore argument.type
             $stream = new StreamOutput(fopen($outputFile, 'w'));
-            if (ManifestFormat::ansi === $format) {
+            if (ManifestFormat::consoleStyle === $format) {
                 $stream->setDecorated(true);
             }
             $stream->write($manifest);
