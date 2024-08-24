@@ -20,7 +20,6 @@ use CycloneDX\Core\Spec\Version;
 
 use Fidry\Console\IO;
 
-use InvalidArgumentException;
 use League\Pipeline\PipelineBuilder;
 
 use Symfony\Component\Console\Command\Command;
@@ -33,8 +32,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use InvalidArgumentException;
 use function class_exists;
 use function count;
+use function implode;
 use function is_file;
 use function is_string;
 use function microtime;
@@ -238,10 +239,9 @@ final class Make extends Command
         $finalPayload = $pipeline($payload);
 
         if ($io->isDebug()) {
-            if (isset($finalPayload['response'])) {
-                $artifacts = \implode(', ', $finalPayload['response']['artifacts']);
+            foreach ($finalPayload['response']['artifacts'] ?? [] as $responseArtifact => $mimeType) {
                 $io->write(
-                    $debugFormatter->stop($pid, sprintf('Following artifacts were created: %s', $artifacts), true, 'RESPONSE')
+                    $debugFormatter->stop($pid, sprintf('%s: %s', $responseArtifact, $mimeType), true, 'RESPONSE')
                 );
             }
             $io->write(
