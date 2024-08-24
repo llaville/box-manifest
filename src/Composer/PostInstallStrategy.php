@@ -52,9 +52,9 @@ final readonly class PostInstallStrategy implements ManifestBuildStrategy
     {
     }
 
-    public function build(ManifestOptions $options): ?string
+    public function getCallable(string $outputFormat, ?string $resourceFile): callable
     {
-        return (new DefaultStrategy($this->factory))->build($options);
+        return (new DefaultStrategy($this->factory))->getCallable($outputFormat, $resourceFile);
     }
 
     public static function postUpdate(Event $event): void

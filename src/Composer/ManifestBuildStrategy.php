@@ -17,5 +17,5 @@ namespace Bartlett\BoxManifest\Composer;
  */
 interface ManifestBuildStrategy
 {
-    public function build(ManifestOptions $options): ?string;
+    public function getCallable(string $outputFormat, ?string $resourceFile): callable;
 }

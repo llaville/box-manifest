@@ -63,6 +63,11 @@ final class ManifestOptions
         return $this->io->getTypedOption(self::SBOM_SPEC_OPTION)->asString();
     }
 
+    public function getResources(): array
+    {
+        return $this->io->getTypedOption(self::RESOURCE_OPTION)->asStringList();
+    }
+
     public function getOutputFile(): ?string
     {
         return $this->io->getTypedOption(self::OUTPUT_OPTION)->asNullableString();

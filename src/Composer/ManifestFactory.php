@@ -55,7 +55,24 @@ final class ManifestFactory
 
     public function build(ManifestOptions $options): ?string
     {
-        return $this->strategy->build($options);
+        /** @var string $rawFormat */
+        $rawFormat = $options->getFormat(true);
+
+        $resources = $options->getResources();
+        if (!empty($resources)) {
+            $resourceFile = $resources[0];
+        } else {
+            // fallback to legacy command usage
+            $resourceFile = $options->getOutputFile();
+        }
+
+        $callable = $this->strategy->getCallable($rawFormat, $resourceFile);
+
+        if (is_array($callable) && str_starts_with($callable[1], 'toSbom')) {
+            return $callable($options->getSbomSpec());
+        }
+
+        return $callable();
     }
 
     public static function create(string|object $from, Configuration $config, bool $isDecorated): ?string
