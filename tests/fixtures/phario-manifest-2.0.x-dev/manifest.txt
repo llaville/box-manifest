@@ -1,0 +1,2 @@
+phar-io/manifest: 2.0.x-dev@97803ec
+phar-io/version: 3.0.1
