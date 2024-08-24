@@ -14,6 +14,8 @@ use Bartlett\BoxManifest\Composer\ManifestFactory;
 use KevinGH\Box\Box;
 use KevinGH\Box\Configuration\Configuration;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+
 use Phar;
 use PharException;
 use stdClass;
@@ -25,6 +27,7 @@ use const PHP_EOL;
  *
  * @author Laurent Laville
  */
+#[CoversClass(ManifestFactory::class)]
 final class ManifestFactoryTest extends TestCase
 {
     private Box $box;

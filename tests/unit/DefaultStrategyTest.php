@@ -12,6 +12,7 @@ use Bartlett\BoxManifest\Composer\ManifestFactory;
 
 use KevinGH\Box\Configuration\Configuration;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 use stdClass;
@@ -23,6 +24,7 @@ use InvalidArgumentException;
  * @author Laurent Laville
  * @since Release 4.0.0
  */
+#[CoversClass(DefaultStrategy::class)]
 final class DefaultStrategyTest extends TestCase
 {
     #[DataProvider('dpRecognizedFilePatterns')]
