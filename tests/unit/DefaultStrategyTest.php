@@ -13,7 +13,7 @@ use Bartlett\BoxManifest\Composer\ManifestFactory;
 use KevinGH\Box\Configuration\Configuration;
 
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
 
 use stdClass;
 use InvalidArgumentException;
@@ -27,13 +27,13 @@ use InvalidArgumentException;
 #[CoversClass(DefaultStrategy::class)]
 final class DefaultStrategyTest extends TestCase
 {
-    #[DataProvider('dpRecognizedFilePatterns')]
+    #[DataProviderExternal(ExternalDataProvider::class, 'recognizedFilePatterns')]
     public function testRecognizedFilePatterns(string $outputFormat, ?string $resource, bool $expectedException): void
     {
         $this->testAutoDetection($outputFormat, $resource, $expectedException);
     }
 
-    #[DataProvider('dpRecognizedOutputFormat')]
+    #[DataProviderExternal(ExternalDataProvider::class, 'recognizedOutputFormat')]
     public function testRecognizedOutputFormat(string $outputFormat, ?string $resource, bool $expectedException): void
     {
         $this->testAutoDetection($outputFormat, $resource, $expectedException);
@@ -57,41 +57,5 @@ final class DefaultStrategyTest extends TestCase
 
         $callable = $strategy->getCallable($outputFormat, $resource);
         $this->assertIsCallable($callable);
-    }
-
-    public static function dpRecognizedFilePatterns(): iterable
-    {
-        yield ['auto', null, false];
-        yield ['auto', 'console.txt', false];
-        yield ['auto', 'plain.txt', false];
-        yield ['auto', 'manifest.txt', false];
-        yield ['auto', 'ansi.txt', false];
-        yield ['auto', 'sbom.json', false];
-        yield ['auto', 'sbom.xml', false];
-        yield ['auto', 'sbom.cdx.json', false];
-        yield ['auto', 'sbom.cdx.xml', false];
-        yield ['auto', 'custom.bin', false];
-        yield ['auto', 'custom.txt', true];
-    }
-
-    public static function dpRecognizedOutputFormat(): iterable
-    {
-        yield ['console', null, false];
-        yield ['console', 'whatever.you.want', false];
-
-        yield ['plain', null, false];
-        yield ['plain', 'whatever.you.want', false];
-
-        yield ['ansi', null, false];
-        yield ['ansi', 'whatever.you.want', false];
-
-        yield ['sbom-json', null, false];
-        yield ['sbom-json', 'whatever.you.want', false];
-
-        yield ['sbom-xml', null, false];
-        yield ['sbom-xml', 'whatever.you.want', false];
-
-        yield ['\My\Space\ClassNotFound', null, true];
-        yield ['\My\Space\ClassNotFound', 'whatever.you.want', true];
     }
 }
