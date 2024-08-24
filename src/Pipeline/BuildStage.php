@@ -34,7 +34,8 @@ final readonly class BuildStage extends AbstractStage implements StageInterface
             $payload['configuration'],
             $payload['ansiSupport'],
             $payload['versions']['box'],
-            $payload['versions']['boxManifest']
+            $payload['versions']['boxManifest'],
+            $payload['immutableCopy']
         );
 
         $buildsCount = 0;
@@ -53,26 +54,11 @@ final readonly class BuildStage extends AbstractStage implements StageInterface
             );
             $io = $this->io->withInput($input);
             $options = new ManifestOptions($io);
-            $manifest = $factory->build($options);
-            if (null !== $manifest) {
-                if ($this->writeToStream($resourceFile, $manifest, 'Unable to write resource') === 1) {
+            $manifestContents = $factory->build($options);
+            if (null !== $manifestContents) {
+                if ($this->writeToStream($resourceFile, $manifestContents, 'Unable to write resource') === 1) {
                     $buildsCount++;
-
-                    $resourceEnum = ManifestFile::tryFrom(basename($resourceFile)) ?? null;
-                    $mimeType = match ($options->getFormat()) {
-                        null, ManifestFormat::auto => match ($resourceEnum) {
-                            ManifestFile::txt => 'text/plain',
-                            ManifestFile::sbomXml => 'application/vnd.sbom+xml',
-                            ManifestFile::sbomJson => 'application/vnd.sbom+json; version=' . $options->getSbomSpec(),
-                            default => 'application/octet-stream',
-                        },
-                        ManifestFormat::plain => 'text/plain',
-                        ManifestFormat::sbomXml => 'application/vnd.cyclonedx+xml',
-                        ManifestFormat::sbomJson => 'application/vnd.cyclonedx+json',
-                        default => 'application/octet-stream',
-                    };
-
-                    $payload['response']['artifacts'][$resourceFile] = $mimeType;
+                    $payload['response']['artifacts'][$resourceFile] = $factory->getMimeType($resourceFile, $options->getSbomSpec());
                 }
             }
         }

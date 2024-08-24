@@ -25,6 +25,7 @@ interface StageInterface
      * @param array{
      *     configuration: Configuration,
      *     ansiSupport: bool,
+     *     immutableCopy: bool,
      *     template: string,
      *     resources: string[],
      *     resourceDir: string|null,
@@ -40,6 +41,7 @@ interface StageInterface
      * @return array{
      *     configuration: Configuration,
      *     ansiSupport: bool,
+     *     immutableCopy: bool,
      *     template: string,
      *     resources: string[],
      *     resourceDir: string|null,

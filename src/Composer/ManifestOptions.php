@@ -27,6 +27,7 @@ final class ManifestOptions
     public const TEMPLATE_OPTION = 'template';
     public const RESOURCE_OPTION = 'resource';
     public const RESOURCE_DIR_OPTION = 'resource-dir';
+    public const IMMUTABLE_OPTION = 'immutable';
 
     public function __construct(private readonly IO $io)
     {
@@ -81,5 +82,10 @@ final class ManifestOptions
     public function getOutputConfFile(): ?string
     {
         return $this->io->getTypedOption(self::OUTPUT_CONF_OPTION)->asNullableString();
+    }
+
+    public function isImmutable(): bool
+    {
+        return $this->io->getTypedOption(self::IMMUTABLE_OPTION)->asBoolean();
     }
 }

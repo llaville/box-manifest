@@ -119,6 +119,12 @@ final class Make extends Command
                 'Directory where to store your manifest files into the PHP Archive',
                 '.box.manifests/'
             ),
+            new InputOption(
+                ManifestOptions::IMMUTABLE_OPTION,
+                null,
+                InputOption::VALUE_NONE,
+                'Generates immutable version of a manifest file',
+            ),
         ];
 
         $this->setName(self::NAME)
@@ -157,7 +163,7 @@ final class Make extends Command
             $io->write(
                 $debugFormatter->start(
                     $pid,
-                    \sprintf('Making manifests for %d resource%s', $resourceCount, $resourceCount > 1 ? 's' : ''),
+                    sprintf('Making manifests for %d resource%s', $resourceCount, $resourceCount > 1 ? 's' : ''),
                     'STARTED'
                 )
             );
@@ -211,6 +217,7 @@ final class Make extends Command
         $payload = [
             'configuration' => $config,
             'ansiSupport' => $output->isDecorated(),
+            'immutableCopy' => $io->getTypedOption(ManifestOptions::IMMUTABLE_OPTION)->asBoolean(),
             'versions' => [
                 'box' => $boxHelper->getBoxVersion(),
                 'boxManifest' => $this->getApplication()?->getVersion() ? : '@dev',
@@ -234,7 +241,7 @@ final class Make extends Command
             if (isset($finalPayload['response'])) {
                 $artifacts = \implode(', ', $finalPayload['response']['artifacts']);
                 $io->write(
-                    $debugFormatter->stop($pid, \sprintf('Following artifacts were created: %s', $artifacts), true, 'RESPONSE')
+                    $debugFormatter->stop($pid, sprintf('Following artifacts were created: %s', $artifacts), true, 'RESPONSE')
                 );
             }
             $io->write(

@@ -12,6 +12,7 @@ use Fidry\Console\IO;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DebugFormatterHelper;
 use Symfony\Component\Console\Helper\HelperInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 
 use function fopen;
@@ -51,7 +52,7 @@ abstract readonly class AbstractStage
         }
 
         $stream = new StreamOutput($resource);
-        $stream->write($contents);
+        $stream->write($contents, false, OutputInterface::OUTPUT_RAW);
         fclose($stream->getStream());
         return 1;
     }

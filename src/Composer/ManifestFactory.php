@@ -43,7 +43,8 @@ final class ManifestFactory
         private readonly Configuration $config,
         private readonly bool $isDecorated,
         private readonly string $boxVersion,
-        private readonly string $boxManifestVersion
+        private readonly string $boxManifestVersion,
+        private readonly bool $immutableCopy
     ) {
         $this->setStrategy(new DefaultStrategy($this));
     }
@@ -69,10 +70,15 @@ final class ManifestFactory
         $callable = $this->strategy->getCallable($rawFormat, $resourceFile);
 
         if (is_array($callable) && str_starts_with($callable[1], 'toSbom')) {
-            return $callable($options->getSbomSpec());
+            return $callable($options->getSbomSpec(), $this->immutableCopy);
         }
 
         return $callable();
+    }
+
+    public function getMimeType(string $resourceFile, ?string $version): string
+    {
+        return $this->strategy->getMimeType($resourceFile, $version);
     }
 
     public static function create(string|object $from, Configuration $config, bool $isDecorated): ?string
@@ -144,12 +150,12 @@ final class ManifestFactory
 
     public function toText(): ?string
     {
-        return self::create(SimpleTextManifestBuilder::class, $this->config, false);
+        return self::create(SimpleTextManifestBuilder::class, $this->config, $this->isDecorated);
     }
 
     public function toHighlight(): ?string
     {
-        return self::create(new DecorateTextManifestBuilder(), $this->config, true);
+        return self::create(new DecorateTextManifestBuilder(), $this->config, $this->isDecorated);
     }
 
     public function toConsole(): ?string
@@ -157,7 +163,7 @@ final class ManifestFactory
         return self::create(new ConsoleTextManifestBuilder(), $this->config, $this->isDecorated);
     }
 
-    public function toSbom(string $format, string $specVersion): ?string
+    public function toSbom(string $format, string $specVersion, bool $isImmutable): ?string
     {
         try {
             $version = Version::from($specVersion);
@@ -179,22 +185,26 @@ final class ManifestFactory
             'json' => new JsonNormalizerFactory($spec),
             default => throw new DomainException(sprintf('Format "%s" is not supported.', $format)),
         };
-        return self::create(new SbomManifestBuilder($normalizer, $this->boxVersion, $this->boxManifestVersion), $this->config, false);
+        return self::create(
+            new SbomManifestBuilder($normalizer, $this->boxVersion, $this->boxManifestVersion, $isImmutable),
+            $this->config,
+            false
+        );
     }
 
     /**
      * @since Release 4.0.0
      */
-    public function toSbomJson(string $specVersion): ?string
+    public function toSbomJson(string $specVersion, bool $isImmutable): ?string
     {
-        return $this->toSbom('json', $specVersion);
+        return $this->toSbom('json', $specVersion, $isImmutable);
     }
 
     /**
      * @since Release 4.0.0
      */
-    public function toSbomXml(string $specVersion): ?string
+    public function toSbomXml(string $specVersion, bool $isImmutable): ?string
     {
-        return $this->toSbom('xml', $specVersion);
+        return $this->toSbom('xml', $specVersion, $isImmutable);
     }
 }

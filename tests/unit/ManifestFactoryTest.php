@@ -10,12 +10,22 @@ namespace Bartlett\BoxManifest\Tests;
 use Bartlett\BoxManifest\Composer\Manifest\DecorateTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SimpleTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\ManifestFactory;
+use Bartlett\BoxManifest\Composer\ManifestOptions;
+use Bartlett\BoxManifest\Console\Command\Make;
+use Bartlett\BoxManifest\Pipeline\StageInterface;
+
+use Fidry\Console\IO;
 
 use KevinGH\Box\Box;
 use KevinGH\Box\Configuration\Configuration;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
 
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\NullOutput;
+
+use InvalidArgumentException;
 use Phar;
 use PharException;
 use stdClass;
@@ -128,5 +138,51 @@ final class ManifestFactoryTest extends TestCase
 
         $dependencies = explode(PHP_EOL, $manifest);
         $this->assertSame('bartlett/sandboxes: <info>1.0.0+no-version-set</info>', $dependencies[0]);
+    }
+
+    /**
+     * Building resources by the new make pipeline command (build stage)
+     */
+    #[DataProviderExternal(ExternalDataProvider::class, 'recognizedFilePatterns')]
+    public function testBuildResource(string $outputFormat, ?string $resource, bool $expectedException): void
+    {
+        if ($expectedException) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        if (null === $resource) {
+            return;
+        }
+
+        $configFilePath = __DIR__ . '/../fixtures/phario-manifest-2.0.x-dev/box.json';
+
+        $raw = new stdClass();
+        $main = 'main';
+        $raw->{$main} = false;
+        $config = Configuration::create($configFilePath, $raw);
+
+        $factory = new ManifestFactory(
+            $config,
+            true,
+            '4.6.2@29c3585',
+            '4.0.0',
+            true
+        );
+
+        $parameters = [
+            'stages' => [StageInterface::BUILD_STAGE],
+            '--output-format' => $outputFormat,
+            '--resource' => [$resource],
+            '--immutable' => true,
+        ];
+        $io = new IO(new ArrayInput($parameters, (new Make())->getDefinition()), new NullOutput());
+        $options = new ManifestOptions($io);
+
+        $manifestContents = $factory->build($options);
+
+        $this->assertStringEqualsFile(
+            __DIR__ . '/../fixtures/phario-manifest-2.0.x-dev/' . $resource,
+            $manifestContents
+        );
     }
 }
