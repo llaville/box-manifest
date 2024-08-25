@@ -35,6 +35,7 @@ use function uniqid;
 /**
  * @author Laurent Laville
  * @since Release 3.0.0
+ * @deprecated Will be removed in next minor version. Use the `make stub` pipeline command instead
  */
 final class ManifestStub extends Command
 {

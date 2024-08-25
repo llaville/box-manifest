@@ -41,6 +41,7 @@ use const PHP_EOL;
 /**
  * @author Laurent Laville
  * @since Release 3.0.0
+ * @deprecated Will be removed in next minor version. Use the `make build` pipeline command instead
  */
 final class ManifestBuild extends Command
 {
