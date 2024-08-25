@@ -23,8 +23,6 @@ jobs:
                     - ubuntu-22.04
                 php:
                     - 8.2
-                tools:
-                    - box:4.6  # available since https://github.com/shivammathur/setup-php/releases/tag/2.27.0
 
         steps:
             -   # https://github.com/actions/checkout
@@ -46,12 +44,9 @@ jobs:
             -   # Build the current release with artifacts (php archive)
                 name: Build Release Artifact
                 run: |
-                    bin/box-manifest manifest:build --ansi -vv -c box.json --output-file=sbom.xml
-                    bin/box-manifest manifest:build --ansi -vv -c box.json --output-file=sbom.json
-                    bin/box-manifest manifest:build --ansi -vv -c box.json --output-file=manifest.txt --format ansi
-                    bin/box-manifest manifest:build --ansi -vv -c box.json --output-file=console.txt --format console
-                    bin/box-manifest manifest:stub  --ansi -vv -c box.json --output-file=stub.php --resource console.txt --resource manifest.txt --resource sbom.xml --resource sbom.json
-                    box compile --ansi -vv -c box.json.dist
+                    bin/box-manifest make -r console-table.txt -r plain.txt -r sbom.json build
+                    bin/box-manifest make -r console-table.txt -r plain.txt -r sbom.json --output-stub stub.php stub
+                    bin/box-manifest make compile -c box.json.dist -vvv --ansi
 
             -   # https://github.com/softprops/action-gh-release
                 name: Create Release from current tag

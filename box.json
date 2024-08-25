@@ -3,6 +3,14 @@
     "compression": "GZ",
     "directories": ["bin", "src", "vendor"],
     "directories-bin": [
-        "vendor/humbug/box/res/requirement-checker"
+        "vendor/humbug/box/res/requirement-checker",
+        "resources"
+    ],
+    "files": [
+        "autoload.php",
+        "bootstrap.php"
+    ],
+    "files-bin": [
+        "vendor/humbug/php-scoper/vendor-hotfix/.gitkeep"
     ]
 }

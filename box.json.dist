@@ -6,18 +6,21 @@
         "vendor/humbug/box/res/requirement-checker",
         "resources"
     ],
+    "files": [
+        "autoload.php",
+        "bootstrap.php"
+    ],
     "files-bin": [
         "vendor/humbug/php-scoper/vendor-hotfix/.gitkeep",
-        "console.txt",
-        "manifest.txt",
+        "console-table.txt",
+        "plain.txt",
         "sbom.json",
-        "sbom.xml"
+        ".box.manifests.bin"
     ],
     "stub": "stub.php",
     "map": [
-        { "console.txt": ".box.manifests/console.txt" },
-        { "manifest.txt": ".box.manifests/manifest.txt" },
-        { "sbom.xml": ".box.manifests/sbom.xml" },
+        { "console-table.txt": ".box.manifests/console-table.txt" },
+        { "plain.txt": ".box.manifests/plain.txt" },
         { "sbom.json": ".box.manifests/sbom.json" }
     ],
     "blacklist": [
