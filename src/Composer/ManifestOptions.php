@@ -69,6 +69,11 @@ final class ManifestOptions
      */
     public function getResources(): array
     {
+        if (!$this->io->hasOption(self::RESOURCE_OPTION)) {
+            // this option is not available for legacy commands
+            return [];
+        }
+
         return $this->io->getTypedOption(self::RESOURCE_OPTION)->asStringList();
     }
 
