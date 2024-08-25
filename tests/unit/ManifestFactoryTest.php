@@ -31,6 +31,7 @@ use PharException;
 use stdClass;
 use function explode;
 use function file_get_contents;
+use function str_pad;
 use function str_replace;
 use const PHP_EOL;
 
@@ -183,7 +184,16 @@ final class ManifestFactoryTest extends TestCase
         $manifestContents = $factory->build($options);
 
         $expectedContents = file_get_contents(__DIR__ . '/../fixtures/phario-manifest-2.0.x-dev/' . $resource);
-        $expectedContents = str_replace('8.2.21', phpversion(), $expectedContents);
+
+        if ('console-table.txt' === $resource) {
+            $expectedContents = str_replace(
+                str_pad('| 8.2.21', 21),
+                str_pad('| ' . phpversion(), 21),
+                $expectedContents
+            );
+        } else {
+            $expectedContents = str_replace('8.2.21', phpversion(), $expectedContents);
+        }
 
         $this->assertStringEqualsStringIgnoringLineEndings($expectedContents, $manifestContents);
     }
