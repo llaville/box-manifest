@@ -34,7 +34,7 @@
                 {
                     "vendor": "bartlett",
                     "name": "box-manifest",
-                    "version": "4.x-dev@3eff4eb"
+                    "version": "4.0-0"
                 }
             ],
             "properties": [
@@ -94,7 +94,7 @@
                 {
                     "vendor": "bartlett",
                     "name": "box-manifest",
-                    "version": "4.x-dev@3eff4eb"
+                    "version": "4.0.0"
                 }
             ],
             "properties": [

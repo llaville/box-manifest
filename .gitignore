@@ -9,10 +9,16 @@ vendor/
 .requirement-checker/
 
 ###### BOX Manifest ######
-console.txt
+.box.manifests.bin
+console-table.txt
+console-style.txt
 manifest.txt
+plain.txt
 sbom.json
 sbom.xml
+sbom.cdx.json
+sbom.cdx.xml
+custom.bin
 stub.php
 
 ###### PHPLint ######

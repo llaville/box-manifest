@@ -72,6 +72,9 @@ final class ManifestFactory
         if (is_array($callable) && str_starts_with($callable[1], 'toSbom')) {
             return $callable($options->getSbomSpec(), $this->immutableCopy);
         }
+        if (is_array($callable) && str_starts_with($callable[1], 'fromClass')) {
+            return $callable($rawFormat);
+        }
 
         return $callable();
     }

@@ -45,6 +45,7 @@ final readonly class ConfigureStage extends AbstractStage implements StageInterf
         }
 
         array_push($configs['files-bin'], ...$payload['resources']);
+        $configs['files-bin'][] = '.box.manifests.bin';
 
         $mapFiles = $payload['map'];
 

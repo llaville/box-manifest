@@ -20,7 +20,7 @@ To do so, you have to specify `--resource` (`-r` shortcut) option with filename 
 === "Command"
 
     ```shell
-    box-manifest make -r console.txt -r manifest.txt configure
+    box-manifest make -r console-table.txt -r manifest.txt configure
     ```
 
 === "Output"
@@ -28,12 +28,13 @@ To do so, you have to specify `--resource` (`-r` shortcut) option with filename 
     ```json
     {
         "files-bin": [
-            "console.txt",
-            "manifest.txt"
+            "console-table.txt",
+            "manifest.txt",
+            ".box.manifests.bin",
         ],
         "map": [
             {
-                "console.txt": ".box.manifests/console.txt"
+                "console-table.txt": ".box.manifests/console-table.txt"
             },
             {
                 "manifest.txt": ".box.manifests/manifest.txt"
@@ -48,7 +49,7 @@ To do so, you have to specify `--resource` (`-r` shortcut) option with filename 
 === "Command"
 
     ```shell
-    box-manifest make -r console.txt -r manifest.txt --resource-dir '.my_manifests/' configure
+    box-manifest make -r console-table.txt -r manifest.txt --resource-dir '.my_manifests/' configure
     ```
 
 === "Output"
@@ -56,8 +57,9 @@ To do so, you have to specify `--resource` (`-r` shortcut) option with filename 
     ```json
     {
         "files-bin": [
-            "console.txt",
+            "console-table.txt",
             "manifest.txt",
+            ".box.manifests.bin",
         ],
         "map": [
             {
@@ -82,7 +84,7 @@ To do so, you have to specify `--output-stub` option with filename that should b
 === "Command"
 
     ```shell
-    box-manifest make -r console.txt -r manifest.txt --resource-dir '.my_manifests/' --output-stub app-fixtures-stub.php configure
+    box-manifest make -r console-table.txt -r manifest.txt --resource-dir '.my_manifests/' --output-stub app-fixtures-stub.php configure
     ```
 
 === "Output"
@@ -90,7 +92,7 @@ To do so, you have to specify `--output-stub` option with filename that should b
     ```json
     {
         "files-bin": [
-            "console.txt",
+            "console-table.txt",
             "manifest.txt",
         ],
         "map": [

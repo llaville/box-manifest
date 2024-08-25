@@ -59,8 +59,14 @@ nav:
           - "Build your manifests": build-your-manifests.md
           - "Build your stub": build-your-stub.md
           - "Build your Box config file": build-your-config.md
+          - "Compile your PHAR": compile-your-phar.md
           - "Customization":
-                - "Built-in stages": stages/builtin.md
+                - "Built-in stages":
+                      - stages/README.md
+                      - "Build": stages/build.md
+                      - "Stub": stages/stub.md
+                      - "Configure": stages/configure.md
+                      - "Compilation": stages/compilation.md
                 - "Additional stages": stages/custom.md
           - "Tutorial":
                 - Tutorial/README.md
@@ -71,10 +77,11 @@ nav:
                 - UseCases/README.md
                 - "Manifest in plain text format": UseCases/PlainTextFormat.md
                 - "Manifest in decorated text format": UseCases/DecoratedTextFormat.md
-                - "Manifest in console text format": UseCases/ConsoleTextFormat.md
+                - "Manifest in console table format": UseCases/ConsoleTextFormat.md
                 - "Manifest in SBOM JSON format": UseCases/SBomJsonFormat.md
                 - "Manifest in SBOM XML format": UseCases/SBomXmlFormat.md
                 - "Manifest in user format": UseCases/CustomFormat.md
+    - "Capabilities": capabilities.md
     - "Contributing": contributing.md
 extra:
     social:

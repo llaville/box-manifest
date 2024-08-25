@@ -53,7 +53,7 @@
 
     As [`BOX`][box-project], no configuration required to start
 
-    [:octicons-arrow-right-24: Customization](./stages/builtin.md)
+    [:octicons-arrow-right-24: Customization](./stages/README.md)
 
 - :material-scale-balance:{ .lg .middle } __Open Source, MIT__
 

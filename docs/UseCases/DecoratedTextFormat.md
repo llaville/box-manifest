@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD013 MD033 -->
-# Manifest in `ansi` (decorated) TEXT format
+# Manifest in symfony console styled format (decorated text)
 
 > [!IMPORTANT]
 >
@@ -11,7 +11,7 @@
 === "Command"
 
     ```shell
-    box-manifest build -f ansi
+    box-manifest build -f console-style
     ```
 
 === "Output"
@@ -23,7 +23,7 @@
 === "Command"
 
     ```shell
-    box-manifest make -r ansi.txt build
+    box-manifest make -r console-style.txt build
     ```
 
 === "Output"

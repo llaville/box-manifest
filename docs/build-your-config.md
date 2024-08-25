@@ -12,12 +12,9 @@ As there are no legacy commands to realize this operation, we present here only 
 
     ```yaml
     {
-        "main": "bin/box-manifest",
+        "main": "index.php",
         "compression": "GZ",
-        "directories": ["bin", "src", "vendor"],
-        "directories-bin": [
-            "vendor/humbug/box/res/requirement-checker"
-        ]
+        "directories": ["bin", "src", "vendor"]
     }
     ```
 
@@ -26,7 +23,7 @@ As there are no legacy commands to realize this operation, we present here only 
     === "Command"
 
         ```shell
-        box-manifest make -r console.txt -r manifest.txt -r sbom.json --output-conf my-box.json.dist configure
+        box-manifest make -r console-table.txt -r manifest.txt -r sbom.json --output-conf my-box.json.dist configure
         ```
 
     === ":octicons-file-code-16: my-box.json.dist"
@@ -34,11 +31,23 @@ As there are no legacy commands to realize this operation, we present here only 
         ```yaml
         {
             "files-bin": [
-                "console.txt",
+                "console-table.txt",
                 "manifest.txt",
                 "sbom.json",
-                ".manifests.bin"
-            ]
+                ".box.manifests.bin"
+            ],
+            "map": [
+                {
+                    "console-table.txt": ".box.manifests/console-table.txt"
+                },
+                {
+                    "manifest.txt": ".box.manifests/manifest.txt"
+                },
+                {
+                    "sbom.json": ".box.manifests/sbom.json"
+                }
+            ],
+            "stub": null
         }
         ```
 
@@ -47,24 +56,37 @@ As there are no legacy commands to realize this operation, we present here only 
     === "Command"
 
         ```shell
-        box-manifest make -r console.txt -r manifest.txt -r sbom.json -c my-box.json --output-conf my-box.json.dist configure
+        box-manifest make -r console-table.txt -r manifest.txt -r sbom.json -c my-box.json --output-conf my-box.json.dist configure
         ```
 
     === ":octicons-file-code-16: my-box.json.dist"
 
         ```yaml
         {
-            "main": "bin/box-manifest",
+            "main": "index.php",
             "compression": "GZ",
-            "directories": ["bin", "src", "vendor"],
-            "directories-bin": [
-                "vendor/humbug/box/res/requirement-checker"
+            "directories": [
+                "bin",
+                "src",
+                "vendor"
             ],
             "files-bin": [
-                "console.txt",
+                "console-table.txt",
                 "manifest.txt",
                 "sbom.json",
-                ".manifests.bin"
-            ]
+                ".box.manifests.bin"
+            ],
+            "map": [
+                {
+                    "console-table.txt": ".box.manifests/console-table.txt"
+                },
+                {
+                    "manifest.txt": ".box.manifests/manifest.txt"
+                },
+                {
+                    "sbom.json": ".box.manifests/sbom.json"
+                }
+            ],
+            "stub": null
         }
         ```

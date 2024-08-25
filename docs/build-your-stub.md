@@ -14,13 +14,13 @@ So, we are show here both usages with legacy and new pipeline commands !
 === "Pipeline Command"
 
     ```shell
-    box-manifest make -r console.txt -r manifest.txt -r sbom.json -o stub.php stub
+    box-manifest make -r console-table.txt -r manifest.txt -r sbom.json --output-stub stub.php stub
     ```
 
 === "Legacy Command"
 
     ```shell
-    box-manifest stub -r console.txt -r manifest.txt -r sbom.json -o stub.php
+    box-manifest stub -r console-table.txt -r manifest.txt -r sbom.json -o stub.php
     ```
 
 This will create, the `stub.php` file, where manifests order is preserved and deterministic.

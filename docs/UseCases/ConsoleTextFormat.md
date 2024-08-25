@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD013 MD033 -->
-# Manifest in `console` symfony table format
+# Manifest in symfony console table format
 
 > [!IMPORTANT]
 >
@@ -11,7 +11,7 @@
 === "Command"
 
     ```shell
-    box-manifest build -f console
+    box-manifest build -f console-table
     ```
 
 === "Output"
@@ -23,7 +23,7 @@
 === "Command"
 
     ```shell
-    box-manifest make -r console.txt build
+    box-manifest make -r console-table.txt build
     ```
 
 === "Output"

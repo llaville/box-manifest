@@ -4,7 +4,7 @@
     "compression": "GZ",
     "directories": ["bin", "src", "vendor"],
     "directories-bin": ["../../vendor/humbug/box/res/requirement-checker"],
-    "files-bin": ["sbom.xml", "manifest.txt"],
+    "files-bin": ["sbom.xml", "console-style.txt"],
     "alias": "app-fixtures-alias.phar",
     "stub": "app-fixtures-stub.php"
 }

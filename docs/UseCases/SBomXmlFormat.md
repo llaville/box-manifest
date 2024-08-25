@@ -30,7 +30,7 @@
           <tool>
             <vendor><![CDATA[bartlett]]></vendor>
             <name><![CDATA[box-manifest]]></name>
-            <version><![CDATA[4.x-dev@3eff4eb]]></version>
+            <version><![CDATA[4.0.0]]></version>
           </tool>
         </tools>
         <properties>
@@ -76,7 +76,7 @@
           <tool>
             <vendor><![CDATA[bartlett]]></vendor>
             <name><![CDATA[box-manifest]]></name>
-            <version><![CDATA[4.x-dev@3eff4eb]]></version>
+            <version><![CDATA[4.0.0]]></version>
           </tool>
         </tools>
         <properties>

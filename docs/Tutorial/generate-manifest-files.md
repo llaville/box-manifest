@@ -1,7 +1,14 @@
 <!-- markdownlint-disable MD013 MD029 MD033 MD046 -->
 # Generate manifest files
 
-In this tutorial we will build a manifest in two formats (SBOM XML and ANSI text).
+In this tutorial we will build a manifest in two formats (SBOM XML and decorated text).
+
+> [!TIP]
+>
+> If you want to build immutable manifests, please specify `--immutable` option.
+>
+> On SBOM manifests, you won't have tools (with versions included), serial number and metadata timestamp.
+> It's really useful for non-regression tests.
 
 ## :material-numeric-1-box: Generate a SBOM XML manifest
 
@@ -29,7 +36,7 @@ First we will build a SBOM XML version following default ([CycloneDX][cyclonedx]
           <tool>
             <vendor><![CDATA[bartlett]]></vendor>
             <name><![CDATA[box-manifest]]></name>
-            <version><![CDATA[4.x-dev@3eff4eb]]></version>
+            <version><![CDATA[4.0.0]]></version>
           </tool>
         </tools>
         <properties>
@@ -58,16 +65,16 @@ Next we will build a decorated TEXT version
 === "Command"
 
     ```shell
-    box-manifest make -r ansi.txt build
+    box-manifest make -r console-style.txt build
     ```
 
-=== ":octicons-file-code-16: ansi.txt"
+=== ":octicons-file-code-16: console-style.txt"
 
     ```text
-    root/app-fixtures: 3.x-dev@9661882
-     requires php ^8.1: 8.2.21
-     requires ext-phar *: 8.2.21
-     requires (for development) psr/log ^3.0: 3.0.0
+    root/app-fixtures: <info>3.x-dev@9661882</info>
+     <comment>requires</comment> php <comment>^8.1</comment>: <info>8.2.21</info>
+     <comment>requires</comment> ext-phar <comment>*</comment>: <info>8.2.21</info>
+     <comment>requires</comment> (for development) psr/log <comment>^3.0</comment>: <info>3.0.0</info>
     ```
 
 === "Output (preview)"
@@ -80,7 +87,7 @@ Now its turn to declare these files to the BOX config file, with :
 
 ```json
 {
-    "files-bin": ["sbom.xml", "ansi.txt"]
+    "files-bin": ["sbom.xml", "console-style.txt"]
 }
 ```
 
