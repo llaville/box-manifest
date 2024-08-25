@@ -1,6 +1,6 @@
 ---
 site_name: Box Manifest
-#site_url: https://llaville.github.io/box-manifest
+site_url: https://llaville.github.io/box-manifest/4.0
 repo_url: https://github.com/llaville/box-manifest # https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#repository
 site_author: Laurent Laville
 edit_uri: "" # hide edit button -- https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#edit-button
