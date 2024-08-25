@@ -109,7 +109,6 @@ final class ManifestBuild extends Command
 
         /** @var BoxHelper $boxHelper */
         $boxHelper = $this->getHelper(BoxHelper::NAME);
-        $boxHelper->checkPhpSettings($io);
 
         /** @var DebugFormatterHelper $debugFormatter */
         $debugFormatter = $this->getHelper('debug_formatter');
