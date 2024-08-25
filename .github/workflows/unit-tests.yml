@@ -33,6 +33,7 @@ jobs:
                     - ubuntu-22.04
                 php:
                     - 8.2
+                    - 8.3
 
         steps:
             -   # https://github.com/actions/checkout
