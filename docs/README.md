@@ -12,13 +12,13 @@
 
 ## Features at a glance
 
-| Feature                                                         |      Legacy Command      |              Pipeline Command              |
-|-----------------------------------------------------------------|:------------------------:|:------------------------------------------:|
-| Creates a manifest of your software components and dependencies | `build` :material-check: |     `make build` [^1] :material-check:     |
-| Generates a stub for your manifest application                  | `stub` :material-check:  |       `make stub`  :material-check:        |
-| Generates a final BOX configuration file                        |     :material-close:     |     `make configure` :material-check:      |
-| Compiles an application into a PHAR                             |     :material-close:     |    `make compile` [^2] :material-check:    |
-| Adds custom action easily                                       |     :material-close:     | `make MyCustomStage` [^3] :material-check: |
+| Feature                                                         |          Legacy Command           |              Pipeline Command              |
+|-----------------------------------------------------------------|:---------------------------------:|:------------------------------------------:|
+| Creates a manifest of your software components and dependencies | `manifest:build` :material-check: |     `make build` [^1] :material-check:     |
+| Generates a stub for your manifest application                  | `manifest:stub` :material-check:  |       `make stub`  :material-check:        |
+| Generates a final BOX configuration file                        |         :material-close:          |     `make configure` :material-check:      |
+| Compiles an application into a PHAR                             |         :material-close:          |    `make compile` [^2] :material-check:    |
+| Adds custom action easily                                       |         :material-close:          | `make MyCustomStage` [^3] :material-check: |
 
 [^1]: You can create multiple manifest on same pipeline command, while legacy command allowed only once at a time.
 [^2]: Easy launcher of [BOX project][box-project] binary command (`vendor/bin/box`)

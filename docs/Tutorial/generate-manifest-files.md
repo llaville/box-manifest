@@ -96,10 +96,10 @@ In [Part 3](./generate-box-json-dist.md) of the tutorial, we will see how to dyn
 Then finally, compile your PHP Archive with `box compile` command,
 the metadata contents is only used as fallback contents in case you forgot to declare `files-bin` entries.
 
-=== "Command"
+=== "Pipeline Command"
 
     ```shell
-    vendor/bin/box compile --config app-fixtures.box.json.dist
+    box-manifest make --config app-fixtures.box.json.dist -vv compile
     ```
 
 === "Output"

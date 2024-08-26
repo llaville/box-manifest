@@ -8,6 +8,7 @@
 namespace Bartlett\BoxManifest\Composer;
 
 use Bartlett\BoxManifest\Console\Application;
+use Bartlett\BoxManifest\Console\Command\Make;
 use Bartlett\BoxManifest\Console\Command\ManifestBuild;
 use Bartlett\BoxManifest\Helper\BoxHelper;
 
@@ -94,14 +95,14 @@ final readonly class PostInstallStrategy implements ManifestBuildStrategy
             false
         );
 
-        $inputDefinition = (new ManifestBuild())->getDefinition();
+        $inputDefinition = (new Make())->getDefinition();
 
         $map = $config->getFileMapper()->getMap();
 
         foreach ($map as $mapFile) {
             foreach ($mapFile as $source => $target) {
                 if (str_starts_with($target, '.box.manifests/')) {
-                    $arrayInput = new ArrayInput(['--format' => 'auto', '--output-file' => $source], $inputDefinition);
+                    $arrayInput = new ArrayInput(['--output-format' => 'auto', '--output-file' => $source], $inputDefinition);
                     $boxIO = new IO($arrayInput, new NullOutput());
                     $manifest = $factory->build(new ManifestOptions($boxIO));
 

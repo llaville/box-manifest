@@ -1,15 +1,9 @@
 <!-- markdownlint-disable MD013 MD028 -->
 # Build your stub
 
-To help Users in a smooth usage migration, we have not yet removed legacy commands.
-
-- `manifest:stub` now an alias of `stub` command
-
-So, we are show here both usages with legacy and new pipeline commands !
-
-> [!CAUTION]
+> [!WARNING]
 >
-> We recommend to learn the new pipeline syntax, because legacy commands will be dropped in next version 4.1
+> We've dropped legacy commands, but we still show syntax usage to help Users of version 3 for a smooth migration.
 
 === "Pipeline Command"
 
@@ -20,7 +14,7 @@ So, we are show here both usages with legacy and new pipeline commands !
 === "Legacy Command"
 
     ```shell
-    box-manifest stub -r console-table.txt -r manifest.txt -r sbom.json -o stub.php
+    box-manifest manifest:stub -r console-table.txt -r manifest.txt -r sbom.json -o stub.php
     ```
 
 This will create, the `stub.php` file, where manifests order is preserved and deterministic.

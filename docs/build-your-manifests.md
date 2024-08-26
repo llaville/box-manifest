@@ -1,15 +1,9 @@
 <!-- markdownlint-disable MD013 MD028 -->
 # Build your manifests
 
-To help Users in a smooth usage migration, we have not yet removed legacy commands.
-
-- `manifest:build` now an alias of `build` command
-
-So, we are show here both usages with legacy and new pipeline commands !
-
-> [!CAUTION]
+> [!WARNING]
 >
-> We recommend to learn the new pipeline syntax, because legacy commands will be dropped in next version 4.1
+> We've dropped legacy commands, but we still show syntax usage to help Users of version 3 for a smooth migration.
 
 === "Pipeline Command"
 
@@ -20,7 +14,7 @@ So, we are show here both usages with legacy and new pipeline commands !
 === "Legacy Command"
 
     ```shell
-    box-manifest build -f plain -o manifest.txt
+    box-manifest manifest:build -f plain -o manifest.txt
     ```
 
 This will create, the `manifest.txt` file, with a plain text format of your dependencies inventory.

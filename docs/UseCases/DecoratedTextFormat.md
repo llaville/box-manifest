@@ -8,10 +8,14 @@
 
 ## :material-numeric-1-box: With legacy command
 
+> [!WARNING]
+>
+> We've dropped legacy commands, but we still show syntax usage to help Users of version 3 for a smooth migration.
+
 === "Command"
 
     ```shell
-    box-manifest build -f console-style
+    box-manifest manifest:build -f ansi
     ```
 
 === "Output"
