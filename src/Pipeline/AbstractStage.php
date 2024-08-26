@@ -26,6 +26,8 @@ use function sprintf;
  */
 abstract readonly class AbstractStage
 {
+    protected const META_DATA_FILE = '.box.manifests.bin';
+
     private ?HelperInterface $debugFormatterHelper;
 
     /**

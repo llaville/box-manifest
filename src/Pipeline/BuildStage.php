@@ -10,12 +10,15 @@ namespace Bartlett\BoxManifest\Pipeline;
 use Bartlett\BoxManifest\Composer\ManifestFactory;
 use Bartlett\BoxManifest\Composer\ManifestOptions;
 use Bartlett\BoxManifest\Helper\ManifestFile;
-use Bartlett\BoxManifest\Helper\ManifestFormat;
 
 use Symfony\Component\Console\Input\ArrayInput;
 
+use function array_merge;
+use function file_exists;
+use function file_get_contents;
 use function serialize;
 use function sprintf;
+use function unserialize;
 
 /**
  * @author Laurent Laville
@@ -63,8 +66,15 @@ final readonly class BuildStage extends AbstractStage implements StageInterface
             }
         }
 
-        $manifests = serialize($payload['response']['artifacts'] ?? []);
-        $this->writeToStream('.box.manifests.bin', $manifests, 'Unable to write Manifests Metadata');
+        if (file_exists(self::META_DATA_FILE)) {
+            // @phpstan-ignore argument.type
+            $metadata = unserialize(file_get_contents(self::META_DATA_FILE));
+        } else {
+            $metadata = [];
+        }
+
+        $manifests = serialize(array_merge($metadata, $payload['response']['artifacts'] ?? []));
+        $this->writeToStream(self::META_DATA_FILE, $manifests, 'Unable to write Manifests Metadata');
 
         $this->debugPrintStage(
             sprintf(
