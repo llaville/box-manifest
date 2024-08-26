@@ -2,127 +2,127 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/build-your-config/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/build-your-manifests/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/build-your-stub/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/capabilities/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/compile-your-phar/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/contributing/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/getting-started/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/Tutorial/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/Tutorial/generate-box-json-dist/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/Tutorial/generate-custom-stub/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/Tutorial/generate-manifest-files/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/UseCases/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/UseCases/ConsoleTextFormat/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/UseCases/CustomFormat/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/UseCases/DecoratedTextFormat/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/UseCases/PlainTextFormat/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/UseCases/SBomJsonFormat/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/UseCases/SBomXmlFormat/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/stages/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/stages/build/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/stages/compilation/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/stages/configure/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/stages/custom/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://llaville.github.io/box-manifest/4.0/stages/stub/</loc>
-         <lastmod>2024-08-25</lastmod>
+         <lastmod>2024-08-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

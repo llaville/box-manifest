@@ -1313,10 +1313,10 @@ It's really useful for non-regression tests.</p>
 <p>In <a href="../generate-box-json-dist/">Part 3</a> of the tutorial, we will see how to dynamically add it without introduced errors.</p>
 <p>Then finally, compile your PHP Archive with <code>box compile</code> command,
 the metadata contents is only used as fallback contents in case you forgot to declare <code>files-bin</code> entries.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Command</label><label for="__tabbed_3_2">Output</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Pipeline Command</label><label for="__tabbed_3_2">Output</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>vendor/bin/box<span class="w"> </span>compile<span class="w"> </span>--config<span class="w"> </span>app-fixtures.box.json.dist
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>box-manifest<span class="w"> </span>make<span class="w"> </span>--config<span class="w"> </span>app-fixtures.box.json.dist<span class="w"> </span>-vv<span class="w"> </span>compile
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
