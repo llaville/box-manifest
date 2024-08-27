@@ -56,7 +56,7 @@
     </bom>
     ```
 
-## :material-numeric-2-box: With new pipeline command
+## :material-numeric-2-box: With pipeline command
 
 === "Command"
 

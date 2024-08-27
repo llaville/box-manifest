@@ -128,7 +128,7 @@ either by your autoloader or with bootstrap helper feature (see `--bootstrap|-b`
     )
     ```
 
-## :material-numeric-2-box: With new pipeline command
+## :material-numeric-2-box: With pipeline command
 
 === "Command"
 

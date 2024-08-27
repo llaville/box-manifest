@@ -8,6 +8,7 @@
 namespace Bartlett\BoxManifest\Pipeline;
 
 use Throwable;
+use function array_keys;
 use function array_push;
 use function file_exists;
 use function file_get_contents;
@@ -44,12 +45,13 @@ final readonly class ConfigureStage extends AbstractStage implements StageInterf
             $configs['files-bin'] = [];
         }
 
-        array_push($configs['files-bin'], ...$payload['resources']);
-        $configs['files-bin'][] = '.box.manifests.bin';
+        $resources = empty($payload['resources']) ? array_keys($this->getMetaData()) : $payload['resources'];
+        $resourceDir = $payload['resourceDir'];
+
+        array_push($configs['files-bin'], ...$resources);
+        $configs['files-bin'][] = $resourceDir;
 
         $mapFiles = $payload['map'];
-
-        $resourceDir = $payload['resourceDir'];
 
         if (!empty($resourceDir) && '/' !== $resourceDir) {
             foreach ($payload['resources'] as $resource) {

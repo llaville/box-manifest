@@ -19,10 +19,12 @@ Make for example this stub (see **Output** tab), either manually or with the fol
 === "Command"
 
     ```shell
-    box-manifest make -r console-table.txt -r manifest.txt stub
+    box-manifest make stub
     ```
 
 === "Output"
+
+    Here, we supposed to have previously generated `console-table.txt` and `manifest.txt` resources.
 
     ```php
     <?php
@@ -71,7 +73,7 @@ Make for example this stub (see **Output** tab), either manually or with the fol
 > === "Command"
 >
 >     ```shell
->     box-manifest make -r console-table.txt -r manifest.txt --template resources/empty_stub.template --output-stub my-stub.php stub
+>     box-manifest make --template resources/empty_stub.template --output-stub my-stub.php stub
 >     ```
 >
 > === "Output"

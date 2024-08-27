@@ -8,8 +8,19 @@
 === "Pipeline Command"
 
     ```shell
-    box-manifest make -r console-table.txt -r manifest.txt -r sbom.json --output-stub stub.php stub
+    box-manifest make --output-stub stub.php stub
     ```
+
+    > [!CAUTION]
+    >
+    > When none resources are provided (`--resource|-r`) recommended way,
+    > we used list defined into `.box.manifests.bin` meta-data file.
+    >
+    > === "Meta-data file"
+    >
+    >    ```
+    >    a:3:{s:17:"console-table.txt";s:24:"application/octet-stream";s:12:"manifest.txt";s:10:"text/plain";s:9:"sbom.json";s:38:"application/vnd.sbom+json; version=1.6";}
+    >    ```
 
 === "Legacy Command"
 

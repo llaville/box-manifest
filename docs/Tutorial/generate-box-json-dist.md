@@ -13,17 +13,17 @@ you need to have a BOX configuration file that :
 >
 > Don't forget to specify option `--config /path/to/any-box.json` on following command invocations.
 
-## :material-numeric-1-box: Identify all manifest files
-
-To do so, you have to specify `--resource` (`-r` shortcut) option with filename that should be previously built (or not).
+## :material-numeric-1-box: Store manifests in default directory
 
 === "Command"
 
     ```shell
-    box-manifest make -r console-table.txt -r manifest.txt configure
+    box-manifest make configure
     ```
 
 === "Output"
+
+    Here, we supposed to have previously generated `console-table.txt` and `manifest.txt` resources.
 
     ```json
     {
@@ -49,10 +49,12 @@ To do so, you have to specify `--resource` (`-r` shortcut) option with filename 
 === "Command"
 
     ```shell
-    box-manifest make -r console-table.txt -r manifest.txt --resource-dir '.my_manifests/' configure
+    box-manifest make --resource-dir '.my_manifests/' configure
     ```
 
 === "Output"
+
+    Here, we supposed to have previously generated `console-table.txt` and `manifest.txt` resources.
 
     ```json
     {
@@ -84,16 +86,19 @@ To do so, you have to specify `--output-stub` option with filename that should b
 === "Command"
 
     ```shell
-    box-manifest make -r console-table.txt -r manifest.txt --resource-dir '.my_manifests/' --output-stub app-fixtures-stub.php configure
+    box-manifest make --resource-dir '.my_manifests/' --output-stub app-fixtures-stub.php configure
     ```
 
 === "Output"
+
+    Here, we supposed to have previously generated `console-table.txt` and `manifest.txt` resources.
 
     ```json
     {
         "files-bin": [
             "console-table.txt",
             "manifest.txt",
+            ".box.manifests.bin",
         ],
         "map": [
             {

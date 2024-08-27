@@ -45,7 +45,7 @@ jobs:
                 name: Build Release Artifact
                 run: |
                     bin/box-manifest make -r console-table.txt -r plain.txt -r sbom.json build
-                    bin/box-manifest make -r console-table.txt -r plain.txt -r sbom.json --output-stub stub.php stub
+                    bin/box-manifest make --output-stub stub.php stub
                     bin/box-manifest make compile -c box.json.dist -vvv --ansi
 
             -   # https://github.com/softprops/action-gh-release
