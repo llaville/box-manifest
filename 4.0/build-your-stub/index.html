@@ -1144,11 +1144,23 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Pipeline Command</label><label for="__tabbed_1_2">Legacy Command</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>box-manifest<span class="w"> </span>make<span class="w"> </span>-r<span class="w"> </span>console-table.txt<span class="w"> </span>-r<span class="w"> </span>manifest.txt<span class="w"> </span>-r<span class="w"> </span>sbom.json<span class="w"> </span>--output-stub<span class="w"> </span>stub.php<span class="w"> </span>stub
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>box-manifest<span class="w"> </span>make<span class="w"> </span>--output-stub<span class="w"> </span>stub.php<span class="w"> </span>stub
+</span></code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Caution</p>
+<p>When none resources are provided (<code>--resource|-r</code>) recommended way,
+we used list defined into <code>.box.manifests.bin</code> meta-data file.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Meta-data file</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>a:3:{s:17:&quot;console-table.txt&quot;;s:24:&quot;application/octet-stream&quot;;s:12:&quot;manifest.txt&quot;;s:10:&quot;text/plain&quot;;s:9:&quot;sbom.json&quot;;s:38:&quot;application/vnd.sbom+json; version=1.6&quot;;}
 </span></code></pre></div>
 </div>
+</div>
 <div class="tabbed-block">
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>box-manifest<span class="w"> </span>manifest:stub<span class="w"> </span>-r<span class="w"> </span>console-table.txt<span class="w"> </span>-r<span class="w"> </span>manifest.txt<span class="w"> </span>-r<span class="w"> </span>sbom.json<span class="w"> </span>-o<span class="w"> </span>stub.php
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>box-manifest<span class="w"> </span>manifest:stub<span class="w"> </span>-r<span class="w"> </span>console-table.txt<span class="w"> </span>-r<span class="w"> </span>manifest.txt<span class="w"> </span>-r<span class="w"> </span>sbom.json<span class="w"> </span>-o<span class="w"> </span>stub.php
 </span></code></pre></div>
 </div>
 </div>
