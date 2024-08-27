@@ -15,10 +15,13 @@ use Symfony\Component\Console\Helper\HelperInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 
+use function file_exists;
+use function file_get_contents;
 use function fopen;
 use function is_string;
 use function realpath;
 use function sprintf;
+use function unserialize;
 
 /**
  * @author Laurent Laville
@@ -26,6 +29,7 @@ use function sprintf;
  */
 abstract readonly class AbstractStage
 {
+    public const BOX_MANIFESTS_DIR = '.box.manifests/';
     protected const META_DATA_FILE = '.box.manifests.bin';
 
     private ?HelperInterface $debugFormatterHelper;
@@ -89,5 +93,20 @@ abstract readonly class AbstractStage
         $stream = new StreamOutput(fopen('php://stderr', 'w'));  // @phpstan-ignore argument.type
         $stream->write($messages, $newline);
         fclose($stream->getStream());
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    protected function getMetaData(): array
+    {
+        if (file_exists(self::META_DATA_FILE)) {
+            // @phpstan-ignore argument.type
+            $metadata = unserialize(file_get_contents(self::META_DATA_FILE));
+        } else {
+            $metadata = [];
+        }
+
+        return $metadata;
     }
 }

@@ -7,6 +7,7 @@
  */
 namespace Bartlett\BoxManifest\Helper;
 
+use Bartlett\BoxManifest\Pipeline\AbstractStage;
 use Bartlett\BoxManifest\StubGenerator;
 
 use Symfony\Component\Console\Helper\Helper;
@@ -81,17 +82,24 @@ class ManifestHelper extends Helper
      * @param string[]|null $resources
      * @param string[][]|null $mapFiles
      */
-    public function getStubGenerator(?string $templatePath = null, array $resources = null, array $mapFiles = null, ?string $version = null): StubGenerator
-    {
+    public function getStubGenerator(
+        ?string $templatePath = null,
+        ?array $resources = null,
+        ?array $mapFiles = null,
+        ?string $version = null,
+        ?string $resourceDir = null
+    ): StubGenerator {
         if (null === $templatePath) {
             $templatePath = dirname(__DIR__, 2) . '/resources/default_stub.template';
         }
+        if (null === $resourceDir) {
+            $resourceDir = AbstractStage::BOX_MANIFESTS_DIR;
+        }
         if (!empty($mapFiles) && empty($resources)) {
-            $manifestDir = '.box.manifests/';
             $resources = [];
             foreach ($mapFiles as $mapFile) {
                 foreach ($mapFile as $target) {
-                    if (str_starts_with($target, $manifestDir)) {
+                    if (str_starts_with($target, $resourceDir)) {
                         $resources[] = $target;
                     }
                 }
@@ -100,7 +108,7 @@ class ManifestHelper extends Helper
         if (empty($resources)) {
             $resources = ManifestFile::values();
         }
-        return new StubGenerator($templatePath, $resources, $version ?? '@dev');
+        return new StubGenerator($templatePath, $resources, $version ?? '@dev', $resourceDir);
     }
 
     public function getName(): string

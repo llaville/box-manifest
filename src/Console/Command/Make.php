@@ -10,6 +10,7 @@ namespace Bartlett\BoxManifest\Console\Command;
 use Bartlett\BoxManifest\Composer\ManifestOptions;
 use Bartlett\BoxManifest\Helper\BoxHelper;
 use Bartlett\BoxManifest\Helper\ManifestFormat;
+use Bartlett\BoxManifest\Pipeline\AbstractStage;
 use Bartlett\BoxManifest\Pipeline\BuildStage;
 use Bartlett\BoxManifest\Pipeline\CompileStage;
 use Bartlett\BoxManifest\Pipeline\ConfigureStage;
@@ -118,7 +119,7 @@ final class Make extends Command
                 null,
                 InputOption::VALUE_REQUIRED,
                 'Directory where to store your manifest files into the PHP Archive',
-                '.box.manifests/'
+                AbstractStage::BOX_MANIFESTS_DIR
             ),
             new InputOption(
                 ManifestOptions::IMMUTABLE_OPTION,
@@ -226,7 +227,7 @@ final class Make extends Command
             'template' => $templatePath,
             'resources' => $resources,
             'map' => $config->getFileMapper()->getMap(),
-            'resourceDir' => $io->getTypedOption(ManifestOptions::RESOURCE_DIR_OPTION)->asNullableString(),
+            'resourceDir' => $io->getTypedOption(ManifestOptions::RESOURCE_DIR_OPTION)->asString(),
             'sbomSpec' => (new ManifestOptions($io))->getSbomSpec(),
             'outputFormat' => (new ManifestOptions($io))->getFormat(true),
             'output' => (new ManifestOptions($io))->getOutputFile() ?? 'php://stdout',

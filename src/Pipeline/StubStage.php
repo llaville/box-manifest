@@ -9,6 +9,7 @@ namespace Bartlett\BoxManifest\Pipeline;
 
 use Bartlett\BoxManifest\Helper\ManifestHelper;
 
+use function array_keys;
 use function str_replace;
 
 /**
@@ -24,14 +25,17 @@ final readonly class StubStage extends AbstractStage implements StageInterface
     {
         $config = $payload['configuration'];
 
+        $resources = empty($payload['resources']) ? array_keys($this->getMetaData()) : $payload['resources'];
+
         /** @var ManifestHelper $helper */
         $helper = $this->command->getHelper(ManifestHelper::NAME);
 
         $stubGenerator = $helper->getStubGenerator(
             $payload['template'],
-            $payload['resources'],
+            $resources,
             $payload['map'],
-            $payload['versions']['boxManifest']
+            $payload['versions']['boxManifest'],
+            $payload['resourceDir']
         );
 
         if ($config->getConfigurationFile()) {

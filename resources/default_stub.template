@@ -6,7 +6,7 @@ $withManifest = array_search('--manifest', $argv);
 $withoutAnsi = array_search('--no-ansi', $argv);
 
 if ($withManifest !== false) {
-    $manifestDir = '.box.manifests/';
+    $manifestDir = '%manifest_dir%';
     $resources = (($argc - 1 > $withManifest) && !str_starts_with($argv[$withManifest + 1], '-')) ? [$argv[$withManifest + 1]] : ['%manifest_files%'];
 
     foreach ($resources as $resource) {

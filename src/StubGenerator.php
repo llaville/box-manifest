@@ -33,7 +33,8 @@ class StubGenerator
     public function __construct(
         string $templatePath,
         array $resources,
-        string $version
+        string $version,
+        string $resourceDir
     ) {
         if (!file_exists($templatePath) || !is_readable($templatePath)) {
             throw new InvalidArgumentException(sprintf('Filename "%s" does not exists or is not readable.', $templatePath));
@@ -44,8 +45,8 @@ class StubGenerator
         $template = ltrim($template, "<?php\n");
 
         $this->stubTemplate = str_replace(
-            ['%manifest_files%', '%version%'],
-            [implode("', '", $resources), $version],
+            ['%manifest_dir%', '%manifest_files%', '%version%'],
+            [$resourceDir, implode("', '", $resources), $version],
             $template
         );
     }
