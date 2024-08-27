@@ -23,7 +23,7 @@ As there are no legacy commands to realize this operation, we present here only 
     === "Command"
 
         ```shell
-        box-manifest make -r console-table.txt -r manifest.txt -r sbom.json --output-conf my-box.json.dist configure
+        box-manifest make --output-conf my-box.json.dist configure
         ```
 
     === ":octicons-file-code-16: my-box.json.dist"
@@ -56,7 +56,7 @@ As there are no legacy commands to realize this operation, we present here only 
     === "Command"
 
         ```shell
-        box-manifest make -r console-table.txt -r manifest.txt -r sbom.json -c my-box.json --output-conf my-box.json.dist configure
+        box-manifest make -c my-box.json --output-conf my-box.json.dist configure
         ```
 
     === ":octicons-file-code-16: my-box.json.dist"
