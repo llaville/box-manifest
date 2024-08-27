@@ -166,7 +166,7 @@ final class ManifestFactory
         return self::create(new ConsoleTextManifestBuilder(), $this->config, $this->isDecorated);
     }
 
-    public function toSbom(string $format, string $specVersion, bool $isImmutable): ?string
+    public function toSbom(string $format, string $specVersion, ?bool $isImmutable = null): ?string
     {
         try {
             $version = Version::from($specVersion);
@@ -189,7 +189,7 @@ final class ManifestFactory
             default => throw new DomainException(sprintf('Format "%s" is not supported.', $format)),
         };
         return self::create(
-            new SbomManifestBuilder($normalizer, $this->boxVersion, $this->boxManifestVersion, $isImmutable),
+            new SbomManifestBuilder($normalizer, $this->boxVersion, $this->boxManifestVersion, $isImmutable ?? $this->immutableCopy),
             $this->config,
             false
         );
@@ -198,7 +198,7 @@ final class ManifestFactory
     /**
      * @since Release 4.0.0
      */
-    public function toSbomJson(string $specVersion, bool $isImmutable): ?string
+    public function toSbomJson(string $specVersion, ?bool $isImmutable = null): ?string
     {
         return $this->toSbom('json', $specVersion, $isImmutable);
     }
@@ -206,7 +206,7 @@ final class ManifestFactory
     /**
      * @since Release 4.0.0
      */
-    public function toSbomXml(string $specVersion, bool $isImmutable): ?string
+    public function toSbomXml(string $specVersion, ?bool $isImmutable = null): ?string
     {
         return $this->toSbom('xml', $specVersion, $isImmutable);
     }
