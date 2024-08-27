@@ -49,12 +49,12 @@ final readonly class ConfigureStage extends AbstractStage implements StageInterf
         $resourceDir = $payload['resourceDir'];
 
         array_push($configs['files-bin'], ...$resources);
-        $configs['files-bin'][] = $resourceDir;
+        $configs['files-bin'][] = self::META_DATA_FILE;
 
         $mapFiles = $payload['map'];
 
         if (!empty($resourceDir) && '/' !== $resourceDir) {
-            foreach ($payload['resources'] as $resource) {
+            foreach ($resources as $resource) {
                 $mapFiles[] = [$resource => rtrim($resourceDir, '/') . '/' . $resource];
             }
         }
