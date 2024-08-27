@@ -212,7 +212,9 @@ final class Make extends Command
             $io->getTypedOption(BoxHelper::NO_CONFIG_OPTION)->asBoolean()
         );
 
-        $templatePath = $io->getTypedOption(ManifestOptions::TEMPLATE_OPTION)->asNullableString()
+        $makeOptions = new ManifestOptions($io);
+
+        $templatePath = $makeOptions->getTemplateFile()
             ?? dirname(__DIR__, 3) . '/resources/default_stub.template'
         ;
 
@@ -227,12 +229,12 @@ final class Make extends Command
             'template' => $templatePath,
             'resources' => $resources,
             'map' => $config->getFileMapper()->getMap(),
-            'resourceDir' => $io->getTypedOption(ManifestOptions::RESOURCE_DIR_OPTION)->asString(),
-            'sbomSpec' => (new ManifestOptions($io))->getSbomSpec(),
-            'outputFormat' => (new ManifestOptions($io))->getFormat(true),
-            'output' => (new ManifestOptions($io))->getOutputFile() ?? 'php://stdout',
-            'outputStub' => (new ManifestOptions($io))->getOutputStubFile(),
-            'outputConf' => (new ManifestOptions($io))->getOutputConfFile(),
+            'resourceDir' => $makeOptions->getResourceDir(),
+            'sbomSpec' => $makeOptions->getSbomSpec(),
+            'outputFormat' => $makeOptions->getFormat(true),
+            'output' => $makeOptions->getOutputFile() ?? 'php://stdout',
+            'outputStub' => $makeOptions->getOutputStubFile(),
+            'outputConf' => $makeOptions->getOutputConfFile(),
             'configurationFile' => $config->getConfigurationFile(),
         ];
 

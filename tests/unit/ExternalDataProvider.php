@@ -62,4 +62,21 @@ final class ExternalDataProvider
         yield ['sbom.cdx.xml', ManifestBuildStrategy::MIME_TYPE_SBOM_XML];
         yield ['whatever.you.want', ManifestBuildStrategy::MIME_TYPE_OCTET_STREAM];
     }
+
+    public static function recognizedBuildStageOptions(): iterable
+    {
+        yield ['auto', ['plain.txt'], null, null, null, 'bootstrap.php'];
+        yield ['auto', ['plain.txt', 'console-table.txt', 'sbom.json']];
+        yield ['auto', [], '1.5'];
+        yield ['auto', [], null, 'sbom.cdx.xml'];
+        yield ['auto', [], null, null, 'my-box.json.dist'];
+
+        yield ['plain', []];
+    }
+
+    public static function recognizedStubStageOptions(): iterable
+    {
+        yield ['my-stub.php', null];
+        yield [null, 'empty_stub.template', '.my.manifests/'];
+    }
 }

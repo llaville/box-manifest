@@ -48,17 +48,6 @@ final class ManifestOptions
         return ManifestFormat::tryFrom($rawFormat);
     }
 
-    public function getFormatDisplay(): string
-    {
-        // @phpstan-ignore return.type
-        return match ($this->getFormat()) {
-            ManifestFormat::auto => 'AUTO detection mode',
-            ManifestFormat::plain, ManifestFormat::consoleStyle, ManifestFormat::consoleTable => 'TEXT',
-            ManifestFormat::sbomXml, ManifestFormat::sbomJson => 'SBOM ' . $this->getSbomSpec(),
-            default => $this->getFormat(true),
-        };
-    }
-
     public function getSbomSpec(): string
     {
         return $this->io->getTypedOption(self::SBOM_SPEC_OPTION)->asString();
@@ -85,6 +74,16 @@ final class ManifestOptions
     public function getOutputConfFile(): ?string
     {
         return $this->io->getTypedOption(self::OUTPUT_CONF_OPTION)->asNullableString();
+    }
+
+    public function getTemplateFile(): ?string
+    {
+        return $this->io->getTypedOption(ManifestOptions::TEMPLATE_OPTION)->asNullableString();
+    }
+
+    public function getResourceDir(): string
+    {
+        return $this->io->getTypedOption(self::RESOURCE_DIR_OPTION)->asString();
     }
 
     public function isImmutable(): bool
