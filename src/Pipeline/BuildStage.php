@@ -14,11 +14,8 @@ use Bartlett\BoxManifest\Helper\ManifestFile;
 use Symfony\Component\Console\Input\ArrayInput;
 
 use function array_merge;
-use function file_exists;
-use function file_get_contents;
 use function serialize;
 use function sprintf;
-use function unserialize;
 
 /**
  * @author Laurent Laville
