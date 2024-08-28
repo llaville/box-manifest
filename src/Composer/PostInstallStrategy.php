@@ -103,7 +103,9 @@ final readonly class PostInstallStrategy implements ManifestBuildStrategy
             }
         }
 
-        unlink(AbstractStage::META_DATA_FILE);
+        if (file_exists(AbstractStage::META_DATA_FILE)) {
+            unlink(AbstractStage::META_DATA_FILE);
+        }
 
         $makeCommand = new Make();
         $application = new Application();
