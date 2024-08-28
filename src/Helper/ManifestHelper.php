@@ -40,7 +40,7 @@ class ManifestHelper extends Helper
                     InputOption::VALUE_OPTIONAL,
                     'Show software components bundled (either from : ' .
                     implode(', ', ManifestFile::values()) .
-                    ' or phar metadata field)'
+                    ')'
                 )
             );
         }
@@ -68,10 +68,6 @@ class ManifestHelper extends Helper
             if ($resolved) {
                 return file_get_contents($resolved) ?: null;
             }
-        }
-
-        if (Phar::running()) {
-            return $phar->getMetadata();    // @phpstan-ignore-line
         }
 
         return null;
