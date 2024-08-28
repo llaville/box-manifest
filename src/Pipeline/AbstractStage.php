@@ -30,7 +30,7 @@ use function unserialize;
 abstract readonly class AbstractStage
 {
     public const BOX_MANIFESTS_DIR = '.box.manifests/';
-    protected const META_DATA_FILE = '.box.manifests.bin';
+    public const META_DATA_FILE = '.box.manifests.bin';
 
     private ?HelperInterface $debugFormatterHelper;
 

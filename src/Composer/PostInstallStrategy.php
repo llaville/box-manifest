@@ -9,25 +9,21 @@ namespace Bartlett\BoxManifest\Composer;
 
 use Bartlett\BoxManifest\Console\Application;
 use Bartlett\BoxManifest\Console\Command\Make;
-use Bartlett\BoxManifest\Console\Command\ManifestBuild;
-use Bartlett\BoxManifest\Helper\BoxHelper;
+use Bartlett\BoxManifest\Pipeline\AbstractStage;
+use Bartlett\BoxManifest\Pipeline\StageInterface;
 
 use Composer\Script\Event;
 
-use Fidry\Console\IO;
+use KevinGH\Box\Configuration\Configuration;
+use KevinGH\Box\Json\Json;
 
-use KevinGH\Box\Configuration\ConfigurationLoader;
-
+use stdClass;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
-use Symfony\Component\Console\Output\StreamOutput;
 
 use function dirname;
-use function fclose;
 use function file_exists;
-use function fopen;
 use function realpath;
-use function sprintf;
 use function str_starts_with;
 
 /**
@@ -75,59 +71,51 @@ final readonly class PostInstallStrategy implements ManifestBuildStrategy
         $configFilePath = $extra['box-project']['config-file'] ?? null;
 
         // checks if BOX config file declared exists
-        if (!empty($configFilePath) && file_exists($configFilePath)) {
-            $configFilePath = realpath($configFilePath) ? : null;
-        } else {
+        if (empty($configFilePath) || !file_exists($configFilePath)) {
             // otherwise, try with root base dir package and "box.json.dist" BOX config file
             $configFilePath = dirname($vendorDir) . '/box.json.dist';
         }
 
-        $configLoader = new ConfigurationLoader();
-        $config = $configLoader->loadFile($configFilePath);
+        $configFilePath = realpath($configFilePath);
 
-        $io = $event->getIO();
+        if (empty($configFilePath)) {
+            // nothing to do without a BOX configuration
+            return;
+        }
 
-        $factory = new ManifestFactory(
-            $config,
-            $io->isDecorated(),
-            (new BoxHelper())->getBoxVersion(),
-            (new Application())->getVersion(),
-            false
-        );
+        /** @var stdClass $json */
+        $json = (new Json())->decodeFile($configFilePath);
 
-        $inputDefinition = (new Make())->getDefinition();
+        // avoid assertion errors, because BOX checks if these entries exists
+        $filesBin = 'files-bin';
+        unset($json->stub, $json->{$filesBin});
 
-        $map = $config->getFileMapper()->getMap();
+        $config = Configuration::create(null, $json);
 
-        foreach ($map as $mapFile) {
+        $resourcePath = $extra['box-project']['resource-dir'] ?? AbstractStage::BOX_MANIFESTS_DIR;
+        $resources = [];
+
+        foreach ($config->getFileMapper()->getMap() as $mapFile) {
             foreach ($mapFile as $source => $target) {
-                if (str_starts_with($target, '.box.manifests/')) {
-                    $arrayInput = new ArrayInput(['--output-format' => 'auto', '--output-file' => $source], $inputDefinition);
-                    $boxIO = new IO($arrayInput, new NullOutput());
-                    $manifest = $factory->build(new ManifestOptions($boxIO));
-
-                    $resource = fopen($source, 'w');
-                    if (!$resource) {
-                        $message = sprintf('- Unable to write manifest to file "<comment>%s</comment>"', realpath($source));
-                        $io->writeError($message);
-                        continue;
-                    }
-
-                    if (empty($manifest)) {
-                        $message = sprintf('- No manifest contents for file "<comment>%s</comment>"', realpath($source));
-                        $io->writeError($message);
-                        continue;
-                    }
-
-                    $stream = new StreamOutput($resource);
-                    $stream->setDecorated($io->isDecorated());
-                    $stream->write($manifest);
-                    fclose($stream->getStream());
-
-                    $message = sprintf('- Writing manifest to file "<comment>%s</comment>"', realpath($source));
-                    $io->write($message);
+                if ((dirname($target) === '.' && $resourcePath === '/') || str_starts_with($target, $resourcePath)) {
+                    $resources[] = $source;
                 }
             }
         }
+
+        unlink(AbstractStage::META_DATA_FILE);
+
+        $makeCommand = new Make();
+        $application = new Application();
+        $application->add($makeCommand);
+
+        $arrayInput = new ArrayInput([
+            'make',
+            'stages' => [StageInterface::BUILD_STAGE],
+            '--output-format' => 'auto',
+            '--resource' => $resources,
+        ], $makeCommand->getDefinition());
+
+        $application->run($arrayInput, new NullOutput());
     }
 }
