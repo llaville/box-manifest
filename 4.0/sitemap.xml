@@ -41,6 +41,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://llaville.github.io/box-manifest/4.0/inspect/</loc>
+         <lastmod>2024-08-28</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://llaville.github.io/box-manifest/4.0/strategies/</loc>
          <lastmod>2024-08-28</lastmod>
          <changefreq>daily</changefreq>
