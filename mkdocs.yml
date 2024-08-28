@@ -81,6 +81,7 @@ nav:
                 - "Manifest in SBOM JSON format": UseCases/SBomJsonFormat.md
                 - "Manifest in SBOM XML format": UseCases/SBomXmlFormat.md
                 - "Manifest in user format": UseCases/CustomFormat.md
+          - "Inspect": inspect.md
     - "Capabilities": capabilities.md
     - "Strategies": strategies.md
     - "Contributing": contributing.md

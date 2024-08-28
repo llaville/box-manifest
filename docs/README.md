@@ -55,6 +55,14 @@
 
     [:octicons-arrow-right-24: Customization](./stages/README.md)
 
+- :material-magnify-expand:{ .lg .middle } __Inspect__
+
+    ---
+
+    Inspect manifests contents of a PHAR at runtime.
+
+    [:octicons-arrow-right-24: Inspect](./inspect.md)
+
 - :material-scale-balance:{ .lg .middle } __Open Source, MIT__
 
     ---
