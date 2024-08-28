@@ -13,5 +13,6 @@
     ],
     "files-bin": [
         "vendor/humbug/php-scoper/vendor-hotfix/.gitkeep"
-    ]
+    ],
+    "stub": "stub.php"
 }
