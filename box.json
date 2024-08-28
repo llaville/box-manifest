@@ -1,5 +1,6 @@
 {
     "main": "bin/box-manifest",
+    "alias": "box-manifest-alias.phar",
     "compression": "GZ",
     "directories": ["bin", "src", "vendor"],
     "directories-bin": [
