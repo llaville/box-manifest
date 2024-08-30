@@ -27,6 +27,7 @@ theme:
         - navigation.tabs # Navigation tabs -- https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs
         - navigation.indexes # Section index pages -- https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#section-index-pages
         - navigation.top # Back-To-Top button -- https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#back-to-top-button
+        - navigation.footer # Setting up the footer -- https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/
         - content.code.copy # Code copy button -- https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-copy-button
         - content.code.annotate # Code blocks, Adding annotations -- https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#adding-annotations
 plugins:
