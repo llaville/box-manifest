@@ -2,6 +2,14 @@
     "main": "bin/box-manifest",
     "alias": "box-manifest-alias.phar",
     "compression": "GZ",
+    "blacklist": [
+        "fixtures",
+        "tests",
+        "Test",
+        "doc",
+        "dist",
+        "vendor-bin"
+    ],
     "directories": ["bin", "src", "vendor"],
     "directories-bin": [
         "vendor/humbug/box/res/requirement-checker",
@@ -23,13 +31,5 @@
         { "console-table.txt": ".box.manifests/console-table.txt" },
         { "plain.txt": ".box.manifests/plain.txt" },
         { "sbom.json": ".box.manifests/sbom.json" }
-    ],
-    "blacklist": [
-        "fixtures",
-        "tests",
-        "Test",
-        "doc",
-        "dist",
-        "vendor-bin"
     ]
 }
