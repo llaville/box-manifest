@@ -10,7 +10,6 @@ namespace Bartlett\BoxManifest\Composer\Manifest;
 use Bartlett\BoxManifest\Composer\ManifestBuilderInterface;
 
 use function implode;
-use function phpversion;
 use function rtrim;
 use function sprintf;
 use function substr;
@@ -65,10 +64,9 @@ final readonly class DecorateTextManifestBuilder implements ManifestBuilderInter
                 $installedPhp['versions'][$req]['prefix'] = $prefix;
                 /** @var string $constraint */
                 if ('php' === $req) {
-                    $entries[] = sprintf('%s%s %s: <info>%s</info>', $prefix, $category, "$req $constraint", phpversion());
+                    $entries[] = sprintf('%s%s %s', $prefix, $category, "$req $constraint");
                 } elseif (str_starts_with($req, 'ext-')) {
-                    $extension = substr($req, 4);
-                    $entries[] = sprintf('%s%s %s: <info>%s</info>', $prefix, $category, "$req $constraint", phpversion($extension));
+                    $entries[] = sprintf('%s%s %s', $prefix, $category, "$req $constraint");
                 } else {
                     $installedPhp['versions'][$req]['constraint'] = $constraint;
                     $installedPhp['versions'][$req]['category'] = $category;

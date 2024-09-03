@@ -50,10 +50,9 @@ final class ConsoleTextManifestBuilder implements ManifestBuilderInterface
                     $constraint = '<comment>uses</comment>';
                 }
                 if ('php' === $req) {
-                    $entries[] = [$req, $constraint, phpversion(), $category];
+                    $entries[] = [$req, $constraint, '', $category];
                 } elseif (str_starts_with($req, 'ext-')) {
-                    $extension = substr($req, 4);
-                    $entries[] = [$req, $constraint, phpversion($extension), $category];
+                    $entries[] = [$req, $constraint, '', $category];
                 } else {
                     $installedPhp['versions'][$req]['constraint'] = $constraint;
                     $installedPhp['versions'][$req]['category'] = $category;
