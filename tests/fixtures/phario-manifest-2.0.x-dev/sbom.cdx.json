@@ -17,17 +17,17 @@
     },
     "components": [
         {
-            "bom-ref": "pkg:composer/phar-io/version@3.0.1",
+            "bom-ref": "pkg:composer/phar-io/version@3.2.1",
             "type": "library",
             "name": "version",
-            "version": "3.0.1",
+            "version": "3.2.1",
             "group": "phar-io",
-            "purl": "pkg:composer/phar-io/version@3.0.1"
+            "purl": "pkg:composer/phar-io/version@3.2.1"
         }
     ],
     "dependencies": [
         {
-            "ref": "pkg:composer/phar-io/version@3.0.1"
+            "ref": "pkg:composer/phar-io/version@3.2.1"
         }
     ]
 }

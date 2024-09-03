@@ -7,14 +7,14 @@
     </properties>
   </metadata>
   <components>
-    <component type="library" bom-ref="pkg:composer/phar-io/version@3.0.1">
+    <component type="library" bom-ref="pkg:composer/phar-io/version@3.2.1">
       <group><![CDATA[phar-io]]></group>
       <name><![CDATA[version]]></name>
-      <version><![CDATA[3.0.1]]></version>
-      <purl><![CDATA[pkg:composer/phar-io/version@3.0.1]]></purl>
+      <version><![CDATA[3.2.1]]></version>
+      <purl><![CDATA[pkg:composer/phar-io/version@3.2.1]]></purl>
     </component>
   </components>
   <dependencies>
-    <dependency ref="pkg:composer/phar-io/version@3.0.1"/>
+    <dependency ref="pkg:composer/phar-io/version@3.2.1"/>
   </dependencies>
 </bom>

@@ -20,6 +20,8 @@ use PHPUnit\Framework\Attributes\DataProviderExternal;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
 
+use RuntimeException;
+
 /**
  * Unit tests for ManifestOptions component of the Box Manifest
  *
@@ -101,10 +103,16 @@ final class ManifestOptionsTest extends TestCase
 
     #[DataProviderExternal(ExternalDataProvider::class, 'recognizedStubStageOptions')]
     public function testStubStageOptions(
+        bool $expectedException = false,
         ?string $outputStubFile = null,
         ?string $templateFile = null,
         ?string $resourceDir = null,
+        ?string $workingDir = null,
     ): void {
+        if ($expectedException) {
+            $this->expectException(RuntimeException::class);
+        }
+
         $parameters = [
             'stages' => [StageInterface::STUB_STAGE],
             '--immutable' => true,
@@ -120,6 +128,10 @@ final class ManifestOptionsTest extends TestCase
 
         if (!empty($resourceDir)) {
             $parameters['--resource-dir'] = $resourceDir;
+        }
+
+        if (!empty($workingDir)) {
+            $parameters['--working-dir'] = $workingDir;
         }
 
         $io = new IO(new ArrayInput($parameters, (new Make())->getDefinition()), new NullOutput());
@@ -138,6 +150,11 @@ final class ManifestOptionsTest extends TestCase
         // --resource-dir
         if (!empty($resourceDir)) {
             $this->assertSame($resourceDir, $options->getResourceDir());
+        }
+
+        // --working-dir
+        if (!empty($workingDir)) {
+            $this->assertSame($workingDir, $options->getWorkingDir());
         }
     }
 }
