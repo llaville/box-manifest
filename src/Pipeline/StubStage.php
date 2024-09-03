@@ -7,6 +7,7 @@
  */
 namespace Bartlett\BoxManifest\Pipeline;
 
+use Bartlett\BoxManifest\Console\Logger;
 use Bartlett\BoxManifest\Helper\ManifestHelper;
 
 use function array_keys;
@@ -23,6 +24,8 @@ final readonly class StubStage extends AbstractStage implements StageInterface
      */
     public function __invoke(array $payload): array
     {
+        $context = ['status' => Logger::STATUS_RUNNING, 'id' => $payload['pid']];
+
         $config = $payload['configuration'];
 
         $resources = empty($payload['resources']) ? array_keys($this->getMetaData()) : $payload['resources'];
@@ -60,7 +63,7 @@ final readonly class StubStage extends AbstractStage implements StageInterface
 
         $targetFilename = $payload['outputStub'] ?? self::STDOUT;
 
-        $this->writeToStream($targetFilename, $stub, 'Unable to write stub PHP code');
+        $this->writeToStream($targetFilename, $stub, 'Unable to write stub PHP code', $context);
 
         return $payload;
     }

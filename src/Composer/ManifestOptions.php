@@ -11,6 +11,11 @@ use Bartlett\BoxManifest\Helper\ManifestFormat;
 
 use Fidry\Console\IO;
 
+use RuntimeException;
+use function file_exists;
+use function is_dir;
+use function sprintf;
+
 /**
  * @author Laurent Laville
  * @since Release 3.5.0
@@ -28,6 +33,7 @@ final class ManifestOptions
     public const RESOURCE_OPTION = 'resource';
     public const RESOURCE_DIR_OPTION = 'resource-dir';
     public const IMMUTABLE_OPTION = 'immutable';
+    public const WORKING_DIR_OPTION = 'working-dir';
 
     public function __construct(private readonly IO $io)
     {
@@ -84,6 +90,23 @@ final class ManifestOptions
     public function getResourceDir(): string
     {
         return $this->io->getTypedOption(self::RESOURCE_DIR_OPTION)->asString();
+    }
+
+    public function getWorkingDir(): ?string
+    {
+        $workingDir = $this->io->getTypedOption(ManifestOptions::WORKING_DIR_OPTION)->asNullableNonEmptyString();
+
+        if ($workingDir === null) {
+            return null;
+        }
+
+        if (!file_exists($workingDir) || !is_dir($workingDir)) {
+            throw new RuntimeException(
+                sprintf('Invalid working directory specified, "%s" does not exist or is not a directory.', $workingDir)
+            );
+        }
+
+        return $workingDir;
     }
 
     public function isImmutable(): bool

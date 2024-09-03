@@ -20,9 +20,14 @@
             <text outputFile="php://stdout" showUncoveredFiles="true" showOnlySummary="false"/>
         </report>
     </coverage>
-    <testsuite name="unit">
-        <directory suffix="Test.php">tests/unit/</directory>
-    </testsuite>
+    <testsuites>
+        <testsuite name="e2e">
+            <directory suffix="Test.php">tests/e2e/</directory>
+        </testsuite>
+        <testsuite name="unit">
+            <directory suffix="Test.php">tests/unit/</directory>
+        </testsuite>
+    </testsuites>
     <source>
         <include>
             <directory suffix=".php">src/</directory>

@@ -7,7 +7,13 @@
  */
 namespace Bartlett\BoxManifest\Pipeline;
 
+use Fidry\Console\IO;
+
 use KevinGH\Box\Configuration\Configuration;
+
+use Psr\Log\LoggerInterface;
+
+use Symfony\Component\Console\Command\Command;
 
 /**
  * @author Laurent Laville
@@ -20,6 +26,8 @@ interface StageInterface
     public const CONFIGURE_STAGE = 'configure';
     public const COMPILE_STAGE = 'compile';
     public const STDOUT = 'php://stdout';
+
+    public static function create(IO $io, Command $command, LoggerInterface $logger, array $context): static;
 
     /**
      * @param array{

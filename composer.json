@@ -9,10 +9,12 @@
         "cyclonedx/cyclonedx-library": "^3.0",
         "humbug/box": "^4.6",
         "league/pipeline": "^1.0",
+        "psr/log": "^3.0",
         "symfony/console": "^6.4 || ^7.0",
         "symfony/filesystem": "^6.4 || ^7.0",
         "symfony/process": "^6.4 || ^7.0",
-        "symfony/serializer": "^6.4 || ^7.0"
+        "symfony/serializer": "^6.4 || ^7.0",
+        "symfony/stopwatch": "^6.4 || ^7.0"
     },
     "require-dev": {
         "bamarni/composer-bin-plugin": "^1.8"
@@ -67,12 +69,16 @@
         "code:check": "vendor/bin/phpstan analyse --configuration .github/linters/phpstan.neon.dist --ansi",
         "code:lint": "vendor/bin/phplint --configuration .github/linters/.phplint.yml --verbose --progress=indicator --ansi",
         "style:check": "vendor/bin/phpcs --standard=.github/linters/.phpcs.xml.dist --warning-severity=0 --colors",
-        "tests:unit": ["@putenv TERM_PROGRAM=Hyper", "vendor/bin/phpunit --configuration phpunit.xml.dist"]
+        "tests:all": ["@putenv TERM_PROGRAM=Hyper", "vendor/bin/phpunit --configuration phpunit.xml.dist"],
+        "tests:e2e": ["@putenv TERM_PROGRAM=Hyper", "vendor/bin/phpunit --configuration phpunit.xml.dist tests/e2e"],
+        "tests:unit": ["@putenv TERM_PROGRAM=Hyper", "vendor/bin/phpunit --configuration phpunit.xml.dist tests/unit"]
     },
     "scripts-descriptions" : {
         "code:check": "Run PHPStan code analysis on project source code",
         "code:lint": "Run PHPLint on project source code",
         "style:check": "Run PHP CodeSniffer on project source code",
+        "tests:all": "Run PHPUnit (all tests) on project source code",
+        "tests:e2e": "Run PHPUnit (End-To-End tests) on project source code",
         "tests:unit": "Run PHPUnit (unit tests) on project source code"
     }
 }

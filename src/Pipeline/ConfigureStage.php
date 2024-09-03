@@ -7,6 +7,9 @@
  */
 namespace Bartlett\BoxManifest\Pipeline;
 
+use Bartlett\BoxManifest\Console\Logger;
+
+use RuntimeException;
 use Throwable;
 use function array_keys;
 use function array_push;
@@ -29,6 +32,8 @@ final readonly class ConfigureStage extends AbstractStage implements StageInterf
      */
     public function __invoke(array $payload): array
     {
+        $context = ['status' => Logger::STATUS_RUNNING, 'id' => $payload['pid']];
+
         $configPath = $payload['configurationFile'] ?? 'box.json';
 
         $configs = [];
@@ -40,6 +45,10 @@ final readonly class ConfigureStage extends AbstractStage implements StageInterf
             } catch (Throwable) {
             }
         }
+
+        // @link Due to issue https://github.com/box-project/box/issues/580
+        // @see https://github.com/box-project/box/issues/580#issuecomment-2326577684
+        $configs['dump-autoload'] = false;
 
         if (!isset($configs['files-bin'])) {
             $configs['files-bin'] = [];
@@ -69,13 +78,15 @@ final readonly class ConfigureStage extends AbstractStage implements StageInterf
         $data = json_encode($configs, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
         if (!$data) {
-            $this->io->error('- Unable to encode BOX configuration data.');
-            return $payload;
+            $context['error'] = true;
+            $message = 'Unable to encode BOX configuration data';
+            $this->logger->error($message, $context);
+            throw new RuntimeException($message);
         }
 
         $targetFilename = $payload['outputConf'] ?? self::STDOUT;
 
-        $this->writeToStream($targetFilename, $data, 'Unable to write BOX configuration');
+        $this->writeToStream($targetFilename, $data, 'Unable to write BOX configuration', $context);
 
         return $payload;
     }

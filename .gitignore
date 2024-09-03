@@ -28,9 +28,9 @@ stub.php
 ###### PHPUnit ######
 .phpunit.result.cache
 .phpunit.cache
+phpunit.xml
 
 ###### Mega-Linter ######
-report/
 megalinter-reports/
 
 ######################################

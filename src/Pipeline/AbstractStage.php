@@ -9,8 +9,9 @@ namespace Bartlett\BoxManifest\Pipeline;
 
 use Fidry\Console\IO;
 
+use Psr\Log\LoggerInterface;
+
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\DebugFormatterHelper;
 use Symfony\Component\Console\Helper\HelperInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
@@ -18,7 +19,6 @@ use Symfony\Component\Console\Output\StreamOutput;
 use function file_exists;
 use function file_get_contents;
 use function fopen;
-use function is_string;
 use function realpath;
 use function sprintf;
 use function unserialize;
@@ -37,62 +37,43 @@ abstract readonly class AbstractStage
     /**
      * @param array{pid: string} $context
      */
-    public function __construct(protected IO $io, protected Command $command, private array $context)
-    {
+    public function __construct(
+        protected IO $io,
+        protected Command $command,
+        protected LoggerInterface $logger,
+        protected array $context
+    ) {
         $this->debugFormatterHelper = $this->command->getHelperSet()?->has('debug_formatter')
             ? $this->command->getHelper('debug_formatter')
             : null
         ;
     }
 
+    public static function create(IO $io, Command $command, LoggerInterface $logger, array $context): static
+    {
+        return new static($io, $command, $logger, $context);
+    }
+
     /**
      * @param string|string[] $contents
      */
-    protected function writeToStream(string $filename, string|iterable $contents, string $reason = 'Unable to write'): int
+    protected function writeToStream(string $filename, string|iterable $contents, string $reason = 'Unable to write', array $context = []): int
     {
         $resource = fopen($filename, 'w');
         if (!$resource) {
-            $message = sprintf('- %s to file "<comment>%s</comment>"', $reason, realpath($filename));
-            $this->io->warning($message);
+            $message = sprintf('%s to file "%s"', $reason, realpath($filename));
+            $this->logger->warning($message, $context);
             return 0;
         }
 
         $stream = new StreamOutput($resource);
-        $stream->write($contents, false, OutputInterface::OUTPUT_RAW);
+        $stream->write($contents, true, OutputInterface::OUTPUT_RAW);
         fclose($stream->getStream());
+        $this->logger->debug(
+            sprintf('%s written to "%s"', $resource, str_starts_with($filename, 'php://') ? $filename : realpath($filename)),
+            $context
+        );
         return 1;
-    }
-
-    /**
-     * @param string|string[] $messages
-     */
-    protected function debugPrintStage(string|iterable $messages, bool $newline = false): void
-    {
-        if (!$this->io->isDebug()) {
-            // do nothing if debug mode is disabled
-            return;
-        }
-
-        if (is_string($messages)) {
-            $messages = [$messages];
-        }
-
-        // 1. try first with Symfony Console Debug Formatter Helper (if available)
-        //    @see https://symfony.com/doc/current/components/console/helpers/debug_formatter.html
-        if ($this->debugFormatterHelper instanceof DebugFormatterHelper) {
-            foreach ($messages as $message) {
-                $this->debugFormatterHelper->progress(
-                    $this->context['pid'],
-                    $message
-                );
-            }
-            return;
-        }
-
-        // 2. fallback is to print on standard error
-        $stream = new StreamOutput(fopen('php://stderr', 'w'));  // @phpstan-ignore argument.type
-        $stream->write($messages, $newline);
-        fclose($stream->getStream());
     }
 
     /**

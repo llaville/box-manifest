@@ -9,11 +9,13 @@ namespace Bartlett\BoxManifest\Pipeline;
 
 use Bartlett\BoxManifest\Composer\ManifestFactory;
 use Bartlett\BoxManifest\Composer\ManifestOptions;
-use Bartlett\BoxManifest\Helper\ManifestFile;
+use Bartlett\BoxManifest\Console\Logger;
 
 use Symfony\Component\Console\Input\ArrayInput;
 
+use function array_keys;
 use function array_merge;
+use function implode;
 use function serialize;
 use function sprintf;
 
@@ -28,7 +30,7 @@ final readonly class BuildStage extends AbstractStage implements StageInterface
      */
     public function __invoke(array $payload): array
     {
-        $this->debugPrintStage(sprintf('%s is running', __CLASS__));
+        $context = ['status' => Logger::STATUS_RUNNING, 'id' => $payload['pid']];
 
         $factory = new ManifestFactory(
             $payload['configuration'],
@@ -41,12 +43,11 @@ final readonly class BuildStage extends AbstractStage implements StageInterface
         $buildsCount = 0;
 
         foreach ($payload['resources'] as $resourceFile) {
-            $resourceFormat = ManifestFile::custom->value === $resourceFile ? $payload['outputFormat'] : 'auto';
             $input = new ArrayInput(
                 [
                     'command' => $this->command->getName(),
                     'stages' => [StageInterface::BUILD_STAGE],
-                    '--output-format' => $resourceFormat,
+                    '--output-format' => $payload['outputFormat'],
                     '--output-file' => $resourceFile,
                     '--sbom-spec' => $payload['sbomSpec'],
                 ],
@@ -56,22 +57,24 @@ final readonly class BuildStage extends AbstractStage implements StageInterface
             $options = new ManifestOptions($io);
             $manifestContents = $factory->build($options);
             if (null !== $manifestContents) {
-                if ($this->writeToStream($resourceFile, $manifestContents, 'Unable to write resource') === 1) {
+                if ($this->writeToStream($resourceFile, $manifestContents, 'Unable to write resource', $context) === 1) {
                     $buildsCount++;
-                    $payload['response']['artifacts'][$resourceFile] = $factory->getMimeType($resourceFile, $options->getSbomSpec());
+                    $payload['outputs']['resources'][$resourceFile] = $factory->getMimeType($resourceFile, $options->getSbomSpec());
                 }
             }
         }
 
-        $manifests = serialize(array_merge($this->getMetaData(), $payload['response']['artifacts'] ?? []));
-        $this->writeToStream(self::META_DATA_FILE, $manifests, 'Unable to write Manifests Metadata');
+        $manifests = serialize(array_merge($this->getMetaData(), $payload['outputs']['resources'] ?? []));
+        $this->writeToStream(self::META_DATA_FILE, $manifests, 'Unable to write Manifests Metadata', $context);
 
-        $this->debugPrintStage(
+        $this->logger->notice(
             sprintf(
-                '%d manifest%s built',
+                '%d manifest%s built %s',
                 $buildsCount,
                 $buildsCount > 1 ? 's were' : ' was',
-            )
+                $buildsCount > 0 ? '>> ' . implode(', ', array_keys($payload['outputs']['resources'] ?? [])) : ''
+            ),
+            $context
         );
 
         return $payload;

@@ -8,6 +8,7 @@
 namespace Bartlett\BoxManifest\Console\Command;
 
 use Bartlett\BoxManifest\Composer\ManifestOptions;
+use Bartlett\BoxManifest\Console\Logger;
 use Bartlett\BoxManifest\Helper\BoxHelper;
 use Bartlett\BoxManifest\Helper\ManifestFormat;
 use Bartlett\BoxManifest\Pipeline\AbstractStage;
@@ -16,12 +17,16 @@ use Bartlett\BoxManifest\Pipeline\CompileStage;
 use Bartlett\BoxManifest\Pipeline\ConfigureStage;
 use Bartlett\BoxManifest\Pipeline\StageInterface;
 use Bartlett\BoxManifest\Pipeline\StubStage;
+use Bartlett\BoxManifest\Pipeline\InterruptibleTimedProcessor;
 
 use CycloneDX\Core\Spec\Version;
 
 use Fidry\Console\IO;
 
+use League\Pipeline\FingersCrossedProcessor;
 use League\Pipeline\PipelineBuilder;
+
+use Psr\Log\LoggerInterface;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DebugFormatterHelper;
@@ -34,8 +39,13 @@ use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use InvalidArgumentException;
+use Throwable;
+use UnexpectedValueException;
+use function array_unique;
+use function chdir;
 use function class_exists;
 use function count;
+use function getcwd;
 use function implode;
 use function is_file;
 use function is_string;
@@ -127,6 +137,13 @@ final class Make extends Command
                 InputOption::VALUE_NONE,
                 'Generates immutable version of a manifest file',
             ),
+            new InputOption(
+                ManifestOptions::WORKING_DIR_OPTION,
+                'd',
+                InputOption::VALUE_REQUIRED,
+                'If specified, use the given directory as working directory',
+                null
+            ),
         ];
 
         $this->setName(self::NAME)
@@ -142,6 +159,13 @@ final class Make extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        /** @var DebugFormatterHelper $debugFormatter */
+        $debugFormatter = $this->getHelper('debug_formatter');
+
+        $logger = new Logger($debugFormatter, $output);
+
+        $pid = uniqid();
+
         $startTime = microtime(true);
 
         /** @var BoxHelper $boxHelper */
@@ -155,57 +179,73 @@ final class Make extends Command
 
         $bootstrap = $options->getBootstrap() ?? '';
 
-        /** @var DebugFormatterHelper $debugFormatter */
-        $debugFormatter = $this->getHelper('debug_formatter');
+        $resourceCount = count($resources);
 
-        $pid = uniqid();
+        $stages = array_unique($io->getTypedArgument(ManifestOptions::STAGES_OPTION)->asNonEmptyStringList());
 
-        if ($io->isDebug()) {
-            $resourceCount = count($resources);
-            $io->write(
-                $debugFormatter->start(
-                    $pid,
-                    sprintf('Making manifests for %d resource%s', $resourceCount, $resourceCount > 1 ? 's' : ''),
-                    'STARTED'
-                )
-            );
-        }
+        $logger->notice(
+            sprintf('Workflow with following stages >> %s', implode(', ', $stages)),
+            ['status' => Logger::STATUS_STARTED, 'id' => $pid]
+        );
+        $context = ['status' => Logger::STATUS_STOPPED, 'id' => $pid, 'error' => false];
 
+        // 1. (optional) but should be tried first before any other environment changes
         $bootstrap = realpath($bootstrap);
 
         if (is_string($bootstrap) && is_file($bootstrap)) {
-            if ($io->isDebug()) {
-                $io->write(
-                    $debugFormatter->progress(
-                        $pid,
-                        sprintf('Bootstrapped file "<info>%s</info>"', $bootstrap),
-                        false,
-                        'IN'
-                    )
-                );
-            }
+            $logger->notice(
+                sprintf('Bootstrapped file "%s"', $bootstrap),
+                ['status' => Logger::STATUS_RUNNING, 'id' => $pid, 'prefix' => 'IN']
+            );
             include $bootstrap;
         }
 
+        // 2. (optional) changes current working directory
+        try {
+            $workingDir = $this->changeWorkingDir($options->getWorkingDir());
+            if (null !== $workingDir) {
+                $logger->notice(
+                    sprintf('Changed working directory to "%s"', getcwd()),
+                    ['status' => Logger::STATUS_RUNNING, 'id' => $pid, 'prefix' => 'IN']
+                );
+            }
+        } catch (UnexpectedValueException $e) {
+            $context['error'] = true;
+            $logger->error($e->getMessage(), $context);
+            $logger->error('Aborting workflow ... none operation was executed', $context);
+            return Command::FAILURE;
+        }
+
+        // 3. creates the Pipeline with stages asked
         $pipelineBuilder = new PipelineBuilder();
 
-        foreach ($io->getTypedArgument(ManifestOptions::STAGES_OPTION)->asNonEmptyStringList() as $stageName) {
+        foreach ($stages as $stageName) {
             try {
+                $arguments = [$io, $this, $logger, ['pid' => $pid]];
                 $stage = match ($stageName) {
-                    StageInterface::BUILD_STAGE => new BuildStage($io, $this, ['pid' => $pid]),
-                    StageInterface::STUB_STAGE => new StubStage($io, $this, ['pid' => $pid]),
-                    StageInterface::CONFIGURE_STAGE => new ConfigureStage($io, $this, ['pid' => $pid]),
-                    StageInterface::COMPILE_STAGE => new CompileStage($io, $this, ['pid' => $pid]),
-                    default => $this->getCustomStage($stageName, $io),
+                    StageInterface::BUILD_STAGE => new BuildStage(...$arguments),
+                    StageInterface::STUB_STAGE => new StubStage(...$arguments),
+                    StageInterface::CONFIGURE_STAGE => new ConfigureStage(...$arguments),
+                    StageInterface::COMPILE_STAGE => new CompileStage(...$arguments),
+                    default => $this->getCustomStage($stageName, ...$arguments),
                 };
             } catch (InvalidArgumentException $e) {
-                $io->error($e->getMessage());
+                $context['error'] = true;
+                $logger->error($e->getMessage(), $context);
+                $logger->error('Aborting workflow ... none operation was executed', $context);
                 return Command::FAILURE;
             }
 
             $pipelineBuilder->add($stage);
         }
 
+        $processor = $io->isDebug()
+            ? new InterruptibleTimedProcessor($logger)
+            : new FingersCrossedProcessor()
+        ;
+        $pipeline = $pipelineBuilder->build($processor);
+
+        // 4. prepares payload to transmit to all stages of the pipeline
         $config = $boxHelper->getBoxConfiguration(
             $io->withOutput(new NullOutput()),
             true,
@@ -219,7 +259,9 @@ final class Make extends Command
         ;
 
         $payload = [
+            'pid' => $pid,
             'configuration' => $config,
+            'config' => $config->getConfigurationFile(),
             'ansiSupport' => $output->isDecorated(),
             'immutableCopy' => $io->getTypedOption(ManifestOptions::IMMUTABLE_OPTION)->asBoolean(),
             'versions' => [
@@ -238,29 +280,49 @@ final class Make extends Command
             'configurationFile' => $config->getConfigurationFile(),
         ];
 
-        $pipeline = $pipelineBuilder->build();
-        $finalPayload = $pipeline($payload);
-
-        if ($io->isDebug()) {
-            foreach ($finalPayload['response']['artifacts'] ?? [] as $responseArtifact => $mimeType) {
-                $io->write(
-                    $debugFormatter->stop($pid, sprintf('%s: %s', $responseArtifact, $mimeType), true, 'RESPONSE')
+        // 5. runs the workflow (pipeline)
+        try {
+            $pipeline($payload);
+            $isSuccessful = true;
+        } catch (Throwable $e) {
+            $context['error'] = true;
+            $logger->error('Workflow has failed', $context);
+            $isSuccessful = false;
+        } finally {
+            if ($isSuccessful) {
+                $logger->notice(
+                    sprintf(
+                        'Workflow has finished. Elapsed time %s',
+                        Helper::formatTime(microtime(true) - $startTime)
+                    ),
+                    $context
                 );
+                return Command::SUCCESS;
             }
-            $io->write(
-                $debugFormatter->stop(
-                    $pid,
-                    'Process elapsed time ' . Helper::formatTime(microtime(true) - $startTime),
-                    true,
-                    'FINISHED'
-                )
-            );
+            return Command::FAILURE;
         }
-
-        return Command::SUCCESS;
     }
 
-    private function getCustomStage(string $stageClass, IO $io): StageInterface
+    private function changeWorkingDir(?string $newWorkingDir): ?string
+    {
+        if (null !== $newWorkingDir) {
+            $oldWorkingDir = getcwd();
+            if (false !== $oldWorkingDir && $newWorkingDir !== $oldWorkingDir) {
+                if (false === chdir($newWorkingDir)) {
+                    throw new UnexpectedValueException(
+                        sprintf(
+                            'Failed to change the working directory from "%s" to "%s".',
+                            $oldWorkingDir,
+                            $newWorkingDir,
+                        )
+                    );
+                }
+            }
+        }
+        return $newWorkingDir;
+    }
+
+    private function getCustomStage(string $stageClass, IO $io, Command $command, LoggerInterface $logger, array $context): StageInterface
     {
         if (!class_exists($stageClass)) {
             throw new InvalidArgumentException(
@@ -268,7 +330,7 @@ final class Make extends Command
             );
         }
 
-        $stage = new $stageClass($io, $this);
+        $stage = $stageClass::create($io, $command, $logger, $context);
 
         if (!$stage instanceof StageInterface) {
             throw new InvalidArgumentException(

@@ -7,11 +7,12 @@
  */
 namespace Bartlett\BoxManifest\Pipeline;
 
-use KevinGH\Box\Configuration\Configuration;
+use Bartlett\BoxManifest\Console\Logger;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
+use RuntimeException;
 use function dirname;
 use function realpath;
 use const PHP_BINARY;
@@ -26,32 +27,26 @@ final readonly class CompileStage extends AbstractStage implements StageInterfac
 {
     public function __invoke(array $payload): array
     {
-        $config = $payload['configuration'];
+        $context = ['status' => Logger::STATUS_RUNNING, 'id' => $payload['pid']];
 
-        $process = $this->createBoxProcess($config);
+        $configurationFile = $payload['outputConf'] ?? $payload['config'];
+
+        $process = $this->createBoxProcess($configurationFile);
         $process->run();
 
         if (!$process->isSuccessful()) {
-            $messages = ['Unable to run BOX compile process.'];
-            if ($this->io->isVeryVerbose()) {
-                $messages[] = $process->getCommandLine();
-            }
-            if ($this->io->isDebug()) {
-                $messages[] = $process->getErrorOutput();
-            }
-            $this->io->error($messages);
-
-            return $payload;
+            $context['error'] = true;
+            $this->logger->error($process->getCommandLine(), $context);
+            $this->logger->error($process->getErrorOutput(), $context);
+            throw new RuntimeException('Unable to run BOX compile process');
         }
 
-        if ($this->io->isVeryVerbose()) {
-            $this->io->write($process->getOutput());
-        }
+        $this->logger->notice($process->getOutput(), $context);
 
         return $payload;
     }
 
-    private function createBoxProcess(Configuration $config): Process
+    private function createBoxProcess(?string $configurationFile = null): Process
     {
         $command = [
             PHP_SAPI == 'cli' ? PHP_BINARY : PHP_BINDIR . '/php',
@@ -59,9 +54,9 @@ final readonly class CompileStage extends AbstractStage implements StageInterfac
             'compile',
         ];
 
-        if ($conf = $config->getConfigurationFile()) {
+        if ($configurationFile) {
             $command[] = '--config';
-            $command[] = $conf;
+            $command[] = $configurationFile;
         }
 
         $verbosity = match ($this->io->getVerbosity()) {
