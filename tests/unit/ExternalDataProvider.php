@@ -9,6 +9,9 @@ namespace Bartlett\BoxManifest\Tests;
 
 use Bartlett\BoxManifest\Composer\ManifestBuildStrategy;
 
+use function realpath;
+use function sprintf;
+
 /**
  * @author Laurent Laville
  * @since Release 4.0.0
@@ -76,7 +79,48 @@ final class ExternalDataProvider
 
     public static function recognizedStubStageOptions(): iterable
     {
-        yield ['my-stub.php', null];
-        yield [null, 'empty_stub.template', '.my.manifests/'];
+        $validWorkingDir = __DIR__ . '/../fixtures/phario-manifest-2.0.x-dev';
+        $invalidWorkingDir = __DIR__ . '/../fixtures/my-project';
+
+        yield [false, 'my-stub.php', null, null, $validWorkingDir];
+        yield [true, null, 'empty_stub.template', '.my.manifests/', $invalidWorkingDir];
+    }
+
+    public static function wrongResources(): iterable
+    {
+        $resourceFile = 'undetectable_resource.format';
+        yield ['auto', [$resourceFile], sprintf('Cannot auto-detect format for "%s" resource file', $resourceFile)];
+
+        $outputFormat = '\My\Space\ClassNotFound';
+        yield [$outputFormat, ['custom.bin'], sprintf('Format "%s" is not supported', $outputFormat)];
+    }
+
+    public static function goodResources(): iterable
+    {
+        yield ['auto', ['plain.txt'], '1 manifest was built'];
+        yield ['auto', ['plain.txt', 'sbom.json'], '2 manifests were built'];
+
+        yield ['console-table', ['console.txt', 'manifest.console_table_format'], '2 manifests were built'];
+    }
+
+    public static function goodStub(): iterable
+    {
+        $workingDir = __DIR__ . '/../fixtures/phario-manifest-2.0.x-dev';
+
+        $outputStub = 'stub.php';
+        $expectedMessage = sprintf('written to "%s/%s"', realpath($workingDir), $outputStub);
+
+        yield [$outputStub, 'box.json', $workingDir, $expectedMessage];
+    }
+
+    public static function goodConfig(): iterable
+    {
+        $workingDir = __DIR__ . '/../fixtures/phario-manifest-2.0.x-dev';
+
+        $outputStub = 'stub.php';
+        $outputConf = 'box.json.dist';
+        $expectedMessage = sprintf('written to "%s/%s"', realpath($workingDir), $outputConf);
+
+        yield [$outputStub, $outputConf, 'box.json', $workingDir, $expectedMessage];
     }
 }
