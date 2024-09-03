@@ -7,7 +7,8 @@
  */
 namespace Bartlett\BoxManifest\Console\Command;
 
-use DirectoryIterator;
+use Bartlett\BoxManifest\Pipeline\AbstractStage;
+
 use Fidry\Console\IO;
 
 use Symfony\Component\Console\Command\Command;
@@ -16,12 +17,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Path;
 
+use DirectoryIterator;
 use Phar;
 use UnexpectedValueException;
 use function count;
 use function reset;
 use function sprintf;
-use function strip_tags;
 use function unserialize;
 
 /**
@@ -87,8 +88,8 @@ final class Inspect extends Command
             $manifests = unserialize($phar[$manifestIndexFile]->getContent());
         } else {
             // fallbacks to ".box.manifests" folder entries (if available)
-            if (isset($phar['.box.manifests'])) {
-                foreach (new DirectoryIterator('phar://' . $phar->getPath() . '/.box.manifests') as $manifestFile) {
+            if (isset($phar[AbstractStage::BOX_MANIFESTS_DIR])) {
+                foreach (new DirectoryIterator('phar://' . $phar->getPath() . '/' . AbstractStage::BOX_MANIFESTS_DIR) as $manifestFile) {
                     $filename = $manifestFile->getFilename();
                     $mimeType = match ($filename) {
                         'manifest.txt' => 'text/plain',
@@ -109,7 +110,11 @@ final class Inspect extends Command
             if ($manifest !== null && $filename !== $manifest) {
                 continue;
             }
-            $inspection[] = sprintf('<info>%s</info>: <comment>%s</comment>', $filename, $mimeType);
+            $manifestInfo = sprintf('<info>%s</info> (<comment>%s</comment>)', $filename, $mimeType);
+            if (empty($inspection)) {
+                $manifestInfo = 'Default: ' . $manifestInfo;
+            }
+            $inspection[] = $manifestInfo;
         }
 
         if (empty($inspection)) {
@@ -119,10 +124,9 @@ final class Inspect extends Command
             $default = reset($inspection);
             $io->success(
                 sprintf(
-                    'Found %d manifest%s. Default is %s',
+                    'Found %d manifest%s',
                     $manifestsFound,
-                    $manifestsFound > 1 ? 's' : '',
-                    strip_tags($default)
+                    $manifestsFound > 1 ? 's' : ''
                 )
             );
             $io->listing($inspection);
