@@ -61,6 +61,7 @@ nav:
           - "Build your stub": build-your-stub.md
           - "Build your Box config file": build-your-config.md
           - "Compile your PHAR": compile-your-phar.md
+          - "Make them all": run-all-stages.md
           - "Customization":
                 - "Built-in stages":
                       - stages/README.md
