@@ -41,7 +41,7 @@ final readonly class InterruptibleTimedProcessor implements ProcessorInterface
         $stopwatch = new Stopwatch();
 
         foreach ($stages as $stage) {
-            $name = $stage::class;
+            $name = $stage::class;  // @phpstan-ignore classConstant.nonObject
             $stopwatch->start($name);
             $pid = $payload['pid'] = uniqid();
 
@@ -66,13 +66,15 @@ final readonly class InterruptibleTimedProcessor implements ProcessorInterface
                 $isSuccessful = false;
             } finally {
                 if (!$isSuccessful) {
+                    // @phpstan-ignore-next-line variable.undefined
                     $message = sprintf('The stage "%s" has failed : %s', $name, $exception->getMessage());
                 }
+                // @phpstan-ignore-next-line variable.undefined
                 $this->logger->log($level, $message, ['status' => Logger::STATUS_STOPPED, 'id' => $pid, 'error' => !$isSuccessful]);
 
                 if (!$isSuccessful) {
                     // circuit breaker or critical conditions lead to abort the workflow
-                    throw $exception;
+                    throw $exception;  // @phpstan-ignore variable.undefined
                 }
             }
         }

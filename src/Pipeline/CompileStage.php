@@ -29,7 +29,7 @@ final readonly class CompileStage extends AbstractStage implements StageInterfac
     {
         $context = ['status' => Logger::STATUS_RUNNING, 'id' => $payload['pid']];
 
-        $configurationFile = $payload['outputConf'] ?? $payload['config'];
+        $configurationFile = $payload['outputConf'] ?? $payload['configurationFile'];
 
         $process = $this->createBoxProcess($configurationFile);
         $process->run();

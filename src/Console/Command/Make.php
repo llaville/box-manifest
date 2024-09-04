@@ -261,7 +261,6 @@ final class Make extends Command
         $payload = [
             'pid' => $pid,
             'configuration' => $config,
-            'config' => $config->getConfigurationFile(),
             'ansiSupport' => $output->isDecorated(),
             'immutableCopy' => $io->getTypedOption(ManifestOptions::IMMUTABLE_OPTION)->asBoolean(),
             'versions' => [
@@ -289,7 +288,7 @@ final class Make extends Command
             $logger->error('Workflow has failed', $context);
             $isSuccessful = false;
         } finally {
-            if ($isSuccessful) {
+            if ($isSuccessful) {    // @phpstan-ignore variable.undefined
                 $logger->notice(
                     sprintf(
                         'Workflow has finished. Elapsed time %s',
@@ -322,6 +321,9 @@ final class Make extends Command
         return $newWorkingDir;
     }
 
+    /**
+     * @param array{pid: string} $context
+     */
     private function getCustomStage(string $stageClass, IO $io, Command $command, LoggerInterface $logger, array $context): StageInterface
     {
         if (!class_exists($stageClass)) {

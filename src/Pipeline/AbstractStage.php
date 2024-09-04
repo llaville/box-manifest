@@ -12,13 +12,13 @@ use Fidry\Console\IO;
 use Psr\Log\LoggerInterface;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\HelperInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 
 use function file_exists;
 use function file_get_contents;
 use function fopen;
+use function get_resource_id;
 use function realpath;
 use function sprintf;
 use function unserialize;
@@ -32,23 +32,20 @@ abstract readonly class AbstractStage
     public const BOX_MANIFESTS_DIR = '.box.manifests/';
     public const META_DATA_FILE = '.box.manifests.bin';
 
-    private ?HelperInterface $debugFormatterHelper;
-
     /**
      * @param array{pid: string} $context
      */
-    public function __construct(
+    final public function __construct(
         protected IO $io,
         protected Command $command,
         protected LoggerInterface $logger,
         protected array $context
     ) {
-        $this->debugFormatterHelper = $this->command->getHelperSet()?->has('debug_formatter')
-            ? $this->command->getHelper('debug_formatter')
-            : null
-        ;
     }
 
+    /**
+     * @param array{pid: string} $context
+     */
     public static function create(IO $io, Command $command, LoggerInterface $logger, array $context): static
     {
         return new static($io, $command, $logger, $context);
@@ -56,9 +53,17 @@ abstract readonly class AbstractStage
 
     /**
      * @param string|string[] $contents
+     * @param array{
+     *     status?: string,
+     *     id?: string
+     * } $context
      */
-    protected function writeToStream(string $filename, string|iterable $contents, string $reason = 'Unable to write', array $context = []): int
-    {
+    protected function writeToStream(
+        string $filename,
+        string|iterable $contents,
+        string $reason = 'Unable to write',
+        array $context = []
+    ): int {
         $resource = fopen($filename, 'w');
         if (!$resource) {
             $message = sprintf('%s to file "%s"', $reason, realpath($filename));
@@ -70,7 +75,11 @@ abstract readonly class AbstractStage
         $stream->write($contents, true, OutputInterface::OUTPUT_RAW);
         fclose($stream->getStream());
         $this->logger->debug(
-            sprintf('%s written to "%s"', $resource, str_starts_with($filename, 'php://') ? $filename : realpath($filename)),
+            sprintf(
+                'Resource id #%d written to "%s"',
+                get_resource_id($resource),
+                str_starts_with($filename, 'php://') ? $filename : realpath($filename)
+            ),
             $context
         );
         return 1;

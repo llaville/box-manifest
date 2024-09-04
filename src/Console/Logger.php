@@ -37,6 +37,8 @@ class Logger extends ConsoleLogger
     }
 
     /**
+     * @param string $level
+     * @param string $message
      * @param array{
      *    status?: string,
      *    id?: int,
@@ -48,7 +50,7 @@ class Logger extends ConsoleLogger
     public function log($level, $message, array $context = []): void
     {
         if (isset($context['status']) && isset($context['id'])) {
-            $id = $context['id'];
+            $id = sprintf('%d', $context['id']);
             $error = $context['error'] ?? false;
             $message = match ($context['status']) {
                 self::STATUS_STARTED => $this->helper->start($id, $message, $context['prefix'] ?? 'RUN'),

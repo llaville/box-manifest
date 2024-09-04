@@ -27,10 +27,14 @@ interface StageInterface
     public const COMPILE_STAGE = 'compile';
     public const STDOUT = 'php://stdout';
 
+    /**
+     * @param array{pid: string} $context
+     */
     public static function create(IO $io, Command $command, LoggerInterface $logger, array $context): static;
 
     /**
      * @param array{
+     *     pid: string,
      *     configuration: Configuration,
      *     ansiSupport: bool,
      *     immutableCopy: bool,
@@ -47,6 +51,7 @@ interface StageInterface
      *     configurationFile: string|null
      * } $payload
      * @return array{
+     *     pid: string,
      *     configuration: Configuration,
      *     ansiSupport: bool,
      *     immutableCopy: bool,
