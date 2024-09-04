@@ -17,10 +17,10 @@ use Composer\Script\Event;
 use KevinGH\Box\Configuration\Configuration;
 use KevinGH\Box\Json\Json;
 
-use stdClass;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
 
+use stdClass;
 use function dirname;
 use function file_exists;
 use function realpath;
