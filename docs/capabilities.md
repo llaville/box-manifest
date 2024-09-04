@@ -26,7 +26,7 @@ The following diagram describe the behavior of the new `make` command.
 
 > [!NOTE]
 >
-> The `make` command is only available with version 4.0 or greater
+> The `make` command may combine one or more stages on same run !
 
 ```mermaid
 stateDiagram
