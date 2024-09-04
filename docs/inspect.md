@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD013 MD024 MD046 -->
+<!-- markdownlint-disable MD013 MD024 MD046 MD053 -->
 # Inspect
 
 Once you've built your PHP Archive, you'll be happy to retrieve easily what manifests are embedded,
