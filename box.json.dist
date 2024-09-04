@@ -10,7 +10,11 @@
         "dist",
         "vendor-bin"
     ],
-    "directories": ["bin", "src", "vendor"],
+    "directories": [
+        "bin",
+        "src",
+        "vendor"
+    ],
     "directories-bin": [
         "vendor/humbug/box/res/requirement-checker",
         "resources"
@@ -27,9 +31,16 @@
         ".box.manifests.bin"
     ],
     "stub": "stub.php",
+    "dump-autoload": false,
     "map": [
-        { "console-table.txt": ".box.manifests/console-table.txt" },
-        { "plain.txt": ".box.manifests/plain.txt" },
-        { "sbom.json": ".box.manifests/sbom.json" }
+        {
+            "console-table.txt": ".box.manifests/console-table.txt"
+        },
+        {
+            "plain.txt": ".box.manifests/plain.txt"
+        },
+        {
+            "sbom.json": ".box.manifests/sbom.json"
+        }
     ]
 }
