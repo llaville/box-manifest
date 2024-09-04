@@ -1,36 +1,34 @@
 <!-- markdownlint-disable MD013 MD033 -->
 # BOX Manifest
 
-Main goal of this project is to write a manifest in any [PHP Archive (PHAR)](https://www.php.net/phar)
-built with the [BOX](https://github.com/box-project/box) tool.
+[![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
+[![GitHub Discussions](https://img.shields.io/github/discussions/llaville/box-manifest)](https://github.com/llaville/box-manifest/discussions)
+
+Main goal of this project is to write a manifest in any [PHP Archive (PHAR)][php-phar] built with the [BOX][box-project] tool.
 
 ## Features
 
-Provides a Symfony Console Application with the binary command `box-manifest` that is able to :
+Provides a Symfony Console Application with the binary command `box-manifest` that :
 
-- generate any manifest in multiple format (`plain`, `ansi`, `console`, `sbom` XML or JSON) even in a custom format.
-- generate a custom phar stub that will support `--manifest` option at runtime.
-- compile your PHAR with a wrapper around standard BOX compile command (with bootstrapping support: `--bootstrap` option).
-- display information about the PHAR extension or file.
-- validate the BOX configuration file.
-
-**IMPORTANT** :
-
-Major version 3 will not use anymore the [`cweagans/composer-patches`](https://github.com/cweagans/composer-patches)
-composer plugin to patch `humbug/box` at install runtime.
+- Can generate manifest in [CycloneDX SBOM Standard][cyclonedx] format (`sbom-json` or `sbom-xml`)
+- Can generate manifest in a simple key-value pairs `plain` text format (`key: value`)
+- Can generate manifest in a decorated text format `console-style` or `console-table` (distinguish direct dependencies requirement and other uses)
+- Can generate manifest in a custom user format
+- Can generate a stub that should be able to display one or all manifests provided by the PHP Archive
+- Can inspect a PHAR to find and display manifests contents
 
 ## Version Compatibility
 
-| Version            | Status             | Box Project Compatibility |
-|--------------------|--------------------|---------------------------|
-| `3.0.x` to `3.5.x` | Active support     | `4.0.x` to `4.3.x`        |
-| `2.0.x` to `2.3.x` | End Of Life        | `4.0.x` to `4.2.x`        |
-| `1.0.x` to `1.2.0` | End Of Life        | `3.x`                     |
+| Version            | Status             | Box Project Compatibility | PHP      |
+|--------------------|--------------------|---------------------------|----------|
+| `4.0.x`            | Active development | `4.6.x`                   | `>= 8.2` |
+| `3.0.x` to `3.5.x` | Active support     | `4.0.x` to `4.3.x`        | `>= 8.1` |
+| `2.0.x` to `2.3.x` | End Of Life        | `4.0.x` to `4.2.x`        | `>= 8.1` |
+| `1.0.x` to `1.2.0` | End Of Life        | `3.x`                     | `>= 7.4` |
 
 ## Documentation
 
-All the documentation is available on [website](https://llaville.github.io/box-manifest/3.x),
-generated from the [docs](https://github.com/llaville/box-manifest/tree/master/docs) folder.
+All the documentation is available on [website][docs-website], generated from the [docs][docs-folder] folder.
 
 ## Contributors
 
@@ -62,3 +60,9 @@ gitGraph TB:
     checkout master
     commit id: "upcoming major version" type: HIGHLIGHT tag: "4.0.0"
 ```
+
+[php-phar]: https://www.php.net/phar
+[box-project]: https://github.com/box-project/box
+[cyclonedx]: https://github.com/CycloneDX
+[docs-folder]: https://github.com/llaville/box-manifest/tree/4.x/docs
+[docs-website]: https://llaville.github.io/box-manifest/4.0

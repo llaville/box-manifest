@@ -7,12 +7,11 @@
  */
 namespace Bartlett\BoxManifest\Composer;
 
-use Bartlett\BoxManifest\Helper\ManifestFile;
-use Bartlett\BoxManifest\Helper\ManifestFormat;
-
 use InvalidArgumentException;
 use function class_exists;
+use function in_array;
 use function sprintf;
+use function str_ends_with;
 
 /**
  * This is the default strategy used to build your manifest(s).
@@ -20,44 +19,80 @@ use function sprintf;
  * @author Laurent Laville
  * @since Release 3.5.0
  */
-final class DefaultStrategy implements ManifestBuildStrategy
+final readonly class DefaultStrategy implements ManifestBuildStrategy
 {
     public function __construct(private ManifestFactory $factory)
     {
     }
 
-    public function build(ManifestOptions $options): ?string
+    public function getMimeType(string $resourceFile, ?string $version): string
     {
-        $factory = $this->factory;
+        $recognizedFilePatternsRules = [
+            'sbom.json' => self::MIME_TYPE_SBOM_JSON,
+            'sbom.xml' => self::MIME_TYPE_SBOM_XML,
+            '.cdx.json' => self::MIME_TYPE_SBOM_JSON,
+            '.cdx.xml' => self::MIME_TYPE_SBOM_XML,
+            'manifest.txt' => self::MIME_TYPE_TEXT_PLAIN,
+            'plain.txt' => self::MIME_TYPE_TEXT_PLAIN,
+        ];
 
-        $rawFormat = $options->getFormat(true);
-        $format = $options->getFormat();
-        $outputFile = $options->getOutputFile();
-        $sbomSpec = $options->getSbomSpec();
-
-        $output = $outputFile ? ManifestFile::tryFrom(basename($outputFile)) : null;
-
-        return match ($format) {
-            ManifestFormat::auto => match ($output) {
-                null, ManifestFile::consoleTable => $factory->toConsole(),
-                ManifestFile::txt => $factory->toText(),
-                ManifestFile::sbomXml => $factory->toSbom('xml', $sbomSpec),
-                ManifestFile::sbomJson => $factory->toSbom('json', $sbomSpec),
-                default => match (pathinfo($outputFile, PATHINFO_EXTENSION)) {
-                    'xml' => $factory->toSbom('xml', $sbomSpec),
-                    'json' => $factory->toSbom('json', $sbomSpec),
-                    '', 'txt' => $factory->toText(),
-                    default => throw new InvalidArgumentException('Cannot auto-detect format with such output file')
+        foreach ($recognizedFilePatternsRules as $extension => $mimeType) {
+            if (str_ends_with($resourceFile, $extension)) {
+                if (in_array($mimeType, [self::MIME_TYPE_SBOM_JSON, self::MIME_TYPE_SBOM_XML]) && !empty($version)) {
+                    $mimeType .= '; version=' . $version;
                 }
-            },
-            ManifestFormat::plain => $factory->toText(),
-            ManifestFormat::ansi => $factory->toHighlight(),
-            ManifestFormat::console => $factory->toConsole(),
-            ManifestFormat::sbomXml => $factory->toSbom('xml', $sbomSpec),
-            ManifestFormat::sbomJson => $factory->toSbom('json', $sbomSpec),
-            default => class_exists($rawFormat)
-                ? $factory->fromClass($rawFormat)
-                : throw new InvalidArgumentException(sprintf('Format "%s" is not supported', $rawFormat))
-        };
+                return $mimeType;
+            }
+        }
+
+        return self::MIME_TYPE_OCTET_STREAM;
+    }
+
+    public function getCallable(string $outputFormat, ?string $resourceFile): callable
+    {
+        if ('auto' == $outputFormat) {
+            if (null === $resourceFile) {
+                return [$this->factory, 'toConsole'];
+            }
+
+            $recognizedFilePatternsRules = [
+                'sbom.json' => [$this->factory, 'toSbomJson'],
+                'sbom.xml' => [$this->factory, 'toSbomXml'],
+                '.cdx.json' => [$this->factory, 'toSbomJson'],
+                '.cdx.xml' => [$this->factory, 'toSbomXml'],
+                'manifest.txt' => [$this->factory, 'toText'],
+                'plain.txt' => [$this->factory, 'toText'],
+                'console-style.txt' => [$this->factory, 'toHighlight'],
+                'console-table.txt' => [$this->factory, 'toConsole'],
+            ];
+
+            foreach ($recognizedFilePatternsRules as $extension => $callable) {
+                if (str_ends_with($resourceFile, $extension)) {
+                    return $callable;
+                }
+            }
+
+            throw new InvalidArgumentException(sprintf('Cannot auto-detect format for "%s" resource file', $resourceFile));
+        }
+
+        $recognizedOutputFormatRules = [
+            'console-table' => [$this->factory, 'toConsole'],
+            'console-style' => [$this->factory, 'toHighlight'],
+            'plain' => [$this->factory, 'toText'],
+            'sbom-json' => [$this->factory, 'toSbomJson'],
+            'sbom-xml' => [$this->factory, 'toSbomXml'],
+        ];
+
+        foreach ($recognizedOutputFormatRules as $format => $callable) {
+            if ($outputFormat === $format) {
+                return $callable;
+            }
+        }
+
+        if (!class_exists($outputFormat)) {
+            throw new InvalidArgumentException(sprintf('Format "%s" is not supported', $outputFormat));
+        }
+
+        return [$this->factory, 'fromClass'];
     }
 }

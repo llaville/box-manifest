@@ -1,0 +1,6 @@
+phar-io/manifest: <info>4.x-dev@a08f022</info>
+ <comment>requires</comment> php <comment>^7.2 || ^8.0</comment>
+ <comment>requires</comment> ext-dom <comment>*</comment>
+ <comment>requires</comment> ext-phar <comment>*</comment>
+ <comment>requires</comment> ext-xmlwriter <comment>*</comment>
+ <comment>requires</comment> phar-io/version <comment>^3.0.1</comment>: <info>3.2.1</info>

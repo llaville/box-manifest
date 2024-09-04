@@ -8,6 +8,19 @@ vendor/
 ###### BOX ######
 .requirement-checker/
 
+###### BOX Manifest ######
+.box.manifests.bin
+console-table.txt
+console-style.txt
+manifest.txt
+plain.txt
+sbom.json
+sbom.xml
+sbom.cdx.json
+sbom.cdx.xml
+custom.bin
+stub.php
+
 ###### PHPLint ######
 .phplint-cache
 .phplint.cache/
@@ -15,9 +28,9 @@ vendor/
 ###### PHPUnit ######
 .phpunit.result.cache
 .phpunit.cache
+phpunit.xml
 
 ###### Mega-Linter ######
-report/
 megalinter-reports/
 
 ######################################

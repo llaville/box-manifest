@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.4/phpunit.xsd"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
     backupGlobals="false"
     backupStaticProperties="false"
     bootstrap="bootstrap.php"
@@ -15,10 +15,19 @@
     processIsolation="false"
     cacheDirectory=".phpunit.cache"
 >
-    <coverage/>
-    <testsuite name="unit">
-        <directory suffix="Test.php">tests/unit/</directory>
-    </testsuite>
+    <coverage includeUncoveredFiles="true">
+        <report>
+            <text outputFile="php://stdout" showUncoveredFiles="true" showOnlySummary="false"/>
+        </report>
+    </coverage>
+    <testsuites>
+        <testsuite name="e2e">
+            <directory suffix="Test.php">tests/e2e/</directory>
+        </testsuite>
+        <testsuite name="unit">
+            <directory suffix="Test.php">tests/unit/</directory>
+        </testsuite>
+    </testsuites>
     <source>
         <include>
             <directory suffix=".php">src/</directory>

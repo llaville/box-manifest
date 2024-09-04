@@ -1,23 +1,131 @@
 <!-- markdownlint-disable MD013 MD033 -->
 # Manifest in `sbom` JSON format
 
-Run either following commands :
+> [!IMPORTANT]
+>
+> These commands and results are applied from `examples/app-fixtures` immutable demo folder.
+> Must be your current working directory.
 
-```shell
-bin/box-manifest manifest:build --output-file sbom.json -v
-```
+## :material-numeric-1-box: With legacy command
 
-That will print following results :
+> [!WARNING]
+>
+> We've dropped legacy commands, but we still show syntax usage to help Users of version 3 for a smooth migration.
 
-<details>
-<summary>standard output contents</summary>
+=== "Command"
 
-```text
+    ```shell
+    box-manifest manifest:build -f sbom-json
+    ```
 
- // Loading the configuration file "/path/to/box.json".
+=== "Output"
 
- // Writing manifest to file "/path/to/sbom.json"
+    ```json
+    {
+        "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+        "bomFormat": "CycloneDX",
+        "specVersion": "1.6",
+        "serialNumber": "urn:uuid:bb11a687-9725-4c28-b8c0-1a15377274b5",
+        "version": 1,
+        "metadata": {
+            "timestamp": "2024-08-10T17:49:14Z",
+            "tools": [
+                {
+                    "vendor": "box-project",
+                    "name": "box",
+                    "version": "4.6.2@29c3585"
+                },
+                {
+                    "vendor": "bartlett",
+                    "name": "box-manifest",
+                    "version": "4.0-0"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "specVersion",
+                    "value": "1.6"
+                },
+                {
+                    "name": "bomFormat",
+                    "value": "CycloneDX"
+                }
+            ]
+        },
+        "components": [
+            {
+                "bom-ref": "pkg:composer/psr/log@3.0.0",
+                "type": "library",
+                "name": "log",
+                "version": "3.0.0",
+                "group": "psr",
+                "purl": "pkg:composer/psr/log@3.0.0"
+            }
+        ],
+        "dependencies": [
+            {
+                "ref": "pkg:composer/psr/log@3.0.0"
+            }
+        ]
+    }
+    ```
 
-```
+## :material-numeric-2-box: With pipeline command
 
-</details>
+=== "Command"
+
+    ```shell
+    box-manifest make -r sbom.json build
+    ```
+
+=== ":octicons-file-code-16: `sbom.json`"
+
+    ```json
+    {
+        "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+        "bomFormat": "CycloneDX",
+        "specVersion": "1.6",
+        "serialNumber": "urn:uuid:bb11a687-9725-4c28-b8c0-1a15377274b5",
+        "version": 1,
+        "metadata": {
+            "timestamp": "2024-08-10T17:49:14Z",
+            "tools": [
+                {
+                    "vendor": "box-project",
+                    "name": "box",
+                    "version": "4.6.2@29c3585"
+                },
+                {
+                    "vendor": "bartlett",
+                    "name": "box-manifest",
+                    "version": "4.0.0"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "specVersion",
+                    "value": "1.6"
+                },
+                {
+                    "name": "bomFormat",
+                    "value": "CycloneDX"
+                }
+            ]
+        },
+        "components": [
+            {
+                "bom-ref": "pkg:composer/psr/log@3.0.0",
+                "type": "library",
+                "name": "log",
+                "version": "3.0.0",
+                "group": "psr",
+                "purl": "pkg:composer/psr/log@3.0.0"
+            }
+        ],
+        "dependencies": [
+            {
+                "ref": "pkg:composer/psr/log@3.0.0"
+            }
+        ]
+    }
+    ```

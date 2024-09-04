@@ -25,6 +25,7 @@ use PackageUrl\PackageUrl;
 
 use DateTime;
 use DomainException;
+use Exception;
 use function explode;
 use function get_debug_type;
 use function sprintf;
@@ -43,7 +44,9 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
     protected string $specVersion;
     protected string $bomFormat = 'CycloneDX';
 
-    public function __construct(object $normalizer, string $boxVersion, string $boxManifestVersion)
+    protected Bom $bom;
+
+    public function __construct(object $normalizer, string $boxVersion, string $boxManifestVersion, bool $isImmutable)
     {
         if ($normalizer instanceof DOMNormalizerFactory) {
             $serializer = new XmlSerializer($normalizer);
@@ -57,6 +60,27 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
         $this->serializer = $serializer;
         $this->boxVersion = $boxVersion;
         $this->boxManifestVersion = $boxManifestVersion;
+
+        $this->bom = new Bom();
+        if (!$isImmutable) {
+            try {
+                $this->bom->setSerialNumber(BomUtility::randomSerialNumber());
+            } catch (Exception) {
+            }
+            $this->bom->getMetadata()->setTimestamp(new DateTime());
+
+            $boxTool = new Tool();
+            $boxTool->setVendor('box-project');
+            $boxTool->setName('box');
+            $boxTool->setVersion($this->boxVersion);
+
+            $boxManifestTool = new Tool();
+            $boxManifestTool->setVendor('bartlett');
+            $boxManifestTool->setName('box-manifest');
+            $boxManifestTool->setVersion($this->boxManifestVersion);
+
+            $this->bom->getMetadata()->getTools()->addItems($boxTool, $boxManifestTool);
+        }
     }
 
     public function __invoke(array $content): string
@@ -81,8 +105,6 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
             $version = $rootPackage['version'];
         }
 
-        $bom = new Bom();
-        $bom->setSerialNumber(BomUtility::randomSerialNumber());
 
         [$group, $name] = explode('/', $rootPackage['name']);
 
@@ -111,25 +133,13 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
         }
 
         // metadata
-        $boxTool = new Tool();
-        $boxTool->setVendor('box-project');
-        $boxTool->setName('box');
-        $boxTool->setVersion($this->boxVersion);
-
-        $boxManifestTool = new Tool();
-        $boxManifestTool->setVendor('bartlett');
-        $boxManifestTool->setName('box-manifest');
-        $boxManifestTool->setVersion($this->boxManifestVersion);
-
-        $bom->getMetadata()->getTools()->addItems($boxTool, $boxManifestTool);
-        $bom->getMetadata()->setTimestamp(new DateTime());
-        $bom->getMetadata()->getProperties()->addItems(
+        $this->bom->getMetadata()->getProperties()->addItems(
             new Property('specVersion', $this->specVersion),
             new Property('bomFormat', $this->bomFormat),
         );
 
         // components
-        $componentRepository = $bom->getComponents();
+        $componentRepository = $this->bom->getComponents();
 
         foreach ($installedPhp['versions'] as $package => $values) {
             if ($package === $rootPackage['name']) {
@@ -166,6 +176,6 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
             $componentRepository->addItems($component);
         }
 
-        return $this->serializer->serialize($bom, true);
+        return $this->serializer->serialize($this->bom, true);
     }
 }

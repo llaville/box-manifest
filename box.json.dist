@@ -1,24 +1,7 @@
 {
-    "stub": "stub.php",
-    "directories": ["bin", "src", "vendor"],
-    "directories-bin": [
-        "vendor/humbug/box/res/requirement-checker",
-        "resources"
-    ],
-    "files-bin": [
-        "vendor/humbug/php-scoper/vendor-hotfix/.gitkeep",
-        "autoload_phar_runtime.template",
-        "console.txt",
-        "manifest.txt",
-        "sbom.json",
-        "sbom.xml"
-    ],
-    "map": [
-        { "console.txt": ".box.manifests/console.txt" },
-        { "manifest.txt": ".box.manifests/manifest.txt" },
-        { "sbom.xml": ".box.manifests/sbom.xml" },
-        { "sbom.json": ".box.manifests/sbom.json" }
-    ],
+    "main": "bin/box-manifest",
+    "alias": "box-manifest-alias.phar",
+    "compression": "GZ",
     "blacklist": [
         "fixtures",
         "tests",
@@ -27,6 +10,37 @@
         "dist",
         "vendor-bin"
     ],
-    "compression": "GZ",
-    "git-version": "git-version"
+    "directories": [
+        "bin",
+        "src",
+        "vendor"
+    ],
+    "directories-bin": [
+        "vendor/humbug/box/res/requirement-checker",
+        "resources"
+    ],
+    "files": [
+        "autoload.php",
+        "bootstrap.php"
+    ],
+    "files-bin": [
+        "vendor/humbug/php-scoper/vendor-hotfix/.gitkeep",
+        "console-table.txt",
+        "plain.txt",
+        "sbom.json",
+        ".box.manifests.bin"
+    ],
+    "stub": "stub.php",
+    "dump-autoload": false,
+    "map": [
+        {
+            "console-table.txt": ".box.manifests/console-table.txt"
+        },
+        {
+            "plain.txt": ".box.manifests/plain.txt"
+        },
+        {
+            "sbom.json": ".box.manifests/sbom.json"
+        }
+    ]
 }

@@ -8,12 +8,12 @@
 
 use Bartlett\BoxManifest\Helper\BoxHelper;
 
-use Fidry\Console\Input\IO;
+use Fidry\Console\IO;
 
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/autoload.php';
 
 /**
  * Bootstrapping for PHPUnit

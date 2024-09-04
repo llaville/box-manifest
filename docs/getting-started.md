@@ -1,297 +1,128 @@
-<!-- markdownlint-disable MD013 MD028 -->
+<!-- markdownlint-disable MD013 MD028 MD033 MD046 -->
 # Getting Started
+
+Box Manifest is a powerful PHAR framework on top of [BOX project][box-project], that simplifies the PHAR building process.
+
+If you're familiar with PHP, you can install Box Manifest with [`composer`][composer], the PHP package manager.
+If not, we recommend using [`docker`][docker].
 
 ## Requirements
 
-* PHP 8.1 or greater
+* PHP 8.2 or greater
 * ext-phar
 * PHPUnit 10 or greater (if you want to run unit tests)
 
-## Docker
+## Installation
 
-> v3.x docker images provided run in rootless mode, so you don't have to specify `-u $(id -u ${USER}):$(id -g ${USER})` options.
+### with composer <small>recommended</small> { #with-composer data-toc-label="with composer" }
 
-> Please mount the code directory to `/app` in the container.
+=== "Latest"
 
-Usage examples :
+    ```shell
+    composer require bartlett/box-manifest
+    ```
+
+=== "4.x"
+
+    ```shell
+    composer require bartlett/box-manifest ^4
+    ```
+
+> [!TIP]
+>
+> If you cannot install it because of a dependency conflict, or you prefer to install it for your project, we recommend
+> you to take a look at [bamarni/composer-bin-plugin][bamarni/composer-bin-plugin].
+>
+> Example:
+>
+> ```shell
+> composer require --dev bamarni/composer-bin-plugin
+> composer bin box-manifest require --dev bartlett/box-manifest
+> ```
+
+### with docker
+
+=== "Latest"
+
+    ```shell
+    docker pull ghcr.io/llaville/box-manifest
+    ```
+
+=== "4.x"
+
+    ```shell
+    docker pull ghcr.io/llaville/box-manifest:v4
+    ```
+
+### with phive
+
+[PHIVE][phive] : The Phar Installation and Verification Environment
+
+=== "Globally"
+
+    Install
+
+    ```shell
+    phive install llaville/box-manifest --force-accept-unsigned
+    ```
+
+    or update previous installation
+
+    ```shell
+    phive update llaville/box-manifest --force-accept-unsigned
+    ```
+
+=== "Locally"
+
+    To your project, with an XML configuration file :
+
+    === ":octicons-file-code-16: .phive/phars.xml"
+
+        ```xml
+        <?xml version="1.0" encoding="UTF-8"?>
+        <phive xmlns="https://phar.io/phive">
+            <phar name="llaville/box-manifest" version="^4.0" copy="false" />
+        </phive>
+        ```
+
+    === "Command(s)"
+
+        ```shell
+        phive install --force-accept-unsigned
+        ```
+
+        or
+
+        ```shell
+        phive update --force-accept-unsigned
+        ```
+
+### with git
+
+Box Manifest can be directly used from [GitHub][github-repo] by cloning the repository into a subfolder of your project root
+which might be useful if you want to use the very latest version.
+
+=== "Master"
+
+    ```shell
+    git clone https://github.com/llaville/box-manifest.git
+    ```
+
+=== "4.x"
+
+    ```shell
+    git clone -b 4.x https://github.com/llaville/box-manifest.git
+    ```
+
+Next, install the dependencies
 
 ```shell
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:build -c box.json --output-file=sbom.xml
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:build -c box.json --output-file=manifest.txt
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:build -c box.json --output-file=console.txt
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:stub -c box.json --output-file=stub.php
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 box:compile -c box.json.dist
-
-docker run --rm -it -v $(pwd):/app -w /app ghcr.io/llaville/box-manifest:v3 manifest:build --bootstrap tests/fixtures/my-manifest.php --format \\Bartlett\\BoxManifest\\Tests\\fixtures\\ConsoleManifest -v
+composer update
 ```
 
-## Usage
-
-```text
-
-    ____                __  ___            _ ____          __
-   / __ )____  _  __   /  |/  /___ _____  (_) __/__  _____/ /_
-  / __  / __ \| |/_/  / /|_/ / __ `/ __ \/ / /_/ _ \/ ___/ __/
- / /_/ / /_/ />  <   / /  / / /_/ / / / / / __/  __(__  ) /_
-/_____/\____/_/|_|  /_/  /_/\__,_/_/ /_/_/_/  \___/____/\__/
-
-Box Manifest version 3.5.1 for Box 4.3.8@5534406
-
-Usage:
-  command [options] [arguments]
-
-Options:
-  -h, --help            Display help for the given command. When no command is given display help for the list command
-  -q, --quiet           Do not output any message
-  -V, --version         Display this application version
-      --ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
-  -n, --no-interaction  Do not ask any interactive question
-  -e, --env=ENV         The Environment name. [default: "dev"]
-      --no-debug        Switches off debug mode.
-  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
-
-Available commands:
-  completion      Dump the shell completion script
-  help            Display help for a command
-  list            List commands
- box
-  box:compile     🔨  Compiles an application into a PHAR
-  box:info        🔍  Displays information about the PHAR extension or file
-  box:validate    ⚙  Validates the configuration file
- manifest
-  manifest:build  Creates a manifest of your software components and dependencies.
-  manifest:stub   Generates a stub for your manifest application.
-```
-
-This Symfony Console application combines two native commands, and three others inherited from BOX Application.
-
-### Symfony `manifest:build` command
-
-To build your application's manifest file(s).
-
-```text
-Description:
-  Creates a manifest of your software components and dependencies.
-
-Usage:
-  manifest:build [options]
-
-Options:
-      --no-config                Ignore the config file even when one is specified with the --config option
-  -c, --config=CONFIG            The alternative configuration file path.
-      --bootstrap=BOOTSTRAP      A PHP script that is included before execution
-  -f, --format=FORMAT            Format of the output: auto, plain, ansi, console, sbom-xml, sbom-json [default: "auto"]
-  -s, --sbom-spec=SBOM-SPEC      SBOM specification version: 1.1, 1.2, 1.3, 1.4, 1.5 [default: "1.5"]
-  -o, --output-file=OUTPUT-FILE  Write results to file (default to standard output)
-  -h, --help                     Display help for the given command. When no command is given display help for the list command
-  -q, --quiet                    Do not output any message
-  -V, --version                  Display this application version
-      --ansi|--no-ansi           Force (or disable --no-ansi) ANSI output
-  -n, --no-interaction           Do not ask any interactive question
-  -e, --env=ENV                  The Environment name. [default: "dev"]
-      --no-debug                 Switches off debug mode.
-  -v|vv|vvv, --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
-
-Help:
-  The manifest:build command will generate a manifest of your application.
-```
-
-The `--output-file` and `--format` options can be used to control the formatting and destination
-of the output generated by `box-manifest`.
-The default is to report to the console standard output but can be stored in a file (specified using `--output-file` option).
-The format of the output can be changed using the `--format` option which may be useful if the output is to be used
-as an input by another tool like `box`.
-
-The `--config` option can be used to specify path to alternate version of a `box.json.dist` or `box.json`
-that are not found in current working directory.
-
-The `--no-config` option must be specified if you don't want to use BOX default configuration files (`box.json.dist` or `box.json`)
-
-Once generated with the `--output-file` option, the manifest may be included as any other files you want to add into your PHP Archive.
-
-### Symfony `manifest:stub` command
-
-To build the stub that will support `--manifest` option, to display its contents at runtime.
-
-```text
-Description:
-  Generates a stub for your manifest application.
-
-Usage:
-  manifest:stub [options]
-
-Options:
-      --no-config                Ignore the config file even when one is specified with the --config option
-  -c, --config=CONFIG            The alternative configuration file path.
-  -o, --output-file=OUTPUT-FILE  Write results to file (default to standard output)
-  -h, --help                     Display help for the given command. When no command is given display help for the manifest:stub command
-  -q, --quiet                    Do not output any message
-  -V, --version                  Display this application version
-      --ansi|--no-ansi           Force (or disable --no-ansi) ANSI output
-  -n, --no-interaction           Do not ask any interactive question
-  -e, --env=ENV                  The Environment name. [default: "dev"]
-      --no-debug                 Switches off debug mode.
-  -v|vv|vvv, --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
-
-Help:
-  The manifest:stub command will generate a stub of your manifest application.
-```
-
-The `--output-file` option can be used to control the destination of the output generated by `box-stub`.
-The default is to report to the console standard output but can be stored in a file
-
-The `--config` option can be used to specify path to alternate version of a `box.json.dist` or `box.json`
-that are not found in current working directory.
-
-The `--no-config` option must be specified if you don't want to use BOX default configuration files (`box.json.dist` or `box.json`)
-
-### Symfony `box:compile` command
-
-This is just the BOX compile command, with additional `--bootstrap` option, to compile your PHAR application.
-
-```text
-Description:
-  🔨  Compiles an application into a PHAR
-
-Usage:
-  box:compile [options]
-
-Options:
-      --debug                         Dump the files added to the PHAR in a `.box_dump` directory
-      --no-parallel                   Disable the parallel processing
-      --no-restart                    Do not restart the PHP process. Box restarts the process by default to disable xdebug and set `phar.readonly=0`
-      --dev                           Skips the compression step
-      --no-config                     Ignore the config file even when one is specified with the --config option
-      --with-docker                   Generates a Dockerfile
-      --composer-bin=COMPOSER-BIN     Composer binary to use
-      --allow-composer-check-failure  To continue even if an unsupported Composer version is detected
-  -c, --config=CONFIG                 The alternative configuration file path.
-  -d, --working-dir=WORKING-DIR       If specified, use the given directory as working directory.
-      --bootstrap=BOOTSTRAP           A PHP script that is included before execution
-  -h, --help                          Display help for the given command. When no command is given display help for the list command
-  -q, --quiet                         Do not output any message
-  -V, --version                       Display this application version
-      --ansi|--no-ansi                Force (or disable --no-ansi) ANSI output
-  -n, --no-interaction                Do not ask any interactive question
-  -e, --env=ENV                       The Environment name. [default: "dev"]
-      --no-debug                      Switches off debug mode.
-  -v|vv|vvv, --verbose                Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
-
-Help:
-  The box:compile command will compile code in a new PHAR based on a variety of settings.
-
-    This command relies on a configuration file for loading
-    PHAR packaging settings. If a configuration file is not
-    specified through the --config|-c option, one of
-    the following files will be used (in order): box.json,
-    box.json.dist
-
-  The configuration file is actually a JSON object saved to a file. For more
-  information check the documentation online:
-
-    https://github.com/humbug/box
-```
-
-The `--bootstrap` option can be used to specify what PHP file to include at runtime. It's particular useful when you're callable
-is not in the scope of your autoloader.
-
-The `--config` option can be used to specify path to alternate version of a `box.json.dist` or `box.json`
-that are not found in current working directory.
-
-The `--no-config` option must be specified if you don't want to use BOX default configuration files (`box.json.dist` or `box.json`)
-
-### Symfony `box:info` command
-
-This is just a wrapper around the BOX info command.
-
-```text
-Description:
-  🔍  Displays information about the PHAR extension or file
-
-Usage:
-  box:info [options] [--] [<phar>]
-
-Arguments:
-  phar                  The Phar file.
-
-Options:
-  -l, --list            List the contents of the Phar?
-  -m, --mode=MODE       The listing mode. Modes available: "indent", "flat" [default: "indent"]
-  -d, --depth=DEPTH     The depth of the tree displayed [default: "-1"]
-  -h, --help            Display help for the given command. When no command is given display help for the list command
-  -q, --quiet           Do not output any message
-  -V, --version         Display this application version
-      --ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
-  -n, --no-interaction  Do not ask any interactive question
-  -e, --env=ENV         The Environment name. [default: "dev"]
-      --no-debug        Switches off debug mode.
-  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
-
-Help:
-  The box:info command will display information about the Phar extension,
-  or the Phar file if specified.
-
-  If the phar argument (the PHAR file path) is provided, information
-  about the PHAR file itself will be displayed.
-
-  If the --list|-l option is used, the contents of the PHAR file will
-  be listed. By default, the list is shown as an indented tree. You may
-  instead choose to view a flat listing, by setting the --mode|-m option
-  to flat.
-```
-
-### Symfony `box:validate` command
-
-This is just a wrapper around the BOX validate command.
-
-```text
-Description:
-  ⚙  Validates the configuration file
-
-Usage:
-  box:validate [options] [--] [<file>]
-
-Arguments:
-  file                                       The configuration file. (default: box.json, box.json.dist)
-
-Options:
-  -i, --ignore-recommendations-and-warnings  Will not return a faulty code when a recommendation or warning is found
-  -h, --help                                 Display help for the given command. When no command is given display help for the list command
-  -q, --quiet                                Do not output any message
-  -V, --version                              Display this application version
-      --ansi|--no-ansi                       Force (or disable --no-ansi) ANSI output
-  -n, --no-interaction                       Do not ask any interactive question
-  -e, --env=ENV                              The Environment name. [default: "dev"]
-      --no-debug                             Switches off debug mode.
-  -v|vv|vvv, --verbose                       Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
-
-Help:
-  The box:validate command will validate the configuration file
-  and report any errors found, if any.
-
-    This command relies on a configuration file for loading
-    PHAR packaging settings. If a configuration file is not
-    specified through the --configuration|-c option, one of
-    the following files will be used (in order): box.json,
-    box.json.dist
-
-```
-
-### Define the manifest in the `metadata` field of your PHP Archive
-
-Like in previous versions  (1.x and 2.x), if you want to keep the manifest included in the metadata field of your PHAR,
-then you must configure [`metadata`][metadata-directive] directive with a [PHP callable][php-callables].
-
-E.g: See also the [tutorial](./Tutorial/README.md) to learn more.
-
-```json
-{
-  "metadata": "MyCallbacks::manifest"
-}
-```
-
-**NOTE** if none of manifest files (default: `manifest.txt`, `manifest.xml`, `sbom.xml`, `sbom.json`) are found, when you execute `box:compile` command,
-then metadata field of your PHAR will contain NULL value (default BOX behavior).
-
-[metadata-directive]: https://github.com/box-project/box/blob/main/doc/configuration.md#metadata-metadata
-[php-callables]: https://www.php.net/manual/en/language.types.callable.php
+[box-project]: https://github.com/box-project/box
+[bamarni/composer-bin-plugin]: https://github.com/bamarni/composer-bin-plugin
+[composer]: https://getcomposer.org/
+[docker]: https://docs.docker.com/get-docker/
+[phive]: https://github.com/phar-io/phive
+[github-repo]: https://github.com/llaville/box-manifest.git

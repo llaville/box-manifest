@@ -1,129 +1,152 @@
-<!-- markdownlint-disable MD013 MD029 MD033 -->
-# Use generated files produced by `bin/box-manifest` command
+<!-- markdownlint-disable MD013 MD029 MD033 MD046 -->
+# Generate manifest files
 
-Begins by generate the manifest files.
+In this tutorial we will build a manifest in two formats (SBOM XML and decorated text).
 
-1. First we will build a SBOM XML version following default (CycloneDX) specification 1.5
+> [!TIP]
+>
+> If you want to build immutable manifests, please specify `--immutable` option.
+>
+> On SBOM manifests, you won't have tools (with versions included), serial number and metadata timestamp.
+> It's really useful for non-regression tests.
 
-```shell
-box-manifest manifest:build --config app-fixtures-box.json --output-file sbom.xml -v
-```
+## :material-numeric-1-box: Generate a SBOM XML manifest
 
-That prints such results :
+First we will build a SBOM XML version following default ([CycloneDX][cyclonedx]) [specification][cyclonedx-spec] 1.6
 
-```text
+=== "Command"
 
- // Loading the configuration file "app-fixtures-box.json".
+    ```shell
+    box-manifest make -r sbom.xml build
+    ```
 
- // Writing manifest to file "/path/to/examples/app-fixtures/sbom.xml"
+=== ":octicons-file-code-16: sbom.xml"
 
-```
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <bom xmlns="http://cyclonedx.org/schema/bom/1.6" version="1" serialNumber="urn:uuid:ad64fd89-99e9-4976-b9d2-6ec4e88b4b15">
+      <metadata>
+        <timestamp><![CDATA[2024-08-07T04:23:01Z]]></timestamp>
+        <tools>
+          <tool>
+            <vendor><![CDATA[box-project]]></vendor>
+            <name><![CDATA[box]]></name>
+            <version><![CDATA[4.6.2@29c3585]]></version>
+          </tool>
+          <tool>
+            <vendor><![CDATA[bartlett]]></vendor>
+            <name><![CDATA[box-manifest]]></name>
+            <version><![CDATA[4.0.0]]></version>
+          </tool>
+        </tools>
+        <properties>
+          <property name="specVersion"><![CDATA[1.6]]></property>
+          <property name="bomFormat"><![CDATA[CycloneDX]]></property>
+        </properties>
+      </metadata>
+      <components>
+        <component type="library" bom-ref="pkg:composer/psr/log@3.0.0">
+          <group><![CDATA[psr]]></group>
+          <name><![CDATA[log]]></name>
+          <version><![CDATA[3.0.0]]></version>
+          <purl><![CDATA[pkg:composer/psr/log@3.0.0]]></purl>
+        </component>
+      </components>
+      <dependencies>
+        <dependency ref="pkg:composer/psr/log@3.0.0"/>
+      </dependencies>
+    </bom>
+    ```
 
-2. Second we will build a decorated TEXT version
+## :material-numeric-2-box: Generate a decorated TEXT manifest
 
-```shell
-box-manifest manifest:build --config app-fixtures-box.json --output-file manifest.txt -v
-```
+Next we will build a decorated TEXT version
 
-That prints such results :
+=== "Command"
 
-```text
+    ```shell
+    box-manifest make -r console-style.txt build
+    ```
 
- // Loading the configuration file "app-fixtures-box.json".
+=== ":octicons-file-code-16: console-style.txt"
 
- // Writing manifest to file "/path/to/examples/app-fixtures/manifest.txt"
+    ```text
+    root/app-fixtures: <info>3.x-dev@9661882</info>
+     <comment>requires</comment> php <comment>^8.1</comment>: <info>8.2.21</info>
+     <comment>requires</comment> ext-phar <comment>*</comment>: <info>8.2.21</info>
+     <comment>requires</comment> (for development) psr/log <comment>^3.0</comment>: <info>3.0.0</info>
+    ```
 
-```
+=== "Output (preview)"
+
+    ![ansi format](../assets/images/app-fixtures-ansi.png)
+
+## :material-numeric-3-box: Build your PHP Archive
 
 Now its turn to declare these files to the BOX config file, with :
 
 ```json
 {
-    "files-bin": [
-      "sbom.xml",
-      "manifest.txt"
-    ]
+    "files-bin": ["sbom.xml", "console-style.txt"]
 }
 ```
 
-Then finally, compile your PHP Archive with (or without `--boostrap` option),
+In [Part 3](./generate-box-json-dist.md) of the tutorial, we will see how to dynamically add it without introduced errors.
+
+Then finally, compile your PHP Archive with `box compile` command,
 the metadata contents is only used as fallback contents in case you forgot to declare `files-bin` entries.
 
-```shell
-box-manifest box:compile --config app-fixtures-box.json --bootstrap bootstrap.php -v
-```
+=== "Pipeline Command"
 
-<details>
-<summary>TL;DR output</summary>
+    ```shell
+    box-manifest make --config app-fixtures.box.json.dist -vv compile
+    ```
 
-```text
-    ____
-   / __ )____  _  __
-  / __  / __ \| |/_/
- / /_/ / /_/ />  <
-/_____/\____/_/|_|
+=== "Output"
 
-
-Box version 4.3.8@5534406
-
- // Loading the configuration file "app-fixtures-box.json".
-
-🔨  Building the PHAR "/path/to/examples/app-fixtures/app-fixtures.phar"
-
-? Checking Composer compatibility
-    > '/usr/local/bin/composer' '--version'
-    > 2.6.4 (Box requires ^2.2.0)
-    > Supported version detected
-? No compactor to register
-? Adding main file: /path/to/examples/app-fixtures/index.php
-? Adding requirements checker
-? Adding binary files
-    > 36 file(s)
-? Auto-discover files? No
-? Exclude dev files? Yes
-? Adding files
-    > 25 file(s)
-? Using stub file: /path/to/examples/app-fixtures/app-fixtures-stub.php
-? Setting metadata
-  - root/app-fixtures: 3.x-dev@9661882
-psr/log: 3.0.0
-? Dumping the Composer autoloader
-    > '/usr/local/bin/composer' 'dump-autoload' '--classmap-authoritative' '--no-dev' '--ansi'
-Generating optimized autoload files (authoritative)
-Generated optimized autoload files (authoritative) containing 1 classes
-
-? Removing the Composer dump artefacts
-? Compressing with the algorithm "GZ"
-    > Warning: the extension "zlib" will now be required to execute the PHAR
-? Setting file permissions to 0755
-* Done.
-
-No recommendation found.
-⚠️  1 warning found:
-    - The "alias" setting has been set but is ignored since a custom stub path is used
-
- // PHAR: 60 files (48.27KB)
- // You can inspect the generated PHAR with the "info" command.
-
- // Memory usage: 12.36MB (peak: 12.82MB), time: <1sec
+    ```text
+        ____
+       / __ )____  _  __
+      / __  / __ \| |/_/
+     / /_/ / /_/ />  <
+    /_____/\____/_/|_|
 
 
- // Loading the configuration file "app-fixtures-box.json".
+    Box version 4.6.2@29c3585
 
-```
+     // Loading the configuration file "app-fixtures.box.json.dist".
 
-</details>
+    🔨  Building the PHAR "/shared/backups/bartlett/box-manifest/examples/app-fixtures/app-fixtures.phar"
 
-To verify contents of PHAR `metadata` field, you can run following command with CLI
+    ? Checking Composer compatibility
+        > Supported version detected
+    ? No compactor to register
+    ? Adding main file: /shared/backups/bartlett/box-manifest/examples/app-fixtures/index.php
+    ? Adding requirements checker
+    ? Adding binary files
+        > 36 file(s)
+    ? Auto-discover files? No
+    ? Exclude dev files? Yes
+    ? Adding files
+        > 25 file(s)
+    ? Using stub file: /shared/backups/bartlett/box-manifest/examples/app-fixtures/app-fixtures-stub.php
+    ? Dumping the Composer autoloader
+    ? Removing the Composer dump artefacts
+    ? Compressing with the algorithm "GZ"
+        > Warning: the extension "zlib" will now be required to execute the PHAR
+    ? Setting file permissions to 0755
+    * Done.
 
-```shell
-php -r "var_export((new Phar(getcwd() . '/app-fixtures.phar'))->getMetadata());"
-```
+    No recommendation found.
+    ⚠️  1 warning found:
+        - The "alias" setting has been set but is ignored since a custom stub path is used
 
-And contents of binary files with following CLI command
+     // PHAR: 60 files (48.53KB)
+     // You can inspect the generated PHAR with the "info" command.
 
-```shell
-php -r "var_export((new Phar(getcwd() . '/app-fixtures.phar'))['sbom.xml']->getContent());"
-or
-php -r "var_export((new Phar(getcwd() . '/app-fixtures.phar'))['manifest.txt']->getContent());"
-```
+     // Memory usage: 12.85MB (peak: 13.30MB), time: <1sec
+
+    ```
+
+[cyclonedx]: https://cyclonedx.org/
+[cyclonedx-spec]: https://cyclonedx.org/specification/overview/

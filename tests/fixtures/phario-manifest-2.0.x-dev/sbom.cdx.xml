@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.6" version="1">
+  <metadata>
+    <properties>
+      <property name="specVersion"><![CDATA[1.6]]></property>
+      <property name="bomFormat"><![CDATA[CycloneDX]]></property>
+    </properties>
+  </metadata>
+  <components>
+    <component type="library" bom-ref="pkg:composer/phar-io/version@3.2.1">
+      <group><![CDATA[phar-io]]></group>
+      <name><![CDATA[version]]></name>
+      <version><![CDATA[3.2.1]]></version>
+      <purl><![CDATA[pkg:composer/phar-io/version@3.2.1]]></purl>
+    </component>
+  </components>
+  <dependencies>
+    <dependency ref="pkg:composer/phar-io/version@3.2.1"/>
+  </dependencies>
+</bom>

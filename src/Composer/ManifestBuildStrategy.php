@@ -17,5 +17,12 @@ namespace Bartlett\BoxManifest\Composer;
  */
 interface ManifestBuildStrategy
 {
-    public function build(ManifestOptions $options): ?string;
+    public const MIME_TYPE_SBOM_JSON = 'application/vnd.sbom+json';
+    public const MIME_TYPE_SBOM_XML = 'application/vnd.sbom+xml';
+    public const MIME_TYPE_TEXT_PLAIN = 'text/plain';
+    public const MIME_TYPE_OCTET_STREAM = 'application/octet-stream';
+
+    public function getMimeType(string $resourceFile, ?string $version): string;
+
+    public function getCallable(string $outputFormat, ?string $resourceFile): callable;
 }

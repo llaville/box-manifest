@@ -1,0 +1,11 @@
+
++------------------+-----------------------+-----------------+-------------------------+
+|[32m Package          [39m|[32m Constraint            [39m|[32m Version         [39m|[32m Dependency's category   [39m|
++------------------+-----------------------+-----------------+-------------------------+
+| ]8;;https://packagist.org/packages/phar-io/manifest\phar-io/manifest]8;;\ |                       | 4.x-dev@a08f022 |                         |
+| php              | [33mrequires ^7.2 || ^8.0[39m |                 | Direct (for production) |
+| ext-dom          | [33mrequires *[39m            |                 | Direct (for production) |
+| ext-phar         | [33mrequires *[39m            |                 | Direct (for production) |
+| ext-xmlwriter    | [33mrequires *[39m            |                 | Direct (for production) |
+| ]8;;https://packagist.org/packages/phar-io/version\phar-io/version]8;;\  | [33mrequires ^3.0.1[39m       | 3.2.1           | Direct (for production) |
++------------------+-----------------------+-----------------+-------------------------+

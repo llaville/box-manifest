@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
  * @author Laurent Laville
  * @since Release 3.2.0
  */
-class ConsoleTextManifestBuilder implements ManifestBuilderInterface
+final class ConsoleTextManifestBuilder implements ManifestBuilderInterface
 {
     public function __invoke(array $content): string
     {
@@ -35,27 +35,24 @@ class ConsoleTextManifestBuilder implements ManifestBuilderInterface
         } else {
             $version = $rootPackage['version'];
         }
-        $entries[] = [$rootPackage['name'], $version];
+        $entries[] = [$this->getPackageLink($rootPackage['name']), '', $version, ''];
 
         $allRequirements = [
-            '' => $composerJson['require'],
-            ' (for development)' => $composerJson['require-dev'] ?? [],
+            'Direct (for production)' => $composerJson['require'],
+            'Direct (for development)' => $composerJson['require-dev'] ?? [],
         ];
 
         foreach ($allRequirements as $category => $requirements) {
             foreach ($requirements as $req => $constraint) {
                 if (!empty($constraint)) {
-                    $constraint = sprintf('<comment>%s</comment>', $constraint);
-                    $prefix = '<comment>requires</comment>';
+                    $constraint = sprintf('<comment>requires %s</comment>', $constraint);
                 } else {
-                    $prefix = '<comment>uses</comment>';
+                    $constraint = '<comment>uses</comment>';
                 }
-                $installedPhp['versions'][$req]['prefix'] = $prefix;
                 if ('php' === $req) {
-                    $entries[] = [sprintf('%s%s %s', $prefix, $category, "$req $constraint"), phpversion()];
+                    $entries[] = [$req, $constraint, '', $category];
                 } elseif (str_starts_with($req, 'ext-')) {
-                    $extension = substr($req, 4);
-                    $entries[] = [sprintf('%s%s %s', $prefix, $category, "$req $constraint"), phpversion($extension)];
+                    $entries[] = [$req, $constraint, '', $category];
                 } else {
                     $installedPhp['versions'][$req]['constraint'] = $constraint;
                     $installedPhp['versions'][$req]['category'] = $category;
@@ -68,10 +65,9 @@ class ConsoleTextManifestBuilder implements ManifestBuilderInterface
                 continue;
             }
             if (isset($values['pretty_version'])) {
-                $category = $values['category'] ?? '';
+                $category = $values['category'] ?? 'Transitive';
                 $constraint = $values['constraint'] ?? '';
-                $prefix = $values['prefix'] ?? '<comment>uses</comment>';
-                $entries[] = [sprintf('%s%s %s', $prefix, $category, "$package $constraint"), $values['pretty_version']];
+                $entries[] = [$this->getPackageLink($package), $constraint, $values['pretty_version'], $category];
             } // otherwise, it's a virtual package
         }
 
@@ -79,7 +75,7 @@ class ConsoleTextManifestBuilder implements ManifestBuilderInterface
         $output->setDecorated(true);
         $output->writeln('');
 
-        $headers = ['Package', 'Version'];
+        $headers = ['Package', 'Constraint', 'Version', "Dependency's category"];
 
         $table = new Table($output);
         $table
@@ -89,5 +85,10 @@ class ConsoleTextManifestBuilder implements ManifestBuilderInterface
         $table->render();
 
         return $output->fetch();
+    }
+
+    private function getPackageLink(string $name): string
+    {
+        return sprintf('<href=https://packagist.org/packages/%s>%s</>', $name, $name);
     }
 }

@@ -2,23 +2,23 @@
     "packages": [
         {
             "name": "phar-io/version",
-            "version": "3.0.1",
-            "version_normalized": "3.0.1.0",
+            "version": "3.2.1",
+            "version_normalized": "3.2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/version.git",
-                "reference": "d06a5000ac1a258a7d035295f0bd4ae7c859bc4f"
+                "reference": "4f7fd7836c6f332bb2933569e566a0d6c4cbed74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phar-io/version/zipball/d06a5000ac1a258a7d035295f0bd4ae7c859bc4f",
-                "reference": "d06a5000ac1a258a7d035295f0bd4ae7c859bc4f",
+                "url": "https://api.github.com/repos/phar-io/version/zipball/4f7fd7836c6f332bb2933569e566a0d6c4cbed74",
+                "reference": "4f7fd7836c6f332bb2933569e566a0d6c4cbed74",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2"
+                "php": "^7.2 || ^8.0"
             },
-            "time": "2020-05-09T21:27:55+00:00",
+            "time": "2022-02-21T01:04:05+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -48,6 +48,10 @@
                 }
             ],
             "description": "Library for handling version information and constraints",
+            "support": {
+                "issues": "https://github.com/phar-io/version/issues",
+                "source": "https://github.com/phar-io/version/tree/3.2.1"
+            },
             "install-path": "../phar-io/version"
         }
     ],

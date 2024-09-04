@@ -18,7 +18,6 @@ use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Spec\Version;
 
 use KevinGH\Box\Configuration\Configuration;
-use function KevinGH\Box\FileSystem\make_path_absolute;
 
 use DomainException;
 use ValueError;
@@ -31,6 +30,7 @@ use function is_readable;
 use function is_string;
 use function preg_replace;
 use function sprintf;
+use const DIRECTORY_SEPARATOR;
 
 /**
  * @author Laurent Laville
@@ -40,10 +40,11 @@ final class ManifestFactory
     private ManifestBuildStrategy $strategy;
 
     public function __construct(
-        private Configuration $config,
-        private bool $isDecorated,
-        private string $boxVersion,
-        private string $boxManifestVersion
+        private readonly Configuration $config,
+        private readonly bool $isDecorated,
+        private readonly string $boxVersion,
+        private readonly string $boxManifestVersion,
+        private readonly bool $immutableCopy
     ) {
         $this->setStrategy(new DefaultStrategy($this));
     }
@@ -55,7 +56,32 @@ final class ManifestFactory
 
     public function build(ManifestOptions $options): ?string
     {
-        return $this->strategy->build($options);
+        /** @var string $rawFormat */
+        $rawFormat = $options->getFormat(true);
+
+        $resources = $options->getResources();
+        if (!empty($resources)) {
+            $resourceFile = $resources[0];
+        } else {
+            // fallback to legacy command usage
+            $resourceFile = $options->getOutputFile();
+        }
+
+        $callable = $this->strategy->getCallable($rawFormat, $resourceFile);
+
+        if (is_array($callable) && str_starts_with($callable[1], 'toSbom')) {
+            return $callable($options->getSbomSpec(), $this->immutableCopy);
+        }
+        if (is_array($callable) && str_starts_with($callable[1], 'fromClass')) {
+            return $callable($rawFormat);
+        }
+
+        return $callable();
+    }
+
+    public function getMimeType(string $resourceFile, ?string $version): string
+    {
+        return $this->strategy->getMimeType($resourceFile, $version);
     }
 
     public static function create(string|object $from, Configuration $config, bool $isDecorated): ?string
@@ -83,10 +109,10 @@ final class ManifestFactory
             return null;
         }
 
-        $decodedJsonContents = $config->getDecodedComposerJsonContents();
+        $decodedJsonContents = $config->getComposerJson()?->decodedContents;
 
         $normalizePath = function ($file, $basePath) {
-            return make_path_absolute(trim($file), $basePath);
+            return ($basePath . DIRECTORY_SEPARATOR . trim($file));
         };
 
         $basePath = $config->getBasePath();
@@ -103,10 +129,12 @@ final class ManifestFactory
         }
         $installedPhp = include $file;
 
+        $decodedJsonLockContents = $config->getComposerLock()?->decodedContents;
+
         $manifest = $builder(
             [
                 'composer.json' => $decodedJsonContents,
-                'composer.lock' => $config->getDecodedComposerLockContents(),
+                'composer.lock' => $decodedJsonLockContents,
                 'installed.php' => (array) $installedPhp,
             ]
         );
@@ -138,7 +166,7 @@ final class ManifestFactory
         return self::create(new ConsoleTextManifestBuilder(), $this->config, $this->isDecorated);
     }
 
-    public function toSbom(string $format, string $specVersion): ?string
+    public function toSbom(string $format, string $specVersion, ?bool $isImmutable = null): ?string
     {
         try {
             $version = Version::from($specVersion);
@@ -160,6 +188,26 @@ final class ManifestFactory
             'json' => new JsonNormalizerFactory($spec),
             default => throw new DomainException(sprintf('Format "%s" is not supported.', $format)),
         };
-        return self::create(new SbomManifestBuilder($normalizer, $this->boxVersion, $this->boxManifestVersion), $this->config, $this->isDecorated);
+        return self::create(
+            new SbomManifestBuilder($normalizer, $this->boxVersion, $this->boxManifestVersion, $isImmutable ?? $this->immutableCopy),
+            $this->config,
+            false
+        );
+    }
+
+    /**
+     * @since Release 4.0.0
+     */
+    public function toSbomJson(string $specVersion, ?bool $isImmutable = null): ?string
+    {
+        return $this->toSbom('json', $specVersion, $isImmutable);
+    }
+
+    /**
+     * @since Release 4.0.0
+     */
+    public function toSbomXml(string $specVersion, ?bool $isImmutable = null): ?string
+    {
+        return $this->toSbom('xml', $specVersion, $isImmutable);
     }
 }

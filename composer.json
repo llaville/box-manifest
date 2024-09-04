@@ -3,14 +3,21 @@
     "description": "Creates manifests for a PHP Archive (PHAR) and the BOX project (https://github.com/box-project/box)",
     "type": "project",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-phar": "*",
-        "composer/composer": "^2.2",
-        "cyclonedx/cyclonedx-library": "^2.3",
-        "humbug/box": ">=4.0 <4.4",
-        "symfony/filesystem": "^6.1",
-        "symfony/runtime": "^6.1",
-        "symfony/serializer": "^6.1"
+        "composer/composer": "^2.7",
+        "cyclonedx/cyclonedx-library": "^3.0",
+        "humbug/box": "^4.6",
+        "league/pipeline": "^1.0",
+        "psr/log": "^3.0",
+        "symfony/console": "^6.4 || ^7.0",
+        "symfony/filesystem": "^6.4 || ^7.0",
+        "symfony/process": "^6.4 || ^7.0",
+        "symfony/serializer": "^6.4 || ^7.0",
+        "symfony/stopwatch": "^6.4 || ^7.0"
+    },
+    "require-dev": {
+        "bamarni/composer-bin-plugin": "^1.8"
     },
     "license": "MIT",
     "autoload": {
@@ -20,6 +27,7 @@
     },
     "autoload-dev": {
         "classmap": [
+            "tests/e2e",
             "tests/unit"
         ]
     },
@@ -35,16 +43,43 @@
     ],
     "config": {
         "sort-packages": true,
+        "optimize-autoloader": true,
         "allow-plugins": {
+            "bamarni/composer-bin-plugin": true,
             "symfony/runtime": true
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.x-dev"
+            "dev-master": "4.x-dev"
         },
-        "runtime": {
-            "autoload_template": "autoload_phar_runtime.template"
+        "bamarni-bin": {
+            "bin-links": true,
+            "target-directory": "vendor-bin",
+            "forward-command": true
         }
+    },
+    "scripts": {
+        "bin": "echo 'bin not installed'",
+        "post-update-cmd": [
+            "@composer bin all update --ansi"
+        ],
+        "post-install-cmd": [
+            "@composer bin all install --ansi"
+        ],
+        "code:check": "vendor/bin/phpstan analyse --configuration .github/linters/phpstan.neon.dist --ansi",
+        "code:lint": "vendor/bin/phplint --configuration .github/linters/.phplint.yml --verbose --progress=indicator --ansi",
+        "style:check": "vendor/bin/phpcs --standard=.github/linters/.phpcs.xml.dist --warning-severity=0 --colors",
+        "tests:all": ["@putenv TERM_PROGRAM=Hyper", "vendor/bin/phpunit --configuration phpunit.xml.dist"],
+        "tests:e2e": ["@putenv TERM_PROGRAM=Hyper", "vendor/bin/phpunit --configuration phpunit.xml.dist tests/e2e"],
+        "tests:unit": ["@putenv TERM_PROGRAM=Hyper", "vendor/bin/phpunit --configuration phpunit.xml.dist tests/unit"]
+    },
+    "scripts-descriptions" : {
+        "code:check": "Run PHPStan code analysis on project source code",
+        "code:lint": "Run PHPLint on project source code",
+        "style:check": "Run PHP CodeSniffer on project source code",
+        "tests:all": "Run PHPUnit (all tests) on project source code",
+        "tests:e2e": "Run PHPUnit (End-To-End tests) on project source code",
+        "tests:unit": "Run PHPUnit (unit tests) on project source code"
     }
 }

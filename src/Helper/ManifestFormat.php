@@ -17,8 +17,8 @@ enum ManifestFormat: string
 {
     case auto = 'auto';
     case plain = 'plain';
-    case ansi = 'ansi';
-    case console = 'console';
+    case consoleTable = 'console-table';
+    case consoleStyle = 'console-style';
     case sbomXml = 'sbom-xml';
     case sbomJson = 'sbom-json';
 

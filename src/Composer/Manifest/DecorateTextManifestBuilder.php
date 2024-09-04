@@ -10,7 +10,7 @@ namespace Bartlett\BoxManifest\Composer\Manifest;
 use Bartlett\BoxManifest\Composer\ManifestBuilderInterface;
 
 use function implode;
-use function phpversion;
+use function rtrim;
 use function sprintf;
 use function substr;
 use const PHP_EOL;
@@ -19,13 +19,10 @@ use const PHP_EOL;
  * @author Laurent Laville
  * @since Release 2.1.0
  */
-class DecorateTextManifestBuilder implements ManifestBuilderInterface
+final readonly class DecorateTextManifestBuilder implements ManifestBuilderInterface
 {
-    private string $prefix;
-
-    public function __construct(string $prefix = '')
+    public function __construct(private string $prefix = '')
     {
-        $this->prefix = $prefix;
     }
 
     /**
@@ -60,16 +57,16 @@ class DecorateTextManifestBuilder implements ManifestBuilderInterface
                 $prefix = $this->prefix . ' ';
                 if (!empty($constraint)) {
                     $constraint = sprintf('<comment>%s</comment>', $constraint);
-                    $prefix .= 'requires';
+                    $prefix .= '<comment>requires</comment>';
                 } else {
-                    $prefix .= 'uses';
+                    $prefix .= '<comment>uses</comment>';
                 }
                 $installedPhp['versions'][$req]['prefix'] = $prefix;
+                /** @var string $constraint */
                 if ('php' === $req) {
-                    $entries[] = sprintf('%s%s %s: <info>%s</info>', $prefix, $category, "$req $constraint", phpversion());
+                    $entries[] = sprintf('%s%s %s', $prefix, $category, "$req $constraint");
                 } elseif (str_starts_with($req, 'ext-')) {
-                    $extension = substr($req, 4);
-                    $entries[] = sprintf('%s%s %s: <info>%s</info>', $prefix, $category, "$req $constraint", phpversion($extension));
+                    $entries[] = sprintf('%s%s %s', $prefix, $category, "$req $constraint");
                 } else {
                     $installedPhp['versions'][$req]['constraint'] = $constraint;
                     $installedPhp['versions'][$req]['category'] = $category;
@@ -84,11 +81,11 @@ class DecorateTextManifestBuilder implements ManifestBuilderInterface
             if (isset($values['pretty_version'])) {
                 $category = $values['category'] ?? '';
                 $constraint = $values['constraint'] ?? '';
-                $prefix = $values['prefix'] ?? $this->prefix . ' uses';
+                $prefix = $values['prefix'] ?? $this->prefix . ' <comment>uses</comment>';
                 $entries[] = sprintf('%s%s %s: <info>%s</info>', $prefix, $category, "$package $constraint", $values['pretty_version']);
             } // otherwise, it's a virtual package
         }
 
-        return implode(PHP_EOL, $entries);
+        return rtrim(implode(PHP_EOL, $entries), PHP_EOL);
     }
 }

@@ -7,6 +7,7 @@
  */
 namespace Bartlett\BoxManifest\Helper;
 
+use Bartlett\BoxManifest\Pipeline\AbstractStage;
 use Bartlett\BoxManifest\StubGenerator;
 
 use Symfony\Component\Console\Helper\Helper;
@@ -39,7 +40,7 @@ class ManifestHelper extends Helper
                     InputOption::VALUE_OPTIONAL,
                     'Show software components bundled (either from : ' .
                     implode(', ', ManifestFile::values()) .
-                    ' or phar metadata field)'
+                    ')'
                 )
             );
         }
@@ -65,12 +66,8 @@ class ManifestHelper extends Helper
                 $resolved = realpath($resource) ?: (file_exists($resource) ? $resource : null);
             }
             if ($resolved) {
-                return file_get_contents($resolved);
+                return file_get_contents($resolved) ?: null;
             }
-        }
-
-        if (Phar::running()) {
-            return $phar->getMetadata();    // @phpstan-ignore-line
         }
 
         return null;
@@ -81,17 +78,24 @@ class ManifestHelper extends Helper
      * @param string[]|null $resources
      * @param string[][]|null $mapFiles
      */
-    public function getStubGenerator(string $templatePath = null, array $resources = null, array $mapFiles = null): object
-    {
+    public function getStubGenerator(
+        ?string $templatePath = null,
+        ?array $resources = null,
+        ?array $mapFiles = null,
+        ?string $version = null,
+        ?string $resourceDir = null
+    ): StubGenerator {
         if (null === $templatePath) {
             $templatePath = dirname(__DIR__, 2) . '/resources/default_stub.template';
         }
+        if (null === $resourceDir) {
+            $resourceDir = AbstractStage::BOX_MANIFESTS_DIR;
+        }
         if (!empty($mapFiles) && empty($resources)) {
-            $manifestDir = '.box.manifests/';
             $resources = [];
             foreach ($mapFiles as $mapFile) {
                 foreach ($mapFile as $target) {
-                    if (str_starts_with($target, $manifestDir)) {
+                    if (str_starts_with($target, $resourceDir)) {
                         $resources[] = $target;
                     }
                 }
@@ -100,7 +104,7 @@ class ManifestHelper extends Helper
         if (empty($resources)) {
             $resources = ManifestFile::values();
         }
-        return new StubGenerator($templatePath, $resources);
+        return new StubGenerator($templatePath, $resources, $version ?? '@dev', $resourceDir);
     }
 
     public function getName(): string

@@ -1,0 +1,17 @@
+{
+    "main": "index.php",
+    "alias": "app-fixtures-alias.phar",
+    "output": "app-fixtures.phar",
+    "compression": "GZ",
+    "directories": [
+        "bin",
+        "src",
+        "vendor"
+    ],
+    "directories-bin": [
+        "../../vendor/humbug/box/res/requirement-checker"
+    ],
+    "files-bin": [
+        "../../vendor/humbug/php-scoper/vendor-hotfix/.gitkeep"
+    ]
+}

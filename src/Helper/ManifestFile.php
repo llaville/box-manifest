@@ -15,11 +15,14 @@ use function array_column;
  */
 enum ManifestFile: string
 {
+    case custom = 'custom.bin';
     case txt = 'manifest.txt';
+    case plain = 'plain.txt';
     case xml = 'manifest.xml';
     case sbomXml = 'sbom.xml';
     case sbomJson = 'sbom.json';
-    case consoleTable = 'console.txt';
+    case consoleTable = 'console-table.txt';
+    case consoleStyle = 'console-style.txt';
 
     /**
      * Domain of valid values.

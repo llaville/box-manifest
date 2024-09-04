@@ -1,0 +1,5 @@
+{
+    "main": "index.php",
+    "compression": "GZ",
+    "directories": ["bin", "src", "vendor"]
+}

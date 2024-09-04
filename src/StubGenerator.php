@@ -32,22 +32,28 @@ class StubGenerator
      */
     public function __construct(
         string $templatePath,
-        array $resources
+        array $resources,
+        string $version,
+        string $resourceDir
     ) {
         if (!file_exists($templatePath) || !is_readable($templatePath)) {
             throw new InvalidArgumentException(sprintf('Filename "%s" does not exists or is not readable.', $templatePath));
         }
 
         $template = file_get_contents($templatePath);
+        // @phpstan-ignore argument.type
         $template = ltrim($template, "<?php\n");
 
         $this->stubTemplate = str_replace(
-            '%manifest_files%',
-            implode("', '", $resources),
+            ['%manifest_dir%', '%manifest_files%', '%version%'],
+            [$resourceDir, implode("', '", $resources), $version],
             $template
         );
     }
 
+    /**
+     * @param null|non-empty-string $shebang The shebang line
+     */
     public function generateStub(
         ?string $alias = null,
         ?string $banner = null,
