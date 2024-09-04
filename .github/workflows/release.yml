@@ -44,17 +44,15 @@ jobs:
             -   # Build the current release with artifacts (php archive)
                 name: Build Release Artifact
                 run: |
-                    bin/box-manifest make -r console-table.txt -r plain.txt -r sbom.json build
-                    bin/box-manifest make --output-stub stub.php stub
-                    bin/box-manifest make compile -c box.json.dist -vvv --ansi
+                    bin/box-manifest make build stub configure compile -r console-table.txt -r plain.txt -r sbom.json --output-stub stub.php --output-conf box.json.dist -vvv --ansi
 
             -   # https://github.com/softprops/action-gh-release
                 name: Create Release from current tag
                 if: github.ref_type == 'tag'
                 uses: softprops/action-gh-release@v2
                 with:  # https://github.com/softprops/action-gh-release#-customizing
-                    prerelease: false
-                    draft: false
+                    prerelease: true
+                    draft: true
                     body_path: ${{ github.workspace }}/.changes/${{ github.ref_name }}.md
                     # https://github.com/softprops/action-gh-release#%EF%B8%8F-uploading-release-assets
                     files: |

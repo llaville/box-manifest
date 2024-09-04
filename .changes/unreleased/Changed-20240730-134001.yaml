@@ -1,3 +1,0 @@
-kind: Changed
-body: consider serialNumber as optional and do not stop SBOM generation if an appropriate source of randomness cannot be found
-time: 2024-07-30T13:40:01.670461564Z
