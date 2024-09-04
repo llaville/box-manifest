@@ -27,6 +27,7 @@
     },
     "autoload-dev": {
         "classmap": [
+            "tests/e2e",
             "tests/unit"
         ]
     },
