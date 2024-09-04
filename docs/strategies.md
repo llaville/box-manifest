@@ -16,7 +16,8 @@ This strategy identify what resource (filename) is associated to a manifest and 
 
 ## PostInstall strategy
 
-If you want to auto-update your manifests, each time your update your dependencies, this strategy is your best friend !
+Never forget to update your manifests.
+This strategy is your best friend, each time you want to update your dependencies !
 
 > [!NOTE]
 >
@@ -69,7 +70,7 @@ For example:
 
 === ":octicons-file-code-16: my-box.json"
 
-    ```json
+    ```json hl_lines="15-17 21-25"
     {
         "main": "bin/box-manifest",
         "compression": "GZ",
