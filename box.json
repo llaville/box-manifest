@@ -10,7 +10,11 @@
         "dist",
         "vendor-bin"
     ],
-    "directories": ["bin", "src", "vendor"],
+    "directories": [
+        "bin",
+        "src",
+        "vendor"
+    ],
     "directories-bin": [
         "vendor/humbug/box/res/requirement-checker",
         "resources"
@@ -22,5 +26,6 @@
     "files-bin": [
         "vendor/humbug/php-scoper/vendor-hotfix/.gitkeep"
     ],
-    "stub": "stub.php"
+    "stub": "stub.php",
+    "dump-autoload": true
 }

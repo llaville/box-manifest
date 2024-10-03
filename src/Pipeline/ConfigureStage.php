@@ -48,7 +48,7 @@ final readonly class ConfigureStage extends AbstractStage implements StageInterf
 
         // @link Due to issue https://github.com/box-project/box/issues/580
         // @see https://github.com/box-project/box/issues/580#issuecomment-2326577684
-        $configs['dump-autoload'] = false;
+        $configs['dump-autoload'] ??= false;  // should be applied only if not previously defined
 
         if (!isset($configs['files-bin'])) {
             $configs['files-bin'] = [];
