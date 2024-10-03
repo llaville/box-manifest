@@ -31,7 +31,7 @@
         ".box.manifests.bin"
     ],
     "stub": "stub.php",
-    "dump-autoload": false,
+    "dump-autoload": true,
     "map": [
         {
             "console-table.txt": ".box.manifests/console-table.txt"

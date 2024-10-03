@@ -26,5 +26,6 @@
     "files-bin": [
         "vendor/humbug/php-scoper/vendor-hotfix/.gitkeep"
     ],
-    "stub": "stub.php"
+    "stub": "stub.php",
+    "dump-autoload": true
 }
