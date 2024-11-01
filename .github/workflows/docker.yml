@@ -23,9 +23,13 @@ on:
 jobs:
     build:
         env:
-            DOCKER_LATEST_TAG: ${{ github.event.inputs.tag || 'latest' }}
+            DOCKER_REGISTRY: ghcr.io
+            DOCKER_BUILD_TAG: ghcr.io/llaville/box-manifest:${{ github.event.inputs.tag || 'latest' }}
 
         runs-on: ubuntu-22.04
+
+        permissions:
+            packages: write
 
         steps:
             - # https://github.com/actions/checkout
@@ -55,20 +59,17 @@ jobs:
                 name: Set up Docker Buildx
                 uses: docker/setup-buildx-action@v3
 
-            - # https://github.com/docker/login-action
+            -   # https://github.com/docker/login-action
                 name: Login to DockerHub
                 uses: docker/login-action@v3
                 with:
-                    registry: ghcr.io
+                    registry: ${{ env.DOCKER_REGISTRY }}
                     username: ${{ github.actor }}
-                    password: ${{ secrets.DOCKERHUB_TOKEN }}
+                    password: ${{ secrets.GITHUB_TOKEN }}
 
-            - # https://github.com/docker/build-push-action
+            -   # https://github.com/docker/build-push-action
                 name: Build and push Docker images
                 uses: docker/build-push-action@v6
                 with:
-                    context: .
                     push: true
-                    tags: |
-                        ghcr.io/llaville/box-manifest:${{ env.DOCKER_LATEST_TAG }}
-                        ghcr.io/llaville/box-manifest:v4
+                    tags: ${{ env.DOCKER_BUILD_TAG }}
