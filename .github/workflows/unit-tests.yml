@@ -14,7 +14,7 @@ on:
 
 jobs:
     lint_files:
-        uses: llaville/.github/.github/workflows/mega-linter.yml@master
+        uses: llaville/.github/.github/workflows/mega-linter.yml@ml_v8
         with:
             repository: ${{ github.repository }}
             php-version: "8.2"
