@@ -39,42 +39,42 @@ class RestartHandler extends XdebugHandler
     /** @noinspection PhpVoidFunctionResultUsedInspection */
     protected function requiresRestart(bool $default): bool
     {
-        if ($default) {
-            $version = (string) phpversion('xdebug');
+        if (!$default) {
+            return false;
+        }
 
-            if (version_compare($version, '3.1', '>=')) {
-                /**
-                 * @var string[] $modes
-                 * @link https://xdebug.org/docs/code_coverage#xdebug_info
-                 */
-                $modes = xdebug_info('mode');
-                return !in_array('coverage', $modes, true);
-            }
+        $version = (string) phpversion('xdebug');
 
-            // See if xdebug.mode is supported in this version
-            $iniMode = ini_get('xdebug.mode');
-            if ($iniMode === false) {
-                return false;
-            }
-
-            // Environment value wins but cannot be empty
-            $envMode = (string) getenv('XDEBUG_MODE');
-            if ($envMode !== '') {
-                $mode = $envMode;
-            } else {
-                $mode = $iniMode !== '' ? $iniMode : 'off';
-            }
-
-            // An empty comma-separated list is treated as mode 'off'
-            if (Preg::isMatch('/^,+$/', str_replace(' ', '', $mode))) {
-                $mode = 'off';
-            }
-
-            $modes = explode(',', str_replace(' ', '', $mode));
+        if (version_compare($version, '3.1', '>=')) {
+            /**
+             * @var string[] $modes
+             * @link https://xdebug.org/docs/code_coverage#xdebug_info
+             */
+            $modes = xdebug_info('mode');
             return !in_array('coverage', $modes, true);
         }
 
-        return false;
+        // See if xdebug.mode is supported in this version
+        $iniMode = ini_get('xdebug.mode');
+        if ($iniMode === false) {
+            return false;
+        }
+
+        // Environment value wins but cannot be empty
+        $envMode = (string) getenv('XDEBUG_MODE');
+        if ($envMode !== '') {
+            $mode = $envMode;
+        } else {
+            $mode = $iniMode !== '' ? $iniMode : 'off';
+        }
+
+        // An empty comma-separated list is treated as mode 'off'
+        if (Preg::isMatch('/^,+$/', str_replace(' ', '', $mode))) {
+            $mode = 'off';
+        }
+
+        $modes = explode(',', str_replace(' ', '', $mode));
+        return !in_array('coverage', $modes, true);
     }
 
     protected function restart(array $command): void
