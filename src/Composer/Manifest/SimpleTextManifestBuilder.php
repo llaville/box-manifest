@@ -20,7 +20,7 @@ use const PHP_EOL;
 final class SimpleTextManifestBuilder implements ManifestBuilderInterface
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function __invoke(array $content): string
     {

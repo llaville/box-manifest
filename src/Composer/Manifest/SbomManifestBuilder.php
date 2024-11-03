@@ -83,6 +83,9 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function __invoke(array $content): string
     {
         $composerJson = $content['composer.json'];

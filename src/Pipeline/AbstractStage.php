@@ -19,6 +19,7 @@ use function file_exists;
 use function file_get_contents;
 use function fopen;
 use function get_resource_id;
+use function is_array;
 use function realpath;
 use function sprintf;
 use function unserialize;
@@ -93,6 +94,9 @@ abstract readonly class AbstractStage
         if (file_exists(self::META_DATA_FILE)) {
             // @phpstan-ignore argument.type
             $metadata = unserialize(file_get_contents(self::META_DATA_FILE));
+            if (!is_array($metadata)) {
+                $metadata = [];
+            }
         } else {
             $metadata = [];
         }

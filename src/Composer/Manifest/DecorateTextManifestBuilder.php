@@ -26,7 +26,7 @@ final readonly class DecorateTextManifestBuilder implements ManifestBuilderInter
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function __invoke(array $content): string
     {

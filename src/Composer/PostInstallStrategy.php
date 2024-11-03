@@ -63,9 +63,13 @@ final readonly class PostInstallStrategy implements ManifestBuildStrategy
     {
         $composer = $event->getComposer();
 
+        /** @var string $vendorDir */
         $vendorDir = $composer->getConfig()->get('vendor-dir');
         require_once $vendorDir . '/autoload.php';
 
+        /**
+         * @var array{box-project?: array{config-file?: string}} $extra
+         */
         $extra = $composer->getPackage()->getExtra();
 
         $configFilePath = $extra['box-project']['config-file'] ?? null;

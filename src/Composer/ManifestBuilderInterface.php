@@ -13,7 +13,25 @@ namespace Bartlett\BoxManifest\Composer;
 interface ManifestBuilderInterface
 {
     /**
-     * @param array<string, mixed> $content
+     * @param array{
+     *     "composer.json": array{
+     *         description: string,
+     *         require: array<string, string>,
+     *         require-dev: array<string, string>
+     *     },
+     *     "composer.lock": array<string, mixed>,
+     *     "installed.php": array{
+     *         'root': array{
+     *              name: string,
+     *              pretty_version: string,
+     *              version: string,
+     *              reference: string,
+     *              type: string,
+     *              aliases: array<int, string>
+     *         },
+     *         'versions': array<string, array{constraint?: string, category?: string}>
+     *     }
+     * } $content
      */
     public function __invoke(array $content): string;
 }

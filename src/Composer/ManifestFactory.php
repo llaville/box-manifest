@@ -26,6 +26,7 @@ use function array_key_exists;
 use function class_exists;
 use function file_exists;
 use function implode;
+use function is_null;
 use function is_readable;
 use function is_string;
 use function preg_replace;
@@ -110,6 +111,10 @@ final class ManifestFactory
         }
 
         $decodedJsonContents = $config->getComposerJson()?->decodedContents;
+        if (empty($decodedJsonContents)) {
+            // No dependencies declared
+            return null;
+        }
 
         $normalizePath = function ($file, $basePath) {
             return ($basePath . DIRECTORY_SEPARATOR . trim($file));
@@ -117,7 +122,7 @@ final class ManifestFactory
 
         $basePath = $config->getBasePath();
 
-        if (null !== $decodedJsonContents && array_key_exists('vendor-dir', $decodedJsonContents)) {
+        if (array_key_exists('vendor-dir', $decodedJsonContents)) {
             $vendorDir = $normalizePath($decodedJsonContents['vendor-dir'], $basePath);
         } else {
             $vendorDir = $normalizePath('vendor', $basePath);
@@ -130,12 +135,16 @@ final class ManifestFactory
         $installedPhp = include $file;
 
         $decodedJsonLockContents = $config->getComposerLock()?->decodedContents;
+        if (is_null($decodedJsonLockContents)) {
+            // cannot decode composer.lock contents
+            return null;
+        }
 
         $manifest = $builder(
-            [
+            [   // @phpstan-ignore-line
                 'composer.json' => $decodedJsonContents,
                 'composer.lock' => $decodedJsonLockContents,
-                'installed.php' => (array) $installedPhp,
+                'installed.php' => $installedPhp,
             ]
         );
 

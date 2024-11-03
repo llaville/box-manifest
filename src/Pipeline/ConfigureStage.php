@@ -40,7 +40,10 @@ final readonly class ConfigureStage extends AbstractStage implements StageInterf
 
         if (file_exists($configPath)) {
             try {
-                // @phpstan-ignore argument.type
+                /**
+                 * @var array{dump-autoload?: bool, files-bin?: string[], map: string[], stub: string} $configs
+                 * @phpstan-ignore argument.type
+                 */
                 $configs = json_decode(file_get_contents($configPath), true);
             } catch (Throwable) {
             }

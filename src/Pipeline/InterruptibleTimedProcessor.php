@@ -18,6 +18,7 @@ use Symfony\Component\Stopwatch\Stopwatch;
 
 use RuntimeException;
 use Throwable;
+use function is_array;
 use function sprintf;
 
 /**
@@ -38,6 +39,10 @@ final readonly class InterruptibleTimedProcessor implements ProcessorInterface
      */
     public function process($payload, callable ...$stages)
     {
+        if (!is_array($payload)) {
+            return $payload;
+        }
+
         $stopwatch = new Stopwatch();
 
         foreach ($stages as $stage) {

@@ -18,6 +18,9 @@ use Symfony\Component\Console\Output\BufferedOutput;
  */
 final class ConsoleTextManifestBuilder implements ManifestBuilderInterface
 {
+    /**
+     * @inheritDoc
+     */
     public function __invoke(array $content): string
     {
         $composerJson = $content['composer.json'];

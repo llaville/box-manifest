@@ -21,6 +21,7 @@ use DirectoryIterator;
 use Phar;
 use UnexpectedValueException;
 use function count;
+use function is_array;
 use function reset;
 use function sprintf;
 use function unserialize;
@@ -37,7 +38,7 @@ final class Inspect extends Command
         The <info>%command.name%</info> command will display a PHAR manifest content, or list of manifests available.
         HELP;
 
-    private Phar $phar;
+    private Phar $phar; // @phpstan-ignore-line
 
     protected function configure(): void
     {
@@ -80,12 +81,19 @@ final class Inspect extends Command
         }
         $this->phar = $phar;
 
-        $manifestIndexFile = $this->phar->getMetadata()['manifestIndexFile'] ?? '.box.manifests.bin';
+        /** @var array{manifestIndexFile?: string} $pharMetadata */
+        $pharMetadata = $phar->getMetadata();
+
+        $manifestIndexFile = $pharMetadata['manifestIndexFile'] ?? '.box.manifests.bin';
 
         $manifests = [];
 
         if (isset($phar[$manifestIndexFile])) {
             $manifests = unserialize($phar[$manifestIndexFile]->getContent());
+            if (!is_array($manifests)) {
+                $io->error(sprintf('The manifest index file "%s" does not contains a valid value.', $manifestIndexFile));
+                return Command::FAILURE;
+            }
         } else {
             // fallbacks to ".box.manifests" folder entries (if available)
             if (isset($phar[AbstractStage::BOX_MANIFESTS_DIR])) {
