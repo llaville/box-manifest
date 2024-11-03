@@ -34,6 +34,7 @@ jobs:
                 php:
                     - 8.2
                     - 8.3
+                    - 8.4
 
         steps:
             -   # https://github.com/actions/checkout
@@ -58,4 +59,4 @@ jobs:
 
             -   # https://github.com/sebastianbergmann/phpunit/tree/11.4
                 name: PHPUnit 11
-                run: composer tests:unit
+                run: composer tests:all
