@@ -15,7 +15,7 @@
     processIsolation="false"
     cacheDirectory=".phpunit.cache"
 >
-    <coverage includeUncoveredFiles="true">
+    <coverage>
         <report>
             <text outputFile="php://stdout" showUncoveredFiles="true" showOnlySummary="false"/>
         </report>
