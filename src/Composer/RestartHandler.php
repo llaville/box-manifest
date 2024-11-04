@@ -39,8 +39,9 @@ class RestartHandler extends XdebugHandler
     /** @noinspection PhpVoidFunctionResultUsedInspection */
     protected function requiresRestart(bool $default): bool
     {
-        if (!$default) {
-            return false;
+        if ($default || (bool) ini_get('phar.readonly')) {
+            // give a chance to restart process with phar.readonly disabled even if xdebug is not available
+            return true;
         }
 
         $version = (string) phpversion('xdebug');
