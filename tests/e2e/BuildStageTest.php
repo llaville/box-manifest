@@ -59,9 +59,10 @@ final class BuildStageTest extends TestCase
     public function testBuildResourcesWithSuccess(
         string $outputFormat,
         array $resources,
-        ?string $expectedMessage = null
+        ?string $expectedMessage = null,
+        ?string $workingDir = null
     ): void {
-        $exitCode = $this->runApplication($outputFormat, $resources);
+        $exitCode = $this->runApplication($outputFormat, $resources, $workingDir);
         $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertStringContainsString($expectedMessage, $this->output->fetch());
     }
@@ -70,7 +71,7 @@ final class BuildStageTest extends TestCase
      * @param string[] $resources
      * @throws Exception
      */
-    protected function runApplication(string $outputFormat, array $resources): int
+    protected function runApplication(string $outputFormat, array $resources, ?string $workingDir = null): int
     {
         $parameters = [
             'make',
@@ -79,8 +80,11 @@ final class BuildStageTest extends TestCase
             '--verbose=3',
             '--output-format' => $outputFormat,
             '--resource' => $resources,
-            '--no-config' => true,
         ];
+
+        if (!empty($workingDir)) {
+            $parameters['--working-dir'] = $workingDir;
+        }
 
         $this->output = new BufferedOutput();
         $input = new ArrayInput($parameters);

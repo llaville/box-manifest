@@ -101,6 +101,9 @@ final class ExternalDataProvider
         yield ['auto', ['plain.txt', 'sbom.json'], '2 manifests were built'];
 
         yield ['console-table', ['console.txt', 'manifest.console_table_format'], '2 manifests were built'];
+
+        $workingDir = __DIR__ . '/../fixtures/vendor-package-multiple-license';
+        yield ['auto', ['sbom.json', 'sbom.xml'], '2 manifests were built', $workingDir];
     }
 
     public static function goodStub(): iterable

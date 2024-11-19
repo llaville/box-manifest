@@ -129,9 +129,12 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
             $licenseFactory = new LicenseFactory();
 
             if (!empty($composerJson['license'])) {
-                $component->getLicenses()->addItems(
-                    $licenseFactory->makeFromString($composerJson['license'])
-                );
+                $composerJson['license'] = (array) $composerJson['license'];
+                $items = [];
+                foreach ($composerJson['license'] as $license) {
+                    $items[] = $licenseFactory->makeFromString($license);
+                }
+                $component->getLicenses()->addItems(...$items);
             }
         }
 
