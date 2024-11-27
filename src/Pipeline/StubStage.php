@@ -8,10 +8,11 @@
 namespace Bartlett\BoxManifest\Pipeline;
 
 use Bartlett\BoxManifest\Console\Logger;
+use Bartlett\BoxManifest\Helper\BoxConfigurationHelper;
 use Bartlett\BoxManifest\Helper\ManifestHelper;
 
 use function array_keys;
-use function str_replace;
+use function trim;
 
 /**
  * @author Laurent Laville
@@ -26,6 +27,7 @@ final readonly class StubStage extends AbstractStage implements StageInterface
     {
         $context = ['status' => Logger::STATUS_RUNNING, 'id' => $payload['pid']];
 
+        /** @var BoxConfigurationHelper $config */
         $config = $payload['configuration'];
 
         $resources = empty($payload['resources']) ? array_keys($this->getMetaData()) : $payload['resources'];
@@ -36,34 +38,23 @@ final readonly class StubStage extends AbstractStage implements StageInterface
         $stubGenerator = $helper->getStubGenerator(
             $payload['template'],
             $resources,
-            $payload['map'],
-            $payload['versions']['boxManifest'],
+            $config->getMap(),
+            $payload['versions']['boxManifest'] ?? '@dev',
             $payload['resourceDir']
         );
 
-        if ($config->getConfigurationFile()) {
-            /** @var null|non-empty-string $shebang */
-            $shebang = $config->getShebang();
-
-            $index = $config->hasMainScript()
-                ? str_replace($config->getBasePath() . '/', '', $config->getMainScriptPath())
-                : null;
-
-            $stub = $stubGenerator->generateStub(
-                $config->getAlias(),
-                $config->getStubBannerContents(),
-                $index,
-                $config->isInterceptFileFuncs(),
-                $shebang,
-                $config->checkRequirements()
-            );
-        } else {
-            $stub = $stubGenerator->generateStub(null, null, null, false, null, false);
-        }
+        $stub = $stubGenerator->generateStub(
+            $config->getAlias(),
+            $config->getBanner(),
+            $config->getMainScript(),
+            $config->getShebang(),
+            $config->withInterceptFileFunctions(),
+            $config->withCheckRequirements()
+        );
 
         $targetFilename = $payload['outputStub'] ?? self::STDOUT;
 
-        $this->writeToStream($targetFilename, $stub, 'Unable to write stub PHP code', $context);
+        $this->writeToStream($targetFilename, trim($stub), 'Unable to write stub PHP code', $context);
 
         return $payload;
     }

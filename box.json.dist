@@ -1,6 +1,5 @@
 {
     "main": "bin/box-manifest",
-    "alias": "box-manifest-alias.phar",
     "compression": "GZ",
     "blacklist": [
         "fixtures",
@@ -16,8 +15,7 @@
         "vendor"
     ],
     "directories-bin": [
-        "vendor/humbug/box/res/requirement-checker",
-        "resources"
+        "vendor/humbug/box/res/requirement-checker"
     ],
     "files": [
         "autoload.php",

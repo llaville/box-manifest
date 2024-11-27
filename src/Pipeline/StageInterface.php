@@ -7,9 +7,9 @@
  */
 namespace Bartlett\BoxManifest\Pipeline;
 
-use Fidry\Console\IO;
+use Bartlett\BoxManifest\Helper\BoxConfigurationHelper;
 
-use KevinGH\Box\Configuration\Configuration;
+use Fidry\Console\IO;
 
 use Psr\Log\LoggerInterface;
 
@@ -35,7 +35,7 @@ interface StageInterface
     /**
      * @param array{
      *     pid: string,
-     *     configuration: Configuration,
+     *     configuration: BoxConfigurationHelper,
      *     ansiSupport: bool,
      *     immutableCopy: bool,
      *     template: string,
@@ -52,7 +52,7 @@ interface StageInterface
      * } $payload
      * @return array{
      *     pid: string,
-     *     configuration: Configuration,
+     *     configuration: BoxConfigurationHelper,
      *     ansiSupport: bool,
      *     immutableCopy: bool,
      *     template: string,

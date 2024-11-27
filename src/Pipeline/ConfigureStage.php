@@ -9,6 +9,7 @@ namespace Bartlett\BoxManifest\Pipeline;
 
 use Bartlett\BoxManifest\Console\Logger;
 
+use Bartlett\BoxManifest\Helper\BoxConfigurationHelper;
 use RuntimeException;
 use Throwable;
 use function array_keys;
@@ -34,7 +35,10 @@ final readonly class ConfigureStage extends AbstractStage implements StageInterf
     {
         $context = ['status' => Logger::STATUS_RUNNING, 'id' => $payload['pid']];
 
-        $configPath = $payload['configurationFile'] ?? 'box.json';
+        /** @var BoxConfigurationHelper $configHelper */
+        $configHelper = $payload['configuration'];
+
+        $configPath = $configHelper->getConfigurationFile() ?? 'box.json';
 
         $configs = [];
 
@@ -63,7 +67,7 @@ final readonly class ConfigureStage extends AbstractStage implements StageInterf
         array_push($configs['files-bin'], ...$resources);
         $configs['files-bin'][] = self::META_DATA_FILE;
 
-        $mapFiles = $payload['map'];
+        $mapFiles = $configHelper->getMap();
 
         if (!empty($resourceDir) && '/' !== $resourceDir) {
             foreach ($resources as $resource) {

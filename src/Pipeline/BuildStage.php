@@ -11,6 +11,8 @@ use Bartlett\BoxManifest\Composer\ManifestFactory;
 use Bartlett\BoxManifest\Composer\ManifestOptions;
 use Bartlett\BoxManifest\Console\Logger;
 
+use KevinGH\Box\Configuration\Configuration;
+
 use Symfony\Component\Console\Input\ArrayInput;
 
 use function array_keys;
@@ -33,7 +35,7 @@ final readonly class BuildStage extends AbstractStage implements StageInterface
         $context = ['status' => Logger::STATUS_RUNNING, 'id' => $payload['pid']];
 
         $factory = new ManifestFactory(
-            $payload['configuration'],
+            Configuration::create(null, $payload['configuration']->dump()),
             $payload['ansiSupport'],
             $payload['versions']['box'],
             $payload['versions']['boxManifest'],

@@ -11,16 +11,12 @@ use Bartlett\BoxManifest\Composer\RestartHandler;
 
 use Fidry\Console\IO;
 
-use KevinGH\Box\Configuration\Configuration;
-use KevinGH\Box\Console\Command\ConfigOption;
 use function KevinGH\Box\get_box_version;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Logger\ConsoleLogger;
-
-use stdClass;
 
 /**
  * @author Laurent Laville
@@ -29,9 +25,6 @@ use stdClass;
 class BoxHelper extends Helper
 {
     public const NAME = 'box';
-
-    public const NO_CONFIG_OPTION = 'no-config';
-    public const CONFIG_PARAM = 'config';
 
     public function getBoxVersion(): string
     {
@@ -55,26 +48,18 @@ class BoxHelper extends Helper
     {
         return [
             new InputOption(
-                self::NO_CONFIG_OPTION,
+                BoxConfigurationHelper::NO_CONFIG_OPTION,
                 null,
                 InputOption::VALUE_NONE,
                 'Ignore the config file even when one is specified with the --config option',
             ),
             new InputOption(
-                self::CONFIG_PARAM,
+                BoxConfigurationHelper::CONFIG_PARAM,
                 'c',
                 InputOption::VALUE_REQUIRED,
                 'The alternative configuration file path.',
             ),
         ];
-    }
-
-    public function getBoxConfiguration(IO $io, bool $allowNoFile = false, bool $noConfig = false): Configuration
-    {
-        if ($noConfig) {
-            return Configuration::create(null, new stdClass());
-        }
-        return ConfigOption::getConfig($io, $allowNoFile);
     }
 
     public function getName(): string

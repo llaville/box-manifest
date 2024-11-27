@@ -9,6 +9,7 @@ namespace Bartlett\BoxManifest\Console\Command;
 
 use Bartlett\BoxManifest\Composer\ManifestOptions;
 use Bartlett\BoxManifest\Console\Logger;
+use Bartlett\BoxManifest\Helper\BoxConfigurationHelper;
 use Bartlett\BoxManifest\Helper\BoxHelper;
 use Bartlett\BoxManifest\Helper\ManifestFormat;
 use Bartlett\BoxManifest\Pipeline\AbstractStage;
@@ -245,38 +246,46 @@ final class Make extends Command
         ;
         $pipeline = $pipelineBuilder->build($processor);
 
-        // 4. prepares payload to transmit to all stages of the pipeline
-        $config = $boxHelper->getBoxConfiguration(
-            $io->withOutput(new NullOutput()),
-            true,
-            $io->getTypedOption(BoxHelper::NO_CONFIG_OPTION)->asBoolean()
-        );
+        try {
+            $boxConfigHelper = new BoxConfigurationHelper($io, $this->getApplication()?->getVersion());
+
+            $configPath = $boxConfigHelper->getConfigurationFile();
+            if (null !== $configPath) {
+                $logger->notice(
+                    sprintf(
+                        'Loading the configuration file "<comment>%s</comment>".',
+                        $configPath,
+                    ),
+                    ['status' => Logger::STATUS_RUNNING, 'id' => $pid, 'prefix' => 'IN']
+                );
+            }
+        } catch (Throwable $e) {
+            $context['error'] = true;
+            $logger->error($e->getMessage(), $context);
+            $logger->error('Aborting workflow ... none operation was executed', $context);
+            return Command::FAILURE;
+        }
 
         $makeOptions = new ManifestOptions($io);
 
-        $templatePath = $makeOptions->getTemplateFile()
-            ?? dirname(__DIR__, 3) . '/resources/default_stub.template'
-        ;
-
+        // 4. prepares payload to transmit to all stages of the pipeline
         $payload = [
             'pid' => $pid,
-            'configuration' => $config,
+            'configuration' => $boxConfigHelper,
             'ansiSupport' => $output->isDecorated(),
             'immutableCopy' => $io->getTypedOption(ManifestOptions::IMMUTABLE_OPTION)->asBoolean(),
             'versions' => [
                 'box' => $boxHelper->getBoxVersion(),
                 'boxManifest' => $this->getApplication()?->getVersion() ? : '@dev',
             ],
-            'template' => $templatePath,
+            'template' => $makeOptions->getTemplateFile(),
             'resources' => $resources,
-            'map' => $config->getFileMapper()->getMap(),
             'resourceDir' => $makeOptions->getResourceDir(),
             'sbomSpec' => $makeOptions->getSbomSpec(),
             'outputFormat' => $makeOptions->getFormat(true),
             'output' => $makeOptions->getOutputFile() ?? 'php://stdout',
             'outputStub' => $makeOptions->getOutputStubFile(),
             'outputConf' => $makeOptions->getOutputConfFile(),
-            'configurationFile' => $config->getConfigurationFile(),
         ];
 
         // 5. runs the workflow (pipeline)
