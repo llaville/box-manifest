@@ -10,11 +10,11 @@ namespace Bartlett\BoxManifest\Pipeline;
 use Bartlett\BoxManifest\Console\Logger;
 
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 
 use RuntimeException;
 use function dirname;
-use function realpath;
 use const PHP_BINARY;
 use const PHP_BINDIR;
 use const PHP_SAPI;
@@ -48,9 +48,13 @@ final readonly class CompileStage extends AbstractStage implements StageInterfac
 
     private function createBoxProcess(?string $configurationFile = null): Process
     {
+        // @link https://symfony.com/doc/current/components/process.html#finding-an-executable
+        $executableFinder = new ExecutableFinder();
+        $boxPath = $executableFinder->find('box', dirname(__DIR__, 2) . '/vendor/bin/box');
+
         $command = [
             PHP_SAPI == 'cli' ? PHP_BINARY : PHP_BINDIR . '/php',
-            realpath(dirname(__DIR__, 2) . '/vendor/bin/box'),
+            $boxPath,
             'compile',
         ];
 
