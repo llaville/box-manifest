@@ -19,6 +19,7 @@ sbom.xml
 sbom.cdx.json
 sbom.cdx.xml
 custom.bin
+stub.php
 
 ###### PHPLint ######
 .phplint-cache
