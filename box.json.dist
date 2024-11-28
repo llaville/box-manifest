@@ -28,7 +28,6 @@
         "sbom.json",
         ".box.manifests.bin"
     ],
-    "stub": "stub.php",
     "dump-autoload": true,
     "map": [
         {
@@ -40,5 +39,6 @@
         {
             "sbom.json": ".box.manifests/sbom.json"
         }
-    ]
+    ],
+    "stub": "stub.php"
 }
