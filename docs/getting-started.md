@@ -10,7 +10,7 @@ If not, we recommend using [`docker`][docker].
 
 * PHP 8.2 or greater
 * ext-phar
-* PHPUnit 10 or greater (if you want to run unit tests)
+* PHPUnit 11 or greater (if you want to run unit tests)
 
 ## Installation
 
@@ -25,7 +25,7 @@ If not, we recommend using [`docker`][docker].
 === "4.x"
 
     ```shell
-    composer require bartlett/box-manifest ^4
+    composer require bartlett/box-manifest ^4.1
     ```
 
 > [!TIP]
@@ -81,7 +81,7 @@ If not, we recommend using [`docker`][docker].
         ```xml
         <?xml version="1.0" encoding="UTF-8"?>
         <phive xmlns="https://phar.io/phive">
-            <phar name="llaville/box-manifest" version="^4.0" copy="false" />
+            <phar name="llaville/box-manifest" version="^4.1" copy="false" />
         </phive>
         ```
 

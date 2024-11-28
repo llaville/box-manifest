@@ -21,7 +21,7 @@ Provides a Symfony Console Application with the binary command `box-manifest` th
 
 | Version            | Status             | Box Project Compatibility | PHP      |
 |--------------------|--------------------|---------------------------|----------|
-| `4.0.x`            | Active development | `4.6.x`                   | `>= 8.2` |
+| `4.0.x` to `4.1.x` | Active development | `4.6.x`                   | `>= 8.2` |
 | `3.0.x` to `3.5.x` | End Of Life        | `4.0.x` to `4.3.x`        | `>= 8.1` |
 | `2.0.x` to `2.3.x` | End Of Life        | `4.0.x` to `4.2.x`        | `>= 8.1` |
 | `1.0.x` to `1.2.0` | End Of Life        | `3.x`                     | `>= 7.4` |
@@ -38,4 +38,4 @@ All the documentation is available on [website][docs-website], generated from th
 [box-project]: https://github.com/box-project/box
 [cyclonedx]: https://github.com/CycloneDX
 [docs-folder]: https://github.com/llaville/box-manifest/tree/4.x/docs
-[docs-website]: https://llaville.github.io/box-manifest/4.0
+[docs-website]: https://llaville.github.io/box-manifest/4.1
