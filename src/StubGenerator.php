@@ -36,7 +36,7 @@ final class StubGenerator
 
             foreach ($resources as $resource) {
                 $res = str_replace($manifestDir, '', $resource);
-                $filename = "phar://%alias%/$manifestDir$res";
+                $filename = "phar://" . __FILE__ . "/$manifestDir$res";
                 if (file_exists($filename)) {
                     $manifest = file_get_contents($filename);
                     if ($withoutAnsi !== false) {
