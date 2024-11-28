@@ -3,6 +3,7 @@
 Here are the links to the documentation for versions that are still supported : 
 
 - [Box Manifest 4.0](https://llaville.github.io/box-manifest/4.0/)
+- [Box Manifest 4.1](https://llaville.github.io/box-manifest/4.1/)
 
 Full documentation may be found in `docs` folder into this repository, and may be read online without to do anything else.
 
