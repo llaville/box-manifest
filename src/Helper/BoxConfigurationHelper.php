@@ -98,7 +98,6 @@ final class BoxConfigurationHelper
             $firstBin = current((array) ($decodedComposerJson['bin'] ?? []));
         }
 
-
         $main = $assocConfig[self::MAIN_KEY] ?? null;
 
         // @link https://box-project.github.io/box/configuration/#main-main
@@ -240,6 +239,6 @@ final class BoxConfigurationHelper
 
     private function normalizePath(string $file, string $basePath): string
     {
-        return Path::makeAbsolute(trim($file), $basePath);
+        return Path::makeRelative(trim($file), $basePath);
     }
 }
