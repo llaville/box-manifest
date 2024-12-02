@@ -11,13 +11,21 @@ use Fidry\Console\IO;
 
 use KevinGH\Box\Configuration\NoConfigurationFound;
 use KevinGH\Box\Console\ConfigurationLocator;
-
 use KevinGH\Box\Json\Json;
 
 use Seld\JsonLint\ParsingException;
 
+use Symfony\Component\Filesystem\Path;
+
+use Webmozart\Assert\Assert;
+
 use stdClass;
 use function array_merge;
+use function dirname;
+use function file_exists;
+use function getcwd;
+use function is_bool;
+use function realpath;
 
 /**
  * @author Laurent Laville
@@ -27,6 +35,10 @@ final class BoxConfigurationHelper
 {
     public const NO_CONFIG_OPTION = 'no-config';
     public const CONFIG_PARAM = 'config';
+
+    private const BASE_PATH_KEY = 'base-path';
+    private const MAIN_KEY = 'main';
+    private const DEFAULT_MAIN_SCRIPT = 'index.php';
 
     private stdClass $rawConfig;
 
@@ -41,9 +53,6 @@ final class BoxConfigurationHelper
         Json $json = new Json()
     ) {
         $assocConfig = [];
-
-        // @link https://box-project.github.io/box/configuration/#main-main
-        $assocConfig['main'] = null;
 
         // @link https://box-project.github.io/box/configuration/#alias-alias
         $assocConfig['alias'] = 'box-auto-generated-alias.phar';
@@ -68,11 +77,30 @@ final class BoxConfigurationHelper
 
         if (false === $io->getTypedOption(self::NO_CONFIG_OPTION)->asBoolean()) {
             $this->configPath = $this->getConfigPath($io);
-            if (null !== $this->configPath) {
-                /** @var array<string, mixed> $fileConfig */
-                $fileConfig = $json->decodeFile($this->configPath, true);
-                $assocConfig = array_merge($assocConfig, $fileConfig);
-            }
+        }
+
+        if (null !== $this->configPath) {
+            /** @var array<string, mixed> $fileConfig */
+            $fileConfig = $json->decodeFile($this->configPath, true);
+            $assocConfig = array_merge($assocConfig, $fileConfig);
+        }
+
+        // @link https://box-project.github.io/box/configuration/#base-path-base-path
+        $assocConfig[self::BASE_PATH_KEY] = $this->retrieveBasePath($this->configPath, $assocConfig);
+
+        $composerJsonPath = $assocConfig[self::BASE_PATH_KEY] . '/composer.json';
+
+        if (file_exists($composerJsonPath)) {
+            $decodedComposerJson = $json->decodeFile($composerJsonPath, true);
+            $firstBin = current((array) ($decodedComposerJson['bin'] ?? []));
+        }
+
+        // @link https://box-project.github.io/box/configuration/#main-main
+        if (false !== $assocConfig[self::MAIN_KEY]) {
+            $assocConfig[self::MAIN_KEY] = $this->retrieveMainScriptPath(
+                $assocConfig,
+                $firstBin ?? null
+            );
         }
 
         $this->rawConfig = (object) $assocConfig;
@@ -137,4 +165,68 @@ final class BoxConfigurationHelper
         }
         return $configPath;
     }
+
+    /**
+     * @param array{base-path?: string|null} $assocConfig
+     */
+    private function retrieveBasePath(?string $file, array $assocConfig): string
+    {
+        if (null === $file) {
+            return getcwd();
+        }
+
+        if (false === isset($assocConfig[self::BASE_PATH_KEY])) {
+            return realpath(dirname($file));
+        }
+
+        $basePath = trim($assocConfig[self::BASE_PATH_KEY]);
+
+        Assert::directory(
+            $basePath,
+            'The base path %s is not a directory or does not exist.',
+        );
+
+        return realpath($basePath);
+    }
+
+    /**
+     * @param array{base-path: string, main? :string|false|null} $assocConfig
+     */
+    private function retrieveMainScriptPath(array $assocConfig, ?string $firstBin): ?string
+    {
+        $basePath = $assocConfig[self::BASE_PATH_KEY];
+
+        if (null !== $firstBin) {
+            $firstBin = $this->normalizePath($firstBin, $basePath);
+        }
+
+        if (isset($assocConfig[self::MAIN_KEY])) {
+            $main = $assocConfig[self::MAIN_KEY];
+
+            if (is_string($main)) {
+                $main = $this->normalizePath($main, $basePath);
+            }
+        } else {
+            $main = $firstBin ?? $this->normalizePath(self::DEFAULT_MAIN_SCRIPT, $basePath);
+        }
+
+        if (is_bool($main)) {
+            Assert::false(
+                $main,
+                'Cannot "enable" a main script: either disable it with `false` or give the main script file path.',
+            );
+
+            return null;
+        }
+
+        Assert::file($main);
+
+        return $main;
+    }
+
+    private function normalizePath(string $file, string $basePath): string
+    {
+        return Path::makeAbsolute(trim($file), $basePath);
+    }
+
 }
