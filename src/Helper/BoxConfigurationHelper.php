@@ -25,6 +25,7 @@ use function dirname;
 use function file_exists;
 use function getcwd;
 use function is_bool;
+use function is_string;
 use function realpath;
 
 /**
@@ -86,19 +87,26 @@ final class BoxConfigurationHelper
         }
 
         // @link https://box-project.github.io/box/configuration/#base-path-base-path
-        $assocConfig[self::BASE_PATH_KEY] = $this->retrieveBasePath($this->configPath, $assocConfig);
+        // @phpstan-ignore-next-line
+        $assocConfig[self::BASE_PATH_KEY] = $this->retrieveBasePath($this->configPath, $assocConfig) ?: '.';
 
         $composerJsonPath = $assocConfig[self::BASE_PATH_KEY] . '/composer.json';
 
         if (file_exists($composerJsonPath)) {
+            /** @var array<string, mixed> $decodedComposerJson */
             $decodedComposerJson = $json->decodeFile($composerJsonPath, true);
             $firstBin = current((array) ($decodedComposerJson['bin'] ?? []));
         }
 
+
+        $main = $assocConfig[self::MAIN_KEY] ?? null;
+
         // @link https://box-project.github.io/box/configuration/#main-main
-        if (false !== $assocConfig[self::MAIN_KEY]) {
+        if (false !== $main) {
             $assocConfig[self::MAIN_KEY] = $this->retrieveMainScriptPath(
+                // @phpstan-ignore argument.type
                 $assocConfig,
+                // @phpstan-ignore argument.type
                 $firstBin ?? null
             );
         }
@@ -169,7 +177,7 @@ final class BoxConfigurationHelper
     /**
      * @param array{base-path?: string|null} $assocConfig
      */
-    private function retrieveBasePath(?string $file, array $assocConfig): string
+    private function retrieveBasePath(?string $file, array $assocConfig): false|string
     {
         if (null === $file) {
             return getcwd();
@@ -179,7 +187,13 @@ final class BoxConfigurationHelper
             return realpath(dirname($file));
         }
 
-        $basePath = trim($assocConfig[self::BASE_PATH_KEY]);
+        $basePath = $assocConfig[self::BASE_PATH_KEY];
+
+        if (!is_string($basePath)) {
+            return false;
+        }
+
+        $basePath = trim($basePath);
 
         Assert::directory(
             $basePath,
@@ -228,5 +242,4 @@ final class BoxConfigurationHelper
     {
         return Path::makeAbsolute(trim($file), $basePath);
     }
-
 }
