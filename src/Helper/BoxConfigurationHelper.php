@@ -24,6 +24,7 @@ use function array_merge;
 use function dirname;
 use function file_exists;
 use function getcwd;
+use function implode;
 use function is_bool;
 use function is_string;
 use function realpath;
@@ -136,7 +137,11 @@ final class BoxConfigurationHelper
 
     public function getBanner(): string
     {
-        return $this->rawConfig->banner ?: '';
+        $banner = $this->rawConfig->banner ?: '';
+        if (is_string($banner)) {
+            return $banner;
+        }
+        return implode("\n", $banner);
     }
 
     public function getShebang(): string

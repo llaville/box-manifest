@@ -1,0 +1,3 @@
+kind: Fixed
+body: '[#17](https://github.com/llaville/box-manifest/issues/17) : Cannot build a PHAR distrib when banner is declared by an array of string'
+time: 2024-12-07T09:35:08.759627867Z
