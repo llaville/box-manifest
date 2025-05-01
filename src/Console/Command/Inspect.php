@@ -129,7 +129,6 @@ final class Inspect extends Command
             $io->warning(sprintf('The file "%s" does not contains any manifests.', $file));
         } else {
             $manifestsFound = count($manifests);
-            $default = reset($inspection);
             $io->success(
                 sprintf(
                     'Found %d manifest%s',
