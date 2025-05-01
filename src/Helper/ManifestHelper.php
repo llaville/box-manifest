@@ -56,7 +56,7 @@ class ManifestHelper extends Helper
     public function get(array $resources): ?string
     {
         if (Phar::running()) {
-            $phar = new Phar($_SERVER['argv'][0]);
+            $phar = new Phar($_SERVER['argv'][0]);  // @phpstan-ignore argument.type, offsetAccess.nonOffsetAccessible
         }
 
         foreach ($resources as $resource) {

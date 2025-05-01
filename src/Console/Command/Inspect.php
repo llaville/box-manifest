@@ -114,6 +114,10 @@ final class Inspect extends Command
 
         $manifest = $io->getTypedArgument('manifest')->asNullableNonEmptyString();
 
+        /**
+         * @var string $filename
+         * @var string $mimeType
+         */
         foreach ($manifests as $filename => $mimeType) {
             if ($manifest !== null && $filename !== $manifest) {
                 continue;

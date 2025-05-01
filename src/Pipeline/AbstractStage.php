@@ -88,7 +88,7 @@ abstract readonly class AbstractStage
     }
 
     /**
-     * @return array<string, string>
+     * @return array<mixed>
      */
     protected function getMetaData(): array
     {

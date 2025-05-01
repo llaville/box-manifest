@@ -70,10 +70,10 @@ final class ManifestFactory
 
         $callable = $this->strategy->getCallable($rawFormat, $resourceFile);
 
-        if (is_array($callable) && str_starts_with($callable[1], 'toSbom')) {
+        if (is_array($callable) && str_starts_with($callable[1], 'toSbom')) {     // @phpstan-ignore argument.type
             return $callable($options->getSbomSpec(), $this->immutableCopy);
         }
-        if (is_array($callable) && str_starts_with($callable[1], 'fromClass')) {
+        if (is_array($callable) && str_starts_with($callable[1], 'fromClass')) {  // @phpstan-ignore argument.type
             return $callable($rawFormat);
         }
 
