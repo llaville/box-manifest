@@ -12,7 +12,8 @@
         "vendor",
         "mkdocs\\.yml",
         "box\\.bat",
-        "tests\\**\\composer**",
+        "tests",
+        "examples",
         "\\.changes"
     ],
     "AllowedContentTypes": [],
