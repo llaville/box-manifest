@@ -99,11 +99,16 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
                 substr($rootPackage['reference'], 0, 7)
             );
         } elseif (isset($rootPackage['pretty_version'])) {
-            $version = sprintf(
-                '%s@%s',
-                $rootPackage['pretty_version'],
-                substr($rootPackage['reference'], 0, 7)
-            );
+            if (isset($rootPackage['reference'])) {
+                $version = sprintf(
+                    '%s@%s',
+                    $rootPackage['pretty_version'],
+                    substr($rootPackage['reference'], 0, 7)
+                );
+            } else {
+                // when project has none VCS commits yet
+                $version = $rootPackage['pretty_version'];
+            }
         } else {
             $version = $rootPackage['version'];
         }
