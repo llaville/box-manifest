@@ -28,7 +28,7 @@
         "sbom.json",
         ".box.manifests.bin"
     ],
-    "dump-autoload": true,
+    "dump-autoload": false,
     "map": [
         {
             "console-table.txt": ".box.manifests/console-table.txt"
