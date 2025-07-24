@@ -60,19 +60,6 @@
     },
     "scripts": {
         "bin": "echo 'bin not installed'",
-        "code:check": "vendor/bin/phpstan analyse --configuration .github/linters/phpstan.neon.dist --verbose --ansi",
-        "code:lint": "vendor/bin/phplint --configuration .github/linters/.phplint.yml --verbose --progress=indicator --ansi",
-        "style:check": "vendor/bin/phpcs --standard=.github/linters/.phpcs.xml.dist --warning-severity=0 --colors",
-        "tests:all": ["@putenv TERM_PROGRAM=Hyper", "vendor/bin/phpunit --configuration phpunit.xml.dist"],
-        "tests:e2e": ["@putenv TERM_PROGRAM=Hyper", "vendor/bin/phpunit --configuration phpunit.xml.dist tests/e2e"],
-        "tests:unit": ["@putenv TERM_PROGRAM=Hyper", "vendor/bin/phpunit --configuration phpunit.xml.dist tests/unit"]
-    },
-    "scripts-descriptions" : {
-        "code:check": "Run PHPStan code analysis on project source code",
-        "code:lint": "Run PHPLint on project source code",
-        "style:check": "Run PHP CodeSniffer on project source code",
-        "tests:all": "Run PHPUnit (all tests) on project source code",
-        "tests:e2e": "Run PHPUnit (End-To-End tests) on project source code",
-        "tests:unit": "Run PHPUnit (unit tests) on project source code"
+        "post-autoload-dump": "vendor/bin/captainhook install --configuration=captainhook.json --only-enabled"
     }
 }
