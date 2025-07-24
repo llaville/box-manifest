@@ -38,6 +38,8 @@ jobs:
                 name: Checkout Code
                 uses: actions/checkout@v4
                 with:
+                    # Make sure the value of GITHUB_TOKEN will not be persisted in repo's config
+                    persist-credentials: false
                     token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
                     fetch-depth: 0
 
@@ -54,6 +56,6 @@ jobs:
                 with:
                     composer-options: "--prefer-dist"
 
-            -   # https://github.com/sebastianbergmann/phpunit/tree/11.4
+            -   # https://github.com/sebastianbergmann/phpunit/tree/11.5
                 name: PHPUnit 11
                 run: composer tests:all
