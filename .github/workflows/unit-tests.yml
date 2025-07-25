@@ -58,4 +58,4 @@ jobs:
 
             -   # https://github.com/sebastianbergmann/phpunit/tree/11.5
                 name: PHPUnit 11
-                run: composer tests:all
+                run: vendor/bin/phpunit --configuration phpunit.xml.dist
