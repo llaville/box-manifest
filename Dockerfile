@@ -3,6 +3,8 @@ ARG PHP_VERSION=8.2
 
 FROM php:${PHP_VERSION}-cli-alpine
 
+ARG PACKAGE_CONSTRAINT=4.x-dev
+
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md
 
 LABEL org.opencontainers.image.title="llaville/box-manifest"
@@ -25,7 +27,7 @@ USER appuser
 COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_PREFER_STABLE 1
-RUN composer global require --no-progress bartlett/box-manifest 4.x-dev
+RUN composer global require --no-progress bartlett/box-manifest $PACKAGE_CONSTRAINT
 
 # Following recommendation at https://docs.github.com/en/actions/creating-actions/dockerfile-support-for-github-actions#workdir
 
