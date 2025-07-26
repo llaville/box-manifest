@@ -124,7 +124,7 @@ final class Inspect extends Command
             }
             $manifestInfo = sprintf('<info>%s</info> (<comment>%s</comment>)', $filename, $mimeType);
             if (empty($inspection)) {
-                $manifestInfo = 'Default: ' . $manifestInfo;
+                $manifestInfo = ($manifest ? '' : 'Default: ') . $manifestInfo;
             }
             $inspection[] = $manifestInfo;
         }
