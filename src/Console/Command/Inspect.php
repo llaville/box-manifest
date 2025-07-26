@@ -14,6 +14,7 @@ use Fidry\Console\IO;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Path;
 
@@ -21,8 +22,8 @@ use DirectoryIterator;
 use Phar;
 use UnexpectedValueException;
 use function count;
+use function file_get_contents;
 use function is_array;
-use function reset;
 use function sprintf;
 use function unserialize;
 
@@ -53,6 +54,12 @@ final class Inspect extends Command
                 InputArgument::OPTIONAL,
                 'A specific manifest file.',
             ),
+            new InputOption(
+                'preview',
+                null,
+                InputOption::VALUE_NONE,
+                'Show content of a specific manifest file'
+            )
         ];
 
         $this->setName(self::NAME)
@@ -141,6 +148,12 @@ final class Inspect extends Command
                 )
             );
             $io->listing($inspection);
+
+            if ($manifest && $input->getOption('preview')) {
+                $file = 'phar://' . $phar->getPath() . '/' . AbstractStage::BOX_MANIFESTS_DIR . $manifest;
+                $io->writeln('<comment>Preview :</comment>');
+                $io->writeln(file_get_contents($file) ? : 'unavailable');
+            }
         }
 
         return Command::SUCCESS;
