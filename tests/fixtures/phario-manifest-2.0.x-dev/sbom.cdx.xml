@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.6" version="1">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.7" version="1">
   <metadata>
     <properties>
-      <property name="specVersion"><![CDATA[1.6]]></property>
+      <property name="specVersion"><![CDATA[1.7]]></property>
       <property name="bomFormat"><![CDATA[CycloneDX]]></property>
     </properties>
   </metadata>

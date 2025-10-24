@@ -1,13 +1,13 @@
 {
-    "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+    "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
     "bomFormat": "CycloneDX",
-    "specVersion": "1.6",
+    "specVersion": "1.7",
     "version": 1,
     "metadata": {
         "properties": [
             {
                 "name": "specVersion",
-                "value": "1.6"
+                "value": "1.7"
             },
             {
                 "name": "bomFormat",

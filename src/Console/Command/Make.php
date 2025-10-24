@@ -93,7 +93,7 @@ final class Make extends Command
                 's',
                 InputOption::VALUE_REQUIRED,
                 'SBOM specification version: <comment>' . implode(', ', array_column(Version::cases(), 'value')) . '</comment>',
-                Version::v1dot6->value
+                Version::v1dot7->value
             ),
             new InputOption(
                 ManifestOptions::OUTPUT_OPTION,
