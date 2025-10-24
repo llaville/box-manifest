@@ -1,61 +1,63 @@
 ---
-name: Unit-Tests
+name: Unit Tests
 
 on:
-    pull_request:
-        branches: [master]
-        paths-ignore:
-            - 'docs/**'
     workflow_call:
-    workflow_dispatch:
+        # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_callinputs
+        inputs:
+            operating-system:
+                description: "OS name and version runtime"
+                required: false
+                default: "ubuntu-22.04"
+                type: string
+            composer-options:
+                description: "Composer options for ramsey/composer-install GitHub Action"
+                required: false
+                default: "--prefer-dist --no-scripts"
+                type: string
+
+permissions:
+    contents: read
 
 jobs:
-    lint_files:
-        uses: llaville/.github/.github/workflows/mega-linter.yml@master
-        with:
-            repository: ${{ github.repository }}
-            php-version: "8.2"
-
     unit_tests:
-        needs: lint_files
-
-        name: Unit Tests
-
         runs-on: ${{ matrix.os }}
 
         strategy:
             fail-fast: false
             matrix:
                 os:
-                    - ubuntu-22.04
+                    - ${{ inputs.operating-system }}
                 php:
-                    - 8.2
-                    - 8.3
-                    - 8.4
+                    - "8.2"
+                    - "8.3"
+                    - "8.4"
+                tools:
+                    - phpunit:11.5
 
         steps:
             -   # https://github.com/actions/checkout
-                name: Checkout Code
-                uses: actions/checkout@v4
+                name: Checkout
+                uses: actions/checkout@v5.0.0
                 with:
                     # Make sure the value of GITHUB_TOKEN will not be persisted in repo's config
                     persist-credentials: false
-                    token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
-                    fetch-depth: 0
 
             -   # https://github.com/shivammathur/setup-php
                 name: Setup PHP runtime
-                uses: shivammathur/setup-php@v2
+                uses: shivammathur/setup-php@2.35.5
                 with:
                     php-version: ${{ matrix.php }}
+                    tools: ${{ matrix.tools }}
                     ini-values: phar.readonly=0
 
             -   # https://github.com/ramsey/composer-install
                 name: Install Composer dependencies
-                uses: ramsey/composer-install@v3
+                uses: ramsey/composer-install@3.1.1
                 with:
-                    composer-options: "--prefer-dist"
+                    dependency-versions: "highest"
+                    composer-options: ${{ inputs.composer-options }}
 
-            -   # https://github.com/sebastianbergmann/phpunit/tree/11.5
-                name: PHPUnit 11
-                run: vendor/bin/phpunit --configuration phpunit.xml.dist
+            -   # https://github.com/sebastianbergmann/phpunit
+                name: Unit tests with PHPUnit
+                run: phpunit --do-not-cache-result --no-progress
