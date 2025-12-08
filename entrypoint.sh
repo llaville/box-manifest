@@ -11,4 +11,4 @@ then
     echo "> Path to Composer home dir: ${composer_global_home}"
 fi
 
-php "${composer_global_home}/vendor/bin/box-manifest" $@
+php "${composer_global_home}/vendor/bin/box-manifest" "$@"
