@@ -1,115 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/build-your-config/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/build-your-config/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/build-your-manifests/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/build-your-manifests/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/build-your-stub/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/build-your-stub/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/capabilities/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/capabilities/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/compile-your-phar/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/compile-your-phar/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/contributing/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/contributing/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/getting-started/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/getting-started/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/inspect/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/inspect/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/run-all-stages/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/run-all-stages/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/strategies/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/strategies/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/Tutorial/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/Tutorial/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/Tutorial/generate-box-json-dist/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/Tutorial/generate-box-json-dist/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/Tutorial/generate-custom-stub/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/Tutorial/generate-custom-stub/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/Tutorial/generate-manifest-files/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/Tutorial/generate-manifest-files/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/UseCases/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/UseCases/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/UseCases/ConsoleTextFormat/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/UseCases/ConsoleTextFormat/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/UseCases/CustomFormat/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/UseCases/CustomFormat/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/UseCases/DecoratedTextFormat/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/UseCases/DecoratedTextFormat/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/UseCases/PlainTextFormat/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/UseCases/PlainTextFormat/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/UseCases/SBomJsonFormat/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/UseCases/SBomJsonFormat/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/UseCases/SBomXmlFormat/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/UseCases/SBomXmlFormat/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/stages/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/stages/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/stages/build/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/stages/build/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/stages/compilation/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/stages/compilation/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/stages/configure/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/stages/configure/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/stages/custom/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/stages/custom/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
     <url>
-         <loc>https://llaville.github.io/box-manifest/4.2/stages/stub/</loc>
+         <loc>https://llaville.github.io/box-manifest/4.3/stages/stub/</loc>
          <lastmod>2026-01-06</lastmod>
     </url>
 </urlset>
