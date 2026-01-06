@@ -113,7 +113,7 @@ final readonly class PostInstallStrategy implements ManifestBuildStrategy
 
         $makeCommand = new Make();
         $application = new Application();
-        $application->add($makeCommand);
+        $application->addCommand($makeCommand);
 
         $arrayInput = new ArrayInput([
             'make',
