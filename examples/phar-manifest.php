@@ -19,7 +19,7 @@ use Psr\Log\AbstractLogger;
 
 /**
  * Script that may build manifest in different formats :
- * - SBOM JSON or XML format following specification 1.1, 1.2, 1.3, or 1.4
+ * - SBOM JSON or XML format following specification 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7
  * - Simple key-value pairs TEXT format without decoration
  * - key-value pairs TEXT format with ansi decoration
  *
@@ -56,11 +56,11 @@ $factory = new ManifestFactory($config, true, (new BoxHelper())->getBoxVersion()
 try {
     if ($argv[1] == 'sbom-json') {
         // 1.
-        $specVersion = '1.4'; // Allowed values are: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
+        $specVersion = '1.4'; // Allowed values are: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7
         $result = $factory->toSbomJson($specVersion);
     } elseif ($argv[1] == 'sbom-xml') {
         // 2.
-        $specVersion = '1.4'; // Allowed values are: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
+        $specVersion = '1.4'; // Allowed values are: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7
         $result = $factory->toSbomXml($specVersion);
     } elseif ($argv[1] == 'plain') {
         // 3.

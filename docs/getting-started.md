@@ -25,7 +25,7 @@ If not, we recommend using [`docker`][docker].
 === "4.x"
 
     ```shell
-    composer require bartlett/box-manifest ^4.1
+    composer require bartlett/box-manifest ^4.3
     ```
 
 > [!TIP]
@@ -81,7 +81,7 @@ If not, we recommend using [`docker`][docker].
         ```xml
         <?xml version="1.0" encoding="UTF-8"?>
         <phive xmlns="https://phar.io/phive">
-            <phar name="llaville/box-manifest" version="^4.1" copy="false" />
+            <phar name="llaville/box-manifest" version="^4.3" copy="false" />
         </phive>
         ```
 
