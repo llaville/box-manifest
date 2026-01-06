@@ -25,6 +25,7 @@ use function count;
 use function file_get_contents;
 use function is_array;
 use function sprintf;
+use function trim;
 use function unserialize;
 
 /**
@@ -96,7 +97,7 @@ final class Inspect extends Command
         $manifests = [];
 
         if (isset($phar[$manifestIndexFile])) {
-            $manifests = unserialize($phar[$manifestIndexFile]->getContent());
+            $manifests = unserialize(trim($phar[$manifestIndexFile]->getContent()));
             if (!is_array($manifests)) {
                 $io->error(sprintf('The manifest index file "%s" does not contains a valid value.', $manifestIndexFile));
                 return Command::FAILURE;
