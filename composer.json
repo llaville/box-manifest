@@ -55,13 +55,13 @@
         "bamarni-bin": {
             "bin-links": true,
             "target-directory": "vendor-bin",
-            "forward-command": true
+            "forward-command": false
         }
     },
     "scripts": {
         "bin": "echo 'bin not installed'",
         "post-autoload-dump": [
-            "@composer bin captainhook update",
+            "@composer bin captainhook-bin-plugin update",
             "vendor/bin/captainhook install --configuration=captainhook.json --only-enabled"
         ]
     }
