@@ -37,12 +37,13 @@ final readonly class DefaultStrategy implements ManifestBuildStrategy
         ];
 
         foreach ($recognizedFilePatternsRules as $extension => $mimeType) {
-            if (str_ends_with($resourceFile, $extension)) {
-                if (in_array($mimeType, [self::MIME_TYPE_SBOM_JSON, self::MIME_TYPE_SBOM_XML]) && !empty($version)) {
-                    $mimeType .= '; version=' . $version;
-                }
-                return $mimeType;
+            if (!(str_ends_with($resourceFile, $extension))) {
+                continue;
             }
+            if (in_array($mimeType, [self::MIME_TYPE_SBOM_JSON, self::MIME_TYPE_SBOM_XML]) && !empty($version)) {
+                $mimeType .= '; version=' . $version;
+            }
+            return $mimeType;
         }
 
         return self::MIME_TYPE_OCTET_STREAM;

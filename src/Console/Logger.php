@@ -49,7 +49,7 @@ class Logger extends ConsoleLogger
      */
     public function log($level, $message, array $context = []): void
     {
-        if (isset($context['status']) && isset($context['id'])) {
+        if (isset($context['status'], $context['id'])) {
             $id = sprintf('%d', $context['id']);
             $error = $context['error'] ?? false;
             $message = match ($context['status']) {

@@ -116,7 +116,7 @@ final class ManifestFactory
             return null;
         }
 
-        $normalizePath = function ($file, $basePath) {
+        $normalizePath = static function ($file, $basePath) {
             return ($basePath . DIRECTORY_SEPARATOR . trim($file));
         };
 

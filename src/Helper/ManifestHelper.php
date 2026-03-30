@@ -15,7 +15,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 
 use Phar;
-use function dirname;
+
 use function file_exists;
 use function file_get_contents;
 use function implode;
@@ -90,9 +90,10 @@ class ManifestHelper extends Helper
         if (!empty($mapFiles) && empty($resources)) {
             foreach ($mapFiles as $mapFile) {
                 foreach ($mapFile as $target) {
-                    if (str_starts_with($target, $resourceDir)) {
-                        $resources[] = $target;
+                    if (!(str_starts_with($target, $resourceDir))) {
+                        continue;
                     }
+                    $resources[] = $target;
                 }
             }
         }

@@ -101,9 +101,10 @@ final readonly class PostInstallStrategy implements ManifestBuildStrategy
 
         foreach ($config->getFileMapper()->getMap() as $mapFile) {
             foreach ($mapFile as $source => $target) {
-                if ((dirname($target) === '.' && $resourcePath === '/') || str_starts_with($target, $resourcePath)) {
-                    $resources[] = $source;
+                if (!((dirname($target) === '.' && $resourcePath === '/') || str_starts_with($target, $resourcePath))) {
+                    continue;
                 }
+                $resources[] = $source;
             }
         }
 

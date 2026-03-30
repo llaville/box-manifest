@@ -64,9 +64,9 @@ final readonly class DecorateTextManifestBuilder implements ManifestBuilderInter
                 $installedPhp['versions'][$req]['prefix'] = $prefix;
                 /** @var string $constraint */
                 if ('php' === $req) {
-                    $entries[] = sprintf('%s%s %s', $prefix, $category, "$req $constraint");
+                    $entries[] = sprintf('%s%s %s', $prefix, $category, "{$req} {$constraint}");
                 } elseif (str_starts_with($req, 'ext-')) {
-                    $entries[] = sprintf('%s%s %s', $prefix, $category, "$req $constraint");
+                    $entries[] = sprintf('%s%s %s', $prefix, $category, "{$req} {$constraint}");
                 } else {
                     $installedPhp['versions'][$req]['constraint'] = $constraint;
                     $installedPhp['versions'][$req]['category'] = $category;
@@ -82,7 +82,7 @@ final readonly class DecorateTextManifestBuilder implements ManifestBuilderInter
                 $category = $values['category'] ?? '';
                 $constraint = $values['constraint'] ?? '';
                 $prefix = $values['prefix'] ?? $this->prefix . ' <comment>uses</comment>';
-                $entries[] = sprintf('%s%s %s: <info>%s</info>', $prefix, $category, "$package $constraint", $values['pretty_version']);
+                $entries[] = sprintf('%s%s %s: <info>%s</info>', $prefix, $category, "{$package} {$constraint}", $values['pretty_version']);
             } // otherwise, it's a virtual package
         }
 
