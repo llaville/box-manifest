@@ -27,6 +27,7 @@ USER appuser
 COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_PREFER_STABLE 1
+RUN composer global config minimum-stability dev
 RUN composer global require --no-progress bartlett/box-manifest $PACKAGE_CONSTRAINT
 
 # Following recommendation at https://docs.github.com/en/actions/creating-actions/dockerfile-support-for-github-actions#workdir
