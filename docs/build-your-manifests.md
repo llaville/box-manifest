@@ -21,14 +21,16 @@ This will create, the `manifest.txt` file, with a plain text format of your depe
 
 Other formats are available and are auto-discoverable. Here are the rules applied :
 
-|           Filename            |     Format      |
-|:-----------------------------:|:---------------:|
-|      `console-style.txt`      | `console-style` |
-|      `console-table.txt`      | `console-table` |
-| `plain.txt` or `manifest.txt` |     `plain`     |
-|  `sbom.json` or `*.cdx.json`  |   `sbom-json`   |
-|   `sbom.xml` or `*.cdx.xml`   |   `sbom-xml`    |
-|         `custom.bin`          |   User class    |
+|           Filename            |        Format        |
+|:-----------------------------:|:--------------------:|
+|      `console-style.txt`      |   `console-style`    |
+|      `console-table.txt`      |   `console-table`    |
+| `plain.txt` or `manifest.txt` |       `plain`        |
+|  `sbom.json` or `*.cdx.json`  |     `sbom-json`      |
+|   `sbom.xml` or `*.cdx.xml`   |      `sbom-xml`      |
+|       `*.composer.txt`        | `composer-tree-text` |
+|       `*.composer.json`       | `composer-tree-json` |
+|         `custom.bin`          |      User class      |
 
 > CycloneDX [Recognized file patterns][cdx-recognized-file-patterns]
 

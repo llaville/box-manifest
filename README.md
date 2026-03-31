@@ -10,6 +10,7 @@ Main goal of this project is to write a manifest in any [PHP Archive (PHAR)][php
 
 Provides a Symfony Console Application with the binary command `box-manifest` that :
 
+- Can generate manifest in [Composer][composer] tree format (`composer-tree-text` or `composer-tree-json`)
 - Can generate manifest in [CycloneDX SBOM Standard][cyclonedx] format (`sbom-json` or `sbom-xml`)
 - Can generate manifest in a simple key-value pairs `plain` text format (`key: value`)
 - Can generate manifest in a decorated text format `console-style` or `console-table` (distinguish direct dependencies requirement and other uses)
@@ -21,7 +22,7 @@ Provides a Symfony Console Application with the binary command `box-manifest` th
 
 | Version            | Status             | Box Project Compatibility | PHP      |
 |--------------------|--------------------|---------------------------|----------|
-| `4.0.x` to `4.3.x` | Active development | `4.6.x`                   | `>= 8.2` |
+| `4.0.x` to `4.4.x` | Active development | `4.6.x` to `4.7.x`        | `>= 8.2` |
 | `3.0.x` to `3.5.x` | End Of Life        | `4.0.x` to `4.3.x`        | `>= 8.1` |
 | `2.0.x` to `2.3.x` | End Of Life        | `4.0.x` to `4.2.x`        | `>= 8.1` |
 | `1.0.x` to `1.2.0` | End Of Life        | `3.x`                     | `>= 7.4` |
@@ -36,6 +37,7 @@ All the documentation is available on [website][docs-website], generated from th
 
 [php-phar]: https://www.php.net/phar
 [box-project]: https://github.com/box-project/box
+[composer]: https://getcomposer.org
 [cyclonedx]: https://github.com/CycloneDX
 [docs-folder]: https://github.com/llaville/box-manifest/tree/4.x/docs
 [docs-website]: https://llaville.github.io/box-manifest/4.3
