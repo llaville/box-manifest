@@ -226,7 +226,7 @@ final class ManifestFactory
      */
     public function toComposerTree(string $format = 'text'): ?string
     {
-         return self::create(new ComposerManifestBuilder($format), $this->config, $this->isDecorated);
+        return self::create(new ComposerManifestBuilder($format), $this->config, $this->isDecorated);
     }
 
     /**
