@@ -7,6 +7,7 @@
  */
 namespace Bartlett\BoxManifest\Composer;
 
+use Bartlett\BoxManifest\Composer\Manifest\ComposerManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\ConsoleTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\DecorateTextManifestBuilder;
 use Bartlett\BoxManifest\Composer\Manifest\SbomManifestBuilder;
@@ -218,5 +219,21 @@ final class ManifestFactory
     public function toSbomXml(string $specVersion, ?bool $isImmutable = null): ?string
     {
         return $this->toSbom('xml', $specVersion, $isImmutable);
+    }
+
+    /**
+     * @since Release 4.4.0
+     */
+    public function toComposerTree(string $format = 'text'): ?string
+    {
+         return self::create(new ComposerManifestBuilder($format), $this->config, $this->isDecorated);
+    }
+
+    /**
+     * @since Release 4.4.0
+     */
+    public function toComposerTreeJson(): ?string
+    {
+        return $this->toComposerTree('json');
     }
 }

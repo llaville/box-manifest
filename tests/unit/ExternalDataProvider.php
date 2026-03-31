@@ -49,6 +49,9 @@ final class ExternalDataProvider
         yield ['sbom-xml', null, false];
         yield ['sbom-xml', 'whatever.you.want', false];
 
+        yield ['composer-tree-text', null, false];
+        yield ['composer-tree-json', 'whatever.you.want', false];
+
         yield ['\My\Space\ClassNotFound', null, true];
         yield ['\My\Space\ClassNotFound', 'whatever.you.want', true];
     }
@@ -63,6 +66,8 @@ final class ExternalDataProvider
         yield ['sbom.xml', ManifestBuildStrategy::MIME_TYPE_SBOM_XML];
         yield ['sbom.cdx.json', ManifestBuildStrategy::MIME_TYPE_SBOM_JSON];
         yield ['sbom.cdx.xml', ManifestBuildStrategy::MIME_TYPE_SBOM_XML];
+        yield ['manifest.composer.txt', ManifestBuildStrategy::MIME_TYPE_TEXT_PLAIN];
+        yield ['manifest.composer.json', ManifestBuildStrategy::MIME_TYPE_JSON];
         yield ['whatever.you.want', ManifestBuildStrategy::MIME_TYPE_OCTET_STREAM];
     }
 

@@ -34,6 +34,8 @@ final readonly class DefaultStrategy implements ManifestBuildStrategy
             '.cdx.xml' => self::MIME_TYPE_SBOM_XML,
             'manifest.txt' => self::MIME_TYPE_TEXT_PLAIN,
             'plain.txt' => self::MIME_TYPE_TEXT_PLAIN,
+            '.composer.txt' => self::MIME_TYPE_TEXT_PLAIN,
+            '.composer.json' => self::MIME_TYPE_JSON,
         ];
 
         foreach ($recognizedFilePatternsRules as $extension => $mimeType) {
@@ -65,6 +67,8 @@ final readonly class DefaultStrategy implements ManifestBuildStrategy
                 'plain.txt' => [$this->factory, 'toText'],
                 'console-style.txt' => [$this->factory, 'toHighlight'],
                 'console-table.txt' => [$this->factory, 'toConsole'],
+                '.composer.txt' => [$this->factory, 'toComposerTree'],
+                '.composer.json' => [$this->factory, 'toComposerTreeJson'],
             ];
 
             foreach ($recognizedFilePatternsRules as $extension => $callable) {
@@ -82,6 +86,8 @@ final readonly class DefaultStrategy implements ManifestBuildStrategy
             'plain' => [$this->factory, 'toText'],
             'sbom-json' => [$this->factory, 'toSbomJson'],
             'sbom-xml' => [$this->factory, 'toSbomXml'],
+            'composer-tree-text' => [$this->factory, 'toComposerTree'],
+            'composer-tree-json' => [$this->factory, 'toComposerTreeJson'],
         ];
 
         foreach ($recognizedOutputFormatRules as $format => $callable) {

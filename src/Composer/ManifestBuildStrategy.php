@@ -21,6 +21,7 @@ interface ManifestBuildStrategy
     public const MIME_TYPE_SBOM_XML = 'application/vnd.sbom+xml';
     public const MIME_TYPE_TEXT_PLAIN = 'text/plain';
     public const MIME_TYPE_OCTET_STREAM = 'application/octet-stream';
+    public const MIME_TYPE_JSON = 'application/json';
 
     public function getMimeType(string $resourceFile, ?string $version): string;
 
