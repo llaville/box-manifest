@@ -40,4 +40,4 @@ All the documentation is available on [website][docs-website], generated from th
 [composer]: https://getcomposer.org
 [cyclonedx]: https://github.com/CycloneDX
 [docs-folder]: https://github.com/llaville/box-manifest/tree/4.x/docs
-[docs-website]: https://llaville.github.io/box-manifest/4.3
+[docs-website]: https://llaville.github.io/box-manifest/4.4
