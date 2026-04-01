@@ -77,6 +77,8 @@ nav:
                 - "Generate a final BOX configuration file": Tutorial/generate-box-json-dist.md
           - "Use Cases":
                 - UseCases/README.md
+                - "Manifest in Composer Tree JSON format": UseCases/ComposerTreeJsonFormat.md
+                - "Manifest in Composer Tree text format": UseCases/ComposerTreeTextFormat.md
                 - "Manifest in plain text format": UseCases/PlainTextFormat.md
                 - "Manifest in decorated text format": UseCases/DecoratedTextFormat.md
                 - "Manifest in console table format": UseCases/ConsoleTextFormat.md

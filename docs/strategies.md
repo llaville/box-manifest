@@ -5,14 +5,16 @@
 
 This strategy identify what resource (filename) is associated to a manifest and the target format to build.
 
-|           Filename            |     Format      |          Mime Type          |
-|:-----------------------------:|:---------------:|:---------------------------:|
-|      `console-style.txt`      | `console-style` | `application/octet-stream`  |
-|      `console-table.txt`      | `console-table` | `application/octet-stream`  |
-| `plain.txt` or `manifest.txt` |     `plain`     |        `text/plain`         |
-|  `sbom.json` or `*.cdx.json`  |   `sbom-json`   | `application/vnd.sbom+json` |
-|   `sbom.xml` or `*.cdx.xml`   |   `sbom-xml`    | `application/vnd.sbom+xml`  |
-|         `custom.bin`          |   User class    | `application/octet-stream`  |
+|           Filename            |        Format        |          Mime Type          |
+|:-----------------------------:|:--------------------:|:---------------------------:|
+|      `console-style.txt`      |   `console-style`    | `application/octet-stream`  |
+|      `console-table.txt`      |   `console-table`    | `application/octet-stream`  |
+| `plain.txt` or `manifest.txt` |       `plain`        |        `text/plain`         |
+|  `sbom.json` or `*.cdx.json`  |     `sbom-json`      | `application/vnd.sbom+json` |
+|   `sbom.xml` or `*.cdx.xml`   |      `sbom-xml`      | `application/vnd.sbom+xml`  |
+|       `*.composer.txt`        | `composer-tree-text` |        `text/plain`         |
+|       `*.composer.json`       | `composer-tree-json` |     `application/json`      |
+|         `custom.bin`          |      User class      | `application/octet-stream`  |
 
 ## PostInstall strategy
 
