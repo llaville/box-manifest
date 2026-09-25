@@ -1,0 +1,12 @@
+parameters:
+    level: 9
+    paths:
+        - ../../src/
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: true
+    ignoreErrors:
+        -
+            rawMessages:
+                - 'Parameter #1 $command of class Symfony\Component\Process\Process constructor expects array<string>, list<string|null> given.'
+            path: ../../src/Pipeline/CompileStage.php
+            reportUnmatched: false
