@@ -4,9 +4,9 @@
         "actions": [
             {
                 "action": [
-                    "FORCE_COLOR=1",
-                    "XDG_CONFIG_HOME={$ENV|value-of:XDG_CONFIG_HOME|default:.github/linters}",
                     "{$ENV|value-of:XDG_BIN_HOME}mago",
+                    "{$ENV|value-of:\\Bartlett\\CaptainHookBinPlugin\\BinPlugin.colors-flag|cache:false}",
+                    "--config {$ENV|value-of:\\Bartlett\\CaptainHookBinPlugin\\BinPlugin.config-file|cache:false}",
                     "lint",
                     "--baseline lint-baseline.toml",
                     "{$STAGED_FILES|of-type:php|separated-by: }"
@@ -15,6 +15,8 @@
                     "label": "Lint Files (with Mago)"
                 },
                 "options": {
+                    "colors": "always",
+                    "config-file": "{$ENV|value-of:XDG_CONFIG_HOME}/mago.dist.toml",
                     "package-require": [
                         "carthage-software/mago",
                         "^1.6"
