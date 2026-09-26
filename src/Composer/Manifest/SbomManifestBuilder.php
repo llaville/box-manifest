@@ -9,8 +9,10 @@ namespace Bartlett\BoxManifest\Composer\Manifest;
 
 use Bartlett\BoxManifest\Composer\ManifestBuilderInterface;
 
+use Composer\Spdx\SpdxLicenses;
+use CycloneDX\Contrib\Bom\Utils\BomUtils;
+use CycloneDX\Contrib\License\Factories\LicenseFactory;
 use CycloneDX\Core\Enums\ComponentType;
-use CycloneDX\Core\Factories\LicenseFactory;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Property;
@@ -20,7 +22,7 @@ use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JsonSerializer;
 use CycloneDX\Core\Serialization\Serializer;
 use CycloneDX\Core\Serialization\XmlSerializer;
-use CycloneDX\Core\Utils\BomUtility;
+use CycloneDX\Core\Spdx\LicenseIdentifiers;
 use PackageUrl\PackageUrl;
 
 use DateTime;
@@ -64,7 +66,7 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
         $this->bom = new Bom();
         if (!$isImmutable) {
             try {
-                $this->bom->setSerialNumber(BomUtility::randomSerialNumber());
+                $this->bom->setSerialNumber(BomUtils::randomSerialNumber());
             } catch (Exception) {
             }
             $this->bom->getMetadata()->setTimestamp(new DateTime());
@@ -126,12 +128,15 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
 
         $purl = new PackageUrl('composer', $rootPackage['name']);
         $purl->setVersion($version);
-        $component->setPackageUrl($purl);
+        $component->setPackageUrl($purl->__toString());
         $component->setBomRefValue((string) $purl);
 
         // scope
         if (isset($composerJson['license'])) {
-            $licenseFactory = new LicenseFactory();
+            $licenseFactory = new LicenseFactory(
+                new LicenseIdentifiers(),
+                new SpdxLicenses(),
+            );
 
             if (!empty($composerJson['license'])) {
                 $composerJson['license'] = (array) $composerJson['license'];
@@ -181,7 +186,7 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
 
             $purl = new PackageUrl('composer', $package);
             $purl->setVersion($version);
-            $component->setPackageUrl($purl);
+            $component->setPackageUrl($purl->__toString());
             $component->setBomRefValue((string) $purl);
 
             $componentRepository->addItems($component);
