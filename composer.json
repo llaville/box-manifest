@@ -7,7 +7,7 @@
         "ext-phar": "*",
         "composer/composer": "^2.7",
         "cyclonedx/cyclonedx-library": "^3.0",
-        "jetbrains/phpstorm-stubs": "@dev",
+        "jetbrains/phpstorm-stubs": "@dev || ^v2026.1",
         "humbug/php-scoper": "^0.18.19",
         "humbug/box": "^4.7",
         "league/pipeline": "^1.0",
