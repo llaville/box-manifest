@@ -13,7 +13,7 @@
     stopOnSkipped="false"
     beStrictAboutTestsThatDoNotTestAnything="false"
     processIsolation="false"
-    cacheDirectory=".phpunit.cache"
+    cacheDirectory="../../.phpunit.cache"
 >
     <coverage>
         <report>
