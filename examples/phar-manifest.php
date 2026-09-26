@@ -42,6 +42,8 @@ if (count($argv) < 2) {
     $logger->log('notice', sprintf('Usage: php %s %s :: %s', __FILE__, 'plain', 'Plain text (key: value) format'));
     $logger->log('notice', sprintf('Usage: php %s %s :: %s', __FILE__, 'console-style', 'Console Line format'));
     $logger->log('notice', sprintf('Usage: php %s %s :: %s', __FILE__, 'console-table', 'Console Table format'));
+    $logger->log('notice', sprintf('Usage: php %s %s :: %s', __FILE__, 'composer-tree-txt', 'Composer Tree Text format'));
+    $logger->log('notice', sprintf('Usage: php %s %s :: %s', __FILE__, 'composer-tree-json', 'Composer Tree Json format'));
     exit(1);
 }
 
@@ -71,6 +73,12 @@ try {
     } elseif ($argv[1] == 'console-table') {
         // 5.
         $result = $factory->toConsole();
+    } elseif ($argv[1] == 'composer-tree-txt') {
+        // 6.
+        $result = $factory->toComposerTree();
+    } elseif ($argv[1] == 'composer-tree-json') {
+        // 7.
+        $result = $factory->toComposerTreeJson();
     }
     throw new InvalidArgumentException(sprintf('Unknown format "%s"', $argv[1]));
 } catch (Throwable $e) {
