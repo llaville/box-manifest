@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
     backupGlobals="false"
     backupStaticProperties="false"
-    bootstrap="bootstrap.php"
+    bootstrap="../../bootstrap.php"
     colors="true"
     stopOnError="false"
     stopOnFailure="false"
@@ -22,15 +22,15 @@
     </coverage>
     <testsuites>
         <testsuite name="e2e">
-            <directory suffix="Test.php">tests/e2e/</directory>
+            <directory suffix="Test.php">../../tests/e2e/</directory>
         </testsuite>
         <testsuite name="unit">
-            <directory suffix="Test.php">tests/unit/</directory>
+            <directory suffix="Test.php">../../tests/unit/</directory>
         </testsuite>
     </testsuites>
     <source>
         <include>
-            <directory suffix=".php">src/</directory>
+            <directory suffix=".php">../../src/</directory>
         </include>
     </source>
 </phpunit>
