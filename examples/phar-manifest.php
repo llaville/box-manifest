@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
@@ -85,11 +88,11 @@ try {
 } finally {
     $logger->log(
         'info',
-        'Using composer.json : ' . $config->getComposerJson()?->path
+        'Using composer.json : ' . $config->getComposerJson()?->path,
     );
     $logger->log(
         'info',
-        'Using composer.lock : ' . $config->getComposerLock()?->path
+        'Using composer.lock : ' . $config->getComposerLock()?->path,
     );
     echo sprintf('%s%s%s', PHP_EOL, $result ?? $e->getMessage(), PHP_EOL), PHP_EOL;
 }

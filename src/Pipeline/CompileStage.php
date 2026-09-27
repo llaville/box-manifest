@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Pipeline;
 
 use Bartlett\BoxManifest\Console\Logger;
@@ -14,7 +18,9 @@ use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 
 use RuntimeException;
+
 use function dirname;
+
 use const PHP_BINARY;
 use const PHP_BINDIR;
 use const PHP_SAPI;

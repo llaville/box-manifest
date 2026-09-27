@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Composer\Manifest;
 
 use Bartlett\BoxManifest\Composer\ManifestBuilderInterface;
@@ -12,6 +16,7 @@ use Bartlett\BoxManifest\Composer\ManifestBuilderInterface;
 use function implode;
 use function sprintf;
 use function substr;
+
 use const PHP_EOL;
 
 /**
@@ -33,13 +38,13 @@ final class SimpleTextManifestBuilder implements ManifestBuilderInterface
             $version = sprintf(
                 '%s%s',
                 $rootPackage['aliases'][0],
-                empty($reference) ? '' : '@' . substr($reference, 0, 7)
+                empty($reference) ? '' : '@' . substr($reference, 0, 7),
             );
         } elseif (isset($rootPackage['pretty_version'])) {
             $version = sprintf(
                 '%s%s',
                 $rootPackage['pretty_version'],
-                empty($reference) ? '' : '@' . substr($reference, 0, 7)
+                empty($reference) ? '' : '@' . substr($reference, 0, 7),
             );
         } else {
             $version = $rootPackage['version'];
@@ -62,7 +67,7 @@ final class SimpleTextManifestBuilder implements ManifestBuilderInterface
                     '%s: %s@%s',
                     $package,
                     $values['pretty_version'],
-                    substr($values['reference'], 0, 7)
+                    substr($values['reference'], 0, 7),
                 );
             }
         }

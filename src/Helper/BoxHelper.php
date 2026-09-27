@@ -1,22 +1,27 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Helper;
 
 use Bartlett\BoxManifest\Composer\RestartHandler;
 
 use Fidry\Console\IO;
 
-use function KevinGH\Box\get_box_version;
-
 use Symfony\Component\Console\Output\OutputInterface;
+
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Logger\ConsoleLogger;
+
+use function KevinGH\Box\get_box_version;
 
 /**
  * @author Laurent Laville

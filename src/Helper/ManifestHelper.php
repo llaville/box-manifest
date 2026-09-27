@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Helper;
 
 use Bartlett\BoxManifest\Pipeline\AbstractStage;
@@ -38,10 +42,10 @@ class ManifestHelper extends Helper
                     'manifest',
                     null,
                     InputOption::VALUE_OPTIONAL,
-                    'Show software components bundled (either from : ' .
-                    implode(', ', ManifestFile::values()) .
-                    ')'
-                )
+                    'Show software components bundled (either from : '
+                    . implode(', ', ManifestFile::values())
+                    . ')',
+                ),
             );
         }
     }
@@ -82,7 +86,7 @@ class ManifestHelper extends Helper
         array $resources,
         array $mapFiles,
         string $version,
-        ?string $resourceDir = null
+        ?string $resourceDir = null,
     ): StubGenerator {
         if (null === $resourceDir) {
             $resourceDir = AbstractStage::BOX_MANIFESTS_DIR;

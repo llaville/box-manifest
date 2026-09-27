@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Pipeline;
 
 use Fidry\Console\IO;
@@ -41,7 +45,7 @@ abstract readonly class AbstractStage
         protected IO $io,
         protected Command $command,
         protected LoggerInterface $logger,
-        protected array $context
+        protected array $context,
     ) {
     }
 
@@ -64,7 +68,7 @@ abstract readonly class AbstractStage
         string $filename,
         string|iterable $contents,
         string $reason = 'Unable to write',
-        array $context = []
+        array $context = [],
     ): int {
         $resource = fopen($filename, 'w');
         if (!$resource) {
@@ -80,9 +84,9 @@ abstract readonly class AbstractStage
             sprintf(
                 'Resource id #%d written to "%s"',
                 get_resource_id($resource),
-                str_starts_with($filename, 'php://') ? $filename : realpath($filename)
+                str_starts_with($filename, 'php://') ? $filename : realpath($filename),
             ),
-            $context
+            $context,
         );
         return 1;
     }

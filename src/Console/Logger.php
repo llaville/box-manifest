@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Console;
 
 use Symfony\Component\Console\Helper\DebugFormatterHelper;
@@ -31,7 +35,7 @@ class Logger extends ConsoleLogger
         protected DebugFormatterHelper $helper,
         OutputInterface $output,
         array $verbosityLevelMap = [],
-        array $formatLevelMap = []
+        array $formatLevelMap = [],
     ) {
         parent::__construct($output, $verbosityLevelMap, $formatLevelMap);
     }

@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Pipeline;
 
 use Bartlett\BoxManifest\Console\Logger;
@@ -40,7 +44,7 @@ final readonly class StubStage extends AbstractStage implements StageInterface
             $resources,
             $config->getMap(),
             $payload['versions']['boxManifest'] ?? '@dev',
-            $payload['resourceDir']
+            $payload['resourceDir'],
         );
 
         $stub = $stubGenerator->generateStub(
@@ -49,7 +53,7 @@ final readonly class StubStage extends AbstractStage implements StageInterface
             $config->getMainScript(),
             $config->getShebang(),
             $config->withInterceptFileFunctions(),
-            $config->withCheckRequirements()
+            $config->withCheckRequirements(),
         );
 
         $targetFilename = $payload['outputStub'] ?? self::STDOUT;

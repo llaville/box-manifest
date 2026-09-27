@@ -1,13 +1,18 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest;
 
 use InvalidArgumentException;
+
 use function addcslashes;
 use function file_exists;
 use function file_get_contents;
@@ -74,14 +79,14 @@ final class StubGenerator
         ?string $templatePath,
         private readonly array $resources,
         private readonly string $version,
-        private readonly string $resourceDir
+        private readonly string $resourceDir,
     ) {
         if (null === $templatePath) {
             $this->manifestTemplate = self::MANIFEST_TEMPLATE;
         } else {
             if (!file_exists($templatePath) || !is_readable($templatePath)) {
                 throw new InvalidArgumentException(
-                    sprintf('Filename "%s" does not exists or is not readable.', $templatePath)
+                    sprintf('Filename "%s" does not exists or is not readable.', $templatePath),
                 );
             }
             $this->manifestTemplate = file_get_contents($templatePath) ?: '';
@@ -94,7 +99,7 @@ final class StubGenerator
         ?string $index,
         string $shebang,
         bool $intercept,
-        bool $checkRequirements
+        bool $checkRequirements,
     ): string {
         $stub = self::STUB_TEMPLATE;
 
@@ -119,9 +124,9 @@ final class StubGenerator
                 $alias,
                 $this->resourceDir,
                 $this->resources,
-                $this->version
+                $this->version,
             ),
-            $stub
+            $stub,
         );
 
         // 4. @link https://box-project.github.io/box/configuration/#intercept-intercept
@@ -165,7 +170,7 @@ final class StubGenerator
         return str_replace(
             ['%alias%', '%manifest_dir%', '%manifest_files%', '%version%'],
             [$alias, $resourceDir, implode("', '", $resources), $version],
-            $this->manifestTemplate
+            $this->manifestTemplate,
         );
     }
 

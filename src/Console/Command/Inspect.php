@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Console\Command;
 
 use Bartlett\BoxManifest\Pipeline\AbstractStage;
@@ -21,6 +25,7 @@ use Symfony\Component\Filesystem\Path;
 use DirectoryIterator;
 use Phar;
 use UnexpectedValueException;
+
 use function count;
 use function file_get_contents;
 use function is_array;
@@ -59,8 +64,8 @@ final class Inspect extends Command
                 'preview',
                 null,
                 InputOption::VALUE_NONE,
-                'Show content of a specific manifest file'
-            )
+                'Show content of a specific manifest file',
+            ),
         ];
 
         $this->setName(self::NAME)
@@ -109,8 +114,8 @@ final class Inspect extends Command
                     $filename = $manifestFile->getFilename();
                     $mimeType = match ($filename) {
                         'manifest.txt' => 'text/plain',
-                        'sbom.xml'=> 'application/vnd.cyclonedx+xml',
-                        'sbom.json'=> 'application/vnd.cyclonedx+json',
+                        'sbom.xml' => 'application/vnd.cyclonedx+xml',
+                        'sbom.json' => 'application/vnd.cyclonedx+json',
                         default => 'application/octet-stream',
                     };
                     $manifests[$filename] = $mimeType;
@@ -145,15 +150,15 @@ final class Inspect extends Command
                 sprintf(
                     'Found %d manifest%s',
                     $manifestsFound,
-                    $manifestsFound > 1 ? 's' : ''
-                )
+                    $manifestsFound > 1 ? 's' : '',
+                ),
             );
             $io->listing($inspection);
 
             if ($manifest && $input->getOption('preview')) {
                 $file = 'phar://' . $phar->getPath() . '/' . AbstractStage::BOX_MANIFESTS_DIR . $manifest;
                 $io->writeln('<comment>Preview :</comment>');
-                $io->writeln(file_get_contents($file) ? : 'unavailable');
+                $io->writeln(file_get_contents($file) ?: 'unavailable');
             }
         }
 

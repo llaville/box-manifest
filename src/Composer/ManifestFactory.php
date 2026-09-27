@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Composer;
 
 use Bartlett\BoxManifest\Composer\Manifest\ComposerManifestBuilder;
@@ -22,6 +26,7 @@ use KevinGH\Box\Configuration\Configuration;
 
 use DomainException;
 use ValueError;
+
 use function array_column;
 use function array_key_exists;
 use function class_exists;
@@ -32,6 +37,7 @@ use function is_readable;
 use function is_string;
 use function preg_replace;
 use function sprintf;
+
 use const DIRECTORY_SEPARATOR;
 
 /**
@@ -46,7 +52,7 @@ final class ManifestFactory
         private readonly bool $isDecorated,
         private readonly string $boxVersion,
         private readonly string $boxManifestVersion,
-        private readonly bool $immutableCopy
+        private readonly bool $immutableCopy,
     ) {
         $this->setStrategy(new DefaultStrategy($this));
     }
@@ -146,7 +152,7 @@ final class ManifestFactory
                 'composer.json' => $decodedJsonContents,
                 'composer.lock' => $decodedJsonLockContents,
                 'installed.php' => $installedPhp,
-            ]
+            ],
         );
 
         if (!$isDecorated) {
@@ -185,10 +191,10 @@ final class ManifestFactory
                 sprintf(
                     'Unsupported spec version "%s" for SBOM format. Expected one of these values: %s',
                     $specVersion,
-                    implode(', ', array_column(Version::cases(), 'value'))
+                    implode(', ', array_column(Version::cases(), 'value')),
                 ),
                 0,
-                $valueError
+                $valueError,
             );
         }
         $spec = SpecFactory::makeForVersion($version);
@@ -201,7 +207,7 @@ final class ManifestFactory
         return self::create(
             new SbomManifestBuilder($normalizer, $this->boxVersion, $this->boxManifestVersion, $isImmutable ?? $this->immutableCopy),
             $this->config,
-            false
+            false,
         );
     }
 

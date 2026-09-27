@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Composer\Manifest;
 
 use Bartlett\BoxManifest\Composer\ManifestBuilderInterface;
@@ -28,6 +32,7 @@ use PackageUrl\PackageUrl;
 use DateTime;
 use DomainException;
 use Exception;
+
 use function explode;
 use function get_debug_type;
 use function sprintf;
@@ -98,14 +103,14 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
             $version = sprintf(
                 '%s@%s',
                 $rootPackage['aliases'][0],
-                substr($rootPackage['reference'], 0, 7)
+                substr($rootPackage['reference'], 0, 7),
             );
         } elseif (isset($rootPackage['pretty_version'])) {
             if (isset($rootPackage['reference'])) {
                 $version = sprintf(
                     '%s@%s',
                     $rootPackage['pretty_version'],
-                    substr($rootPackage['reference'], 0, 7)
+                    substr($rootPackage['reference'], 0, 7),
                 );
             } else {
                 // when project has none VCS commits yet
@@ -114,7 +119,6 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
         } else {
             $version = $rootPackage['version'];
         }
-
 
         [$group, $name] = explode('/', $rootPackage['name']);
 
@@ -172,7 +176,7 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
                 $version = sprintf(
                     '%s@%s',
                     $values['pretty_version'],
-                    substr($values['reference'], 0, 7)
+                    substr($values['reference'], 0, 7),
                 );
             }
 

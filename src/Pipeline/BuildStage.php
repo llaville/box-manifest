@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Pipeline;
 
 use Bartlett\BoxManifest\Composer\ManifestFactory;
@@ -39,7 +43,7 @@ final readonly class BuildStage extends AbstractStage implements StageInterface
             $payload['ansiSupport'],
             $payload['versions']['box'],
             $payload['versions']['boxManifest'],
-            $payload['immutableCopy']
+            $payload['immutableCopy'],
         );
 
         $buildsCount = 0;
@@ -53,7 +57,7 @@ final readonly class BuildStage extends AbstractStage implements StageInterface
                     '--output-file' => $resourceFile,
                     '--sbom-spec' => $payload['sbomSpec'],
                 ],
-                $this->command->getDefinition()
+                $this->command->getDefinition(),
             );
             $io = $this->io->withInput($input);
             $options = new ManifestOptions($io);
@@ -74,9 +78,9 @@ final readonly class BuildStage extends AbstractStage implements StageInterface
                 '%d manifest%s built %s',
                 $buildsCount,
                 $buildsCount > 1 ? 's were' : ' was',
-                $buildsCount > 0 ? '>> ' . implode(', ', array_keys($payload['outputs']['resources'] ?? [])) : ''
+                $buildsCount > 0 ? '>> ' . implode(', ', array_keys($payload['outputs']['resources'] ?? [])) : '',
             ),
-            $context
+            $context,
         );
 
         return $payload;

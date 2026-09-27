@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Helper;
 
 use Fidry\Console\IO;
@@ -20,6 +24,7 @@ use Symfony\Component\Filesystem\Path;
 use Webmozart\Assert\Assert;
 
 use stdClass;
+
 use function array_merge;
 use function dirname;
 use function file_exists;
@@ -52,7 +57,7 @@ final class BoxConfigurationHelper
     public function __construct(
         IO $io,
         ?string $boxManifestVersion = null,
-        Json $json = new Json()
+        Json $json = new Json(),
     ) {
         $assocConfig = [];
 
@@ -108,7 +113,7 @@ final class BoxConfigurationHelper
                 // @phpstan-ignore argument.type
                 $assocConfig,
                 // @phpstan-ignore argument.type
-                $firstBin ?? null
+                $firstBin ?? null,
             );
         }
 

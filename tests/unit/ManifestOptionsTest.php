@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Tests;
 
 use Bartlett\BoxManifest\Composer\ManifestOptions;
@@ -85,7 +89,6 @@ final class ManifestOptionsTest extends TestCase
         if (!empty($outputFile)) {
             $this->assertSame($outputFile, $options->getOutputFile());
         }
-
 
         // --output-conf
         if (!empty($outputConfFile)) {

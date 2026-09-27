@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Composer;
 
 use Bartlett\BoxManifest\Helper\ManifestFormat;
@@ -12,6 +16,7 @@ use Bartlett\BoxManifest\Helper\ManifestFormat;
 use Fidry\Console\IO;
 
 use RuntimeException;
+
 use function file_exists;
 use function is_dir;
 use function sprintf;
@@ -44,7 +49,7 @@ final class ManifestOptions
         return $this->io->getTypedOption(self::BOOTSTRAP_OPTION)->asNullableString();
     }
 
-    public function getFormat(bool $raw = false): string|null|ManifestFormat
+    public function getFormat(bool $raw = false): string|ManifestFormat|null
     {
         $rawFormat = $this->io->getTypedOption(self::FORMAT_OPTION)->asString();
 
@@ -102,7 +107,7 @@ final class ManifestOptions
 
         if (!file_exists($workingDir) || !is_dir($workingDir)) {
             throw new RuntimeException(
-                sprintf('Invalid working directory specified, "%s" does not exist or is not a directory.', $workingDir)
+                sprintf('Invalid working directory specified, "%s" does not exist or is not a directory.', $workingDir),
             );
         }
 

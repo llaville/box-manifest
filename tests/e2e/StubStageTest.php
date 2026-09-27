@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Tests;
 
 use Bartlett\BoxManifest\Console\Application;
@@ -46,7 +50,7 @@ final class StubStageTest extends TestCase
         string $outputStub,
         ?string $configurationFile,
         ?string $workingDir,
-        ?string $expectedMessage = null
+        ?string $expectedMessage = null,
     ): void {
 
         $exitCode = $this->runApplication($outputStub, $configurationFile, $workingDir);

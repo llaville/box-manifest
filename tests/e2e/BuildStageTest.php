@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Tests;
 
 use Bartlett\BoxManifest\Console\Application;
@@ -45,7 +49,7 @@ final class BuildStageTest extends TestCase
     public function testBuildResourcesWithoutSuccess(
         string $outputFormat,
         array $resources,
-        ?string $expectedMessage = null
+        ?string $expectedMessage = null,
     ): void {
         $exitCode = $this->runApplication($outputFormat, $resources);
         $this->assertSame(Command::FAILURE, $exitCode);
@@ -60,7 +64,7 @@ final class BuildStageTest extends TestCase
         string $outputFormat,
         array $resources,
         ?string $expectedMessage = null,
-        ?string $workingDir = null
+        ?string $workingDir = null,
     ): void {
         $exitCode = $this->runApplication($outputFormat, $resources, $workingDir);
         $this->assertSame(Command::SUCCESS, $exitCode);

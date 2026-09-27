@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Tests;
 
 use Bartlett\BoxManifest\Composer\Manifest\DecorateTextManifestBuilder;
@@ -29,8 +33,10 @@ use InvalidArgumentException;
 use Phar;
 use PharException;
 use stdClass;
+
 use function explode;
 use function file_get_contents;
+
 use const PHP_EOL;
 
 /**
@@ -167,7 +173,7 @@ final class ManifestFactoryTest extends TestCase
             true,
             '4.6.2@29c3585',
             '4.0.0',
-            true
+            true,
         );
 
         $parameters = [

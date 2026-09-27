@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Composer\Manifest;
 
 use Bartlett\BoxManifest\Composer\ManifestBuilderInterface;
@@ -33,7 +37,7 @@ final class ConsoleTextManifestBuilder implements ManifestBuilderInterface
             $version = sprintf(
                 '%s%s',
                 $rootPackage['pretty_version'],
-                empty($reference) ? '' : '@' . substr($reference, 0, 7)
+                empty($reference) ? '' : '@' . substr($reference, 0, 7),
             );
         } else {
             $version = $rootPackage['version'];

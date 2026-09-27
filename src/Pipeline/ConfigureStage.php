@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Pipeline;
 
 use Bartlett\BoxManifest\Console\Logger;
@@ -12,6 +16,7 @@ use Bartlett\BoxManifest\Console\Logger;
 use Bartlett\BoxManifest\Helper\BoxConfigurationHelper;
 use RuntimeException;
 use Throwable;
+
 use function array_keys;
 use function array_push;
 use function file_exists;
@@ -19,6 +24,7 @@ use function file_get_contents;
 use function json_decode;
 use function json_encode;
 use function rtrim;
+
 use const JSON_PRETTY_PRINT;
 use const JSON_UNESCAPED_SLASHES;
 

@@ -1,10 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Bartlett\BoxManifest\Pipeline;
 
 use Bartlett\BoxManifest\Console\Logger;
@@ -18,6 +22,7 @@ use Symfony\Component\Stopwatch\Stopwatch;
 
 use RuntimeException;
 use Throwable;
+
 use function is_array;
 use function sprintf;
 
@@ -52,7 +57,7 @@ final readonly class InterruptibleTimedProcessor implements ProcessorInterface
 
             $this->logger->debug(
                 sprintf('Starting stage "%s"', $name),
-                ['status' => Logger::STATUS_STARTED, 'id' => $pid]
+                ['status' => Logger::STATUS_STARTED, 'id' => $pid],
             );
 
             try {

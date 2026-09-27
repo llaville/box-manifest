@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
@@ -24,7 +27,7 @@ final readonly class MyCustomStage extends AbstractStage implements StageInterfa
         $this->io->writeln([
             'Payload :',
             var_export($payload, true),
-            sprintf('"%s" was invoked with previous payload from command "%s"', __CLASS__,  $this->command->getName())
+            sprintf('"%s" was invoked with previous payload from command "%s"', __CLASS__, $this->command->getName()),
         ]);
 
         return $payload;
