@@ -1,13 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of the BoxManifest package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Laurent Laville
- * @since Release 4.0.0
  */
+
 namespace Bartlett\BoxManifest;
 
 use DirectoryIterator;
@@ -24,6 +25,10 @@ use function sprintf;
 
 use const DIRECTORY_SEPARATOR;
 
+/**
+ * @author Laurent Laville
+ * @since Release 4.0.0
+ */
 if (class_exists(__NAMESPACE__ . '\Autoload', false) === false) {
     class Autoload
     {
@@ -37,7 +42,7 @@ if (class_exists(__NAMESPACE__ . '\Autoload', false) === false) {
             if (self::$composerAutoloader === null) {
                 if (isset($GLOBALS['_composer_autoload_path'])) {
                     $possibleAutoloadPaths = [
-                        dirname($GLOBALS['_composer_autoload_path'])
+                        dirname($GLOBALS['_composer_autoload_path']),
                     ];
                     $autoloader = basename($GLOBALS['_composer_autoload_path']);
                 } else {
@@ -52,7 +57,7 @@ if (class_exists(__NAMESPACE__ . '\Autoload', false) === false) {
 
                 // [!CAUTION]
                 // https://www.php.net/manual/en/phar.using.stream.php#104320
-                $baseDir = Phar::running() ? : __DIR__;
+                $baseDir = Phar::running() ?: __DIR__;
 
                 // checks to register optional autoloader
                 if (file_exists($baseDir . '/vendor-bin')) {
@@ -85,8 +90,8 @@ if (class_exists(__NAMESPACE__ . '\Autoload', false) === false) {
                 sprintf(
                     'Unable to find "%s" in "%s" paths.',
                     $autoloader,
-                    implode('", "', $possibleAutoloadPaths)
-                )
+                    implode('", "', $possibleAutoloadPaths),
+                ),
             );
         }
     }
