@@ -309,10 +309,10 @@ final class Make extends Command
                     ),
                     $context,
                 );
-                return Command::SUCCESS;
             }
-            return Command::FAILURE;
         }
+
+        return $isSuccessful ? Command::SUCCESS : Command::FAILURE;
     }
 
     private function changeWorkingDir(?string $newWorkingDir): ?string

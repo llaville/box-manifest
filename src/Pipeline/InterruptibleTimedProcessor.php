@@ -54,6 +54,7 @@ final readonly class InterruptibleTimedProcessor implements ProcessorInterface
             $name = $stage::class;  // @phpstan-ignore classConstant.nonObject
             $stopwatch->start($name);
             $pid = $payload['pid'] = uniqid();
+            $message = $errorMessage = '';
 
             $this->logger->debug(
                 sprintf('Starting stage "%s"', $name),
@@ -70,22 +71,21 @@ final readonly class InterruptibleTimedProcessor implements ProcessorInterface
                 // Runtime errors that do not require immediate action but should typically be logged and monitored
                 $level = LogLevel::ERROR;
                 $isSuccessful = false;
+                $errorMessage = $exception->getMessage();
             } catch (Throwable $exception) {
                 // Critical conditions
                 $level = LogLevel::CRITICAL;
                 $isSuccessful = false;
-            } finally {
-                if (!$isSuccessful) {
-                    // @phpstan-ignore-next-line variable.undefined
-                    $message = sprintf('The stage "%s" has failed : %s', $name, $exception->getMessage());
-                }
-                // @phpstan-ignore-next-line variable.undefined
-                $this->logger->log($level, $message, ['status' => Logger::STATUS_STOPPED, 'id' => $pid, 'error' => !$isSuccessful]);
+                $errorMessage = $exception->getMessage();
+            }
+            if (!$isSuccessful) {
+                $message = sprintf('The stage "%s" has failed : %s', $name, $errorMessage);
+            }
+            $this->logger->log($level, $message, ['status' => Logger::STATUS_STOPPED, 'id' => $pid, 'error' => !$isSuccessful]);
 
-                if (!$isSuccessful) {
-                    // circuit breaker or critical conditions lead to abort the workflow
-                    throw $exception;  // @phpstan-ignore variable.undefined
-                }
+            if (!$isSuccessful) {
+                // circuit breaker or critical conditions lead to abort the workflow
+                throw $exception;  // @phpstan-ignore variable.undefined
             }
         }
 
