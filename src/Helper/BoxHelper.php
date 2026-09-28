@@ -41,7 +41,7 @@ class BoxHelper extends Helper
         $out = $io->getOutput();
         $out->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
 
-        $restart = (new RestartHandler('box'));
+        $restart = new RestartHandler('box');
         $restart->setLogger(new ConsoleLogger($out));
         $restart->check();
     }
