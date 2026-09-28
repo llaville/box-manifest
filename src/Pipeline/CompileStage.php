@@ -59,7 +59,7 @@ final readonly class CompileStage extends AbstractStage implements StageInterfac
         $boxPath = $executableFinder->find('box', dirname(__DIR__, 2) . '/vendor/bin/box');
 
         $command = [
-            PHP_SAPI == 'cli' ? PHP_BINARY : PHP_BINDIR . '/php',
+            PHP_SAPI === 'cli' ? PHP_BINARY : PHP_BINDIR . '/php',
             $boxPath,
             'compile',
         ];

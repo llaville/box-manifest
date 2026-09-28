@@ -58,7 +58,7 @@ final readonly class DefaultStrategy implements ManifestBuildStrategy
 
     public function getCallable(string $outputFormat, ?string $resourceFile): callable
     {
-        if ('auto' == $outputFormat) {
+        if ('auto' === $outputFormat) {
             if (null === $resourceFile) {
                 return [$this->factory, 'toConsole'];
             }
