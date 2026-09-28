@@ -73,6 +73,10 @@ final class SbomManifestBuilder implements ManifestBuilderInterface
             try {
                 $this->bom->setSerialNumber(BomUtils::randomSerialNumber());
             } catch (Exception) {
+                // @mago-expect lint:no-empty-catch-clause
+                // the https://www.php.net/manual/en/function.random-int.php used by BomUtils::randomSerialNumber
+                // may raise an exception,
+                // but we consider serial number as optional here !
             }
             $this->bom->getMetadata()->setTimestamp(new DateTime());
 

@@ -56,6 +56,8 @@ final readonly class ConfigureStage extends AbstractStage implements StageInterf
                  */
                 $configs = json_decode(file_get_contents($configPath), true);
             } catch (Throwable) {
+                // @mago-expect lint:no-empty-catch-clause
+                // if we cannot decode the BOX config file, we consider an empty $configs settings
             }
         }
 
