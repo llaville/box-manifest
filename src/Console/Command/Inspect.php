@@ -157,9 +157,9 @@ final class Inspect extends Command
 
             if ($manifest && $input->getOption('preview')) {
                 $file = 'phar://' . $phar->getPath() . '/' . AbstractStage::BOX_MANIFESTS_DIR . $manifest;
-                $preview = file_get_contents($file);
+                $preview = file_exists($file) ? file_get_contents($file) : false;
                 if (!$preview) {
-                    $preview = 'unavailable';
+                    $preview = 'unavailable (declared in manifest but not available in PHP archive)';
                 }
                 $io->writeln('<comment>Preview :</comment>');
                 $io->writeln($preview);

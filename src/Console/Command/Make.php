@@ -33,7 +33,6 @@ use League\Pipeline\PipelineBuilder;
 
 use Psr\Log\LoggerInterface;
 
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DebugFormatterHelper;
 use Symfony\Component\Console\Helper\Helper;
@@ -301,18 +300,17 @@ final class Make extends Command
             $context['error'] = true;
             $logger->error('Workflow has failed', $context);
             $isSuccessful = false;
-        } finally {
-            if ($isSuccessful) {    // @phpstan-ignore variable.undefined
-                $logger->notice(
-                    sprintf(
-                        'Workflow has finished. Elapsed time %s',
-                        Helper::formatTime(microtime(true) - $startTime),
-                    ),
-                    $context,
-                );
-            }
         }
 
+        if ($isSuccessful) {
+            $logger->notice(
+                sprintf(
+                    'Workflow has finished. Elapsed time %s',
+                    Helper::formatTime(microtime(true) - $startTime),
+                ),
+                $context,
+            );
+        }
         return $isSuccessful ? Command::SUCCESS : Command::FAILURE;
     }
 

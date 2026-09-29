@@ -94,10 +94,14 @@ final class BoxConfigurationHelper
         }
 
         // @link https://box-project.github.io/box/configuration/#base-path-base-path
-        // @phpstan-ignore-next-line
-        $assocConfig[self::BASE_PATH_KEY] = $this->retrieveBasePath($this->configPath, $assocConfig) ?: '.';
+        $basePath = $assocConfig[self::BASE_PATH_KEY] ?? null;
+        // try to resolve it
+        $basePath = $this->retrieveBasePath($this->configPath, $basePath);
+        $assocConfig[self::BASE_PATH_KEY] = $basePath;
 
         $composerJsonPath = $assocConfig[self::BASE_PATH_KEY] . '/composer.json';
+
+        $firstBin = null;
 
         if (file_exists($composerJsonPath)) {
             /** @var array<string, mixed> $decodedComposerJson */
@@ -108,14 +112,14 @@ final class BoxConfigurationHelper
 
         $main = $assocConfig[self::MAIN_KEY] ?? null;
 
-        // @link https://box-project.github.io/box/configuration/#main-main
-        if (false !== $main) {
-            $assocConfig[self::MAIN_KEY] = $this->retrieveMainScriptPath(
-                // @phpstan-ignore argument.type
-                $assocConfig,
-                // @phpstan-ignore argument.type
-                $firstBin ?? null,
+        if (is_bool($main)) {
+            Assert::false(
+                $main,
+                'Cannot "enable" a main script: either disable it with `false` or give the main script file path.',
             );
+        } else {
+            // @link https://box-project.github.io/box/configuration/#main-main
+            $assocConfig[self::MAIN_KEY] = $this->retrieveMainScriptPath($basePath, $main, $firstBin);
         }
 
         $this->rawConfig = (object) $assocConfig;
@@ -133,7 +137,11 @@ final class BoxConfigurationHelper
 
     public function getMainScript(): ?string
     {
-        return $this->rawConfig->main ?? null;
+        if (is_string($this->rawConfig->main)) {
+            return $this->rawConfig->main;
+        }
+
+        return null;
     }
 
     public function getAlias(): string
@@ -191,23 +199,14 @@ final class BoxConfigurationHelper
         return $configPath;
     }
 
-    /**
-     * @param array{base-path?: string|null} $assocConfig
-     */
-    private function retrieveBasePath(?string $file, array $assocConfig): false|string
+    private function retrieveBasePath(?string $file = null, ?string $basePath = null): string
     {
         if (null === $file) {
             return getcwd();
         }
 
-        if (false === isset($assocConfig[self::BASE_PATH_KEY])) {
-            return realpath(dirname($file));
-        }
-
-        $basePath = $assocConfig[self::BASE_PATH_KEY];
-
-        if (!is_string($basePath)) {
-            return false;
+        if (null === $basePath) {
+            $basePath = dirname($file);
         }
 
         $basePath = trim($basePath);
@@ -220,33 +219,19 @@ final class BoxConfigurationHelper
         return realpath($basePath);
     }
 
-    /**
-     * @param array{base-path: string, main? :string|false|null} $assocConfig
-     */
-    private function retrieveMainScriptPath(array $assocConfig, ?string $firstBin): ?string
+    private function retrieveMainScriptPath(string $basePath, ?string $main = null, ?string $firstBin = null): ?string
     {
-        $basePath = $assocConfig[self::BASE_PATH_KEY];
-
         if (null !== $firstBin) {
             $firstBin = $this->normalizePath($firstBin, $basePath);
         }
 
-        if (isset($assocConfig[self::MAIN_KEY])) {
-            $main = $assocConfig[self::MAIN_KEY];
-
-            if (is_string($main)) {
-                $main = $this->normalizePath($main, $basePath);
-            }
+        if (null !== $main) {
+            $main = $this->normalizePath($main, $basePath);
         } else {
             $main = $firstBin ?? $this->normalizePath(self::DEFAULT_MAIN_SCRIPT, $basePath);
         }
 
-        if (is_bool($main)) {
-            Assert::false(
-                $main,
-                'Cannot "enable" a main script: either disable it with `false` or give the main script file path.',
-            );
-
+        if (null === $main) {
             return null;
         }
 
