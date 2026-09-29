@@ -1,0 +1,343 @@
+variant = "loose"
+
+[[issues]]
+file = "src/Composer/DefaultStrategy.php"
+code = "no-empty"
+message = "Use of the `empty` construct."
+count = 1
+
+[[issues]]
+file = "src/Composer/DefaultStrategy.php"
+code = "strict-behavior"
+message = "Call to `in_array` must enforce strict comparison."
+count = 1
+
+[[issues]]
+file = "src/Composer/Manifest/ConsoleTextManifestBuilder.php"
+code = "no-else-clause"
+message = "Avoid `else` clauses."
+count = 3
+
+[[issues]]
+file = "src/Composer/Manifest/ConsoleTextManifestBuilder.php"
+code = "no-else-clause"
+message = "Avoid `elseif` clauses."
+count = 1
+
+[[issues]]
+file = "src/Composer/Manifest/ConsoleTextManifestBuilder.php"
+code = "no-empty"
+message = "Use of the `empty` construct."
+count = 2
+
+[[issues]]
+file = "src/Composer/Manifest/ConsoleTextManifestBuilder.php"
+code = "no-isset"
+message = "Use of the `isset` construct."
+count = 2
+
+[[issues]]
+file = "src/Composer/Manifest/DecorateTextManifestBuilder.php"
+code = "no-else-clause"
+message = "Avoid `else` clauses."
+count = 3
+
+[[issues]]
+file = "src/Composer/Manifest/DecorateTextManifestBuilder.php"
+code = "no-else-clause"
+message = "Avoid `elseif` clauses."
+count = 1
+
+[[issues]]
+file = "src/Composer/Manifest/DecorateTextManifestBuilder.php"
+code = "no-empty"
+message = "Use of the `empty` construct."
+count = 2
+
+[[issues]]
+file = "src/Composer/Manifest/DecorateTextManifestBuilder.php"
+code = "no-isset"
+message = "Use of the `isset` construct."
+count = 2
+
+[[issues]]
+file = "src/Composer/Manifest/SbomManifestBuilder.php"
+code = "cyclomatic-complexity"
+message = "Class has high complexity."
+count = 1
+
+[[issues]]
+file = "src/Composer/Manifest/SbomManifestBuilder.php"
+code = "halstead"
+message = "Method has a high halstead effort"
+count = 1
+
+[[issues]]
+file = "src/Composer/Manifest/SbomManifestBuilder.php"
+code = "no-else-clause"
+message = "Avoid `else` clauses."
+count = 4
+
+[[issues]]
+file = "src/Composer/Manifest/SbomManifestBuilder.php"
+code = "no-else-clause"
+message = "Avoid `elseif` clauses."
+count = 2
+
+[[issues]]
+file = "src/Composer/Manifest/SbomManifestBuilder.php"
+code = "no-empty"
+message = "Use of the `empty` construct."
+count = 3
+
+[[issues]]
+file = "src/Composer/Manifest/SbomManifestBuilder.php"
+code = "no-isset"
+message = "Use of the `isset` construct."
+count = 4
+
+[[issues]]
+file = "src/Composer/Manifest/SimpleTextManifestBuilder.php"
+code = "no-else-clause"
+message = "Avoid `else` clauses."
+count = 2
+
+[[issues]]
+file = "src/Composer/Manifest/SimpleTextManifestBuilder.php"
+code = "no-else-clause"
+message = "Avoid `elseif` clauses."
+count = 1
+
+[[issues]]
+file = "src/Composer/Manifest/SimpleTextManifestBuilder.php"
+code = "no-empty"
+message = "Use of the `empty` construct."
+count = 4
+
+[[issues]]
+file = "src/Composer/Manifest/SimpleTextManifestBuilder.php"
+code = "no-isset"
+message = "Use of the `isset` construct."
+count = 2
+
+[[issues]]
+file = "src/Composer/ManifestFactory.php"
+code = "cyclomatic-complexity"
+message = "Class has high complexity."
+count = 1
+
+[[issues]]
+file = "src/Composer/ManifestFactory.php"
+code = "no-boolean-flag-parameter"
+message = "Avoid boolean flag parameters."
+count = 1
+
+[[issues]]
+file = "src/Composer/ManifestFactory.php"
+code = "no-else-clause"
+message = "Avoid `else` clauses."
+count = 3
+
+[[issues]]
+file = "src/Composer/ManifestFactory.php"
+code = "no-empty"
+message = "Use of the `empty` construct."
+count = 2
+
+[[issues]]
+file = "src/Composer/ManifestFactory.php"
+code = "too-many-methods"
+message = "Class has too many methods."
+count = 1
+
+[[issues]]
+file = "src/Composer/ManifestOptions.php"
+code = "no-boolean-flag-parameter"
+message = "Avoid boolean flag parameters."
+count = 1
+
+[[issues]]
+file = "src/Composer/ManifestOptions.php"
+code = "too-many-methods"
+message = "Class has too many methods."
+count = 1
+
+[[issues]]
+file = "src/Composer/PostInstallStrategy.php"
+code = "no-empty"
+message = "Use of the `empty` construct."
+count = 2
+
+[[issues]]
+file = "src/Composer/RestartHandler.php"
+code = "no-boolean-flag-parameter"
+message = "Avoid boolean flag parameters."
+count = 1
+
+[[issues]]
+file = "src/Composer/RestartHandler.php"
+code = "no-debug-symbols"
+message = "Do not commit debug functions."
+count = 1
+
+[[issues]]
+file = "src/Composer/RestartHandler.php"
+code = "no-else-clause"
+message = "Avoid `else` clauses."
+count = 1
+
+[[issues]]
+file = "src/Console/Application.php"
+code = "no-isset"
+message = "Use of the `isset` construct."
+count = 1
+
+[[issues]]
+file = "src/Console/Command/Inspect.php"
+code = "cyclomatic-complexity"
+message = "Class has high complexity."
+count = 1
+
+[[issues]]
+file = "src/Console/Command/Inspect.php"
+code = "no-else-clause"
+message = "Avoid `else` clauses."
+count = 2
+
+[[issues]]
+file = "src/Console/Command/Inspect.php"
+code = "no-empty"
+message = "Use of the `empty` construct."
+count = 2
+
+[[issues]]
+file = "src/Console/Command/Inspect.php"
+code = "no-isset"
+message = "Use of the `isset` construct."
+count = 2
+
+[[issues]]
+file = "src/Console/Command/Make.php"
+code = "cyclomatic-complexity"
+message = "Class has high complexity."
+count = 1
+
+[[issues]]
+file = "src/Console/Command/Make.php"
+code = "halstead"
+message = "Method has a high halstead volume and effort"
+count = 1
+
+[[issues]]
+file = "src/Console/Logger.php"
+code = "no-isset"
+message = "Use of the `isset` construct."
+count = 1
+
+[[issues]]
+file = "src/Helper/BoxConfigurationHelper.php"
+code = "cyclomatic-complexity"
+message = "Class has high complexity."
+count = 1
+
+[[issues]]
+file = "src/Helper/BoxConfigurationHelper.php"
+code = "no-else-clause"
+message = "Avoid `else` clauses."
+count = 2
+
+[[issues]]
+file = "src/Helper/BoxConfigurationHelper.php"
+code = "too-many-methods"
+message = "Class has too many methods."
+count = 1
+
+[[issues]]
+file = "src/Helper/ManifestHelper.php"
+code = "cyclomatic-complexity"
+message = "Class has high complexity."
+count = 1
+
+[[issues]]
+file = "src/Helper/ManifestHelper.php"
+code = "no-else-clause"
+message = "Avoid `else` clauses."
+count = 2
+
+[[issues]]
+file = "src/Helper/ManifestHelper.php"
+code = "no-else-clause"
+message = "Avoid `elseif` clauses."
+count = 1
+
+[[issues]]
+file = "src/Helper/ManifestHelper.php"
+code = "no-empty"
+message = "Use of the `empty` construct."
+count = 3
+
+[[issues]]
+file = "src/Helper/ManifestHelper.php"
+code = "no-isset"
+message = "Use of the `isset` construct."
+count = 1
+
+[[issues]]
+file = "src/Pipeline/AbstractStage.php"
+code = "no-else-clause"
+message = "Avoid `else` clauses."
+count = 1
+
+[[issues]]
+file = "src/Pipeline/CompileStage.php"
+code = "no-empty"
+message = "Use of the `empty` construct."
+count = 1
+
+[[issues]]
+file = "src/Pipeline/ConfigureStage.php"
+code = "no-empty"
+message = "Use of the `empty` construct."
+count = 3
+
+[[issues]]
+file = "src/Pipeline/ConfigureStage.php"
+code = "no-isset"
+message = "Use of the `isset` construct."
+count = 2
+
+[[issues]]
+file = "src/Pipeline/InterruptibleTimedProcessor.php"
+code = "no-multi-assignments"
+message = "Avoid multiple assignments in a single statement."
+count = 2
+
+[[issues]]
+file = "src/Pipeline/StubStage.php"
+code = "no-empty"
+message = "Use of the `empty` construct."
+count = 1
+
+[[issues]]
+file = "src/StubGenerator.php"
+code = "excessive-parameter-list"
+message = "Parameter list is too long."
+count = 1
+
+[[issues]]
+file = "src/StubGenerator.php"
+code = "no-boolean-flag-parameter"
+message = "Avoid boolean flag parameters."
+count = 2
+
+[[issues]]
+file = "src/StubGenerator.php"
+code = "no-else-clause"
+message = "Avoid `else` clauses."
+count = 1
+
+[[issues]]
+file = "src/StubGenerator.php"
+code = "no-empty"
+message = "Use of the `empty` construct."
+count = 1

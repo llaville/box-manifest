@@ -4,7 +4,7 @@ php-version = "8.2.0"
 
 [source]
 workspace = "."
-paths = ["src/", "tests/"]
+paths = ["src/"]
 includes = ["vendor"]
 excludes = []
 
@@ -15,6 +15,7 @@ use-tabs = false
 
 [linter]
 integrations = ["symfony"]
+baseline = ".github/linters/lint-baseline.toml"
 
 [linter.rules]
 ambiguous-function-call = { enabled = false }
