@@ -25,6 +25,8 @@ enum ManifestFormat: string
     case consoleStyle = 'console-style';
     case sbomXml = 'sbom-xml';
     case sbomJson = 'sbom-json';
+    case composerTreeText = 'composer-tree-txt';
+    case composerTreeJson = 'composer-tree-json';
 
     /**
      * Domain of valid values.
