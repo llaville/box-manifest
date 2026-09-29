@@ -67,10 +67,19 @@ class ManifestHelper extends Helper
             if (Phar::running()) {
                 $resolved = isset($phar[$resource]) ? $phar[$resource]->getPathname() : false;
             } else {
-                $resolved = realpath($resource) ?: (file_exists($resource) ? $resource : null);
+                if (realpath($resource)) {
+                    $resolved = $resource;
+                } elseif (file_exists($resource)) {
+                    $resolved = $resource;
+                } else {
+                    $resolved = null;
+                }
             }
             if ($resolved) {
-                return file_get_contents($resolved) ?: null;
+                $contents = file_get_contents($resolved);
+                if ($contents !== false) {
+                    return $contents;
+                }
             }
         }
 

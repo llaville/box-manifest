@@ -33,6 +33,7 @@ use League\Pipeline\PipelineBuilder;
 
 use Psr\Log\LoggerInterface;
 
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DebugFormatterHelper;
 use Symfony\Component\Console\Helper\Helper;
@@ -280,7 +281,7 @@ final class Make extends Command
             'immutableCopy' => $io->getTypedOption(ManifestOptions::IMMUTABLE_OPTION)->asBoolean(),
             'versions' => [
                 'box' => $boxHelper->getBoxVersion(),
-                'boxManifest' => $this->getApplication()?->getVersion() ?: '@dev',
+                'boxManifest' => $this->getApplication()?->getVersion() ?? '@dev',
             ],
             'template' => $makeOptions->getTemplateFile(),
             'resources' => $resources,

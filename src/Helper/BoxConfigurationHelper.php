@@ -32,6 +32,7 @@ use function getcwd;
 use function implode;
 use function is_bool;
 use function is_string;
+use function property_exists;
 use function realpath;
 
 /**
@@ -102,7 +103,7 @@ final class BoxConfigurationHelper
             /** @var array<string, mixed> $decodedComposerJson */
             $decodedComposerJson = $json->decodeFile($composerJsonPath, true);
             $bin = $decodedComposerJson['bin'] ?? [];
-            $firstBin = current((array) $bin) ?: null;
+            $firstBin = current((array) $bin) ?? null;
         }
 
         $main = $assocConfig[self::MAIN_KEY] ?? null;
@@ -132,7 +133,7 @@ final class BoxConfigurationHelper
 
     public function getMainScript(): ?string
     {
-        return $this->rawConfig->main ?: null;
+        return $this->rawConfig->main ?? null;
     }
 
     public function getAlias(): string
@@ -142,7 +143,10 @@ final class BoxConfigurationHelper
 
     public function getBanner(): string
     {
-        $banner = $this->rawConfig->banner ?: '';
+        $banner = '';
+        if (property_exists($this->rawConfig, 'banner')) {
+            $banner = $this->rawConfig->banner;
+        }
         if (is_string($banner)) {
             return $banner;
         }
@@ -151,7 +155,10 @@ final class BoxConfigurationHelper
 
     public function getShebang(): string
     {
-        return $this->rawConfig->shebang ?: '';
+        if (property_exists($this->rawConfig, 'shebang')) {
+            return $this->rawConfig->shebang;
+        }
+        return '';
     }
 
     /**

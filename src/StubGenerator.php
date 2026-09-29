@@ -84,12 +84,13 @@ final class StubGenerator
         if (null === $templatePath) {
             $this->manifestTemplate = self::MANIFEST_TEMPLATE;
         } else {
-            if (!file_exists($templatePath) || !is_readable($templatePath)) {
+            $templateContent = file_get_contents($templatePath);
+            if (!file_exists($templatePath) || !is_readable($templatePath) || !$templateContent) {
                 throw new InvalidArgumentException(
                     sprintf('Filename "%s" does not exists or is not readable.', $templatePath),
                 );
             }
-            $this->manifestTemplate = file_get_contents($templatePath) ?: '';
+            $this->manifestTemplate = $templateContent;
         }
     }
 
