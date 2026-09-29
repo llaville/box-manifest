@@ -41,6 +41,9 @@ return (new Config())
         '@PER-CS' => true,
         'header_comment' => ['header' => $header, 'comment_type' => 'PHPDoc'],
         'blank_line_after_opening_tag' => true,
+        // @caution: it's supposed to be the default config value
+        // @see https://cs.symfony.com/doc/rules/function_notation/function_declaration.html
+        'function_declaration' => ['closure_fn_spacing' => 'one'],
         'no_empty_statement' => false,
         'no_extra_blank_lines' => true,
         'single_line_empty_body' => false,
