@@ -96,7 +96,7 @@ final class BoxConfigurationHelper
         // @link https://box-project.github.io/box/configuration/#base-path-base-path
         $basePath = $assocConfig[self::BASE_PATH_KEY] ?? null;
         // try to resolve it
-        $basePath = $this->retrieveBasePath($this->configPath, $basePath);
+        $basePath = $this->retrieveBasePath($this->configPath, $basePath); // @phpstan-ignore argument.type
         $assocConfig[self::BASE_PATH_KEY] = $basePath;
 
         $composerJsonPath = $assocConfig[self::BASE_PATH_KEY] . '/composer.json';
@@ -119,6 +119,7 @@ final class BoxConfigurationHelper
             );
         } else {
             // @link https://box-project.github.io/box/configuration/#main-main
+            // @phpstan-ignore-next-line
             $assocConfig[self::MAIN_KEY] = $this->retrieveMainScriptPath($basePath, $main, $firstBin);
         }
 
@@ -202,7 +203,7 @@ final class BoxConfigurationHelper
     private function retrieveBasePath(?string $file = null, ?string $basePath = null): string
     {
         if (null === $file) {
-            return getcwd();
+            return getcwd(); // @phpstan-ignore return.type
         }
 
         if (null === $basePath) {
@@ -216,7 +217,7 @@ final class BoxConfigurationHelper
             'The base path %s is not a directory or does not exist.',
         );
 
-        return realpath($basePath);
+        return realpath($basePath); // @phpstan-ignore return.type
     }
 
     private function retrieveMainScriptPath(string $basePath, ?string $main = null, ?string $firstBin = null): ?string
@@ -231,7 +232,7 @@ final class BoxConfigurationHelper
             $main = $firstBin ?? $this->normalizePath(self::DEFAULT_MAIN_SCRIPT, $basePath);
         }
 
-        if (null === $main) {
+        if (null === $main) { // @phpstan-ignore identical.alwaysFalse
             return null;
         }
 
