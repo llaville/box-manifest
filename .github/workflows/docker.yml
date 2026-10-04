@@ -36,6 +36,8 @@ jobs:
                 name: Checkout code
                 uses: actions/checkout@v7.0.1
                 with:
+                    # Make sure the value of GITHUB_TOKEN will not be persisted in repo's config
+                    persist-credentials: false
                     token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
                     fetch-depth: 0
 
