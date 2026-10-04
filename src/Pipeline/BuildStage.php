@@ -70,7 +70,7 @@ final readonly class BuildStage extends AbstractStage implements StageInterface
             }
         }
 
-        $manifests = serialize(array_merge($this->getMetaData(), $payload['outputs']['resources'] ?? []));
+        $manifests = serialize($payload['outputs']['resources'] ?? []);
         $this->writeToStream(self::META_DATA_FILE, $manifests, 'Unable to write Manifests Metadata', $context);
 
         $this->logger->notice(
