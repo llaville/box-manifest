@@ -97,7 +97,7 @@ final class Inspect extends Command
         /** @var array{manifestIndexFile?: string} $pharMetadata */
         $pharMetadata = $phar->getMetadata();
 
-        $manifestIndexFile = $pharMetadata['manifestIndexFile'] ?? '.box.manifests.bin';
+        $manifestIndexFile = $pharMetadata['manifestIndexFile'] ?? AbstractStage::META_DATA_FILE;
 
         $manifests = [];
 
