@@ -47,6 +47,7 @@ final class BoxConfigurationHelper
     private const BASE_PATH_KEY = 'base-path';
     private const MAIN_KEY = 'main';
     private const DEFAULT_MAIN_SCRIPT = 'index.php';
+    private const CHECK_REQUIREMENTS_KEY = 'check-requirements';
 
     private stdClass $rawConfig;
 
@@ -78,7 +79,7 @@ final class BoxConfigurationHelper
         $assocConfig['intercept'] = false;
 
         // @link https://box-project.github.io/box/configuration/#check-requirements-check-requirements
-        $assocConfig['checkRequirements'] = true;
+        $assocConfig[self::CHECK_REQUIREMENTS_KEY] = true;
 
         // @link https://box-project.github.io/box/configuration/#map-map
         $assocConfig['map'] = [];
@@ -185,7 +186,7 @@ final class BoxConfigurationHelper
 
     public function withCheckRequirements(): bool
     {
-        return $this->rawConfig->checkRequirements;
+        return $this->rawConfig->{self::CHECK_REQUIREMENTS_KEY};
     }
 
     private function getConfigPath(IO $io): ?string
