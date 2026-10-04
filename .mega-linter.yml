@@ -22,3 +22,4 @@ DISABLE_LINTERS:
 ACTION_ACTIONLINT_ARGUMENTS: "-shellcheck"
 DOCKERFILE_HADOLINT_ARGUMENTS: "-t error"
 PHP_PHPSTAN_DISABLE_ERRORS: false # this project is now PHPStan 2.x compatible
+PHP_PHPSTAN_CONFIG_FILE: "phpstan.neon"
