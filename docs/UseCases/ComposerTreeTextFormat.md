@@ -6,6 +6,8 @@
 > These commands and results are applied from `examples/app-fixtures` immutable demo folder.
 > Must be your current working directory.
 
+<!-- admonition block separation -->
+
 > [!NOTE]
 >
 > Available since version 4.4.0
