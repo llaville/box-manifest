@@ -14,6 +14,7 @@ console-table.txt
 console-style.txt
 manifest.txt
 plain.txt
+pkg.composer.txt
 sbom.json
 sbom.xml
 sbom.cdx.json
