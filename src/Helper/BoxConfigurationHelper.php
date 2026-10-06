@@ -108,7 +108,8 @@ final class BoxConfigurationHelper
             /** @var array<string, mixed> $decodedComposerJson */
             $decodedComposerJson = $json->decodeFile($composerJsonPath, true);
             $bin = $decodedComposerJson['bin'] ?? [];
-            $firstBin = current((array) $bin) ?? null;
+            $firstBin = current((array) $bin);
+            $firstBin = $firstBin ?: null;
         }
 
         $main = $assocConfig[self::MAIN_KEY] ?? null;
